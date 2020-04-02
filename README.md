@@ -1,3 +1,4 @@
-# Progetto di Ingegneria del SW
+# Progetto B20
+## Risiko
 
-Inserire qui una breve descrizione del progetto
+Realizzazione di un applicativo desktop che consenta di giocare al gioco del Risiko

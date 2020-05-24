@@ -1,4 +1,4 @@
-package model;
+package model.entities;
 
 import java.util.ArrayList;
 
@@ -8,18 +8,34 @@ public class Territory {
 	private Player owner;
 	private int tanks;
 	private ArrayList<Territory> confinanti;
-	private Continent continent;
+	//private Continent continent;
+	private String continent;
 	private int id;
 	
-	public Territory(String name, Continent continent, int id) {
+	/*public Territory(String name, Continent continent, int id) {
 		this.name = name;
 		this.continent = continent;
 		tanks = 0;
 		this.id = id;
+	}*/
+	
+	public Territory(String name, int id, String continent) {
+		this.name = name;
+		tanks = 0;
+		this.id = id;
 	}
 	
-	public void addConfinanti(Territory confinante) {
-		confinanti.add(confinante);
+	public void setConfinanti(ArrayList<Territory> confinanti) {
+		this.confinanti = confinanti;
+	}
+	
+	public boolean isConfinante(Territory t) {
+		
+		for(Territory t1 : confinanti) {
+			if(t1.getId() == t.getId())
+				return true;
+		}
+		return false;
 	}
 	
 	public void addTanks(int newTanks) {
@@ -34,9 +50,9 @@ public class Territory {
 		this.owner = owner;
 	}
 
-	public Continent getContinent() {
+	/*public Continent getContinent() {
 		return continent;
-	}
+	}*/
 
 	public ArrayList<Territory> getConfinanti() {
 		return confinanti;
@@ -56,6 +72,24 @@ public class Territory {
 
 	public int getId() {
 		return id;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
+	
+	public void printConfini() {
+		System.out.println("Confini di " + this.name + ": \n");
+		for(Territory t : confinanti) {
+			
+			System.out.println(t.toString());
+			
+		}
+	}
+
+	public String getContinent() {
+		return continent;
 	}
 	
 }

@@ -104,7 +104,7 @@ public class DiceShaker {
 	}
 
 	
-		public static void main(String[] args){
+		/*public static void main(String[] args){
 		
 		DiceShaker bussolotto = new DiceShaker();
 		int[] loss = bussolotto.rollDices(3, 3);
@@ -113,5 +113,5 @@ public class DiceShaker {
 		
 	
 	
-		}
+		}*/
 }

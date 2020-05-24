@@ -84,6 +84,7 @@ public class FileHandler {
 			
 			list.get(id-1).setConfinanti(tempList);
 		}
+		in.close();
 		return list;
 		
 		

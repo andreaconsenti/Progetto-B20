@@ -37,6 +37,10 @@ public class Continent {
 	public String getName() {
 		return name;
 	}
+
+	public boolean getOwned() {
+		return owned;
+	}
 	
 	
 	

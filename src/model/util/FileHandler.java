@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import model.entities.Mission;
 import model.entities.Territory;
 
 public class FileHandler {
@@ -90,6 +91,13 @@ public class FileHandler {
 		
 		
 	}
+		
+	
+	/*public ArrayList<Mission> genMissions(String path){
+		
+	}*/
+		
+		
 	
 	
 	

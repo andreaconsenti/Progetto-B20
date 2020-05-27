@@ -10,9 +10,10 @@ public class Player {
 	private int continents;
 	
 	
-	public Player(String name, COLOR color) {
+	public Player(String name, COLOR color, int tanks) {
 		this.name = name;
 		this.color = color;
+		this.tanks = tanks;
 		continents = 0;
 	}
 	

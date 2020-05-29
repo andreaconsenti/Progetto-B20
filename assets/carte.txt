@@ -1,0 +1,45 @@
+44
+01	 Alaska Fante
+02	 TerritoriDelNordOvest Cannone
+03	 Groenlandia Cavaliere
+04	 Alberta Fante
+05	 Ontario Cavaliere
+06	 Quebec Cannone
+07	 StatiUnitiOccidentali Fante
+08	 StatiUnitiOrientali Cannone
+09	 AmericaCentrale Cavaliere
+10	 Venezuela Cannone
+11	 Brasile Cannone
+12	 Perù Cavaliere
+13	 Argentina Fante
+14	 Islanda Fante
+15	 Scandinavia Cannone
+16	 GranBretagna Cavaliere
+17	 EuropaSettentrionale Cavaliere
+18	 EuropaOccidentale Fante
+19	 EuropaMeridionale Cavaliere
+20	 Ucraina Cannnone
+21	 Urali Cavaliere
+22	 Afghanistan Fante
+23	 Siberia Cannone
+24	 Jacuzia Cavaliere
+25	 Cita Fante
+26	 Kamchatka Cavaliere
+27	 Mongolia Cannone
+28	 Giappone Fante
+29	 Cina Cavaliere
+30	 Siam Cannone
+31	 India Fante
+32	 MedioOriente Cannone
+33	 Egitto Fante
+34	 AfricaDelNord Fante
+35	 AfricaOrientale Cannone
+36	 Congo Cavaliere
+37	 AfricaDelSud Cannone
+38	 Madagascar Fante
+39	 Indonesia Cavaliere
+40	 NuovaGuinea Cavaliere
+41	 AustraliaOccidentale Cannone
+42	 AustraliaOrientale Fante
+43   Jolly
+44   Jolly

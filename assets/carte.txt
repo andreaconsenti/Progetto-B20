@@ -41,5 +41,5 @@
 40	 4 NuovaGuinea
 41	 3 AustraliaOccidentale
 42	 2 AustraliaOrientale
-43   1 
-44   1 
+43	 1 
+44	 1 

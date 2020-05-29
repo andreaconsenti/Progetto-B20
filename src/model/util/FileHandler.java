@@ -8,15 +8,20 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import model.entities.Card;
+import model.entities.Continent;
 import model.entities.FIGURE;
 import model.entities.Mission;
+import model.entities.RisikoGame;
 import model.entities.Territory;
 
 public class FileHandler {
 	private ArrayList<Territory> list;
 	private ArrayList<Card> card;
+	private ArrayList<Mission> missions;
+//	private static ArrayList<Continent> continents = new ArrayList<Continent>();
 	private int nLine = 0;
 	private int nLineC=0;
+	private int nLineM=0;
 	
 	// Method that generates an ArrayList which contains all territories
 	public ArrayList<Territory> genTerritories(String path) throws NumberFormatException, IOException {
@@ -86,7 +91,6 @@ public class FileHandler {
 		return list;	
 	}
 	
-	
 	public ArrayList<Card> genCards(ArrayList<Territory> list, String path) throws NumberFormatException, IOException{
 		
 		BufferedReader in= new BufferedReader(new FileReader(path));
@@ -143,16 +147,82 @@ public class FileHandler {
 		return false;
 	}
 	
-	/*
-	public ArrayList<Mission> genMissions(String path){
-		
+/*	private void genContinents() {
+		continents.add(new Continent("NordAmerica", 5));
+		continents.add(new Continent("SudAmerica", 2));
+		continents.add(new Continent("Europa", 5));
+		continents.add(new Continent("Africa", 3));
+		continents.add(new Continent("Asia", 7));
+		continents.add(new Continent("Australia", 2));
 	}
-	*/
+*/		
+	public ArrayList<Mission> genMissions(String path /*, ArrayList<Continent> continents*/) throws NumberFormatException, IOException{
+		
+		BufferedReader in= new BufferedReader(new FileReader(path));
+		String line;
+		
+		missions=new ArrayList<Mission>();
+		int n=Integer.parseInt(in.readLine());
+		
+		int nty;
+		int ntk;
+		Continent cont1 = null;
+		Continent cont2 = null;
+		int codeMission;
+		int typeMission;
+		String name;
+		String name2;
+		int j;
 		
 		
+		for(int i=0; i<n; i++) {
+			line=in.readLine();
+			typeMission=Integer.parseInt(line.substring(0, 1));
+			StringTokenizer st=new StringTokenizer(line.substring(1));
+			codeMission=Integer.parseInt(st.nextToken());
+			switch(typeMission) {
+				case 1:
+					nty=Integer.parseInt(st.nextToken());
+					ntk=Integer.parseInt(st.nextToken());
+					if(!addMission(new Mission(nty, ntk, codeMission))) {
+						break;
+					}
+					break;
+				
+				case 2:
+					name=st.nextToken();
+					/*for(Continent c : continents){
+						if(name==c.getName()) {
+							cont1=c;
+						}
+					}*/
+					name2=st.nextToken();
+					/*for(Continent c : continents) {
+						if(name2==c.getName()) {
+							cont2=c;
+						}
+					}*/
+					
+					if(!addMission(new Mission(name, name2, false, codeMission))) {
+						break;
+					}
+					
+					break;
+					
+			}	
+		}
+		in.close();
+		return missions;
+	}
 	
-	
-	
+	public boolean addMission(Mission m) {
+		if(nLineM<=missions.size()) {
+			missions.add(m);
+			nLineM++;
+			return true;
+		}
+		return false;
+	}
 
 	
 //		TEST MAIN
@@ -171,6 +241,12 @@ public class FileHandler {
 		}
 	}
 	
+	public void printMissions(ArrayList<Mission> missions) {
+		for(Mission m : missions) {
+			m.printMission();
+		}
+	}
+	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		FileHandler f = new FileHandler();
 		ArrayList<Territory> lista = f.genTerritories("assets/TerritoriEConfini.txt");
@@ -181,9 +257,12 @@ public class FileHandler {
 		for(Territory t : listaCompleta) {
 			t.printConfini();
 		}
-		
 		System.out.println("-----CARTE-----\n");
 		ArrayList<Card> carte=f.genCards(lista, "assets/carte.txt");
 		f.printCards(carte);
+		System.out.println("-----OBIETTIVI-----\n");
+//		f.genContinents();
+		ArrayList<Mission> missioni=f.genMissions("assets/obiettivi.txt"/*, continents*/);
+		f.printMissions(missioni);
 	}	
 }

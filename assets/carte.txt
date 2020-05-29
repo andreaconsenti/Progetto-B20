@@ -1,45 +1,45 @@
 44
-01 2 Alaska
-02 3 TerritoriDelNordOvest
-03 4 Groenlandia
-04 2 Alberta
-05 4 Ontario
-06 3 Quebec
-07 2 StatiUnitiOccidentali
-08 3 StatiUnitiOrientali
-09 4 AmericaCentrale
-10 3 Venezuela
-11 3 Brasile
-12 4 Perù
-13 2 Argentina
-14 2 Islanda
-15 3 Scandinavia
-16 4 GranBretagna
-17 4 EuropaSettentrionale
-18 2 EuropaOccidentale
-19 4 EuropaMeridionale
-20 3 Ucraina
-21 4 Urali
-22 2 Afghanistan
-23 3 Siberia
-24 4 Jacuzia
-25 2 Cita
-26 4 Kamchatka
-27 3 Mongolia
-28 2 Giappone
-29 4 Cina
-30 3 Siam
-31 2 India
-32 3 MedioOriente
-33 2 Egitto
-34 2 AfricaDelNord
-35 3 AfricaOrientale
-36 4 Congo
-37 3 AfricaDelSud
-38 2 Madagascar
-39 4 Indonesia
-40 4 NuovaGuinea
-41 3 AustraliaOccidentale
-42 2 AustraliaOrientale
-43 1 
+01 2
+02 3
+03 4
+04 2
+05 4
+06 3
+07 2
+08 3
+09 4
+10 3
+11 3
+12 4
+13 2
+14 2
+15 3
+16 4
+17 4
+18 2
+19 4
+20 3
+21 4
+22 2
+23 3
+24 4
+25 2
+26 4
+27 3
+28 2
+29 4
+30 3
+31 2
+32 3
+33 2
+34 2
+35 3
+36 4
+37 3
+38 2
+39 4
+40 4
+41 3
+42 2
+43 1
 44 1

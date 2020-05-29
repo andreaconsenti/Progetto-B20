@@ -12,12 +12,12 @@ public class DiceShaker {
 	private Die die5;
 	private Die die6;
 	
-	private int[] atkResults;
+	private int[] atkResults;			
 	private int[] defResults;
 	private int[] loss;
 
 	
-	public DiceShaker() {
+	public DiceShaker() {		//costruttore bussolotto con 6 dadi
 		die1 = new Die();
 		die2 = new Die();
 		die3 = new Die();
@@ -25,18 +25,18 @@ public class DiceShaker {
 		die5 = new Die();
 		die6 = new Die();
 		
-		loss = new int[2];
-		atkResults = new int[3];
-		defResults = new int[3];
+		loss = new int[2];			//array contenente i carrarmati persi da attacco e difesa
+		atkResults = new int[3];	//array contenente i risultati dei lanci dell'attacco 
+		defResults = new int[3];	//array contenente i risultati dei lanci della difesa
 
 	}
 	
-	public int[] rollDices(int atk, int def) {
+	public int[] rollDices(int atk, int def) {		//metodo per il tiro dei dadi, vengono passati il numero di dadi da lanciare rispettivamente di attacco e difesa
 		
 		loss[0] = 0;
 		loss[1] = 0;
 		
-		switch(atk) {
+		switch(atk) {								//switch per tirare 1,2 o 3 dadi dell'attaccante
 		case 1:
 			atkResults[0] = die1.roll();
 			break;
@@ -51,7 +51,7 @@ public class DiceShaker {
 			break;
 		}
 		
-		switch(def) {
+		switch(def) {								//switch per tirare 1,2 o 3 dadi del difensore
 		case 1:
 			defResults[0] = die4.roll();
 			break;
@@ -90,7 +90,7 @@ public class DiceShaker {
 			System.out.println(defResults[k]);
 		}*/
 		
-		for(int i=0; i < Math.min(atk, def); i++) {
+		for(int i=0; i < Math.min(atk, def); i++) {			//ciclo for per confrontare uno ad uno i risultati dei lanci e incrementare il numero dei carrarmati persi
 			
 			if(atkResults[i] > defResults[i]) {
 				loss[1]++;

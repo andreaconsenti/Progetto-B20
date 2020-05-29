@@ -161,14 +161,15 @@ public class RisikoGame {
 	
 	
 	
-	public static void main(String[] args) throws NumberFormatException, IOException {
+	/*public static void main(String[] args) throws NumberFormatException, IOException {
 		
 		Player p1 = new Player("Luca", COLOR.BLACK);
 		Player p2 = new Player("Andre", COLOR.PINK);
 		Player p3 = new Player("Gino", COLOR.BLUE);
 		Player p4 = new Player("Daniele", COLOR.RED);
+		Player p5 = new Player("Alfonso", COLOR.GREEN);
 		
-		Player[] list = {p1, p2, p3, p4};
+		Player[] list = {p1, p2, p3, p4, p5};
 		
 		RisikoGame game = new RisikoGame(list);
 		
@@ -179,7 +180,7 @@ public class RisikoGame {
 		
 		
 		
-	}
+	}*/
 	
 	
 	

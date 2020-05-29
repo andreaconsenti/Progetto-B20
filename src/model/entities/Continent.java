@@ -42,7 +42,7 @@ public class Continent {
 		return owned;
 	}
 	
-	public Player getRandomPlayer() {		
+	public Player getRandomPlayer() {		//metodo utilizzato per riconoscere il player occupante, nel caso in cui occupi tutto il continente
 		return territories.get(1).getOwner();
 	}
 	

@@ -15,7 +15,7 @@ public class Die {
 	   faceValue = value;
 	}
 	
-	public int roll() {
+	public int roll() {				//metodo che genera un numero casuale da 1 a 6, valori delle facce del dado
 		faceValue = (int)(Math.random() * MAX) + 1;
 	    return faceValue;
 	}

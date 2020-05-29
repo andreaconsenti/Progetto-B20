@@ -76,15 +76,14 @@ public class Territory {
 	
 	@Override
 	public String toString() {
-		return name;
+		return name+"\n";
 	}
 	
 	public void printConfini() {
-		System.out.println("Confini di " + this.name + ": \n");
+		System.out.println("Confini di " + this.name + ": ");
+		
 		for(Territory t : confinanti) {
-			
-			System.out.println(t.toString());
-			
+			System.out.println(t.toString());	
 		}
 	}
 

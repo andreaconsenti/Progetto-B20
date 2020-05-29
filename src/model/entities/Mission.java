@@ -8,6 +8,7 @@ public class Mission {
 	private Continent con2;
 	private boolean con3;
 	private String description;
+	private int codMission;
 	private MISSION_TYPE type;
 	
 	private enum MISSION_TYPE {
@@ -15,23 +16,23 @@ public class Mission {
 	};
 	
 	
-	public Mission(int nty, int ntk, String description) {
+	public Mission(int nty, int ntk, int codMission) {
 		
 		this.type = MISSION_TYPE.TYPE1;
 		numberOfTerritories = nty;
 		numberOfTanks = ntk;
-		this.description = description;
-		
+		this.codMission=codMission;
+		description="Il tuo obiettivo è di conquistare " +nty+ " territori con almeno " +ntk+ " armate su ogni terriorio\n";
 	}
 	
-	public Mission(Continent cont1, Continent cont2, boolean cont3, String description) {
+	public Mission(Continent cont1, Continent cont2, boolean cont3, int codMission) {
 		
 		this.type = MISSION_TYPE.TYPE2;
 		con1 = cont1;
 		con2 = cont2;
 		con3 = cont3;
-		this.description = description;
-		
+		this.codMission=codMission;
+		description="Il tuo obiettivo è di conquistare la totalità di " +cont1.getName()+ ", di " +cont2.getName()+ " e di un altro continente a tua scelta\n";
 	}
 
 	public int getNumberOfTerritories() {

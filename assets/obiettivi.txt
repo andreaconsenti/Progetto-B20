@@ -1,0 +1,10 @@
+9
+1 01 24
+1 02 18 2
+2 03 Asia SudAmerica
+2 04 Europa SudAmerica
+2 05 Europa Oceania
+2 06 NordAmerica Oceania
+1 07 24
+2 08 NordAmerica Africa
+2 09 Asia Africa

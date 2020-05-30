@@ -14,7 +14,7 @@ public class RisikoGame {
 	
 	private Player[] players;
 	private ArrayList<Territory> territories;
-	private ArrayList<Continent> continents = new ArrayList<Continent>();
+	private ArrayList<Continent> continents;
 	private ArrayList<Mission> missions;
 	private ArrayList<Card> cards;
 	private DiceShaker diceShaker = new DiceShaker();
@@ -25,11 +25,15 @@ public class RisikoGame {
 	public RisikoGame(Player[] players) throws NumberFormatException, IOException {
 		this.players = players;
 		giveStarterTanks();
-		missions = fileHandler.genMissions("assets/obiettivi.txt");
-		giveMissions();
+		
 		
 		territories = fileHandler.addConfinanti(fileHandler.genTerritories("assets/TerritoriEConfini.txt"), "assets/confini.txt");
-		genContinents();
+		continents = fileHandler.genContinents("assets/continenti.txt");
+		
+		missions = fileHandler.genMissions("assets/obiettivi.txt", continents);
+		giveMissions();
+		
+		cards = fileHandler.genCards(territories, "assets/carte.txt");
 		
 		initTerritoryOwners();
 		
@@ -84,27 +88,7 @@ public class RisikoGame {
         }
         return shuffledMissions;
     }
-	
-	private void genContinents() {
-		continents.add(new Continent("NordAmerica", 5));
-		continents.add(new Continent("SudAmerica", 2));
-		continents.add(new Continent("Europa", 5));
-		continents.add(new Continent("Africa", 3));
-		continents.add(new Continent("Asia", 7));
-		continents.add(new Continent("Australia", 2));
-		
-		/*for(Continent c : continents) {
-			
-			for(Territory t : territories) {
-				
-				if(t.getContinent().equals(c.getName())) {
-					c.addTerritory(t);
-				}
-				
-			}
-			
-		}*/
-	}
+
 	
 	
     private Territory[] shuffleTerritories() {
@@ -177,6 +161,19 @@ public class RisikoGame {
 		}
 	}
 	
+	public void printCards() {
+		for(Card c : cards) {
+			c.printCard();
+			
+		}
+	}
+	
+	public void printContinents() {
+		for(Continent c : continents) {
+			System.out.println(c.getName());
+		}
+	}
+	
 	
 	
 	/*public static void main(String[] args) throws NumberFormatException, IOException {
@@ -193,7 +190,9 @@ public class RisikoGame {
 		
 		//game.printTerritories();
 		System.out.println(" ");
-		game.printPlayers();
+		//game.printPlayers();
+		//game.printCards();
+		//game.printContinents();
 		
 		
 		

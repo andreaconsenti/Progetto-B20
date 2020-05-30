@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 public class Continent {
 	
+	private int code;
 	private String name;
 	private int bonus;
 	private ArrayList<Territory> territories;
 	private boolean owned;
 	
-	public Continent(String name, int bonus) {		//costruttore di continent (nome + bonus conquista)
-		this.name = name;
+	public Continent(int code, String name, int bonus) {		//costruttore di continent (nome + bonus conquista)
+		this.code=code;
+		this.name=name;
 		this.bonus = bonus;
 	}
 	
@@ -40,6 +42,10 @@ public class Continent {
 
 	public boolean getOwned() {			//ritorna il possedimento o meno di un continente
 		return owned;
+	}
+	
+	public int getCode() {				//ritorna il codice del continente
+		return code;
 	}
 	
 	public Player getRandomPlayer() {		//metodo utilizzato per riconoscere il player occupante, nel caso in cui occupi tutto il continente

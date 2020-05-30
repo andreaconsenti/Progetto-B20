@@ -247,22 +247,22 @@ public class FileHandler {
 		}
 	}
 	
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		FileHandler f = new FileHandler();
-		ArrayList<Territory> lista = f.genTerritories("assets/TerritoriEConfini.txt");
-//		System.out.println(lista.get(0));		//Commentato perché in output faceva uscire 2 volte "Alaska"  @author AleCarbo
-		f.printTerritories(lista);
-		System.out.println("----------------------\n");
-		ArrayList<Territory> listaCompleta = f.addConfinanti(lista, "assets/confini.txt");
-		for(Territory t : listaCompleta) {
-			t.printConfini();
-		}
-		System.out.println("-----CARTE-----\n");
-		ArrayList<Card> carte=f.genCards(lista, "assets/carte.txt");
-		f.printCards(carte);
-		System.out.println("-----OBIETTIVI-----\n");
-//		f.genContinents();
-		ArrayList<Mission> missioni=f.genMissions("assets/obiettivi.txt"/*, continents*/);
-		f.printMissions(missioni);
-	}	
+//	public static void main(String[] args) throws NumberFormatException, IOException {
+//		FileHandler f = new FileHandler();
+//		ArrayList<Territory> lista = f.genTerritories("assets/TerritoriEConfini.txt");
+////		System.out.println(lista.get(0));		//Commentato perché in output faceva uscire 2 volte "Alaska"  @author AleCarbo
+//		f.printTerritories(lista);
+//		System.out.println("----------------------\n");
+//		ArrayList<Territory> listaCompleta = f.addConfinanti(lista, "assets/confini.txt");
+//		for(Territory t : listaCompleta) {
+//			t.printConfini();
+//		}
+//		System.out.println("-----CARTE-----\n");
+//		ArrayList<Card> carte=f.genCards(lista, "assets/carte.txt");
+//		f.printCards(carte);
+//		System.out.println("-----OBIETTIVI-----\n");
+////		f.genContinents();
+//		ArrayList<Mission> missioni=f.genMissions("assets/obiettivi.txt"/*, continents*/);
+//		f.printMissions(missioni);
+//	}
 }

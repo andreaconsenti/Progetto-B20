@@ -64,6 +64,10 @@ public class Player {
 	public void addTerritory() {
 		this.territories += 1;
 	}
+
+	public String getMissionDescription() {
+		return mission.toString();
+	}
 	
 	
 	

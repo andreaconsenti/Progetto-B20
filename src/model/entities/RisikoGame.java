@@ -25,7 +25,8 @@ public class RisikoGame {
 	public RisikoGame(Player[] players) throws NumberFormatException, IOException {
 		this.players = players;
 		giveStarterTanks();
-		//giveMissions();
+		missions = fileHandler.genMissions("assets/obiettivi.txt");
+		giveMissions();
 		
 		territories = fileHandler.addConfinanti(fileHandler.genTerritories("assets/TerritoriEConfini.txt"), "assets/confini.txt");
 		genContinents();
@@ -60,18 +61,29 @@ public class RisikoGame {
 	
 	
 	private void giveMissions() {
+		Mission[] shuffledMissions = shuffleMissions();
+		int i = 0;
 		for(Player p : players) {
-			int item = new Random().nextInt(this.missions.size());
-			int i = 0;
-			for(Mission m : missions) {
-				if(i == item) {
-					p.giveMission(m);
-					missions.remove(m);
-					i++;
-				}
-			}
+			p.giveMission(shuffledMissions[i]);
+			i++;
 		}
 	}
+	
+    private Mission[] shuffleMissions() {
+    	Mission[] shuffledMissions = new Mission[missions.size()];
+    	int k = 0;
+    	for(Mission m : missions) {
+    		shuffledMissions[k] = m;
+    		k++;
+    	}
+        for (int i = 0; i < missions.size(); i++) {
+            int j = i + (int) ((missions.size() - i) * Math.random());
+            Mission temp = shuffledMissions[i];
+            shuffledMissions[i] = shuffledMissions[j];
+            shuffledMissions[j] = temp;
+        }
+        return shuffledMissions;
+    }
 	
 	private void genContinents() {
 		continents.add(new Continent("NordAmerica", 5));
@@ -125,20 +137,7 @@ public class RisikoGame {
         }
     }
 	
-	
-	public void printTerritories() {
-		for(Territory t : territories) {
-			System.out.println(t.toString());
-			System.out.println(t.getOwner().getName());
-		}
-	}
-	
-	public void printPlayers() {
-		for(Player p : players) {
-			System.out.println(p.getName());
-			System.out.println(p.getTerritories());
-		}
-	}
+
 	
 	
 	
@@ -161,6 +160,25 @@ public class RisikoGame {
 	
 	
 	
+	
+	//-------------------TEST MAIN
+	
+	public void printTerritories() {
+		for(Territory t : territories) {
+			System.out.println(t.toString());
+			System.out.println(t.getOwner().getName());
+		}
+	}
+	
+	public void printPlayers() {
+		for(Player p : players) {
+			System.out.println(p.getName());
+			System.out.println(p.getMissionDescription());
+		}
+	}
+	
+	
+	
 	/*public static void main(String[] args) throws NumberFormatException, IOException {
 		
 		Player p1 = new Player("Luca", COLOR.BLACK);
@@ -173,7 +191,7 @@ public class RisikoGame {
 		
 		RisikoGame game = new RisikoGame(list);
 		
-		game.printTerritories();
+		//game.printTerritories();
 		System.out.println(" ");
 		game.printPlayers();
 		

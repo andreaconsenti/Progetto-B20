@@ -74,5 +74,9 @@ public class Mission {
 		System.out.println(description);
 	}
 	
+	@Override
+	public String toString() {
+		return description;
+	}
 	
 }

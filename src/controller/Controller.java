@@ -35,8 +35,14 @@ public class Controller {
 		window.show();
 	}
 	
-	public void rulesPressed() {
+	public void rulesPressed(ActionEvent event) throws IOException {
+		Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/RulesScene.fxml"));
+		Scene playerScene = new Scene(playerSceneParent);
 		
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		window.setScene(playerScene);
+		window.show();
 	}
 	
 	public void rulesPressedImage() {

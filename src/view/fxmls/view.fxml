@@ -29,7 +29,7 @@
                </source>
             </ImageInput>
          </effect></Button>
-      <Button layoutX="231.0" layoutY="569.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="238.0">
+      <Button fx:id="rulesButton" layoutX="231.0" layoutY="569.0" mnemonicParsing="false" onAction="#rulesPressed" prefHeight="82.0" prefWidth="238.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

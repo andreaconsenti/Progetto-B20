@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="background" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlayerSceneController">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0">
+         <image>
+            <Image url="@images/PlayerScene.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="37.0" layoutY="650.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="112.0" text="Indietro" onAction="#backPressed" />
+      <ListView layoutX="149.0" layoutY="63.0" prefHeight="529.0" prefWidth="495.0" />
+      <TextField layoutX="733.0" layoutY="109.0" prefHeight="41.0" prefWidth="294.0" />
+      <Label layoutX="733.0" layoutY="78.0" text="Nome del giocatore:" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="21.0" />
+         </font>
+      </Label>
+      <MenuButton layoutX="733.0" layoutY="213.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="294.0">
+        <items>
+          <MenuItem mnemonicParsing="false" text="ROSSO" />
+          <MenuItem mnemonicParsing="false" text="BLU" />
+          <MenuItem mnemonicParsing="false" text="GIALLO" />
+          <MenuItem mnemonicParsing="false" text="NERO" />
+          <MenuItem mnemonicParsing="false" text="ROSA" />
+          <MenuItem mnemonicParsing="true" text="VERDE" />
+        </items>
+      </MenuButton>
+      <Label layoutX="733.0" layoutY="185.0" text="Seleziona colore:" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="21.0" />
+         </font>
+      </Label>
+      <Button layoutX="733.0" layoutY="287.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="112.0" text="Aggiungi" />
+      <Button layoutX="915.0" layoutY="287.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="112.0" text="Ripristina" />
+      <Button layoutX="1130.0" layoutY="650.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="112.0" text="Inizia partita" />
+   </children>
+</Pane>
+
+

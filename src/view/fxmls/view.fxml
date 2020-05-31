@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="backgroundPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+   <children>
+      <ImageView id="background" fitHeight="720.0" fitWidth="1280.0">
+         <image>
+            <Image url="@images/StartScreen-1.jpg" />
+         </image>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <Button fx:id="startButton" layoutX="754.0" layoutY="569.0" mnemonicParsing="false" onAction="#startPressed" prefHeight="82.0" prefWidth="238.0" text="">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="file:/C:/Users/Luca/Documents/Progetto-B20/src/view/fxmls/images/START1.png" />
+               </source>
+            </ImageInput>
+         </effect></Button>
+      <Button layoutX="231.0" layoutY="569.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="238.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="file:/C:/Users/Luca/Documents/Progetto-B20/src/view/fxmls/images/RULES2.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Button>
+   </children>
+</Pane>

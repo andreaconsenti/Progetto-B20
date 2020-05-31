@@ -18,33 +18,39 @@
             <Image url="@images/PlayerScene.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="37.0" layoutY="650.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="112.0" text="Indietro" onAction="#backPressed" />
-      <ListView layoutX="149.0" layoutY="63.0" prefHeight="529.0" prefWidth="495.0" />
-      <TextField layoutX="733.0" layoutY="109.0" prefHeight="41.0" prefWidth="294.0" />
-      <Label layoutX="733.0" layoutY="78.0" text="Nome del giocatore:" textFill="WHITE">
+      <Button fx:id="backButton" layoutX="37.0" layoutY="650.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="41.0" prefWidth="112.0" text="Indietro" />
+      <ListView fx:id="playerList" layoutX="149.0" layoutY="110.0" prefHeight="151.0" prefWidth="495.0" />
+      <TextField fx:id="nameInput" layoutX="733.0" layoutY="211.0" onKeyReleased="#keyReleasedProperty" prefHeight="41.0" prefWidth="294.0" />
+      <Label layoutX="733.0" layoutY="179.0" text="Nome del giocatore:" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="21.0" />
          </font>
       </Label>
-      <MenuButton layoutX="733.0" layoutY="213.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="294.0">
+      <MenuButton fx:id="colorInput" layoutX="733.0" layoutY="110.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="294.0" text="Scegli un colore" textFill="#909090">
         <items>
-          <MenuItem mnemonicParsing="false" text="ROSSO" />
-          <MenuItem mnemonicParsing="false" text="BLU" />
-          <MenuItem mnemonicParsing="false" text="GIALLO" />
-          <MenuItem mnemonicParsing="false" text="NERO" />
-          <MenuItem mnemonicParsing="false" text="ROSA" />
-          <MenuItem mnemonicParsing="true" text="VERDE" />
+          <MenuItem fx:id="colorRosso" mnemonicParsing="false" text="ROSSO" />
+          <MenuItem fx:id="colorBlu" mnemonicParsing="false" text="BLU" />
+          <MenuItem fx:id="colorGiallo" mnemonicParsing="false" text="GIALLO" />
+          <MenuItem fx:id="colorNero" mnemonicParsing="false" text="NERO" />
+          <MenuItem fx:id="colorRosa" mnemonicParsing="false" text="ROSA" />
+          <MenuItem fx:id="colorVerde" mnemonicParsing="true" text="VERDE" />
         </items>
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
       </MenuButton>
-      <Label layoutX="733.0" layoutY="185.0" text="Seleziona colore:" textFill="WHITE">
+      <Label layoutX="733.0" layoutY="78.0" text="Seleziona colore:" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="21.0" />
          </font>
       </Label>
-      <Button layoutX="733.0" layoutY="287.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="112.0" text="Aggiungi" />
-      <Button layoutX="915.0" layoutY="287.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="112.0" text="Ripristina" />
-      <Button layoutX="1130.0" layoutY="650.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="112.0" text="Inizia partita" />
+      <Button fx:id="addPlayerButton" layoutX="733.0" layoutY="287.0" mnemonicParsing="false" onAction="#addPlayerPressed" prefHeight="41.0" prefWidth="112.0" text="Aggiungi" />
+      <Button fx:id="restoreButton" layoutX="915.0" layoutY="287.0" mnemonicParsing="false" onAction="#restorePressed" prefHeight="41.0" prefWidth="112.0" text="Ripristina" />
+      <Button fx:id="startGameButton" layoutX="1130.0" layoutY="650.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="112.0" text="Inizia partita" />
+      <Label layoutX="149.0" layoutY="78.0" text="Giocatori:" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="21.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
-
-

@@ -17,12 +17,13 @@ import javafx.stage.Stage;
 
 public class Controller {
 	@FXML
-	ImageView start;
+	private ImageView start;
 	@FXML
-	ImageView rules;
+	private ImageView rules;
 	
 	@FXML
-	Button startButton;
+	private Button startButton;
+
 	
 	
 	public void startPressed(ActionEvent event) throws IOException {

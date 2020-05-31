@@ -25,7 +25,7 @@
          <effect>
             <ImageInput>
                <source>
-                  <Image url="file:/C:/Users/Luca/Documents/Progetto-B20/src/view/fxmls/images/START1.png" />
+                  <Image url="@images/START1.png" />
                </source>
             </ImageInput>
          </effect></Button>
@@ -36,7 +36,7 @@
          <effect>
             <ImageInput>
                <source>
-                  <Image url="file:/C:/Users/Luca/Documents/Progetto-B20/src/view/fxmls/images/RULES2.png" />
+                  <Image url="@images/RULES2.png" />
                </source>
             </ImageInput>
          </effect>

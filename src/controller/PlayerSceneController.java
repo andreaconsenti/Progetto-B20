@@ -11,10 +11,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.entities.COLOR;
 import model.entities.Player;
@@ -43,6 +45,8 @@ public class PlayerSceneController {
 	private MenuItem colorNero;
 	@FXML
 	private MenuItem colorBlu;
+	@FXML
+	private Label colorLabel;
 	
 	
 	private COLOR tempColor;
@@ -56,36 +60,43 @@ public class PlayerSceneController {
 		addPlayerButton.setDisable(true);
 		list = new ArrayList<Player>();
 		colorChosen = false;
+		colorLabel.setVisible(false);
 		
 		colorRosso.setOnAction(e -> {
 			tempColor = COLOR.RED;
 			colorChosen = true;
 			enableAddButton();
+			displayColor();
 		});
 		colorNero.setOnAction(e -> {
 			tempColor = COLOR.BLACK;
 			colorChosen = true;
 			enableAddButton();
+			displayColor();
 		});
 		colorVerde.setOnAction(e -> {
 			tempColor = COLOR.GREEN;
 			colorChosen = true;
 			enableAddButton();
+			displayColor();
 		});
 		colorRosa.setOnAction(e -> {
 			tempColor = COLOR.PINK;
 			colorChosen = true;
 			enableAddButton();
+			displayColor();
 		});
 		colorBlu.setOnAction(e -> {
 			tempColor = COLOR.BLUE;
 			colorChosen = true;
 			enableAddButton();
+			displayColor();
 		});
 		colorGiallo.setOnAction(e -> {
 			tempColor = COLOR.YELLOW;
 			colorChosen = true;
 			enableAddButton();
+			displayColor();
 		});
 	}
 	
@@ -108,6 +119,7 @@ public class PlayerSceneController {
 		list.add(new Player(nameInput.getText(), tempColor));
 		displayPlayer(new Player(nameInput.getText(), tempColor));
 		addPlayerButton.setDisable(true);
+		colorLabel.setVisible(false);
 		colorChosen = false;
 		disableColor();
 		if(list.size() > 2) {
@@ -193,6 +205,42 @@ public class PlayerSceneController {
 			addPlayerButton.setDisable(false);
 		}else
 			addPlayerButton.setDisable(true);
+	}
+	
+	private void displayColor() {
+		switch(tempColor) {
+		case RED:
+			colorLabel.setVisible(true);
+			colorLabel.setText("ROSSO");
+			colorLabel.setTextFill(Color.web("#ff0000", 0.8));
+			break;
+		case YELLOW:
+			colorLabel.setVisible(true);
+			colorLabel.setText("GIALLO");
+			colorLabel.setTextFill(Color.web("#F2E40B", 0.8));
+			break;
+		case BLACK:
+			colorLabel.setVisible(true);
+			colorLabel.setText("NERO");
+			colorLabel.setTextFill(Color.web("#000000", 0.8));
+			break;
+		case BLUE:
+			colorLabel.setVisible(true);
+			colorLabel.setText("BLU");
+			colorLabel.setTextFill(Color.web("#0B54F2", 0.8));
+			break;
+		case GREEN:
+			colorLabel.setVisible(true);
+			colorLabel.setText("VERDE");
+			colorLabel.setTextFill(Color.web("#10CD2D", 0.8));
+			break;
+		case PINK:
+			colorLabel.setVisible(true);
+			colorLabel.setText("ROSA");
+			colorLabel.setTextFill(Color.web("#FF6CF2", 0.8));
+			break;
+		
+		}
 	}
 
 }

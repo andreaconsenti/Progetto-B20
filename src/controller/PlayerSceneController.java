@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -47,10 +48,10 @@ public class PlayerSceneController {
 	private MenuItem colorBlu;
 	@FXML
 	private Label colorLabel;
+	@FXML
+	private RadioButton aiPlayer;
 	
-	
-	private COLOR tempColor;
-	private ArrayList<Player> list;
+	private COLOR tempColor;	private ArrayList<Player> list;
 	private boolean colorChosen;
 	
 	
@@ -61,6 +62,7 @@ public class PlayerSceneController {
 		list = new ArrayList<Player>();
 		colorChosen = false;
 		colorLabel.setVisible(false);
+		aiPlayer.setDisable(true);
 		
 		colorRosso.setOnAction(e -> {
 			tempColor = COLOR.RED;
@@ -134,6 +136,16 @@ public class PlayerSceneController {
 		initialize();
 		playerList.getItems().clear();
 		enableColors();
+	}
+	
+	public void startGamePressed(ActionEvent event) throws IOException {
+		Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameScene.fxml"));
+		Scene playerScene = new Scene(playerSceneParent);
+		
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		window.setScene(playerScene);
+		window.show();
 	}
 	
 	

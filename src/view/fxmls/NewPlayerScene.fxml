@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,14 +20,14 @@
          </image>
       </ImageView>
       <Button fx:id="backButton" layoutX="37.0" layoutY="650.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="41.0" prefWidth="112.0" text="Indietro" />
-      <ListView fx:id="playerList" layoutX="149.0" layoutY="110.0" prefHeight="151.0" prefWidth="495.0" />
-      <TextField fx:id="nameInput" layoutX="733.0" layoutY="241.0" onKeyReleased="#keyReleasedProperty" prefHeight="41.0" prefWidth="294.0" />
-      <Label layoutX="733.0" layoutY="209.0" text="Nome del giocatore:" textFill="WHITE">
+      <ListView fx:id="playerList" layoutX="156.0" layoutY="110.0" prefHeight="151.0" prefWidth="495.0" />
+      <TextField fx:id="nameInput" layoutX="763.0" layoutY="241.0" onKeyReleased="#keyReleasedProperty" prefHeight="41.0" prefWidth="294.0" />
+      <Label layoutX="763.0" layoutY="209.0" text="Nome del giocatore:" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="21.0" />
          </font>
       </Label>
-      <MenuButton fx:id="colorInput" layoutX="733.0" layoutY="110.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="294.0" text="Scegli un colore" textFill="#909090">
+      <MenuButton fx:id="colorInput" layoutX="763.0" layoutY="110.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="294.0" text="Scegli un colore" textFill="#909090">
         <items>
           <MenuItem fx:id="colorRosso" mnemonicParsing="false" text="ROSSO" />
           <MenuItem fx:id="colorBlu" mnemonicParsing="false" text="BLU" />
@@ -39,28 +40,35 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </MenuButton>
-      <Label layoutX="733.0" layoutY="78.0" text="Seleziona colore:" textFill="WHITE">
+      <Label layoutX="763.0" layoutY="78.0" text="Seleziona colore:" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="21.0" />
          </font>
       </Label>
-      <Button fx:id="addPlayerButton" layoutX="733.0" layoutY="317.0" mnemonicParsing="false" onAction="#addPlayerPressed" prefHeight="41.0" prefWidth="112.0" text="Aggiungi" />
-      <Button fx:id="restoreButton" layoutX="915.0" layoutY="317.0" mnemonicParsing="false" onAction="#restorePressed" prefHeight="41.0" prefWidth="112.0" text="Ripristina" />
-      <Button fx:id="startGameButton" layoutX="1130.0" layoutY="650.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="112.0" text="Inizia partita" />
-      <Label layoutX="149.0" layoutY="78.0" text="Giocatori:" textFill="WHITE">
+      <Button fx:id="addPlayerButton" layoutX="763.0" layoutY="415.0" mnemonicParsing="false" onAction="#addPlayerPressed" prefHeight="41.0" prefWidth="112.0" text="Aggiungi" />
+      <Button fx:id="restoreButton" layoutX="945.0" layoutY="415.0" mnemonicParsing="false" onAction="#restorePressed" prefHeight="41.0" prefWidth="112.0" text="Ripristina" />
+      <Button fx:id="startGameButton" layoutX="1130.0" layoutY="650.0" mnemonicParsing="false" onAction="#startGamePressed" prefHeight="41.0" prefWidth="112.0" text="Inizia partita" />
+      <Label layoutX="156.0" layoutY="78.0" text="Giocatori:" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="733.0" layoutY="153.0" text="Colore scelto: " textFill="WHITE">
+      <Label layoutX="763.0" layoutY="153.0" text="Colore scelto: " textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="colorLabel" layoutX="887.0" layoutY="156.0" text="Colore" visible="false">
+      <Label fx:id="colorLabel" layoutX="917.0" layoutY="156.0" text="Colore" visible="false">
          <font>
             <Font name="Arial Rounded MT Bold" size="17.0" />
          </font>
       </Label>
+      <RadioButton fx:id="aiPlayer" layoutX="763.0" layoutY="335.0" mnemonicParsing="false" text="AI Player" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+      </RadioButton>
+      <Label layoutX="863.0" layoutY="322.0" prefHeight="26.0" prefWidth="325.0" text="Selezionando questa opzione il nuovo Giocatore" textFill="#aeaeae" />
+      <Label layoutX="863.0" layoutY="339.0" prefHeight="26.0" prefWidth="265.0" text="aggiunto sarà controllato dal computer" textFill="#aeaeae" />
    </children>
 </Pane>

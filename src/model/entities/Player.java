@@ -69,6 +69,23 @@ public class Player {
 		return mission.toString();
 	}
 	
+	public String getColorName() {
+		switch(this.color) {
+		case GREEN:
+			return "Verde";
+		case YELLOW:
+			return "Giallo";
+		case RED:
+			return "Rosso";
+		case PINK:
+			return "Rosa";
+		case BLUE:
+			return "Blu";
+		case BLACK:
+			return "Nero";
+		}
+		return null;	
+	}
 	
 	
 }

@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="708.0" fitWidth="1259.0" layoutX="97.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/risiko.jpg" />
+            <Image url="@images/risiko_mappa.png" />
          </image>
       </ImageView>
       <ToolBar prefHeight="64.0" prefWidth="1356.0" />

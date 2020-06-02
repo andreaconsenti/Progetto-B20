@@ -159,7 +159,7 @@ public class PlayerSceneController {
 	
 	
 	private void displayPlayer(Player p) {
-		playerList.getItems().add(p.getName() + "      " + p.getColor());
+		playerList.getItems().add(p.getName() + " ----> " + p.getColorName());
 		
 	}
 	

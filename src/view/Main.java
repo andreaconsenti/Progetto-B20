@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 
 
 public class Main extends Application {
@@ -19,6 +20,9 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.setTitle("Risiko!");
+			//Image icon = new Image("C:\\Users\\Luca\\Documents\\Progetto-B20\\src\\view\\fxmls\\images\\App_Logo.png");
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("fxmls/images/App_Logo.png")));
+
 			primaryStage.show();
 
 	}

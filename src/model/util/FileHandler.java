@@ -276,7 +276,7 @@ public class FileHandler {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		FileHandler f = new FileHandler();
 		System.out.println("-----TERRITORI-----\n");
-		ArrayList<Territory> lista = f.genTerritories("assets/TerritoriEConfini.txt");
+		ArrayList<Territory> lista = f.genTerritories("assets/TerritoriEColori.txt");
 //		System.out.println(lista.get(0));		//Commentato perché in output faceva uscire 2 volte "Alaska"  @author AleCarbo
 		f.printTerritories(lista);
 		System.out.println("-----CONFINI-----\n");

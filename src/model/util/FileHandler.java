@@ -36,6 +36,7 @@ public class FileHandler {
 		String name;
 		String continent;
 		int code;
+		String color;
 			
 		for(int i = 0; i<n; i++) {
 			
@@ -44,8 +45,10 @@ public class FileHandler {
 			StringTokenizer st = new StringTokenizer (line.substring(2));
 			name = st.nextToken();
 			continent = st.nextToken();
+			color = st.nextToken();
 			
-			if(!addTerritory(new Territory(name, code, continent))) {
+			
+			if(!addTerritory(new Territory(name, code, continent, color))) {
 				break;
 			}
 		}

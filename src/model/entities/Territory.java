@@ -11,7 +11,7 @@ public class Territory {
 	//private Continent continent;
 	private String continent;
 	private int id;
-	private String color;
+	private String hexaColor;
 	
 	/*public Territory(String name, Continent continent, int id) {
 		this.name = name;
@@ -20,10 +20,12 @@ public class Territory {
 		this.id = id;
 	}*/
 	
-	public Territory(String name, int id, String continent) {
+	public Territory(String name, int id, String continent, String hexaColor) {
 		this.name = name;
 		tanks = 0;
 		this.id = id;
+		this.hexaColor = hexaColor;
+		this.continent = continent;
 	}
 	
 	public void setConfinanti(ArrayList<Territory> confinanti) {
@@ -90,6 +92,10 @@ public class Territory {
 
 	public String getContinent() {
 		return continent;
+	}
+
+	public String getHexaColor() {
+		return hexaColor;
 	}
 	
 }

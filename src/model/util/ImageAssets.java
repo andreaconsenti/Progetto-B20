@@ -51,6 +51,15 @@ public class ImageAssets {
 	    return map;
 	  }
 	
-	
+	public int[] RGBConverter (Territory t) {
+		int[] vect = new int[3];
+		int r = Integer.valueOf(t.getHexaColor().substring( 0, 2 ), 16 );
+        int g = Integer.valueOf(t.getHexaColor().substring( 2, 4 ), 16 );
+        int b = Integer.valueOf(t.getHexaColor().substring( 4, 6 ), 16 );
+        vect[1] = r;
+        vect[2] = g;
+        vect[3] = b;
+		return vect;
+	}
 	
 }

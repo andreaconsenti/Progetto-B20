@@ -14,15 +14,13 @@ import model.entities.Territory;
 
 public class ImageAssets {
 
-	
-	
-	
-	
+
 	public static HashMap<Territory, ArrayList<Pixel>> imageProcess(BufferedImage image, ArrayList<Territory> list) {
 	    int w = image.getWidth();
 	    int h = image.getHeight();
 	    Pixel pixel;
 	    Color tempColor;
+	    ArrayList<Pixel> tempPixels;
 	    ArrayList<Pixel> pixelList = new ArrayList<Pixel>();
 	    //System.out.println("Width, Height: " + w + ", " + h);
 	    
@@ -38,25 +36,32 @@ public class ImageAssets {
 	        	tempColor = new Color(image.getRGB(i,j));
 	        	pixel = new Pixel(i, j, tempColor);
 	            
-	        	if(!tempColor.equals(Color.BLACK) && !tempColor.equals(Color.WHITE)) {
-
+	        	for(Territory t : list) {
+	        		if(t.getRGB().equals(tempColor)) {
+	        			tempPixels = map.get(t);
+	        			tempPixels.add(pixel);
+	        			map.put(t, tempPixels);
+	        		}
 	        	}
-	        	
-	        	
-	            
 	        }
 	    }
-	    
-	    //System.out.println("Il y a " + list.size() + " colori diversi.");
 	    return map;
 	  }
 	
-	public Color hexaToRGB (Territory t) {
-		    return new Color(
-		            Integer.valueOf(t.getHexaColor().substring( 0, 2 ), 16 ),
-		            Integer.valueOf(t.getHexaColor().substring( 2, 4 ), 16 ),
-		            Integer.valueOf(t.getHexaColor().substring( 4, 6 ), 16 ) );
-		}
+	
+//	public static void main(String[] args) throws NumberFormatException, IOException {
+//		
+//		FileHandler f = new FileHandler();
+//		ArrayList<Territory> list = f.genTerritories("assets/TerritoriEColori.txt");
+//		
+//		 File img = new File("C:\\Users\\Luca\\Documents\\Progetto-B20\\src\\view\\fxmls\\images\\Territory_Color.png");
+//		 BufferedImage image = ImageIO.read(img ); 
+//		 
+//		 HashMap<Territory, ArrayList<Pixel>> map = imageProcess(image, list);
+//		
+//		
+//	}
+
 }
 	
 

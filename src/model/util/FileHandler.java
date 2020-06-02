@@ -273,28 +273,28 @@ public class FileHandler {
 		}
 	}
 	
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		FileHandler f = new FileHandler();
-		System.out.println("-----TERRITORI-----\n");
-		ArrayList<Territory> lista = f.genTerritories("assets/TerritoriEColori.txt");
-//		System.out.println(lista.get(0));		//Commentato perché in output faceva uscire 2 volte "Alaska"  @author AleCarbo
-		f.printTerritories(lista);
-		System.out.println("-----CONFINI-----\n");
-		ArrayList<Territory> listaCompleta = f.addConfinanti(lista, "assets/confini.txt");
-		for(Territory t : listaCompleta) {
-			t.printConfini();
-		}
-		System.out.println("-----CARTE-----\n");
-		ArrayList<Card> carte=f.genCards(lista, "assets/carte.txt");
-		f.printCards(carte);
-		System.out.println("-----CONTINENTI-----");
-		ArrayList<Continent> continenti=f.genContinents("assets/continenti.txt");
-		f.printContinents(continenti);
-		
-		System.out.println("\n-----OBIETTIVI-----\n");
-//		f.genContinents();
-		ArrayList<Mission> missioni=f.genMissions("assets/obiettivi.txt", continenti);
-		f.printMissions(missioni);
-		
-	}	
+//	public static void main(String[] args) throws NumberFormatException, IOException {
+//		FileHandler f = new FileHandler();
+//		System.out.println("-----TERRITORI-----\n");
+//		ArrayList<Territory> lista = f.genTerritories("assets/TerritoriEColori.txt");
+////		System.out.println(lista.get(0));		//Commentato perché in output faceva uscire 2 volte "Alaska"  @author AleCarbo
+//		f.printTerritories(lista);
+//		System.out.println("-----CONFINI-----\n");
+//		ArrayList<Territory> listaCompleta = f.addConfinanti(lista, "assets/confini.txt");
+//		for(Territory t : listaCompleta) {
+//			t.printConfini();
+//		}
+//		System.out.println("-----CARTE-----\n");
+//		ArrayList<Card> carte=f.genCards(lista, "assets/carte.txt");
+//		f.printCards(carte);
+//		System.out.println("-----CONTINENTI-----");
+//		ArrayList<Continent> continenti=f.genContinents("assets/continenti.txt");
+//		f.printContinents(continenti);
+//		
+//		System.out.println("\n-----OBIETTIVI-----\n");
+////		f.genContinents();
+//		ArrayList<Mission> missioni=f.genMissions("assets/obiettivi.txt", continenti);
+//		f.printMissions(missioni);
+//		
+//	}	
 }

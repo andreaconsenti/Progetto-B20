@@ -27,7 +27,7 @@ public class RisikoGame {
 		giveStarterTanks();
 		
 		
-		territories = fileHandler.addConfinanti(fileHandler.genTerritories("assets/TerritoriEConfini.txt"), "assets/confini.txt");
+		territories = fileHandler.addConfinanti(fileHandler.genTerritories("assets/TerritoriEColori.txt"), "assets/confini.txt");
 		continents = fileHandler.genContinents("assets/continenti.txt");
 		
 		missions = fileHandler.genMissions("assets/obiettivi.txt", continents);
@@ -120,12 +120,7 @@ public class RisikoGame {
             playerID = (playerID + 1) % players.length;
         }
     }
-	
 
-	
-	
-	
-	
 	
 	public void giveBonus() {
 
@@ -142,6 +137,9 @@ public class RisikoGame {
 		
 	}
 	
+	public ArrayList<Territory> getTerritories(){
+		return territories;
+	}
 	
 	
 	

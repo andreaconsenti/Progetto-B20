@@ -1,5 +1,6 @@
 package model.entities;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Territory {
@@ -96,6 +97,13 @@ public class Territory {
 
 	public String getHexaColor() {
 		return hexaColor;
+	}
+	
+	public Color getRGB () {
+	    return new Color(
+	            Integer.valueOf(this.hexaColor.substring( 0, 2 ), 16 ),
+	            Integer.valueOf(this.hexaColor.substring( 2, 4 ), 16 ),
+	            Integer.valueOf(this.hexaColor.substring( 4, 6 ), 16 ));
 	}
 	
 }

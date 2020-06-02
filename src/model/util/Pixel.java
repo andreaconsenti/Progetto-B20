@@ -17,5 +17,13 @@ public class Pixel {
 	public Color getColor() {
 		return color;
 	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
     
 }

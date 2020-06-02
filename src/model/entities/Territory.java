@@ -11,6 +11,7 @@ public class Territory {
 	//private Continent continent;
 	private String continent;
 	private int id;
+	private String color;
 	
 	/*public Territory(String name, Continent continent, int id) {
 		this.name = name;

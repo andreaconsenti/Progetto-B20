@@ -1,5 +1,9 @@
 package model.entities;
 
-public enum COLOR {			//enumerazione per differenziare i giocatori in base al colore
+/**
+ * Colors that can be used by the players
+ *
+ */
+public enum COLOR {			
 	YELLOW, RED, BLACK, BLUE, GREEN, PINK;
 }

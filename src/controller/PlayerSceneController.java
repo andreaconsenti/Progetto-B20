@@ -21,6 +21,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.entities.COLOR;
 import model.entities.Player;
+import model.entities.PlayersList;
+import model.entities.RisikoGame;
 
 public class PlayerSceneController {
 	
@@ -139,6 +141,8 @@ public class PlayerSceneController {
 	}
 	
 	public void startGamePressed(ActionEvent event) throws IOException {
+		//PlayersList.setPlayers( (Player[]) list.toArray());
+		
 		Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameScene.fxml"));
 		Scene playerScene = new Scene(playerSceneParent);
 		

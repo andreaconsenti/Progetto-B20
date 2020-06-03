@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import model.entities.COLOR;
 import model.entities.Player;
+import model.entities.PlayersList;
 import model.entities.RisikoGame;
 import model.entities.Territory;
 import model.util.FileHandler;
@@ -36,7 +37,7 @@ public class GameSceneController {
 		Player p4 = new Player("Daniele", COLOR.RED);
 		Player[] players = {p1, p2, p3, p4};
 		game = new RisikoGame(players);
-		File img = new File("C:\\Users\\Luca\\Documents\\Progetto-B20\\src\\view\\fxmls\\images\\Territory_Color2.png");
+		File img = new File("src/view/fxmls/images/Territory_Color2.png");
 		BufferedImage image = ImageIO.read(img ); 
 		
 		mappa = ImageAssets.imageProcess(image, game.getTerritories());

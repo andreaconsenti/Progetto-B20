@@ -31,12 +31,7 @@ public class GameSceneController {
 	HashMap<Territory, ArrayList<Pixel>> mappa;
 	
 	public void initialize() throws NumberFormatException, IOException{
-		Player p1 = new Player("Luca", COLOR.BLACK);
-		Player p2 = new Player("Andre", COLOR.PINK);
-		Player p3 = new Player("Gino", COLOR.BLUE);
-		Player p4 = new Player("Daniele", COLOR.RED);
-		Player[] players = {p1, p2, p3, p4};
-		game = new RisikoGame(players);
+		game = new RisikoGame(PlayersList.getPlayers());
 		File img = new File("src/view/fxmls/images/Territory_Color2.png");
 		BufferedImage image = ImageIO.read(img ); 
 		

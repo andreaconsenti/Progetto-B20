@@ -141,7 +141,7 @@ public class PlayerSceneController {
 	}
 	
 	public void startGamePressed(ActionEvent event) throws IOException {
-		//PlayersList.setPlayers( (Player[]) list.toArray());
+		PlayersList.setPlayers(list);
 		
 		Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameScene.fxml"));
 		Scene playerScene = new Scene(playerSceneParent);

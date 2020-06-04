@@ -14,7 +14,12 @@ import model.entities.Territory;
 
 public class ImageAssets {
 
-
+	/**
+	 * Creates a new HashMap containing all the territories
+	 * @param image is the image used for the map
+	 * @param list is the array containing all the territories
+	 * @return map
+	 */
 	public static HashMap<Territory, ArrayList<Pixel>> imageProcess(BufferedImage image, ArrayList<Territory> list) {
 	    int w = image.getWidth();
 	    int h = image.getHeight();

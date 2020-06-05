@@ -16,8 +16,10 @@ public class DiceShaker {
 	private int[] defResults;
 	private int[] loss;
 
-	
-	public DiceShaker() {		//costruttore bussolotto con 6 dadi
+	/**
+	 * Creates a DiceShaker with 6 dice, used for battles, that calculates the loss for attacker and defender
+	 */
+	public DiceShaker() {		
 		die1 = new Die();
 		die2 = new Die();
 		die3 = new Die();
@@ -25,13 +27,19 @@ public class DiceShaker {
 		die5 = new Die();
 		die6 = new Die();
 		
-		loss = new int[2];			//array contenente i carrarmati persi da attacco e difesa
-		atkResults = new int[3];	//array contenente i risultati dei lanci dell'attacco 
-		defResults = new int[3];	//array contenente i risultati dei lanci della difesa
+		loss = new int[2];			
+		atkResults = new int[3];	
+		defResults = new int[3];	
 
 	}
 	
-	public int[] rollDices(int atk, int def) {		//metodo per il tiro dei dadi, vengono passati il numero di dadi da lanciare rispettivamente di attacco e difesa
+	/**
+	 * Rolls the dice used
+	 * @param atk is the number of dice used by the attacker
+	 * @param def is the number of dice used by the defender
+	 * @return loss for the attacker and the defender
+	 */
+	public int[] rollDices(int atk, int def) {		
 		
 		loss[0] = 0;
 		loss[1] = 0;
@@ -66,7 +74,9 @@ public class DiceShaker {
 			break;
 		}
 		
-		//Sorting methods for arrays (We used an array of int, a primitive type, so we had to sort the Array in the ascending order, then swap it using a for).
+		/**
+		 * Sorting the arrays using a for cycle to put them in decreasing order
+		 */
 		Arrays.sort(atkResults);
 		Arrays.sort(defResults);
 		 for (int i = 0, j = 3 - 1, tmp; i < j; i++, j--) {
@@ -89,8 +99,12 @@ public class DiceShaker {
 		for(int k=0; k < defResults.length; k++) {
 			System.out.println(defResults[k]);
 		}*/
+		 
+		 /**
+		  * Increments the number of tanks lost by attacker and defender
+		  */
 		
-		for(int i=0; i < Math.min(atk, def); i++) {			//ciclo for per confrontare uno ad uno i risultati dei lanci e incrementare il numero dei carrarmati persi
+		for(int i=0; i < Math.min(atk, def); i++) {			
 			
 			if(atkResults[i] > defResults[i]) {
 				loss[1]++;

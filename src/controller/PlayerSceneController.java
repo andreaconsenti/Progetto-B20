@@ -143,12 +143,17 @@ public class PlayerSceneController {
 	public void startGamePressed(ActionEvent event) throws IOException {
 		PlayersList.setPlayers(list);
 		
-		Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameScene.fxml"));
-		Scene playerScene = new Scene(playerSceneParent);
+//		Parent playerSceneParent= FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameScene.fxml"));
+//		Scene playerScene = new Scene(playerSceneParent);
+		
+		Parent playerSceneParentProva = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameSceneProva.fxml"));
+		Scene playerSceneProva = new Scene(playerSceneParentProva);
+		
 		
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
-		window.setScene(playerScene);
+//		window.setScene(playerScene);
+		window.setScene(playerSceneProva);
 		window.show();
 	}
 	

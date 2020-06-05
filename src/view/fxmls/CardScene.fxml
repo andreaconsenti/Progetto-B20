@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.BottomNavigation?>
+<?import com.gluonhq.charm.glisten.control.BottomNavigationButton?>
+<?import com.gluonhq.charm.glisten.control.Icon?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="731.0" prefWidth="999.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="779.0" prefWidth="1000.0">
+               <children>
+                  <SplitPane dividerPositions="0.7575150300601202" layoutX="-1.0" layoutY="-3.0" prefHeight="781.0" prefWidth="1000.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <BottomNavigation layoutX="-9.0" layoutY="713.0" prefHeight="66.0" prefWidth="763.0">
+                                  <actionItems>
+                                      <BottomNavigationButton fx:id="tornaAlGioco" prefHeight="66.0" prefWidth="92.0" selected="true" text="Torna al Gioco">
+                                          <graphic>
+                                              <Icon content="ARROW_BACK" />
+                                          </graphic>
+                                      </BottomNavigationButton>
+                                      <BottomNavigationButton fx:id="regoleArmateBonus" text="Regole armate bonus">
+                                          <graphic>
+                                              <Icon content="CHROME_READER_MODE" />
+                                          </graphic>
+                                      </BottomNavigationButton>
+                                      <BottomNavigationButton fx:id="opzioni" text="Opzioni">
+                                          <graphic>
+                                              <Icon content="WIDGETS" />
+                                          </graphic>
+                                      </BottomNavigationButton>
+                                  </actionItems>
+                              </BottomNavigation>
+                              <ImageView fx:id="cavaliere" fitHeight="234.0" fitWidth="246.0" layoutX="426.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../bin/view/fxmls/images/Cards/Cavaliere.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="cannoneJolly" fitHeight="124.0" fitWidth="256.0" layoutX="364.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true" rotate="31.3">
+                                 <image>
+                                    <Image url="@../../../bin/view/fxmls/images/Cards/Cannone.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="fante" fitHeight="270.0" fitWidth="313.0" layoutX="104.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../bin/view/fxmls/images/Cards/Fante.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="cavaliereJolly" fitHeight="286.0" fitWidth="202.0" layoutX="499.0" layoutY="436.0" pickOnBounds="true" preserveRatio="true" rotate="-31.4">
+                                 <image>
+                                    <Image url="@../../../bin/view/fxmls/images/Cards/Cavaliere.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="cannone" fitHeight="251.0" fitWidth="319.0" layoutX="14.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../bin/view/fxmls/images/Cards/Cannone.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="fanteJolly" fitHeight="254.0" fitWidth="98.0" layoutX="490.0" layoutY="435.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../bin/view/fxmls/images/Cards/Fante.png" />
+                                 </image>
+                              </ImageView>
+                              <TextField fx:id="testoCannone" layoutX="47.0" layoutY="340.0" prefHeight="26.0" prefWidth="261.0" />
+                              <TextField fx:id="testoCavaliere" layoutX="417.0" layoutY="347.0" prefHeight="26.0" prefWidth="261.0" />
+                              <TextField fx:id="testoJolly" layoutX="417.0" layoutY="673.0" prefHeight="26.0" prefWidth="261.0" />
+                              <TextField fx:id="testoFante" layoutX="43.0" layoutY="673.0" prefHeight="26.0" prefWidth="261.0" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <Accordion prefHeight="779.0" prefWidth="246.0">
+                                <panes>
+                                  <TitledPane fx:id="fanti" animated="false" text="Fanti">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                  </TitledPane>
+                                  <TitledPane fx:id="cavalieri" animated="false" text="Cavalieri">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                  </TitledPane>
+                                    <TitledPane fx:id="cannoni" animated="false" prefHeight="1.0" prefWidth="246.0" text="Cannoni">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                      </content>
+                                    </TitledPane>
+                                </panes>
+                              </Accordion>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

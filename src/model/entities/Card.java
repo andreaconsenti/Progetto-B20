@@ -6,24 +6,45 @@ public class Card {
 	private Territory territory;
 	private int id;
 	
-	public Card(FIGURE figure, Territory territory, int id) {	//costruttore di una carta territorio
+	/**
+	 * Creates a new territory card
+	 * @param figure is the type of the card described by the enum FIGURE: JOLLY, FANTE, CANNONE o CAVALIERE
+	 * @param territory is the territory associated to the card
+	 * @param id number to identify the territory
+	 */
+	public Card(FIGURE figure, Territory territory, int id) {	
 		this.figure = figure;
 		this.territory = territory;
 		this.id=id;
 	}
 
-	public FIGURE getFigure() {			//ritorna la figura della carta
+	/**
+	 * Returns the figure of the card
+	 * @return figure
+	 */
+	public FIGURE getFigure() {			
 		return figure;
 	}
 
-	public Territory getTerritory() {	//ritorna il territorio della carta
+	/**
+	 * Returns the territory of the card
+	 * @return territory
+	 */
+	public Territory getTerritory() {	
 		return territory;
 	}
 	
-	public int getId() {		//ritorna il numero dell'ID corrispondente a un territorio
+	/**
+	 * Returns the id matching the territory
+	 * @return id
+	 */
+	public int getId() {		
 		return id;
 	}
 	
+	/**
+	 * Prints the features of the card
+	 */
 	public void printCard() {	
 		if(territory!=null)
 			System.out.println("La carta di "+ this.territory.getName() +" ha come simbolo un: " +this.figure + "\n");

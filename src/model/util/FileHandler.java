@@ -24,7 +24,13 @@ public class FileHandler {
 	private int nLineM=0;
 	private int nLineCont=0;
 	
-	// Method that generates an ArrayList which contains all territories
+	/**
+	 * Creates an array list containing all territories through a file
+	 * @param path is the path of the file
+	 * @return list
+	 * @throws NumberFormatException in case the parseInt operation isn't successful
+	 * @throws IOException in case the file has an error
+	 */
 	public ArrayList<Territory> genTerritories(String path) throws NumberFormatException, IOException {
 		
 		BufferedReader in = new BufferedReader(new FileReader(path));
@@ -56,6 +62,11 @@ public class FileHandler {
 		return list;
 	}
 	
+	/**
+	 * Adds a territory to the list
+	 * @param t is the territory added
+	 * @return boolean
+	 */
 	public boolean addTerritory(Territory t) {
 		if(nLine <= list.size()) {
 			list.add(t);
@@ -65,6 +76,14 @@ public class FileHandler {
 		return false;
 	}
 	
+	/**
+	 * Adds the borders to a territory through a file
+	 * @param list is the array containing all the territories to add
+	 * @param path is the path of the file
+	 * @return list
+	 * @throws NumberFormatException in case the parseInt operation isn't successful
+	 * @throws IOException in case the file has an error
+	 */
 	public ArrayList<Territory> addConfinanti(ArrayList<Territory> list, String path) throws NumberFormatException, IOException{
 		
 		BufferedReader in = new BufferedReader(new FileReader(path));
@@ -95,6 +114,14 @@ public class FileHandler {
 		return list;	
 	}
 	
+	/**
+	 * Creates a deck of cards through a file
+	 * @param list is the array of territories corresponding to the cards
+	 * @param path is the path of the file
+	 * @return card
+	 * @throws NumberFormatException in case the parseInt operation isn't successful
+	 * @throws IOException in case the file has an error
+	 */
 	public ArrayList<Card> genCards(ArrayList<Territory> list, String path) throws NumberFormatException, IOException{
 		
 		BufferedReader in= new BufferedReader(new FileReader(path));
@@ -142,6 +169,11 @@ public class FileHandler {
 		return card;
 	}
 	
+	/**
+	 * Adds a new card and verifies if the operation is successful
+	 * @param c is the card added
+	 * @return boolean
+	 */
 	public boolean addCard(Card c) {
 		if(nLineC<=card.size()) {
 			card.add(c);
@@ -151,6 +183,13 @@ public class FileHandler {
 		return false;
 	}
 	
+	/**
+	 * Creates a list of continents through a file
+	 * @param path is the path of the file
+	 * @return continents
+	 * @throws NumberFormatException in case the parseInt operation isn't successful
+	 * @throws IOException in case the file has an error
+	 */
 	public ArrayList<Continent> genContinents (String path) throws NumberFormatException, IOException {
 		
 		BufferedReader in = new BufferedReader(new FileReader(path));
@@ -179,6 +218,11 @@ public class FileHandler {
 		return continents;
 	}
 	
+	/**
+	 * Adds a new continent to the list of continents and verifies if the operation was successful
+	 * @param c is the new continent
+	 * @return boolean
+	 */
 	public boolean addContinents(Continent c) {
 		if(nLineCont <= list.size()) {
 			continents.add(c);
@@ -188,6 +232,14 @@ public class FileHandler {
 		return false;
 	}
 	
+	/**
+	 * Creates a list of missions through a file
+	 * @param path is the path of the file
+	 * @param continents is the list of continents for the mission
+	 * @return missions
+	 * @throws NumberFormatException in case the parseInt operation isn't successful
+	 * @throws IOException in case the file has an error
+	 */
 	public ArrayList<Mission> genMissions(String path, ArrayList<Continent> continents) throws NumberFormatException, IOException{
 		
 		BufferedReader in= new BufferedReader(new FileReader(path));
@@ -235,6 +287,11 @@ public class FileHandler {
 		return missions;
 	}
 	
+	/**
+	 * Adds a mission to the list of missions and verifies if the operation was successful
+	 * @param m is the mission added
+	 * @return boolean
+	 */
 	public boolean addMission(Mission m) {
 		if(nLineM<=missions.size()) {
 			missions.add(m);
@@ -248,25 +305,40 @@ public class FileHandler {
 //		TEST MAIN
 	
 	
-	
+	/**
+	 * Prints a list of territories
+	 * @param list is the list to print
+	 */
 	public void printTerritories(ArrayList<Territory> list) {
 		for(Territory t : list) {
 			System.out.println(t.toString());
 		}
 	}
 	
+	/**
+	 * Prints a deck of cards
+	 * @param card is the deck to print
+	 */
 	public void printCards(ArrayList<Card> card) {
 		for(Card c : card) {
 			c.printCard();
 		}
 	}
 	
+	/**
+	 * Prints a list of continents
+	 * @param continents is the list to print
+	 */
 	public void printContinents(ArrayList<Continent> continents) {
 		for(Continent cont: continents) {
 			System.out.println(cont.getName());
 		}
 	}
 	
+	/**
+	 * Prints a list of missions 
+	 * @param missions is the list to print
+	 */
 	public void printMissions(ArrayList<Mission> missions) {
 		for(Mission m : missions) {
 			m.printMission();

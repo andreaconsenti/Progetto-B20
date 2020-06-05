@@ -2,20 +2,30 @@ package model.entities;
 
 public class Die {
 	
-	private final int MAX = 6;  // maximum face value
+	private final int MAX = 6;  
 
-	private int faceValue;  // current value showing on the die
+	private int faceValue;  
 	
+	/**
+	 * Creates a die
+	 */
 	public Die() {
 		faceValue = 1;
 	}
 
-	// Alternate Constructor
+	/**
+	 * Alternative constructor to create a due
+	 * @param value is used to set the face showing on the die
+	 */
 	public Die(int value) {
 	   faceValue = value;
 	}
 	
-	public int roll() {				//metodo che genera un numero casuale da 1 a 6, valori delle facce del dado
+	/**
+	 * Rolls the die generating a number between 1 and 6
+	 * @return faceValue
+	 */
+	public int roll() {				
 		faceValue = (int)(Math.random() * MAX) + 1;
 	    return faceValue;
 	}

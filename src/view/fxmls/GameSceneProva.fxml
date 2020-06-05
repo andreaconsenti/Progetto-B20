@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="650.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="450.0" fitWidth="800.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/risiko_mappa.png" />
+         </image>
+      </ImageView>
+      <AnchorPane prefHeight="55.0" prefWidth="800.0">
+         <children>
+            <Pane prefHeight="98.0" prefWidth="386.0">
+               <children>
+                  <Button layoutX="311.0" layoutY="14.0" mnemonicParsing="false" text="Rinforzo">
+                     <tooltip>
+                        <Tooltip text="Rinforza Le Tue Armate" />
+                     </tooltip>
+                  </Button>
+                  <Button layoutX="135.0" layoutY="14.0" mnemonicParsing="false" text="Posizionamento">
+                     <tooltip>
+                        <Tooltip text="Posiziona Le Tue Nuove Armate" />
+                     </tooltip>
+                  </Button>
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Attacco">
+                     <tooltip>
+                        <Tooltip text="Attacca Il Tuo Nemico" />
+                     </tooltip>
+                  </Button>
+               </children>
+            </Pane>
+            <Button layoutX="580.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Termina Turno">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Ruggero/Desktop/Progetto-B20/src/view/fxmls/images/Button/TerminaTurno.png" />
+                     </source>
+                  </ImageInput>
+               </effect></Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="552.0" prefHeight="98.0" prefWidth="800.0">
+         <children>
+            <Button layoutX="14.0" layoutY="25.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="56.0" text="?">
+               <tooltip>
+                  <Tooltip text="Rules" />
+               </tooltip>
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Ruggero/Desktop/Progetto-B20/src/view/fxmls/images/Button/Regole.png" />
+                     </source>
+                  </ImageInput>
+               </effect></Button>
+            <Button layoutX="645.0" layoutY="50.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" text="Obiettivi">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Ruggero/Desktop/Progetto-B20/src/view/fxmls/images/Button/Obiettivi.png" />
+                     </source>
+                  </ImageInput>
+               </effect></Button>
+            <Button layoutX="697.0" layoutY="7.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="89.0" text="Carte">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Ruggero/Desktop/Progetto-B20/src/view/fxmls/images/Button/Carte.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+            <TreeView layoutX="300.0" layoutY="1.0" prefHeight="98.0" prefWidth="200.0" />
+            <Button layoutX="89.0" layoutY="25.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="56.0" text="Menu">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Ruggero/Desktop/Progetto-B20/src/view/fxmls/images/Button/Menu.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+               <tooltip>
+                  <Tooltip text="Menù" />
+               </tooltip>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

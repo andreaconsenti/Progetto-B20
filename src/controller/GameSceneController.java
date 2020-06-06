@@ -44,6 +44,7 @@ public class GameSceneController {
 	HashMap<Territory, ArrayList<Pixel>> mappa;
 	PixelReader pixelReader;
 	PixelWriter pixelWriter;
+	WritableImage wImage;
 	
 	public void initialize() throws NumberFormatException, IOException{
 		game = new RisikoGame(PlayersList.getPlayers());
@@ -54,21 +55,8 @@ public class GameSceneController {
 		
 		mappa = ImageAssets.imageProcess(image, game.getTerritories());
 		
-//		pixelReader = map.getImage().getPixelReader();
-//		WritableImage wImage = new WritableImage(
-//				 (int) map.getImage().getWidth(),
-//				(int) map.getImage().getHeight());
-//		pixelWriter = wImage.getPixelWriter();
-//		for (int y = 0; y < image.getHeight(); y++){
-//			
-//				for (int x = 0; x < image.getWidth(); x++){
-//					
-//					Color color = pixelReader.getColor(x, y);
-//					pixelWriter.setColor(x,y,color);
-//				}
-//				
-//		}
-//		map.setImage(wImage);
+		wImage = genWritableMap();
+		map.setImage(wImage);
 //		map.setX(gamePane.getLayoutX());
 //		map.setY(gamePane.getLayoutY());
 
@@ -91,8 +79,10 @@ public class GameSceneController {
 					check = 1;
 					territoryLabel.setOpacity(100);
 					territoryLabel.setText(territoryText(t));
+					changeColor(mappa.get(t));
 					break;
 				} else {
+					map.setImage(wImage);
 					territoryLabel.setOpacity(0);
 				}
 				
@@ -110,48 +100,43 @@ public class GameSceneController {
 	
 	
 	
-//	private void changeColor(ArrayList<Pixel> list) {
-//		for (int y = 0; y < getMaxY(list); y++)
-//		{
-//		for (int x = 0; x < getMaxX(list); x++)
-//		{
-//		Color color = pixelReader.getColor(x, y);
-//		double r = color.getRed() / 1.5;
-//		double g = color.getGreen() / 1.5;
-//		double b = color.getBlue() / 1.5;
-//		int red = (int) (r * 255);
-//		int green = (int) (g * 255);
-//		int blue = (int) (b * 255);
-//		color = Color.rgb(red,green,blue);
-//		pixelWriter.setColor(x,y,color);
-//		}
-//		}
-//		imageView.setImage(wImage);
-//
-//	}
+	private void changeColor(ArrayList<Pixel> list) {
+		WritableImage tempWImage = genWritableMap();
+		for(Pixel p : list) {
+			Color color = pixelReader.getColor(p.getX(), p.getY());
+			double r = color.getRed() / 1.5;
+			double g = color.getGreen() / 1.5;
+			double b = color.getBlue() / 1.5;
+			int red = (int) (r * 255);
+			int green = (int) (g * 255);
+			int blue = (int) (b * 255);
+			color = Color.rgb(red,green,blue);
+			PixelWriter pxlWriter = tempWImage.getPixelWriter();
+			pxlWriter.setColor(p.getX(),p.getY(),color);
+		}
+		map.setImage(tempWImage);
+
+	}
 	
 	private String territoryText(Territory t) {
 		return "Territorio: " + t.getName();
 	}
 	
-	private int getMaxX(ArrayList<Pixel> l) {
-		int x = 0;
-		for(Pixel p : l) {
-			if (p.getX() > x) {
-				x = p.getX();
-			}
-		}
-		return x;
-	}
 	
-	private int getMaxY(ArrayList<Pixel> l) {
-		int y = 0;
-		for(Pixel p : l) {
-			if (p.getX() > y) {
-				y = p.getY();
-			}
+	private WritableImage genWritableMap() {
+		pixelReader = map.getImage().getPixelReader();
+		WritableImage wImg = new WritableImage((int) map.getImage().getWidth(),(int) map.getImage().getHeight());
+		pixelWriter = wImg.getPixelWriter();
+		for (int y = 0; y < map.getImage().getHeight(); y++){
+			
+				for (int x = 0; x < map.getImage().getWidth(); x++){
+					
+					Color color = pixelReader.getColor(x, y);
+					pixelWriter.setColor(x,y,color);
+				}
+				
 		}
-		return y;
+		return wImg;
 	}
 	
 	

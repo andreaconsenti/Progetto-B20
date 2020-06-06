@@ -10,27 +10,27 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#mouseMoved" prefHeight="832.0" prefWidth="1281.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameSceneController">
+<Pane fx:id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#mouseMoved" prefHeight="724.0" prefWidth="1115.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameSceneController">
    <children>
-      <ImageView fx:id="map" fitHeight="832.0" fitWidth="1290.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="map" fitHeight="724.0" fitWidth="1115.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/risiko_mappa2.jpg" />
          </image>
       </ImageView>
-      <ToolBar prefHeight="39.0" prefWidth="1281.0">
+      <ToolBar prefHeight="39.0" prefWidth="1115.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
          <items>
             <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" text="Prossima fase" translateX="10.0" />
-            <TextArea editable="false" prefHeight="45.0" prefWidth="1025.0" translateX="100.0" />
+            <TextArea editable="false" prefHeight="45.0" prefWidth="856.0" translateX="100.0" />
          </items></ToolBar>
-      <ToolBar layoutY="766.0" prefHeight="66.0" prefWidth="1281.0" rotate="180.0">
+      <ToolBar layoutY="663.0" prefHeight="61.0" prefWidth="1115.0" rotate="180.0">
          <items>
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" text="Carte" translateX="1180.0" />
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" text="Scambio" translateX="980.0" />
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" text="Missione" translateX="780.0" />
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" text="Menu" translateX="580.0" />
+            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" text="Carte" translateX="1015.0" />
+            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" text="Scambio" translateX="815.0" />
+            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" text="Missione" translateX="615.0" />
+            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" text="Menu" translateX="415.0" />
             <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="111.0" rotate="180.0" text="Termina turno" translateX="-320.0" />
          </items>
       </ToolBar>

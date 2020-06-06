@@ -69,6 +69,8 @@ public class GameSceneController {
 //				
 //		}
 //		map.setImage(wImage);
+//		map.setX(gamePane.getLayoutX());
+//		map.setY(gamePane.getLayoutY());
 
 		
 	}

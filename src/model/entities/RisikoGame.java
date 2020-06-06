@@ -27,7 +27,7 @@ public class RisikoGame {
 		giveStarterTanks();
 		
 		
-		territories = fileHandler.addConfinanti(fileHandler.genTerritories("assets/TerritoriEColori.txt"), "assets/confini.txt");
+		territories = fileHandler.addConfinanti(fileHandler.genTerritories("assets/TerritoriEColori.txt"), "assets/confiniEPosizioni.txt");
 		continents = fileHandler.genContinents("assets/continenti.txt");
 		
 		missions = fileHandler.genMissions("assets/obiettivi.txt", continents);

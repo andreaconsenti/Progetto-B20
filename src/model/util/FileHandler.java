@@ -349,7 +349,7 @@ public class FileHandler {
 //		FileHandler f = new FileHandler();
 //		System.out.println("-----TERRITORI-----\n");
 //		ArrayList<Territory> lista = f.genTerritories("assets/TerritoriEColori.txt");
-////		System.out.println(lista.get(0));		//Commentato perché in output faceva uscire 2 volte "Alaska"  @author AleCarbo
+//		System.out.println(lista.get(0));		//Commentato perché in output faceva uscire 2 volte "Alaska"  @author AleCarbo
 //		f.printTerritories(lista);
 //		System.out.println("-----CONFINI-----\n");
 //		ArrayList<Territory> listaCompleta = f.addConfinanti(lista, "assets/confini.txt");
@@ -364,7 +364,7 @@ public class FileHandler {
 //		f.printContinents(continenti);
 //		
 //		System.out.println("\n-----OBIETTIVI-----\n");
-////		f.genContinents();
+//		f.genContinents();
 //		ArrayList<Mission> missioni=f.genMissions("assets/obiettivi.txt", continenti);
 //		f.printMissions(missioni);
 //		

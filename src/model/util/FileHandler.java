@@ -1,5 +1,6 @@
 package model.util;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,6 +20,7 @@ public class FileHandler {
 	private ArrayList<Card> card;
 	private ArrayList<Mission> missions;
 	private ArrayList<Continent> continents;
+	private ArrayList<Pixel> pixels;
 	private int nLine = 0;
 	private int nLineC=0;
 	private int nLineM=0;
@@ -301,10 +303,51 @@ public class FileHandler {
 		return false;
 	}
 
+	public ArrayList<Pixel> addPosizione(String path) throws NumberFormatException, IOException{
+		
+		BufferedReader in = new BufferedReader(new FileReader(path));
+		String line;
+		
+		pixels=new ArrayList<Pixel>();
+		int id;
+		int x=0;
+		int y=0;
+		Color color=new Color(0);
+		
+		int n = Integer.parseInt(in.readLine());
+		
+		for(int i = 0; i<n; i++) {
+			
+			line = in.readLine();
+			id = Integer.parseInt(line.substring(0,2));
+			int k=Integer.parseInt(line.substring(3, 4));
+			int j=k*3;
+			StringTokenizer st = new StringTokenizer (line.substring(j+4));
+			x = Integer.parseInt(st.nextToken());
+			y = Integer.parseInt(st.nextToken());
+			
+			if(!addPixel(new Pixel(x, y, color))) {
+				break;
+			}
+		}
+		in.close();
+		return pixels;
+	}
 	
-//		TEST MAIN
+	private boolean addPixel(Pixel p) {
+		int nLineP=0;
+		// TODO Auto-generated method stub
+		if(nLineP<=pixels.size()) {
+			pixels.add(p);
+			nLineP++;
+			return true;
+		}
+		return false;
+	}
 	
 	
+//	TEST MAIN
+
 	/**
 	 * Prints a list of territories
 	 * @param list is the list to print
@@ -345,28 +388,38 @@ public class FileHandler {
 		}
 	}
 	
-//	public static void main(String[] args) throws NumberFormatException, IOException {
-//		FileHandler f = new FileHandler();
-//		System.out.println("-----TERRITORI-----\n");
-//		ArrayList<Territory> lista = f.genTerritories("assets/TerritoriEColori.txt");
-//		System.out.println(lista.get(0));		//Commentato perché in output faceva uscire 2 volte "Alaska"  @author AleCarbo
-//		f.printTerritories(lista);
-//		System.out.println("-----CONFINI-----\n");
-//		ArrayList<Territory> listaCompleta = f.addConfinanti(lista, "assets/confini.txt");
-//		for(Territory t : listaCompleta) {
-//			t.printConfini();
-//		}
-//		System.out.println("-----CARTE-----\n");
-//		ArrayList<Card> carte=f.genCards(lista, "assets/carte.txt");
-//		f.printCards(carte);
-//		System.out.println("-----CONTINENTI-----");
-//		ArrayList<Continent> continenti=f.genContinents("assets/continenti.txt");
-//		f.printContinents(continenti);
-//		
-//		System.out.println("\n-----OBIETTIVI-----\n");
+	public void printPixels(ArrayList<Pixel> pixels) {
+		for(Pixel p: pixels) {
+			System.out.println(""+p.getX()+" "+p.getY()+" "+p.getColor());
+		}
+	}
+	
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		FileHandler f = new FileHandler();
+		System.out.println("-----TERRITORI-----\n");
+		ArrayList<Territory> lista = f.genTerritories("assets/TerritoriEColori.txt");
+		System.out.println(lista.get(0));		//Commentato perché in output faceva uscire 2 volte "Alaska"  @author AleCarbo
+		f.printTerritories(lista);
+		System.out.println("-----CONFINI-----\n");
+		ArrayList<Territory> listaCompleta = f.addConfinanti(lista, "assets/confiniEPosizioni.txt");
+		for(Territory t : listaCompleta) {
+			t.printConfini();
+		}
+		System.out.println("-----CARTE-----\n");
+		ArrayList<Card> carte=f.genCards(lista, "assets/carte.txt");
+		f.printCards(carte);
+		System.out.println("-----CONTINENTI-----");
+		ArrayList<Continent> continenti=f.genContinents("assets/continenti.txt");
+		f.printContinents(continenti);
+		
+		System.out.println("\n-----OBIETTIVI-----\n");
 //		f.genContinents();
-//		ArrayList<Mission> missioni=f.genMissions("assets/obiettivi.txt", continenti);
-//		f.printMissions(missioni);
-//		
-//	}	
+		ArrayList<Mission> missioni=f.genMissions("assets/obiettivi.txt", continenti);
+		f.printMissions(missioni);
+		
+		System.out.println("\n-----POSIZIONI-----\n");
+		ArrayList<Pixel> pixel=f.addPosizione("assets/confiniEPosizioni.txt");
+		f.printPixels(pixel);
+		
+	}	
 }

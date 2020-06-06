@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#mapClicked" prefHeight="763.0" prefWidth="1356.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameSceneController">
+<Pane fx:id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#mouseMoved" prefHeight="881.0" prefWidth="1356.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameSceneController">
    <children>
-      <ImageView fx:id="map" fitHeight="769.0" fitWidth="1356.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="map" fitHeight="929.0" fitWidth="1356.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/risiko_mappa2.png" />
+            <Image url="@images/risiko_mappa2.jpg" />
          </image>
       </ImageView>
-      <ToolBar prefHeight="64.0" prefWidth="1356.0" />
-      <HBox layoutY="61.0" prefHeight="701.0" prefWidth="98.0" />
+      <ToolBar prefHeight="55.0" prefWidth="1356.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <items>
+            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" text="Prossima fase" translateX="10.0" />
+            <TextArea editable="false" prefHeight="45.0" prefWidth="1107.0" translateX="100.0" />
+         </items></ToolBar>
+      <ToolBar layoutY="813.0" prefHeight="68.0" prefWidth="1356.0" rotate="180.0">
+         <items>
+            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" text="Carte" translateX="1250.0" />
+            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" text="Scambio" translateX="1050.0" />
+            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" text="Missione" translateX="850.0" />
+            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" text="Menu" translateX="650.0" />
+            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="111.0" rotate="180.0" text="Termina turno" translateX="-320.0" />
+         </items>
+      </ToolBar>
+      <Label fx:id="territoryLabel" layoutX="6.0" layoutY="54.0" prefHeight="27.0" prefWidth="218.0" text="Territorio: ">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

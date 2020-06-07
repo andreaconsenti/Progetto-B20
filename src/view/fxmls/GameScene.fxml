@@ -28,7 +28,7 @@
             <Button id="sale" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" stylesheets="@../css/stylesheet.css" text="Carte" translateX="1000.0" />
             <Button id="sale" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" stylesheets="@../css/stylesheet.css" text="Scambio" translateX="800.0" />
             <Button id="sale" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" stylesheets="@../css/stylesheet.css" text="Missione" translateX="600.0" />
-            <Button id="sale" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" stylesheets="@../css/stylesheet.css" text="Menu" translateX="400.0" />
+            <Button id="sale" fx:id="menuButton" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" stylesheets="@../css/stylesheet.css" text="Menu" translateX="400.0" />
             <Button id="sale2" mnemonicParsing="false" prefHeight="40.0" prefWidth="135.0" rotate="180.0" stylesheets="@../css/stylesheet.css" text="Termina turno" translateX="-320.0" />
          </items>
       </ToolBar>
@@ -40,6 +40,6 @@
             <Button id="sale2" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" stylesheets="@../css/stylesheet.css" text="Prossima fase" translateX="10.0" />
             <TextArea editable="false" prefHeight="45.0" prefWidth="856.0" translateX="100.0" />
          </items></ToolBar>
-      <AnchorPane fx:id="tanksPane" layoutY="68.0" prefHeight="611.0" prefWidth="1115.0" />
+      <AnchorPane fx:id="tanksPane" layoutY="56.0" prefHeight="609.0" prefWidth="1115.0" />
    </children>
 </Pane>

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -42,6 +43,7 @@ public class GameSceneController {
 	@FXML
 	private AnchorPane tanksPane;
 	
+	
 	private RisikoGame game; 
 	private HashMap<Territory, ArrayList<Pixel>> mappa;
 	private HashMap<Territory, ImageView> mappaImgTanks;
@@ -69,7 +71,6 @@ public class GameSceneController {
 		
 		mappaImgTanks = new HashMap<Territory, ImageView>();
 		initTanks();
-
 		
 	}
 	

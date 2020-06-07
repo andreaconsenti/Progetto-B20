@@ -8,16 +8,15 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
-import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import model.entities.COLOR;
@@ -40,11 +39,15 @@ public class GameSceneController {
 	@FXML
 	Label territoryLabel;
 	
+	@FXML
+	AnchorPane tanksPane;
+	
 	RisikoGame game; 
 	HashMap<Territory, ArrayList<Pixel>> mappa;
 	PixelReader pixelReader;
 	PixelWriter pixelWriter;
 	WritableImage wImage;
+	FileHandler fileH = new FileHandler();
 	
 	public void initialize() throws NumberFormatException, IOException{
 		game = new RisikoGame(PlayersList.getPlayers());
@@ -59,6 +62,8 @@ public class GameSceneController {
 		map.setImage(wImage);
 //		map.setX(gamePane.getLayoutX());
 //		map.setY(gamePane.getLayoutY());
+		
+		initTanks();
 
 		
 	}
@@ -139,5 +144,57 @@ public class GameSceneController {
 		return wImg;
 	}
 	
+	private void initTanks() throws IOException {
+	   
+	    
+		
+		ArrayList<Pixel> posList = fileH.addPosizione("assets/confiniEPosizioni.txt");
+		
+		int i = 0;
+		for(Pixel p : posList) {
+			
+			Territory t = game.getTerritories().get(i);
+			File file = new File(getTankPath(t));
+			Image image = new Image(file.toURI().toString());
+			ImageView tank = new ImageView(image);
+			tank.setImage(image);
+		    tank.setX(p.getX());
+		    tank.setY(p.getY());
+		    tank.setFitWidth(30);
+		    tank.setFitHeight(35);
+		    Label tanksNumber = new Label();
+		    Integer tanksN = t.getTanks();
+		    tanksNumber.setText(tanksN.toString());
+		    tanksNumber.relocate(p.getX(),p.getY());
+		    tanksPane.getChildren().add(tank);
+		    tanksPane.getChildren().add(tanksNumber);
+			i++;
+		}
+		
+		
+	}
+	
+	private String getTankPath(Territory t) {
+		Player tempPlayer = t.getOwner();
+		
+		switch(tempPlayer.getColor()) {
+		case RED:
+			return "src/view/fxmls/images/tanks/tankrosso.png";
+		case YELLOW:
+			return "src/view/fxmls/images/tanks/tank_giallo.png";
+		case BLACK:
+			return "src/view/fxmls/images/tanks/tank_nero.png";
+		case BLUE:
+			return "src/view/fxmls/images/tanks/tank_blu.png";
+		case GREEN:
+			return "src/view/fxmls/images/tanks/tank_verde.png";
+		case PINK:
+			return "src/view/fxmls/images/tanks/tank_rosa.png";
+		
+		}
+		
+		return null;
+		
+	}
 	
 }

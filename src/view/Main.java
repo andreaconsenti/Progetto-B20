@@ -20,9 +20,9 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(true);
 			primaryStage.setTitle("Risiko!");
-			//Image icon = new Image("C:\\Users\\Luca\\Documents\\Progetto-B20\\src\\view\\fxmls\\images\\App_Logo.png");
+			Image icon = new Image("view/fxmls/images/App_Logo.png");
 			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("fxmls/images/App_Logo.png")));
-
+			primaryStage.setResizable(false);
 			primaryStage.show();
 	}
 	

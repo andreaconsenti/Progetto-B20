@@ -115,6 +115,8 @@ public class RisikoGame {
             	if(t.getId() == shuffledTerritories[i].getId()) {
             		t.setOwner(players[playerID]);
             		players[playerID].addTerritory();
+            		t.addTanks(1);
+            		
             	}
             }
             playerID = (playerID + 1) % players.length;

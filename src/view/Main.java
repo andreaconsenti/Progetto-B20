@@ -18,13 +18,12 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			primaryStage.setResizable(false);
+			primaryStage.setResizable(true);
 			primaryStage.setTitle("Risiko!");
 			//Image icon = new Image("C:\\Users\\Luca\\Documents\\Progetto-B20\\src\\view\\fxmls\\images\\App_Logo.png");
 			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("fxmls/images/App_Logo.png")));
 
 			primaryStage.show();
-
 	}
 	
 	public static void main(String[] args) {

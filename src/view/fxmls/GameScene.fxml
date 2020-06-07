@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#mouseMoved" prefHeight="724.0" prefWidth="1115.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameSceneController">
+<Pane fx:id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#mouseClicked" onMouseMoved="#mouseMoved" prefHeight="724.0" prefWidth="1115.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameSceneController">
    <children>
       <ImageView fx:id="map" fitHeight="724.0" fitWidth="1115.0" pickOnBounds="true" preserveRatio="true">
          <image>

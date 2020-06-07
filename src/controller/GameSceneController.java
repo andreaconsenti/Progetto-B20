@@ -31,23 +31,27 @@ import model.util.Pixel;
 public class GameSceneController {
 	
 	@FXML
-	ImageView map;
+	private ImageView map;
 	
 	@FXML
-	Pane gamePane;
+	private Pane gamePane;
 	
 	@FXML
-	Label territoryLabel;
+	private Label territoryLabel;
 	
 	@FXML
-	AnchorPane tanksPane;
+	private AnchorPane tanksPane;
 	
-	RisikoGame game; 
-	HashMap<Territory, ArrayList<Pixel>> mappa;
-	PixelReader pixelReader;
-	PixelWriter pixelWriter;
-	WritableImage wImage;
-	FileHandler fileH = new FileHandler();
+	private RisikoGame game; 
+	private HashMap<Territory, ArrayList<Pixel>> mappa;
+	private HashMap<Territory, ImageView> mappaImgTanks;
+	private PixelReader pixelReader;
+	private PixelWriter pixelWriter;
+	private WritableImage wImage;
+	private FileHandler fileH = new FileHandler();
+	
+	private Territory territorySelected;
+	private Territory prevTerrSelected;
 	
 	public void initialize() throws NumberFormatException, IOException{
 		game = new RisikoGame(PlayersList.getPlayers());
@@ -63,6 +67,7 @@ public class GameSceneController {
 //		map.setX(gamePane.getLayoutX());
 //		map.setY(gamePane.getLayoutY());
 		
+		mappaImgTanks = new HashMap<Territory, ImageView>();
 		initTanks();
 
 		
@@ -85,10 +90,12 @@ public class GameSceneController {
 					territoryLabel.setOpacity(100);
 					territoryLabel.setText(territoryText(t));
 					changeColor(mappa.get(t));
+					territorySelected = t;
 					break;
 				} else {
 					map.setImage(wImage);
 					territoryLabel.setOpacity(0);
+					territorySelected = null;
 				}
 				
 			}
@@ -101,6 +108,34 @@ public class GameSceneController {
 		}
 	
 	}
+	
+	
+	
+	public void mouseClicked(MouseEvent e) {
+		
+		if(prevTerrSelected == null) {
+			prevTerrSelected = territorySelected;
+		} else if(territorySelected != null) {
+			swapTerritories();
+			prevTerrSelected = null;
+			territorySelected = null;
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -157,6 +192,7 @@ public class GameSceneController {
 			File file = new File(getTankPath(t));
 			Image image = new Image(file.toURI().toString());
 			ImageView tank = new ImageView(image);
+			mappaImgTanks.put(t, tank);
 			tank.setImage(image);
 		    tank.setX(p.getX());
 		    tank.setY(p.getY());
@@ -190,11 +226,29 @@ public class GameSceneController {
 			return "src/view/fxmls/images/tanks/tank_verde.png";
 		case PINK:
 			return "src/view/fxmls/images/tanks/tank_rosa.png";
-		
 		}
-		
 		return null;
+	}
+	
+	
+	
+	private void swapTerritories() {
+		
+		Player temp = territorySelected.getOwner();
+		territorySelected.setOwner(prevTerrSelected.getOwner());
+		prevTerrSelected.setOwner(temp);
+		
+		File file = new File(getTankPath(territorySelected));
+		Image image = new Image(file.toURI().toString());
+		mappaImgTanks.get(territorySelected).setImage(image);
+		
+		File file2 = new File(getTankPath(prevTerrSelected));
+		Image image2 = new Image(file2.toURI().toString());
+		mappaImgTanks.get(prevTerrSelected).setImage(image2);
+		
+		
 		
 	}
+	
 	
 }

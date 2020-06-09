@@ -197,8 +197,8 @@ public class GameSceneController {
 			tank.setImage(image);
 		    tank.setX(p.getX());
 		    tank.setY(p.getY());
-		    tank.setFitWidth(30);
-		    tank.setFitHeight(35);
+		    tank.setFitWidth(45);
+		    tank.setFitHeight(52.5);
 		    Label tanksNumber = new Label();
 		    Integer tanksN = t.getTanks();
 		    tanksNumber.setText(tanksN.toString());

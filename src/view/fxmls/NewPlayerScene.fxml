@@ -20,7 +20,7 @@
             <Image url="@images/PlayerScene.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="backButton" layoutX="37.0" layoutY="650.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="41.0" prefWidth="112.0" text="Indietro" />
+      <Button id="greytwo" fx:id="backButton" layoutX="37.0" layoutY="650.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="Indietro" />
       <ListView fx:id="playerList" layoutX="156.0" layoutY="110.0" prefHeight="151.0" prefWidth="495.0" />
       <TextField fx:id="nameInput" layoutX="763.0" layoutY="241.0" onKeyReleased="#keyReleasedProperty" prefHeight="41.0" prefWidth="294.0" />
       <Label layoutX="763.0" layoutY="209.0" text="Nome del giocatore:" textFill="WHITE">
@@ -46,15 +46,15 @@
             <Font name="Arial Rounded MT Bold" size="21.0" />
          </font>
       </Label>
-      <Button fx:id="addPlayerButton" layoutX="763.0" layoutY="415.0" mnemonicParsing="false" onAction="#addPlayerPressed" prefHeight="41.0" prefWidth="112.0" text="Aggiungi">
+      <Button id="greyone" fx:id="addPlayerButton" layoutX="763.0" layoutY="415.0" mnemonicParsing="false" onAction="#addPlayerPressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="Aggiungi">
          <effect>
             <DropShadow color="#00000072" />
          </effect></Button>
-      <Button fx:id="restoreButton" layoutX="945.0" layoutY="415.0" mnemonicParsing="false" onAction="#restorePressed" prefHeight="41.0" prefWidth="112.0" text="Ripristina">
+      <Button id="greyone" fx:id="restoreButton" layoutX="945.0" layoutY="415.0" mnemonicParsing="false" onAction="#restorePressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="Ripristina">
          <effect>
             <DropShadow color="#00000073" />
          </effect></Button>
-      <Button fx:id="startGameButton" layoutX="1130.0" layoutY="650.0" mnemonicParsing="false" onAction="#startGamePressed" prefHeight="41.0" prefWidth="112.0" text="Inizia partita" />
+      <Button id="greytwo" fx:id="startGameButton" layoutX="1130.0" layoutY="650.0" mnemonicParsing="false" onAction="#startGamePressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="Inizia partita" />
       <Label layoutX="156.0" layoutY="78.0" text="Giocatori:" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="21.0" />

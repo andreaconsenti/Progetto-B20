@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -34,27 +35,28 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </ImageView>
-      <Button layoutX="37.0" layoutY="650.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="41.0" prefWidth="112.0" text="Indietro">
-         <font>
-            <Font name="Stencil" size="18.0" />
-         </font></Button>
+      <Button id="greytwo" layoutX="37.0" layoutY="650.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="INDIETRO" />
       <VBox layoutX="118.0" layoutY="34.0" prefHeight="582.0" prefWidth="1044.0">
          <children>
-            <AnchorPane prefHeight="67.0" prefWidth="1044.0" style="-fx-background-color: lightgrey;">
+            <AnchorPane id="greytwo" prefHeight="67.0" prefWidth="1044.0" style="-fx-background-color: lightgrey;">
                <children>
-                  <Text layoutX="371.0" layoutY="46.0" stroke="#0a0a0a" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.4" text="Regole di Risiko" textAlignment="CENTER">
-                     <font>
-                        <Font name="Stencil" size="35.0" />
-                     </font>
-                     <fill>
-                        <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.4523809523809524">
-                           <stops>
-                              <Stop color="#e40f0f" />
-                              <Stop color="WHITE" offset="1.0" />
-                           </stops>
-                        </LinearGradient>
-                     </fill>
-                  </Text>
+                  <ToolBar id="toolbarrules" prefHeight="65.0" prefWidth="1044.0" stylesheets="@../css/StyleSheet.css">
+                     <items>
+                        <Text smooth="false" stroke="#0a0a0a" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.4" text="Regole di Risiko" textAlignment="CENTER" wrappingWidth="1009.89208984375">
+                           <font>
+                              <Font name="Stencil" size="36.0" />
+                           </font>
+                           <fill>
+                              <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.4523809523809524">
+                                 <stops>
+                                    <Stop color="#e40f0f" />
+                                    <Stop color="WHITE" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </fill>
+                        </Text>
+                     </items>
+                  </ToolBar>
                </children>
             </AnchorPane>
             <TitledPane collapsible="false" graphicTextGap="10.0" maxHeight="96.0" prefWidth="1044.0" text="SCOPO DEL GIOCO" textAlignment="CENTER" VBox.vgrow="ALWAYS">

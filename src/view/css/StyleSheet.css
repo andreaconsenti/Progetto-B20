@@ -1,0 +1,144 @@
+/*------------------------------------------------------------------------------------*/
+
+#greyone
+{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#a8a8a8 0%,#959595 100%), 
+             #9d9d9d, 
+             #d9d9d9,
+            radial-gradient(center 50% 50%, radius 100%,#d9d9d9,#cdcdcd);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+    -fx-text-fill: black;
+}
+
+#greyone:hover
+{
+
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#a8a8a8 0%,#959595 100%),
+            #9d9d9d, 
+            #d9d9d9,
+            radial-gradient(center 50% 50%,radius 100%,#eeeeee,#969696);
+}
+
+#greyone:pressed
+{
+     -fx-padding: 10 15 13 15;
+     -fx-background-insets: 2 0 0 0,2 0 3 0,2 0 4 0,2 0 5 0;
+
+}
+
+/*------------------------------------------------------------------------------------*/
+
+#greytwo
+{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#494949 0%,#454545 100%), 
+             #343434, 
+             #7d7d7d,
+            radial-gradient(center 50% 50%, radius 100%,#737373,#5c5c5c);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+    -fx-text-fill: white;
+}
+
+#greytwo:hover
+{
+
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#494949 0%,#454545 100%),
+            #343434, 
+            #7d7d7d,
+            radial-gradient(center 50% 50%,radius 100%,#7e7e7e, #292929);
+}
+
+#greytwo:pressed
+{
+     -fx-padding: 10 15 13 15;
+     -fx-background-insets: 2 0 0 0,2 0 3 0,2 0 4 0,2 0 5 0;
+
+}
+
+/*------------------------------------------------------------------------------------*/
+
+#radiobutton
+{
+	
+}
+/*------------------------------------------------------------------------------------*/
+
+#button
+{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#1380a3 0%,#127290 100%), 
+             #24829d, 
+             #3aafd8,
+            radial-gradient(center 50% 50%, radius 100%,#3ab0d9,#2ca3c5);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+}
+
+#button:hover
+{
+
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#1380a3 0%,#127290 100%),
+            #24829d, 
+            #3aafd8,
+            radial-gradient(center 50% 50%,radius 100%,#4bc4ea,#0e7f9d);
+}
+
+#button:pressed
+{
+     -fx-padding: 10 15 13 15;
+     -fx-background-insets: 2 0 0 0,2 0 3 0,2 0 4 0,2 0 5 0;
+
+}
+
+/*------------------------------------------------------------------------------------*/
+
+#toolbar
+{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#131da3 0%,#121b90 100%), 
+             #242c9d, 
+             #3a48d8,
+            radial-gradient(center 50% 50%, radius 100%,#3a45d9,#2c34c5);
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+    -fx-text-fill: white;
+}
+
+/*------------------------------------------------------------------------------------*/
+
+#toolbarrules
+{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#494949 0%,#454545 100%), 
+             #343434, 
+             #7d7d7d,
+            radial-gradient(center 50% 50%, radius 100%,#737373,#5c5c5c);
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+    -fx-text-fill: white;
+}
+
+/*------------------------------------------------------------------------------------*/

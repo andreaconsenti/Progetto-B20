@@ -51,8 +51,6 @@ public class FileHandler {
 			line = in.readLine();
 			code = Integer.parseInt(line.substring(0,2));
 			StringTokenizer st = new StringTokenizer (line.substring(4));
-//			name = st.nextToken();
-//			continent = st.nextToken();
 			color = st.nextToken();
 			int k=Integer.parseInt(line.substring(22, 23));
 			int j=k*3;
@@ -262,9 +260,7 @@ public class FileHandler {
 		int codeMission;
 		int typeMission;
 		int code;
-		int code2;
-		int j;
-		
+		int code2;		
 		
 		for(int i=0; i<n; i++) {
 			line=in.readLine();

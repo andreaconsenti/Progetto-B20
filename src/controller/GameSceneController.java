@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import model.entities.COLOR;
 import model.entities.Player;
 import model.entities.PlayersList;
@@ -199,11 +200,18 @@ public class GameSceneController {
 		    tank.setY(p.getY());
 		    tank.setFitWidth(42.5);
 		    tank.setFitHeight(47.5);
+		    Circle circle = new Circle();
+		    circle.relocate(p.getX()+4,p.getY()+7);
+		    circle.setRadius(10);
+		    circle.setOpacity(0.4);
+		    circle.setStyle("-fx-fill: black;");
 		    Label tanksNumber = new Label();
 		    Integer tanksN = t.getTanks();
 		    tanksNumber.setText(tanksN.toString());
 		    tanksNumber.relocate(p.getX(),p.getY());
+		    tanksNumber.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
 		    tanksPane.getChildren().add(tank);
+		    tanksPane.getChildren().add(circle);
 		    tanksPane.getChildren().add(tanksNumber);
 			i++;
 		}

@@ -184,7 +184,7 @@ public class GameSceneController {
 	   
 	    
 		
-		ArrayList<Pixel> posList = fileH.addPosizione("assets/confiniEPosizioni.txt");
+		ArrayList<Pixel> posList = fileH.addPosizione("assets/infoTerritori.txt");
 		
 		int i = 0;
 		for(Pixel p : posList) {
@@ -197,8 +197,8 @@ public class GameSceneController {
 			tank.setImage(image);
 		    tank.setX(p.getX());
 		    tank.setY(p.getY());
-		    tank.setFitWidth(45);
-		    tank.setFitHeight(52.5);
+		    tank.setFitWidth(42.5);
+		    tank.setFitHeight(47.5);
 		    Label tanksNumber = new Label();
 		    Integer tanksN = t.getTanks();
 		    tanksNumber.setText(tanksN.toString());

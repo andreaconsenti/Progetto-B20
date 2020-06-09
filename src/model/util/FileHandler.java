@@ -50,10 +50,15 @@ public class FileHandler {
 			
 			line = in.readLine();
 			code = Integer.parseInt(line.substring(0,2));
-			StringTokenizer st = new StringTokenizer (line.substring(2));
-			name = st.nextToken();
-			continent = st.nextToken();
+			StringTokenizer st = new StringTokenizer (line.substring(4));
+//			name = st.nextToken();
+//			continent = st.nextToken();
 			color = st.nextToken();
+			int k=Integer.parseInt(line.substring(22, 23));
+			int j=k*3;
+			StringTokenizer s = new StringTokenizer (line.substring(j+23));
+			name = s.nextToken();
+			continent = s.nextToken();
 			
 			
 			if(!addTerritory(new Territory(name, code, continent, color))) {
@@ -89,7 +94,7 @@ public class FileHandler {
 	public ArrayList<Territory> addConfinanti(ArrayList<Territory> list, String path) throws NumberFormatException, IOException{
 		
 		BufferedReader in = new BufferedReader(new FileReader(path));
-		String line;;
+		String line;
 		int id;
 		int n_confini;
 		
@@ -102,8 +107,8 @@ public class FileHandler {
 			tempList = new ArrayList<Territory>();
 			line = in.readLine();
 			id = Integer.parseInt(line.substring(0,2));
-			StringTokenizer st = new StringTokenizer (line.substring(2));
-			n_confini = Integer.parseInt(st.nextToken());
+			n_confini = Integer.parseInt(line.substring(22, 23));
+			StringTokenizer st = new StringTokenizer (line.substring(23));
 			
 			for(int k = 0; k<n_confini; k++) {
 				
@@ -130,7 +135,7 @@ public class FileHandler {
 		String line;
 		
 		card=new ArrayList<Card>();
-		int n=Integer.parseInt(in.readLine());
+		int n=Integer.parseInt(in.readLine()) + 2;
 		
 		Territory territory=null;
 		FIGURE figure=null;		// Capire se lasciarlo di tipo String o trovare il modo per farlo leggere direttamente come tipo della ENUM
@@ -320,9 +325,7 @@ public class FileHandler {
 			
 			line = in.readLine();
 			id = Integer.parseInt(line.substring(0,2));
-			int k=Integer.parseInt(line.substring(3, 4));
-			int j=k*3;
-			StringTokenizer st = new StringTokenizer (line.substring(j+4));
+			StringTokenizer st = new StringTokenizer (line.substring(11));
 			x = Integer.parseInt(st.nextToken());
 			y = Integer.parseInt(st.nextToken());
 			
@@ -394,11 +397,11 @@ public class FileHandler {
 		}
 	}
 	
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		FileHandler f = new FileHandler();
+//	public static void main(String[] args) throws NumberFormatException, IOException {
+//		FileHandler f = new FileHandler();
 //		System.out.println("-----TERRITORI-----\n");
-		ArrayList<Territory> lista = f.genTerritories("assets/TerritoriEColori.txt");
-		System.out.println(lista.get(1));		//Commentato perché in output faceva uscire 2 volte "Alaska"  @author AleCarbo
+//		ArrayList<Territory> lista = f.genTerritories("assets/confiniEPosizioni.txt");
+////		System.out.println(lista.get(1));		//Commentato perché in output faceva uscire 2 volte "Alaska"  @author AleCarbo
 //		f.printTerritories(lista);
 //		System.out.println("-----CONFINI-----\n");
 //		ArrayList<Territory> listaCompleta = f.addConfinanti(lista, "assets/confiniEPosizioni.txt");
@@ -406,7 +409,7 @@ public class FileHandler {
 //			t.printConfini();
 //		}
 //		System.out.println("-----CARTE-----\n");
-//		ArrayList<Card> carte=f.genCards(lista, "assets/carte.txt");
+//		ArrayList<Card> carte=f.genCards(lista, "assets/confiniEPosizioni.txt");
 //		f.printCards(carte);
 //		System.out.println("-----CONTINENTI-----");
 //		ArrayList<Continent> continenti=f.genContinents("assets/continenti.txt");
@@ -421,5 +424,5 @@ public class FileHandler {
 //		ArrayList<Pixel> pixel=f.addPosizione("assets/confiniEPosizioni.txt");
 //		f.printPixels(pixel);
 //		
-	}	
+//	}	
 }

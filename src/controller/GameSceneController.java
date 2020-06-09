@@ -200,18 +200,19 @@ public class GameSceneController {
 		    tank.setY(p.getY());
 		    tank.setFitWidth(42.5);
 		    tank.setFitHeight(47.5);
-		    Circle circle = new Circle();
-		    circle.relocate(p.getX()+4,p.getY()+7);
-		    circle.setRadius(10);
-		    circle.setOpacity(0.4);
-		    circle.setStyle("-fx-fill: black;");
+//		    Circle circle = new Circle();
+//		    circle.relocate(p.getX()+4,p.getY()+7);
+//		    circle.setRadius(10);
+//		    circle.setOpacity(0.4);
+//		    circle.setStyle("-fx-fill: black;");
 		    Label tanksNumber = new Label();
 		    Integer tanksN = t.getTanks();
 		    tanksNumber.setText(tanksN.toString());
 		    tanksNumber.relocate(p.getX(),p.getY());
-		    tanksNumber.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
+//		    tanksNumber.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
+		    tanksNumber.setStyle("-fx-text-fill: white smoke; -fx-font-weight: bold;");
 		    tanksPane.getChildren().add(tank);
-		    tanksPane.getChildren().add(circle);
+//		    tanksPane.getChildren().add(circle);
 		    tanksPane.getChildren().add(tanksNumber);
 			i++;
 		}

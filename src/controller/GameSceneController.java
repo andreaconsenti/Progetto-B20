@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
@@ -44,10 +45,13 @@ public class GameSceneController {
 	@FXML
 	private AnchorPane tanksPane;
 	
+	@FXML
+	private TextArea statusBar;
+	
 	
 	private RisikoGame game; 
 	private HashMap<Territory, ArrayList<Pixel>> mappa;
-	private HashMap<Territory, ImageView> mappaImgTanks;
+	private HashMap<Territory, territoryStatus> mappaImgTanks;
 	private PixelReader pixelReader;
 	private PixelWriter pixelWriter;
 	private WritableImage wImage;
@@ -55,6 +59,35 @@ public class GameSceneController {
 	
 	private Territory territorySelected;
 	private Territory prevTerrSelected;
+	
+	
+	private class territoryStatus{
+		private ImageView image;
+		private Label number;
+		
+		public territoryStatus(ImageView img, Label lbl) {
+			setImage(img);
+			setNumber(lbl);
+		}
+
+		public Label getNumber() {
+			return number;
+		}
+
+		public void setNumber(Label number) {
+			this.number = number;
+		}
+
+		public ImageView getImage() {
+			return image;
+		}
+
+		public void setImage(ImageView image) {
+			this.image = image;
+		}
+		
+	}
+	
 	
 	public void initialize() throws NumberFormatException, IOException{
 		game = new RisikoGame(PlayersList.getPlayers());
@@ -70,42 +103,51 @@ public class GameSceneController {
 //		map.setX(gamePane.getLayoutX());
 //		map.setY(gamePane.getLayoutY());
 		
-		mappaImgTanks = new HashMap<Territory, ImageView>();
+		mappaImgTanks = new HashMap<Territory, territoryStatus>();
 		initTanks();
 		
+		statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
 	}
 	
 	
 	
 	public void mouseMoved(MouseEvent e) {
+		
 		int x =  (int)e.getX();
 		int y =  (int)e.getY();
 		int check;
 		
-		for(Territory t : game.getTerritories()) {
-			
-			check = 0;
-			for(Pixel p : mappa.get(t)) {
+		switch(game.getGamePhase()) {
+		
+		case FIRSTTURN:
+			for(Territory t : game.getTerritories()) {
 				
-				if((p.getX() == x) && (p.getY() == y)) {
-					check = 1;
-					territoryLabel.setOpacity(100);
-					territoryLabel.setText(territoryText(t));
-					changeColor(mappa.get(t));
-					territorySelected = t;
+				check = 0;
+				for(Pixel p : mappa.get(t)) {
+					
+					if((p.getX() == x) && (p.getY() == y)) {
+						check = 1;
+						territoryLabel.setOpacity(100);
+						territoryLabel.setText(territoryText(t));
+						if(game.getCurrentTurn().equals(t.getOwner())) {
+							changeColor(mappa.get(t));
+							territorySelected = t;
+						}
+						break;
+					} else {
+						map.setImage(wImage);
+						territoryLabel.setOpacity(0);
+						territorySelected = null;
+					}
+					
+				}
+				if(check == 1) {
 					break;
-				} else {
-					map.setImage(wImage);
-					territoryLabel.setOpacity(0);
-					territorySelected = null;
 				}
 				
+				
+				
 			}
-			if(check == 1) {
-				break;
-			}
-			
-			
 			
 		}
 	
@@ -115,14 +157,26 @@ public class GameSceneController {
 	
 	public void mouseClicked(MouseEvent e) {
 		
-		if(prevTerrSelected == null) {
-			prevTerrSelected = territorySelected;
-		} else if(territorySelected != null) {
-			swapTerritories();
-			prevTerrSelected = null;
-			territorySelected = null;
+		switch(game.getGamePhase()) {
+		
+		case FIRSTTURN:
+			
+			if(territorySelected != null) {
+				game.getCurrentTurn().placeTank(1);
+				game.addTerritoryTanks(territorySelected);
+				Integer n = game.getTerritory(territorySelected).getTanks();
+				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
+				statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
+				nextTurn();
+			}
+			
+			
+			break;
+		
 		}
 		
+	
+	
 	}
 	
 	
@@ -141,6 +195,11 @@ public class GameSceneController {
 	
 	
 	
+	
+	private void nextTurn() {
+		game.nextTurn();
+		statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
+	}
 	
 	private void changeColor(ArrayList<Pixel> list) {
 		WritableImage tempWImage = genWritableMap();
@@ -194,7 +253,6 @@ public class GameSceneController {
 			File file = new File(getTankPath(t));
 			Image image = new Image(file.toURI().toString());
 			ImageView tank = new ImageView(image);
-			mappaImgTanks.put(t, tank);
 			tank.setImage(image);
 		    tank.setX(p.getX());
 		    tank.setY(p.getY());
@@ -214,6 +272,8 @@ public class GameSceneController {
 		    tanksPane.getChildren().add(tank);
 //		    tanksPane.getChildren().add(circle);
 		    tanksPane.getChildren().add(tanksNumber);
+		    territoryStatus status = new territoryStatus(tank, tanksNumber);
+		    mappaImgTanks.put(t, status);
 			i++;
 		}
 		
@@ -250,11 +310,11 @@ public class GameSceneController {
 		
 		File file = new File(getTankPath(territorySelected));
 		Image image = new Image(file.toURI().toString());
-		mappaImgTanks.get(territorySelected).setImage(image);
+		mappaImgTanks.get(territorySelected).getImage().setImage(image);
 		
 		File file2 = new File(getTankPath(prevTerrSelected));
 		Image image2 = new Image(file2.toURI().toString());
-		mappaImgTanks.get(prevTerrSelected).setImage(image2);
+		mappaImgTanks.get(prevTerrSelected).getImage().setImage(image2);
 		
 		
 		

@@ -8,8 +8,8 @@ import model.util.FileHandler;
 
 public class RisikoGame {
 	
-	private enum GAME_PHASE{
-		REINFORCEMENT, BATTLE, FINALMOVE;
+	public enum GAME_PHASE{
+		FIRSTTURN, REINFORCEMENT, BATTLE, FINALMOVE;
 	}
 	
 	private Player[] players;
@@ -19,13 +19,16 @@ public class RisikoGame {
 	private ArrayList<Card> cards;
 	private DiceShaker diceShaker = new DiceShaker();
 	private FileHandler fileHandler = new FileHandler();
-	
+	private GAME_PHASE gamePhase;
+	private Player currentTurn;
+	private int turnCounter;
 	
 	
 	public RisikoGame(Player[] players) throws NumberFormatException, IOException {
 		this.players = players;
-		giveStarterTanks();
+		this.players = shufflePlayers();
 		
+		giveStarterTanks();
 		
 		territories = fileHandler.addConfinanti(fileHandler.genTerritories("assets/infoTerritori.txt"), "assets/infoTerritori.txt");
 		continents = fileHandler.genContinents("assets/continenti.txt");
@@ -37,8 +40,49 @@ public class RisikoGame {
 		
 		initTerritoryOwners();
 		
+		setGamePhase(GAME_PHASE.FIRSTTURN);
+		
+		turnCounter = 0;
+		currentTurn = this.players[turnCounter];
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public void nextTurn() {
+		turnCounter++;
+		if(turnCounter == players.length) {
+			turnCounter = 0;
+		}
+		currentTurn = this.players[turnCounter];
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -46,20 +90,24 @@ public class RisikoGame {
 		switch(this.players.length) {
 		case 3:
 			for(Player p : players) {
-				p.addTanks(35);
+				p.giveBonusTanks(35);
 			}
+			break;
 		case 4:
 			for(Player p : players) {
-				p.addTanks(30);
+				p.giveBonusTanks(30);
 			}
+			break;
 		case 5:
 			for(Player p : players) {
-				p.addTanks(25);
+				p.giveBonusTanks(25);
 			}
+			break;
 		case 6:
 			for(Player p : players) {
-				p.addTanks(20);
+				p.giveBonusTanks(20);
 			}
+			break;
 		}
 	}
 	
@@ -116,6 +164,7 @@ public class RisikoGame {
             		t.setOwner(players[playerID]);
             		players[playerID].addTerritory();
             		t.addTanks(1);
+            		t.getOwner().placeTank(1);
             		
             	}
             }
@@ -143,8 +192,56 @@ public class RisikoGame {
 		return territories;
 	}
 	
+    private Player[] shufflePlayers() {
+    	Player[] shuffledPlayers = new Player[players.length];
+    	int k = 0;
+    	for(Player p : players) {
+    		shuffledPlayers[k] = p;
+    		k++;
+    	}
+        for (int i = 0; i < players.length; i++) {
+            int j = i + (int) ((players.length - i) * Math.random());
+            Player temp = shuffledPlayers[i];
+            shuffledPlayers[i] = shuffledPlayers[j];
+            shuffledPlayers[j] = temp;
+        }
+        return shuffledPlayers;
+    }
 	
+	public Player getCurrentTurn() {
+		return currentTurn;
+	}
+
+
+	public GAME_PHASE getGamePhase() {
+		return gamePhase;
+	}
+
+
+	public void setGamePhase(GAME_PHASE gamePhase) {
+		this.gamePhase = gamePhase;
+	}
 	
+	public void addTerritoryTanks(Territory t) {
+		for(Territory te : territories) {
+			if(te.getId() == t.getId()) {
+				te.addTanks(1);
+			}
+		}
+		
+	}
+	
+	public Territory getTerritory(Territory t) {
+		for(Territory te : territories) {
+			if(te.getId() == t.getId()) {
+				return te;
+			}
+		}
+		return null;
+	}
+		
+	
+
 	//-------------------TEST MAIN
 	
 	public void printTerritories() {
@@ -173,32 +270,46 @@ public class RisikoGame {
 			System.out.println(c.getName());
 		}
 	}
+
+
+	public void printBonusTanks() {
+		for(Player p : this.players) {
+			System.out.println(p.getName());
+			System.out.println(p.getBonusTanks());
+		}
+	}
+
+
+
+
 	
 	
-	
-	/*public static void main(String[] args) throws NumberFormatException, IOException {
-		
-		Player p1 = new Player("Luca", COLOR.BLACK);
-		Player p2 = new Player("Andre", COLOR.PINK);
-		Player p3 = new Player("Gino", COLOR.BLUE);
-		Player p4 = new Player("Daniele", COLOR.RED);
-		Player p5 = new Player("Alfonso", COLOR.GREEN);
-		
-		Player[] list = {p1, p2, p3, p4, p5};
-		
-		RisikoGame game = new RisikoGame(list);
-		
-		//game.printTerritories();
-		System.out.println(" ");
-		//game.printPlayers();
-		//game.printCards();
-		//game.printContinents();
-		
-		
-		
-		
-	}*/
-	
+//	public static void main(String[] args) throws NumberFormatException, IOException {
+//		
+//		Player p1 = new Player("Luca", COLOR.BLACK);
+//		Player p2 = new Player("Andre", COLOR.PINK);
+//		Player p3 = new Player("Gino", COLOR.BLUE);
+////		Player p4 = new Player("Daniele", COLOR.RED);
+////		Player p5 = new Player("Alfonso", COLOR.GREEN);
+//		
+//		Player[] list = {p1, p2, p3};
+//		
+//		RisikoGame game = new RisikoGame(list);
+//		
+//		//game.printTerritories();
+//		System.out.println(" ");
+//		//game.printPlayers();
+//		//game.printCards();
+//		//game.printContinents();
+//		
+//		game.printBonusTanks();
+//		
+//		
+//		
+//		
+//		
+//	}
+//	
 	
 	
 }

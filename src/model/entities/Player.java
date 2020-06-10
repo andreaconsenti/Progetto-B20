@@ -21,6 +21,7 @@ public class Player {
 		this.name = name;
 		this.color = color;
 		this.tanks = 0;
+		this.bonusTanks = 0;
 		continents = 0;
 	}
 	
@@ -141,5 +142,17 @@ public class Player {
 		return null;	
 	}
 	
+	public void placeTank(int n) {
+		
+		this.bonusTanks -= n;
+		this.tanks +=n;
+		
+	}
 	
+	public boolean equals(Player p) {
+		if(p.getName() == this.name)
+			return true;
+		else
+			return false;
+	}
 }

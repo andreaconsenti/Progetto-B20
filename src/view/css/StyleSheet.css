@@ -214,10 +214,10 @@
     -fx-padding: 8 15 15 15;
     -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
     -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%,#131da3 0%,#121b90 100%), 
-             #242c9d, 
-             #3a48d8,
-            radial-gradient(center 50% 50%, radius 100%,#3a45d9,#2c34c5);
+            linear-gradient(from 0% 93% to 0% 100%,#29559a 0%,#315690 100%), 
+             #385d93, 
+             #608cd6,
+            radial-gradient(center 50% 50%, radius 100%,#5c89d6,#4472b5);
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
     -fx-text-fill: white;

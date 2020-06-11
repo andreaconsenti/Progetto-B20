@@ -396,16 +396,16 @@ public class FileHandler {
 //	public static void main(String[] args) throws NumberFormatException, IOException {
 //		FileHandler f = new FileHandler();
 //		System.out.println("-----TERRITORI-----\n");
-//		ArrayList<Territory> lista = f.genTerritories("assets/confiniEPosizioni.txt");
+//		ArrayList<Territory> lista = f.genTerritories("assets/infoTerritori.txt");
 ////		System.out.println(lista.get(1));		//Commentato perché in output faceva uscire 2 volte "Alaska"  @author AleCarbo
 //		f.printTerritories(lista);
 //		System.out.println("-----CONFINI-----\n");
-//		ArrayList<Territory> listaCompleta = f.addConfinanti(lista, "assets/confiniEPosizioni.txt");
+//		ArrayList<Territory> listaCompleta = f.addConfinanti(lista, "assets/infoTerritori.txt");
 //		for(Territory t : listaCompleta) {
 //			t.printConfini();
 //		}
 //		System.out.println("-----CARTE-----\n");
-//		ArrayList<Card> carte=f.genCards(lista, "assets/confiniEPosizioni.txt");
+//		ArrayList<Card> carte=f.genCards(lista, "assets/infoTerritori.txt");
 //		f.printCards(carte);
 //		System.out.println("-----CONTINENTI-----");
 //		ArrayList<Continent> continenti=f.genContinents("assets/continenti.txt");
@@ -417,7 +417,7 @@ public class FileHandler {
 //		f.printMissions(missioni);
 //		
 //		System.out.println("\n-----POSIZIONI-----\n");
-//		ArrayList<Pixel> pixel=f.addPosizione("assets/confiniEPosizioni.txt");
+//		ArrayList<Pixel> pixel=f.addPosizione("assets/infoTerritori.txt");
 //		f.printPixels(pixel);
 //		
 //	}	

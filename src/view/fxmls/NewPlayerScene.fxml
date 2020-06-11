@@ -20,7 +20,7 @@
             <Image url="@images/PlayerScene.jpg" />
          </image>
       </ImageView>
-      <Button id="greytwo" fx:id="backButton" layoutX="37.0" layoutY="650.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="INDIETRO" />
+      <Button id="greytwo" fx:id="backButton" layoutX="44.0" layoutY="650.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="INDIETRO" />
       <ListView fx:id="playerList" layoutX="156.0" layoutY="110.0" prefHeight="151.0" prefWidth="495.0" />
       <TextField fx:id="nameInput" layoutX="763.0" layoutY="241.0" onKeyReleased="#keyReleasedProperty" prefHeight="41.0" prefWidth="294.0" />
       <Label layoutX="763.0" layoutY="209.0" text="Nome del giocatore:" textFill="WHITE">
@@ -54,7 +54,7 @@
          <effect>
             <DropShadow color="#00000073" />
          </effect></Button>
-      <Button id="greytwo" fx:id="startGameButton" layoutX="1130.0" layoutY="650.0" mnemonicParsing="false" onAction="#startGamePressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="INIZIA PARTITA" />
+      <Button id="greytwo" fx:id="startGameButton" layoutX="1106.0" layoutY="650.0" mnemonicParsing="false" onAction="#startGamePressed" prefHeight="41.0" prefWidth="129.0" stylesheets="@../css/StyleSheet.css" text="INIZIA PARTITA" />
       <Label layoutX="156.0" layoutY="78.0" text="Giocatori:" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="21.0" />

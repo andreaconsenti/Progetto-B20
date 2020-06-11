@@ -8,7 +8,12 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -22,6 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import model.entities.COLOR;
 import model.entities.Player;
 import model.entities.PlayersList;
@@ -47,6 +53,9 @@ public class GameSceneController {
 	
 	@FXML
 	private TextArea statusBar;
+	
+	@FXML
+	private Button cardButton;
 	
 	
 	private RisikoGame game; 
@@ -168,6 +177,8 @@ public class GameSceneController {
 				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
 				statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
 				nextTurn();
+				territorySelected = null;
+				map.setImage(wImage);
 			}
 			
 			
@@ -179,6 +190,15 @@ public class GameSceneController {
 	
 	}
 	
+	public void cardButtonPressed(ActionEvent e) throws IOException {
+		Parent cardSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/SelectCardScene.fxml"));
+		Scene cardScene = new Scene(cardSceneParent);
+		Stage window = new Stage();
+		window.setResizable(false);
+		window.setScene(cardScene);
+		window.show();
+		
+	}
 	
 	
 	

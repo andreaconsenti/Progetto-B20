@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -17,7 +16,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -59,83 +57,53 @@
                   </ToolBar>
                </children>
             </AnchorPane>
-            <TitledPane collapsible="false" graphicTextGap="10.0" maxHeight="96.0" prefWidth="1044.0" text="SCOPO DEL GIOCO" textAlignment="CENTER" VBox.vgrow="ALWAYS">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Text layoutX="264.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Raggiungere per primo il proprio obiettivo segreto." textAlignment="CENTER">
+            <Pane id="toolbarrules3" prefHeight="190.0" prefWidth="1044.0" stylesheets="@../css/StyleSheet.css">
+               <children>
+                  <ToolBar id="toolbarrules2" layoutY="95.0" prefHeight="40.0" prefWidth="1044.0" stylesheets="@../css/StyleSheet.css">
+                     <items>
+                        <Text fill="#970000" strokeType="OUTSIDE" strokeWidth="0.0" text="COME SI GIOCA">
                            <font>
-                              <Font name="MS Outlook" size="23.0" />
+                              <Font name="Calibri Bold" size="20.0" />
                            </font>
-                           <stroke>
-                              <RadialGradient centerX="0.5166666666666667" centerY="0.5047619047619047" focusDistance="-0.023255813953488413" radius="1.0">
-                                 <stops>
-                                    <Stop color="#1005ed" />
-                                    <Stop color="WHITE" offset="1.0" />
-                                 </stops>
-                              </RadialGradient>
-                           </stroke>
+                        </Text>
+                     </items>
+                  </ToolBar>
+                  <ToolBar id="toolbarrules2" prefHeight="40.0" prefWidth="1044.0" stylesheets="@../css/StyleSheet.css">
+                     <items>
+                        <Text fill="#970000" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="SCOPO DEL GIOCO">
+                           <font>
+                              <Font name="Calibri Bold" size="20.0" />
+                           </font>
+                        </Text>
+                     </items>
+                  </ToolBar>
+                  <Pane layoutY="44.0" prefHeight="50.0" prefWidth="551.0" stylesheets="@../css/StyleSheet.css">
+                     <children>
+                        <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Raggiungere per primo il proprio obiettivo segreto." wrappingWidth="406.3023433685303">
+                           <font>
+                              <Font name="Calibri" size="16.0" />
+                           </font>
                         </Text>
                      </children>
-                  </AnchorPane>
-              </content>
-               <font>
-                  <Font name="MS Outlook" size="23.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <textFill>
-                  <RadialGradient centerX="0.5166666666666667" centerY="0.5047619047619047" cycleMethod="REFLECT" focusDistance="-0.023255813953488413" radius="1.0">
-                     <stops>
-                        <Stop color="#ee2a03" />
-                        <Stop color="#e3190b" offset="1.0" />
-                     </stops>
-                  </RadialGradient>
-               </textFill>
-            </TitledPane>
-            <TitledPane collapsible="false" graphicTextGap="10.0" maxHeight="96.0" prefWidth="1044.0" text="COME SI GIOCA" textAlignment="CENTER" VBox.vgrow="ALWAYS">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  </Pane>
+                  <Pane layoutY="140.0" prefHeight="50.0" prefWidth="420.0">
                      <children>
-                        <Text layoutX="288.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Le mosse di ogni giocatore si suddividono in 3 fasi" textAlignment="CENTER">
+                        <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Le mosse di ogni giocatore di dividono in tre fasi">
                            <font>
-                              <Font name="MS Outlook" size="21.0" />
+                              <Font name="Calibri" size="16.0" />
                            </font>
-                           <stroke>
-                              <RadialGradient centerX="0.5166666666666667" centerY="0.5047619047619047" focusDistance="-0.023255813953488413" radius="1.0">
-                                 <stops>
-                                    <Stop color="#1005ed" />
-                                    <Stop color="WHITE" offset="1.0" />
-                                 </stops>
-                              </RadialGradient>
-                           </stroke>
                         </Text>
                      </children>
-                  </AnchorPane>
-               </content>
-               <font>
-                  <Font name="MS Outlook" size="23.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <textFill>
-                  <RadialGradient centerX="0.5166666666666667" centerY="0.5047619047619047" cycleMethod="REFLECT" focusDistance="-0.023255813953488413" radius="1.0">
-                     <stops>
-                        <Stop color="#ee2a03" />
-                        <Stop color="#e3190b" offset="1.0" />
-                     </stops>
-                  </RadialGradient>
-               </textFill>
-            </TitledPane>
+                  </Pane>
+               </children>
+            </Pane>
             <TabPane prefHeight="329.0" prefWidth="1044.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="FASE 1">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextArea editable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="299.0" prefWidth="1044.0" text="- PRIMA FASE:  RINFORZI&#10;&#10;&#10;a) Ogni giocatore, al proprio turno, prende tante armate del proprio colore quanti sono i territori da lui occupati&#10;sulla plancia divisi per 3 per rafforzare i suoi territori (es. 8 territori occupati -&gt; 2 armate supplementari).&#10;&#10;&#10;b) Se il giocatore occupa tutti i territori di un continente, ha diritto (ad ogni turno) al numero&#10;di armate supplementari riportate nella seguente tabella (riprodotta anche sulla plancia di gioco):&#10;&#10;• Europa = 5 carrarmati&#10;• Asia = 7 carrarmati&#10;• America del Nord = 5 carrarmati&#10;• America del Sud = 2 carrarmati&#10;• Africa = 3 carrarmati&#10;• Oceania = 2 carrarmati&#10;&#10;&#10;c) Ogni volta in cui un giocatore (a conclusione del suo turno)&#10;conquista uno o più territori, ha diritto a pescare una carta Territorio, &#10;senza mostrarla agli altri.&#10;Queste carte permettono di ricevere ulteriori armate supplementari, prima&#10;di ingaggiare i combattimenti, in base alle combinazioni (Tris) che si riescono&#10;a formare:&#10;&#10;• 3 cannoni: 4 armate&#10;• 3 fanti: 6 armate&#10;• 3 cavalieri: 8 armate&#10;• un fante, un cannone e un cavaliere:&#10;  10 armate&#10;• un “Jolly” più due carte uguali:&#10;  12 armate&#10;&#10;Il giocatore,inoltre,riceve 2 armate in più per ciascuna di queste carte se in quel momento&#10;il territorio raffigurato sulla carta è posseduto." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TextArea id="toolbarrules3" editable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="299.0" prefWidth="1044.0" style="-fx-background-color: e8e8e8;" text="- PRIMA FASE:  RINFORZI&#10;&#10;&#10;a) Ogni giocatore, al proprio turno, prende tante armate del proprio colore quanti sono i territori da lui occupati&#10;sulla plancia divisi per 3 per rafforzare i suoi territori (es. 8 territori occupati -&gt; 2 armate supplementari).&#10;&#10;&#10;b) Se il giocatore occupa tutti i territori di un continente, ha diritto (ad ogni turno) al numero&#10;di armate supplementari riportate nella seguente tabella (riprodotta anche sulla plancia di gioco):&#10;&#10;• Europa = 5 carrarmati&#10;• Asia = 7 carrarmati&#10;• America del Nord = 5 carrarmati&#10;• America del Sud = 2 carrarmati&#10;• Africa = 3 carrarmati&#10;• Oceania = 2 carrarmati&#10;&#10;&#10;c) Ogni volta in cui un giocatore (a conclusione del suo turno)&#10;conquista uno o più territori, ha diritto a pescare una carta Territorio, &#10;senza mostrarla agli altri.&#10;Queste carte permettono di ricevere ulteriori armate supplementari, prima&#10;di ingaggiare i combattimenti, in base alle combinazioni (Tris) che si riescono&#10;a formare:&#10;&#10;• 3 cannoni: 4 armate&#10;• 3 fanti: 6 armate&#10;• 3 cavalieri: 8 armate&#10;• un fante, un cannone e un cavaliere:&#10;  10 armate&#10;• un “Jolly” più due carte uguali:&#10;  12 armate&#10;&#10;Il giocatore,inoltre,riceve 2 armate in più per ciascuna di queste carte se in quel momento&#10;il territorio raffigurato sulla carta è posseduto." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="MS Outlook" size="16.0" />
                                  </font>
@@ -227,7 +195,8 @@
                                     <Font name="MS Outlook" size="16.0" />
                                  </font>
                               </TextArea>
-                           </children></AnchorPane>
+                           </children>
+                        </AnchorPane>
                     </content>
                   </Tab>
               </tabs>

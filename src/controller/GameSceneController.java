@@ -58,7 +58,7 @@ public class GameSceneController {
 	private Button cardButton;
 	
 	
-	private RisikoGame game; 
+	protected static RisikoGame game; 
 	private HashMap<Territory, ArrayList<Pixel>> mappa;
 	private HashMap<Territory, territoryStatus> mappaImgTanks;
 	private PixelReader pixelReader;
@@ -195,12 +195,21 @@ public class GameSceneController {
 		Scene cardScene = new Scene(cardSceneParent);
 		Stage window = new Stage();
 		window.setResizable(false);
+		window.setTitle("Carte");
 		window.setScene(cardScene);
 		window.show();
 		
 	}
 	
-	
+	public void missionButtonPressed(ActionEvent e) throws IOException {
+		Parent cardSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/MissionScene.fxml"));
+		Scene cardScene = new Scene(cardSceneParent);
+		Stage window = new Stage();
+		window.setResizable(false);
+		window.setTitle("Missione");
+		window.setScene(cardScene);
+		window.show();
+	}
 	
 	
 	

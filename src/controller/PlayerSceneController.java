@@ -16,7 +16,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.entities.COLOR;
@@ -26,86 +28,93 @@ import model.entities.RisikoGame;
 
 public class PlayerSceneController {
 	
-	@FXML
-	private Button startGameButton;
-	@FXML
-	private Button addPlayerButton;
-	@FXML
-	private ListView<String> playerList;
-	@FXML
-	private TextField nameInput;
-	@FXML
-	private MenuButton colorInput;
-	@FXML
-	private MenuItem colorRosso;
-	@FXML
-	private MenuItem colorVerde;
-	@FXML
-	private MenuItem colorGiallo;
-	@FXML
-	private MenuItem colorRosa;
-	@FXML
-	private MenuItem colorNero;
-	@FXML
-	private MenuItem colorBlu;
-	@FXML
-	private Label colorLabel;
-	@FXML
-	private RadioButton aiPlayer;
-	
+
+    @FXML
+    private Button restoreButton;
+
+    @FXML
+    private Button startGameButton;
+
+    @FXML
+    private Button backButton;
+    
+    @FXML
+    private MenuButton mapinput;
+
+    @FXML
+    private ListView<String> playerList;
+    
+    @FXML
+    private TextField nameInputBlue;
+
+    @FXML
+    private RadioButton aiPlayerBlue;
+
+    @FXML
+    private Button addPlayerBtnBlue;
+
+    @FXML
+    private TextField nameInputPink;
+
+    @FXML
+    private RadioButton aiPlayerPink;
+
+    @FXML
+    private Button addPlayerBtnPink;
+
+    @FXML
+    private TextField nameInputYellow;
+
+    @FXML
+    private RadioButton aiPlayerYellow;
+
+    @FXML
+    private Button addPlayerBtnYellow;
+
+    @FXML
+    private TextField nameInputRed;
+
+    @FXML
+    private RadioButton aiPlayerRed;
+
+    @FXML
+    private Button addPlayerBtnRed;
+
+    @FXML
+    private TextField nameInputGreen;
+
+    @FXML
+    private RadioButton aiPlayerGreen;
+
+    @FXML
+    private Button addPlayerBtnGreen;
+
+    @FXML
+    private TextField nameInputBlack;
+
+    @FXML
+    private RadioButton aiPlayerBlack;
+
+    @FXML
+    private Button addPlayerBtnBlack;
+
+
 	private COLOR tempColor;	private ArrayList<Player> list;
-	private boolean colorChosen;
 	
 	
 	
 	public void initialize() {
 		startGameButton.setDisable(true);
-		addPlayerButton.setDisable(true);
+		aiPlayerBlack.setDisable(true);
+		aiPlayerBlue.setDisable(true);
+		aiPlayerPink.setDisable(true);
+		aiPlayerGreen.setDisable(true);
+		aiPlayerRed.setDisable(true);
+		aiPlayerYellow.setDisable(true);
+		nameInputBlack.setText("");
+		playerList.getItems().clear();
 		list = new ArrayList<Player>();
-		colorChosen = false;
-		colorLabel.setVisible(false);
-		aiPlayer.setDisable(true);
 		
-		colorRosso.setOnAction(e -> {
-			tempColor = COLOR.RED;
-			colorChosen = true;
-			enableAddButton();
-			displayColor();
-		});
-		colorNero.setOnAction(e -> {
-			tempColor = COLOR.BLACK;
-			colorChosen = true;
-			enableAddButton();
-			displayColor();
-		});
-		colorVerde.setOnAction(e -> {
-			tempColor = COLOR.GREEN;
-			colorChosen = true;
-			enableAddButton();
-			displayColor();
-		});
-		colorRosa.setOnAction(e -> {
-			tempColor = COLOR.PINK;
-			colorChosen = true;
-			enableAddButton();
-			displayColor();
-		});
-		colorBlu.setOnAction(e -> {
-			tempColor = COLOR.BLUE;
-			colorChosen = true;
-			enableAddButton();
-			displayColor();
-		});
-		colorGiallo.setOnAction(e -> {
-			tempColor = COLOR.YELLOW;
-			colorChosen = true;
-			enableAddButton();
-			displayColor();
-		});
-	}
-	
-	public void keyReleasedProperty() {
-		enableAddButton();
 	}
 	
 	
@@ -119,26 +128,122 @@ public class PlayerSceneController {
 		window.show();
 	}
 	
-	public void addPlayerPressed(ActionEvent event) throws IOException {
-		list.add(new Player(nameInput.getText(), tempColor));
-		displayPlayer(new Player(nameInput.getText(), tempColor));
-		addPlayerButton.setDisable(true);
-		colorLabel.setVisible(false);
-		colorChosen = false;
-		disableColor();
-		if(list.size() > 2) {
-			startGameButton.setDisable(false);
-		}
-		
-		
+	@FXML
+	void addBtnBlackPressed(ActionEvent event) {
+		if (nameInputBlack.getText().isBlank() == false) {
+			if (nameNotExists(nameInputBlack.getText())) {
+				list.add(new Player(nameInputBlack.getText(), COLOR.BLACK));
+				playerList.getItems().add(nameInputBlack.getText() + " --> " + "BLACK");
+				addPlayerBtnBlack.setDisable(true);
+				if (list.size() > 2) {
+					startGameButton.setDisable(false);
+				}
+			} else playerList.getItems().add(nameInputBlack.getText() + " nome già usato.");
+		} else  playerList.getItems().add("nome inesistente.");
 	}
 	
+	@FXML
+	void addBtnBluePressed(ActionEvent event) {
+		if (nameInputBlue.getText().isBlank() == false) {
+			if (nameNotExists(nameInputBlue.getText())) {
+				list.add(new Player(nameInputBlue.getText(), COLOR.BLUE));
+				playerList.getItems().add(nameInputBlue.getText() + " --> " + "BLUE");
+				addPlayerBtnBlue.setDisable(true);
+				if (list.size() > 2) {
+					startGameButton.setDisable(false);
+				}
+			} else playerList.getItems().add(nameInputBlue.getText() + " nome già usato.");
+		} else playerList.getItems().add("nome inesistente.");
+	}
+	
+	@FXML
+	void addBtnGreenPressed(ActionEvent event) {
+		if (nameInputGreen.getText().isBlank() == false) {
+	    	if (nameNotExists(nameInputGreen.getText())) {
+	    		list.add(new Player(nameInputGreen.getText(), COLOR.GREEN));
+	    		playerList.getItems().add(nameInputGreen.getText() + " --> " + "GREEN");
+	    		addPlayerBtnGreen.setDisable(true);
+	    		if (list.size() > 2) {
+	    			startGameButton.setDisable(false);
+	    		}
+	    	} else playerList.getItems().add(nameInputGreen.getText() + " nome già usato.");
+		} else playerList.getItems().add("nome inesistente.");
+	}
+
+	@FXML
+	void addBtnPinkPressed(ActionEvent event) {
+		if (nameInputPink.getText().isBlank() == false) {
+	    	if (nameNotExists(nameInputPink.getText())) {
+	    		list.add(new Player(nameInputPink.getText(), COLOR.PINK));
+	    		playerList.getItems().add(nameInputPink.getText() + " --> " + "PINK");
+	    		addPlayerBtnPink.setDisable(true);
+	    		if (list.size() > 2) {
+	    			startGameButton.setDisable(false);
+	    		}
+	    	} else playerList.getItems().add(nameInputPink.getText() + " nome già usato.");	
+		} else playerList.getItems().add("nome inesistente.");
+	}
+	
+	@FXML
+	void addBtnRedPressed(ActionEvent event) {
+		if (nameInputRed.getText().isBlank() == false) {
+			if (nameNotExists(nameInputRed.getText())) {
+				list.add(new Player(nameInputRed.getText(), COLOR.RED));
+				playerList.getItems().add(nameInputRed.getText() + " --> " + "RED");
+				addPlayerBtnRed.setDisable(true);
+				if (list.size() > 2) {
+					startGameButton.setDisable(false);
+				}
+			} else playerList.getItems().add(nameInputRed.getText() + " nome già usato.");
+		} else playerList.getItems().add("nome inesistente.");
+	}
+	
+	@FXML
+	void addBtnYellowPressed(ActionEvent event) {
+		if (nameInputYellow.getText().isBlank() == false) {
+			if (nameNotExists(nameInputYellow.getText())) {
+				list.add(new Player(nameInputYellow.getText(), COLOR.YELLOW));
+				playerList.getItems().add(nameInputYellow.getText() + " --> " + "YELLOW");
+				addPlayerBtnYellow.setDisable(true);
+				if (list.size() > 2) {
+					startGameButton.setDisable(false);
+				}
+			} else playerList.getItems().add(nameInputYellow.getText() + " nome già usato.");
+		} else playerList.getItems().add("nome inesistente.");
+	}
 
 	public void restorePressed() {
 		initialize();
-		playerList.getItems().clear();
-		enableColors();
+		nameInputBlue.setText("");
+		nameInputGreen.setText("");
+		nameInputBlack.setText("");
+		nameInputRed.setText("");
+		nameInputPink.setText("");
+		nameInputYellow.setText("");
+		addPlayerBtnBlack.setDisable(false);
+		addPlayerBtnBlue.setDisable(false);
+		addPlayerBtnPink.setDisable(false);
+		addPlayerBtnRed.setDisable(false);
+		addPlayerBtnYellow.setDisable(false);
+		addPlayerBtnGreen.setDisable(false);
 	}
+	
+	/*@FXML
+	public String itemClicked(MouseEvent event) {
+		String giocatore =playerList.getSelectionModel().getSelectedItem();
+		cancelButton.setDisable(false);
+		return giocatore;
+	}
+	
+	@FXML
+	public  void cancelPressed(ActionEvent event) {
+		
+		playerList.getItems().remove(playerList.getSelectionModel().getSelectedItem()); //elimina giocatore dalla lista
+		cancelButton.setDisable(true);
+	}*/
+	
+	
+	
 	
 	public void startGamePressed(ActionEvent event) throws IOException {
 		PlayersList.setPlayers(list);
@@ -146,122 +251,26 @@ public class PlayerSceneController {
 		Parent playerSceneParent= FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameScene.fxml"));
 		Scene playerScene = new Scene(playerSceneParent);
 		
-//		Parent playerSceneParentProva = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameSceneProva.fxml"));
-//		Scene playerSceneProva = new Scene(playerSceneParentProva);
+	//  Parent playerSceneParentProva = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameSceneProva.fxml"));
+	//  Scene playerSceneProva = new Scene(playerSceneParentProva);
 		
 		
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
 		window.setScene(playerScene);
-//		window.setScene(playerSceneProva);
+	//	window.setScene(playerSceneProva);
 		window.show();
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	private void displayPlayer(Player p) {
-		playerList.getItems().add(p.getName() + " ----> " + p.getColorName());
 		
-	}
-	
-	private boolean nameExists(String name) {
+	private boolean nameNotExists(String name) {
 		for(Player p : list) {
 			if(p.getName().equals(name)) {
-				return true;
+				return false;
 			}
 		} 
-		return false;
-	}
-	
-	private void disableColor() {
-		switch(tempColor) {
-		case RED:
-			colorRosso.setDisable(true);
-			break;
-		case YELLOW:
-			colorGiallo.setDisable(true);
-			break;
-		case BLACK:
-			colorNero.setDisable(true);
-			break;
-		case BLUE:
-			colorBlu.setDisable(true);
-			break;
-		case GREEN:
-			colorVerde.setDisable(true);
-			break;
-		case PINK:
-			colorRosa.setDisable(true);
-			break;
-		
-		}
-	}
-	
-	private void enableColors() {
-		colorRosa.setDisable(false);
-		colorBlu.setDisable(false);
-		colorNero.setDisable(false);
-		colorVerde.setDisable(false);
-		colorRosso.setDisable(false);
-		colorGiallo.setDisable(false);
-	}
-	
-	private void enableAddButton() {
-		if((list.size() == 0)) {
-			if(colorChosen && !nameInput.getText().equals(""))
-				addPlayerButton.setDisable(false);
-			else
-				addPlayerButton.setDisable(true);
-		}else if(nameExists(nameInput.getText())) {
-			addPlayerButton.setDisable(true);
-		}else if(colorChosen && !nameInput.getText().equals("")) {
-			addPlayerButton.setDisable(false);
-		}else
-			addPlayerButton.setDisable(true);
-	}
-	
-	private void displayColor() {
-		switch(tempColor) {
-		case RED:
-			colorLabel.setVisible(true);
-			colorLabel.setText("ROSSO");
-			colorLabel.setTextFill(Color.web("#ff0000", 0.8));
-			break;
-		case YELLOW:
-			colorLabel.setVisible(true);
-			colorLabel.setText("GIALLO");
-			colorLabel.setTextFill(Color.web("#F2E40B", 0.8));
-			break;
-		case BLACK:
-			colorLabel.setVisible(true);
-			colorLabel.setText("NERO");
-			colorLabel.setTextFill(Color.web("#000000", 0.8));
-			break;
-		case BLUE:
-			colorLabel.setVisible(true);
-			colorLabel.setText("BLU");
-			colorLabel.setTextFill(Color.web("#0B54F2", 0.8));
-			break;
-		case GREEN:
-			colorLabel.setVisible(true);
-			colorLabel.setText("VERDE");
-			colorLabel.setTextFill(Color.web("#10CD2D", 0.8));
-			break;
-		case PINK:
-			colorLabel.setVisible(true);
-			colorLabel.setText("ROSA");
-			colorLabel.setTextFill(Color.web("#FF6CF2", 0.8));
-			break;
-		
-		}
+		return true;
 	}
 
 }

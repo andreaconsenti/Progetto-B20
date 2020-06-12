@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -10,7 +11,12 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <Pane fx:id="background" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlayerSceneController">
@@ -20,60 +26,255 @@
             <Image url="@images/PlayerScene.jpg" />
          </image>
       </ImageView>
+      <GridPane hgap="25.0" layoutX="138.0" layoutY="100.0" prefHeight="418.0" prefWidth="681.0" vgap="25.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <bottom>
+                  <HBox alignment="CENTER" prefHeight="42.0" prefWidth="295.0" spacing="20.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <RadioButton fx:id="aiPlayerBlue" mnemonicParsing="false" prefHeight="20.0" prefWidth="82.0" text="AI Player" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="13.0" />
+                           </font>
+                        </RadioButton>
+                        <Button id="greyone" fx:id="addPlayerBtnBlue" mnemonicParsing="false" onAction="#addBtnBluePressed" prefHeight="25.0" prefWidth="96.0" stylesheets="@../css/StyleSheet.css" text="AGGIUNGI">
+                           <effect>
+                              <DropShadow color="#00000072" />
+                           </effect>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </bottom>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+               <left>
+                  <ImageView fitHeight="92.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@images/avatars/Avatar-blue.png" />
+                     </image>
+                  </ImageView>
+               </left>
+               <right>
+                  <TextField fx:id="nameInputBlue" prefHeight="30.0" prefWidth="220.0" promptText="Nome del giocatore" BorderPane.alignment="CENTER" />
+               </right>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <right>
+                  <TextField fx:id="nameInputPink" prefHeight="30.0" prefWidth="220.0" promptText="Nome del giocatore" BorderPane.alignment="CENTER" />
+               </right>
+               <bottom>
+                  <HBox alignment="CENTER" prefHeight="42.0" prefWidth="295.0" spacing="20.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <RadioButton fx:id="aiPlayerPink" mnemonicParsing="false" prefHeight="20.0" prefWidth="82.0" text="AI Player" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="13.0" />
+                           </font>
+                        </RadioButton>
+                        <Button id="greyone" fx:id="addPlayerBtnPink" mnemonicParsing="false" onAction="#addBtnPinkPressed" prefHeight="25.0" prefWidth="96.0" stylesheets="@../css/StyleSheet.css" text="AGGIUNGI">
+                           <effect>
+                              <DropShadow color="#00000072" />
+                           </effect>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </bottom>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+               <left>
+                  <ImageView fitHeight="92.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@images/avatars/Avatar-pink.png" />
+                     </image>
+                  </ImageView>
+               </left>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <right>
+                  <TextField fx:id="nameInputYellow" prefHeight="30.0" prefWidth="220.0" promptText="Nome del giocatore" BorderPane.alignment="CENTER" />
+               </right>
+               <bottom>
+                  <HBox alignment="CENTER" prefHeight="42.0" prefWidth="295.0" spacing="20.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <RadioButton fx:id="aiPlayerYellow" mnemonicParsing="false" prefHeight="20.0" prefWidth="82.0" text="AI Player" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="13.0" />
+                           </font>
+                        </RadioButton>
+                        <Button id="greyone" fx:id="addPlayerBtnYellow" mnemonicParsing="false" onAction="#addBtnYellowPressed" prefHeight="25.0" prefWidth="96.0" stylesheets="@../css/StyleSheet.css" text="AGGIUNGI">
+                           <effect>
+                              <DropShadow color="#00000072" />
+                           </effect>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </bottom>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+               <left>
+                  <ImageView fitHeight="92.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@images/avatars/Avatar-yellow.png" />
+                     </image>
+                  </ImageView>
+               </left>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <right>
+                  <TextField fx:id="nameInputRed" prefHeight="30.0" prefWidth="220.0" promptText="Nome del giocatore" BorderPane.alignment="CENTER" />
+               </right>
+               <bottom>
+                  <HBox alignment="CENTER" prefHeight="42.0" prefWidth="295.0" spacing="20.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <RadioButton fx:id="aiPlayerRed" mnemonicParsing="false" prefHeight="20.0" prefWidth="82.0" text="AI Player" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="13.0" />
+                           </font>
+                        </RadioButton>
+                        <Button id="greyone" fx:id="addPlayerBtnRed" mnemonicParsing="false" onAction="#addBtnRedPressed" prefHeight="25.0" prefWidth="96.0" stylesheets="@../css/StyleSheet.css" text="AGGIUNGI">
+                           <effect>
+                              <DropShadow color="#00000072" />
+                           </effect>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </bottom>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+               <left>
+                  <ImageView fitHeight="92.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@images/avatars/Avatar-red.png" />
+                     </image>
+                  </ImageView>
+               </left>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <right>
+                  <TextField fx:id="nameInputGreen" prefHeight="30.0" prefWidth="220.0" promptText="Nome del giocatore" BorderPane.alignment="CENTER" />
+               </right>
+               <bottom>
+                  <HBox alignment="CENTER" prefHeight="42.0" prefWidth="295.0" spacing="20.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <RadioButton fx:id="aiPlayerGreen" mnemonicParsing="false" prefHeight="20.0" prefWidth="82.0" text="AI Player" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="13.0" />
+                           </font>
+                        </RadioButton>
+                        <Button id="greyone" fx:id="addPlayerBtnGreen" mnemonicParsing="false" onAction="#addBtnGreenPressed" prefHeight="25.0" prefWidth="96.0" stylesheets="@../css/StyleSheet.css" text="AGGIUNGI">
+                           <effect>
+                              <DropShadow color="#00000072" />
+                           </effect>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </bottom>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+               <left>
+                  <ImageView fitHeight="92.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@images/avatars/Avatar-green.png" />
+                     </image>
+                  </ImageView>
+               </left>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <right>
+                  <TextField fx:id="nameInputBlack" prefHeight="30.0" prefWidth="220.0" promptText="Nome del giocatore" BorderPane.alignment="CENTER" />
+               </right>
+               <bottom>
+                  <HBox alignment="CENTER" prefHeight="42.0" prefWidth="295.0" spacing="20.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <RadioButton fx:id="aiPlayerBlack" mnemonicParsing="false" prefHeight="20.0" prefWidth="82.0" text="AI Player" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="13.0" />
+                           </font>
+                        </RadioButton>
+                        <Button id="greyone" fx:id="addPlayerBtnBlack" mnemonicParsing="false" onAction="#addBtnBlackPressed" prefHeight="25.0" prefWidth="96.0" stylesheets="@../css/StyleSheet.css" text="AGGIUNGI">
+                           <effect>
+                              <DropShadow color="#00000072" />
+                           </effect>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </bottom>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+               <left>
+                  <ImageView fitHeight="92.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@images/avatars/Avatar-black.png" />
+                     </image>
+                  </ImageView>
+               </left>
+            </BorderPane>
+         </children>
+      </GridPane>
       <Button id="greytwo" fx:id="backButton" layoutX="44.0" layoutY="650.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="INDIETRO" />
-      <ListView fx:id="playerList" layoutX="156.0" layoutY="110.0" prefHeight="151.0" prefWidth="495.0" />
-      <TextField fx:id="nameInput" layoutX="763.0" layoutY="261.0" onKeyReleased="#keyReleasedProperty" prefHeight="41.0" prefWidth="294.0" />
-      <Label layoutX="763.0" layoutY="224.0" text="Nome del giocatore:" textFill="WHITE">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="21.0" />
-         </font>
-      </Label>
-      <MenuButton id="grey3" fx:id="colorInput" layoutX="763.0" layoutY="110.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="294.0" stylesheets="@../css/StyleSheet.css" text="Scegli un colore" textFill="#909090">
+      <MenuButton fx:id="mapinput" layoutX="853.0" layoutY="126.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="245.0" text="Seleziona una mappa di gioco:" textFill="#8a8383">
         <items>
-          <MenuItem fx:id="colorRosso" mnemonicParsing="false" text="ROSSO" />
-          <MenuItem fx:id="colorBlu" mnemonicParsing="false" text="BLU" />
-          <MenuItem fx:id="colorGiallo" mnemonicParsing="false" text="GIALLO" />
-          <MenuItem fx:id="colorNero" mnemonicParsing="false" text="NERO" />
-          <MenuItem fx:id="colorRosa" mnemonicParsing="false" text="ROSA" />
-          <MenuItem fx:id="colorVerde" mnemonicParsing="true" text="VERDE" />
+          <MenuItem mnemonicParsing="false" text="RISIKO Originale" />
         </items>
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </MenuButton>
-      <Label layoutX="763.0" layoutY="78.0" text="Seleziona colore:" textFill="WHITE">
+      <Label layoutX="853.0" layoutY="87.0" text="Seleziona mappa:" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="21.0" />
          </font>
       </Label>
-      <Button id="greyone" fx:id="addPlayerButton" layoutX="763.0" layoutY="415.0" mnemonicParsing="false" onAction="#addPlayerPressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="AGGIUNGI">
-         <effect>
-            <DropShadow color="#00000072" />
-         </effect></Button>
-      <Button id="greyone" fx:id="restoreButton" layoutX="945.0" layoutY="415.0" mnemonicParsing="false" onAction="#restorePressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="RIPRISTINA">
+      <Button id="greyone" fx:id="restoreButton" layoutX="988.0" layoutY="548.0" mnemonicParsing="false" onAction="#restorePressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="RIPRISTINA">
          <effect>
             <DropShadow color="#00000073" />
-         </effect></Button>
-      <Button id="redbutton" fx:id="startGameButton" layoutX="1106.0" layoutY="650.0" mnemonicParsing="false" onAction="#startGamePressed" prefHeight="41.0" prefWidth="129.0" stylesheets="@../css/StyleSheet.css" text="INIZIA PARTITA" />
-      <Label layoutX="156.0" layoutY="78.0" text="Giocatori:" textFill="WHITE">
+         </effect>
+      </Button>
+      <Button id="greytwo" fx:id="startGameButton" layoutX="1096.0" layoutY="650.0" mnemonicParsing="false" onAction="#startGamePressed" prefHeight="41.0" prefWidth="139.0" stylesheets="@../css/StyleSheet.css" text="INIZIA PARTITA" />
+      <Label layoutX="855.0" layoutY="189.0" text="Giocatori:" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="763.0" layoutY="173.0" text="Colore scelto: " textFill="WHITE">
+      <Label layoutX="137.0" layoutY="560.0" prefHeight="15.0" prefWidth="308.0" text="Selezionando &quot;AI Player&quot; il Giocatore aggiunto" textFill="#aeaeae" />
+      <Label layoutX="137.0" layoutY="577.0" prefHeight="18.0" prefWidth="260.0" text="sarà controllato dal computer" textFill="#aeaeae" />
+      <ListView fx:id="playerList" layoutX="855.0" layoutY="225.0" prefHeight="254.0" prefWidth="245.0" />
+      <Label layoutX="359.0" layoutY="50.0" prefHeight="30.0" prefWidth="238.0" text="Inserire da 3 a 6 giocatori" textFill="#e4dede">
          <font>
-            <Font name="Arial Rounded MT Bold" size="21.0" />
+            <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="colorLabel" layoutX="917.0" layoutY="156.0" text="Colore" visible="false">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="17.0" />
-         </font>
-      </Label>
-      <RadioButton id="radiobutton" fx:id="aiPlayer" layoutX="763.0" layoutY="335.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="AI Player" textFill="WHITE">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="13.0" />
-         </font>
-      </RadioButton>
    </children>
 </Pane>

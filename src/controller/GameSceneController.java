@@ -27,6 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.COLOR;
 import model.entities.Player;
@@ -56,6 +57,15 @@ public class GameSceneController {
 	
 	@FXML
 	private Button cardButton;
+	
+	@FXML
+	private Label turnLabel;
+	
+	@FXML
+	private Button nextPhase;
+	
+	@FXML
+	private Button endTurn;
 	
 	
 	protected static RisikoGame game; 
@@ -116,6 +126,10 @@ public class GameSceneController {
 		initTanks();
 		
 		statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
+		setPlayerLabel();
+		endTurn.setDisable(true);
+		nextPhase.setDisable(true);
+		nextPhase.setText("POSIZIONAMENTO");
 	}
 	
 	
@@ -153,13 +167,45 @@ public class GameSceneController {
 				if(check == 1) {
 					break;
 				}
-				
-				
+			}
+			break;
+			
+		case REINFORCEMENT:
+			break;
+			
+		case BATTLE:
+			
+			if(territorySelected == null) {
+				for(Territory t : game.getTerritories()) {
+					check = 0;
+					for(Pixel p : mappa.get(t)) {
+						if((p.getX() == x) && (p.getY() == y)) {
+							check = 1;
+							territoryLabel.setOpacity(100);
+							territoryLabel.setText(territoryText(t));
+							if(game.getCurrentTurn().equals(t.getOwner())) {
+								changeColor(mappa.get(t));
+								territorySelected = t;
+							}
+							break;
+						} else {
+							map.setImage(wImage);
+							territoryLabel.setOpacity(0);
+							territorySelected = null;
+						}
+					}
+					if(check == 1) {
+						break;
+					}
+				}
+			} else if(territorySelected != null) {
 				
 			}
 			
+			
+			break;
+			
 		}
-	
 	}
 	
 	
@@ -180,10 +226,12 @@ public class GameSceneController {
 				territorySelected = null;
 				map.setImage(wImage);
 			}
-			
+			break;
+		case REINFORCEMENT:
+			break;
+		case BATTLE:
 			
 			break;
-		
 		}
 		
 	
@@ -197,7 +245,8 @@ public class GameSceneController {
 		window.setResizable(false);
 		window.setTitle("Carte");
 		window.setScene(cardScene);
-		window.show();
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.showAndWait();
 		
 	}
 	
@@ -208,7 +257,8 @@ public class GameSceneController {
 		window.setResizable(false);
 		window.setTitle("Missione");
 		window.setScene(cardScene);
-		window.show();
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.showAndWait();
 	}
 	
 	
@@ -227,7 +277,32 @@ public class GameSceneController {
 	
 	private void nextTurn() {
 		game.nextTurn();
-		statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
+		setStatusBar();
+		setPlayerLabel();
+	}
+	
+	private Color returnPlayerColor(Player p) {
+		switch(p.getColor()) {
+		case RED:
+			return Color.DARKRED;
+		case BLACK:
+			return Color.BLACK;
+		case YELLOW:
+			return Color.YELLOW;
+		case PINK:
+			return Color.DEEPPINK;
+		case GREEN:
+			return Color.GREEN;
+		case BLUE:
+			return Color.DARKSLATEBLUE;
+		}
+		return Color.BLACK;
+		
+	}
+	
+	private void setPlayerLabel() {
+		turnLabel.setTextFill(returnPlayerColor(game.getCurrentTurn()));
+		turnLabel.setText(game.getCurrentTurn().getName());
 	}
 	
 	private void changeColor(ArrayList<Pixel> list) {
@@ -347,6 +422,10 @@ public class GameSceneController {
 		
 		
 		
+	}
+	
+	private void setStatusBar() {
+		statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
 	}
 	
 	

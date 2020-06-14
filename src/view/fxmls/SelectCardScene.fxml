@@ -20,50 +20,21 @@
                      <children>
                         <StackPane prefHeight="154.0" prefWidth="108.0">
                            <children>
-                              <ImageView fx:id="cardImage0" fitHeight="170.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label fx:id="territoryName0" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="108.0" text="territory" visible="false" />
+                              <ImageView fx:id="cardImage0" fitHeight="170.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/Cards/carta_cannone.png" />
+                                 </image></ImageView>
+                              <Label fx:id="territoryName0" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="89.0" text="territory" />
                            </children>
                         </StackPane>
                         <StackPane prefHeight="154.0" prefWidth="108.0">
                            <children>
-                              <ImageView fx:id="cardImage01" fitHeight="170.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label fx:id="territoryName01" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="108.0" text="territory" visible="false" />
-                           </children>
-                        </StackPane>
-                        <StackPane prefHeight="154.0" prefWidth="108.0">
-                           <children>
-                              <ImageView fx:id="cardImage02" fitHeight="170.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label fx:id="territoryName02" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="108.0" text="territory" visible="false" />
-                           </children>
-                        </StackPane>
-                        <StackPane prefHeight="154.0" prefWidth="108.0">
-                           <children>
-                              <ImageView fx:id="cardImage021" fitHeight="170.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label fx:id="territoryName021" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="108.0" text="territory" visible="false" />
-                           </children>
-                        </StackPane>
-                        <StackPane prefHeight="154.0" prefWidth="108.0">
-                           <children>
-                              <ImageView fx:id="cardImage022" fitHeight="170.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label fx:id="territoryName022" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="108.0" text="territory" visible="false" />
-                           </children>
-                        </StackPane>
-                        <StackPane prefHeight="154.0" prefWidth="108.0">
-                           <children>
-                              <ImageView fx:id="cardImage023" fitHeight="170.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label fx:id="territoryName023" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="108.0" text="territory" visible="false" />
-                           </children>
-                        </StackPane>
-                        <StackPane prefHeight="154.0" prefWidth="108.0">
-                           <children>
-                              <ImageView fx:id="cardImage024" fitHeight="170.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label fx:id="territoryName024" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="108.0" text="territory" visible="false" />
-                           </children>
-                        </StackPane>
-                        <StackPane prefHeight="154.0" prefWidth="108.0">
-                           <children>
-                              <ImageView fx:id="cardImage025" fitHeight="170.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label fx:id="territoryName025" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="108.0" text="territory" visible="false" />
+                              <ImageView fx:id="cardImage01" fitHeight="170.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/Cards/carta_cannone.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="territoryName01" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="89.0" text="territory" />
                            </children>
                         </StackPane>
                      </children>

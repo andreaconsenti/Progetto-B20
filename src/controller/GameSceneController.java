@@ -261,7 +261,7 @@ public class GameSceneController {
 	
 	
 	
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent e) throws IOException {
 		
 		switch(game.getGamePhase()) {
 		
@@ -311,6 +311,7 @@ public class GameSceneController {
 			} else {
 				territory1 = null;
 				territory2 = null;
+//				attackerAndDefenderChosen (e);
 				setStatusBar();
 			}
 			
@@ -345,18 +346,20 @@ public class GameSceneController {
 		window.showAndWait();
 	}
 	
+//	public void attackerAndDefenderChosen (MouseEvent e) throws IOException {
+//		Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/AttackScene.fxml"));
+//		Scene scene = new Scene(parent);
+//		Stage window = new Stage();
+//		window.setResizable(false);
+//		window.setTitle("Attacco");
+//		window.setScene(scene);
+//		window.initModality(Modality.APPLICATION_MODAL);
+//		window.showAndWait();
+//	}
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
@@ -551,9 +554,9 @@ public class GameSceneController {
 			break;
 		case BATTLE:
 			if(territory1 == null) {
-				statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un territorio con cui attacare.");
+				statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un territorio con cui attaccare");
 			} else if(territory2 == null) {
-				statusBar.setText("Territorio selezionato: " + territory1.getName() + "\n" + "Seleziona un territorio da attaccare");
+				statusBar.setText("Territorio selezionato: " + territory1.getName() + "\n" + game.getCurrentTurn().getName() + ": seleziona un territorio da attaccare");
 			} else if((territory1 != null) && (territory2 != null)) {
 				statusBar.setText("Attacco in corso");
 			}

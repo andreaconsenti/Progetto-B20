@@ -173,6 +173,31 @@ public class GameSceneController {
 			break;
 			
 		case REINFORCEMENT:
+			for(Territory t : game.getTerritories()) {
+				
+				check = 0;
+				for(Pixel p : mappa.get(t)) {
+					
+					if((p.getX() == x) && (p.getY() == y)) {
+						check = 1;
+						territoryLabel.setOpacity(100);
+						territoryLabel.setText(territoryText(t));
+						if(game.getCurrentTurn().equals(t.getOwner())) {
+							changeColor(mappa.get(t));
+							territorySelected = t;
+						}
+						break;
+					} else {
+						map.setImage(wImage);
+						territoryLabel.setOpacity(0);
+						territorySelected = null;
+					}
+					
+				}
+				if(check == 1) {
+					break;
+				}
+			}
 			break;
 			
 		case BATTLE:
@@ -224,6 +249,8 @@ public class GameSceneController {
 					}
 				}
 				
+			} else {
+				map.setImage(wImage);
 			}
 			
 			
@@ -245,7 +272,7 @@ public class GameSceneController {
 				game.addTerritoryTanks(territorySelected);
 				Integer n = game.getTerritory(territorySelected).getTanks();
 				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
-				statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
+				setStatusBar();
 				nextTurn();
 				territorySelected = null;
 				map.setImage(wImage);
@@ -254,9 +281,21 @@ public class GameSceneController {
 				}
 			}
 			break;
+			
 		case REINFORCEMENT:
 			
+			if(territorySelected != null) {
+				game.getCurrentTurn().placeTank(1);
+				game.addTerritoryTanks(territorySelected);
+				Integer n = game.getTerritory(territorySelected).getTanks();
+				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
+				setStatusBar();
+				if(game.getCurrentTurn().getBonusTanks() == 0) {
+					nextPhase();
+				}
+			}
 			break;
+			
 		case BATTLE:
 			
 			if(territory1 == null) {
@@ -264,12 +303,15 @@ public class GameSceneController {
 				setStatusBar();
 				
 			} else if (territory2 == null) {
+				if(territorySelected == null) {
+					territory1 = territorySelected;
+				}
 				territory2 = territorySelected;
 				setStatusBar();
 			} else {
-				setStatusBar();
 				territory1 = null;
 				territory2 = null;
+				setStatusBar();
 			}
 			
 			
@@ -344,6 +386,16 @@ public class GameSceneController {
 		game.nextPhase();
 		setStatusBar();
 		setPlayerLabel();
+		switch(game.getGamePhase()) {
+		case BATTLE:
+			nextPhase.setText("SPOSTAMENTO");
+			nextPhase.setDisable(false);
+			break;
+		case FINALMOVE:
+			nextPhase.setDisable(true);
+			endTurn.setDisable(false);
+			break;
+		}
 	}
 	
 	private Color returnPlayerColor(Player p) {
@@ -471,23 +523,23 @@ public class GameSceneController {
 	
 	
 	
-//	private void swapTerritories() {
-//		
-//		Player temp = territorySelected.getOwner();
-//		territorySelected.setOwner(prevTerrSelected.getOwner());
-//		prevTerrSelected.setOwner(temp);
-//		
-//		File file = new File(getTankPath(territorySelected));
-//		Image image = new Image(file.toURI().toString());
-//		mappaImgTanks.get(territorySelected).getImage().setImage(image);
-//		
-//		File file2 = new File(getTankPath(prevTerrSelected));
-//		Image image2 = new Image(file2.toURI().toString());
-//		mappaImgTanks.get(prevTerrSelected).getImage().setImage(image2);
-//		
-//		
-//		
-//	}
+	private void swapTerritories() {
+		
+		Player temp = territory1.getOwner();
+		territory1.setOwner(territory2.getOwner());
+		territory2.setOwner(temp);
+		
+		File file = new File(getTankPath(territory1));
+		Image image = new Image(file.toURI().toString());
+		mappaImgTanks.get(territory1).getImage().setImage(image);
+		
+		File file2 = new File(getTankPath(territory2));
+		Image image2 = new Image(file2.toURI().toString());
+		mappaImgTanks.get(territory2).getImage().setImage(image2);
+		
+		
+		
+	}
 	
 	private void setStatusBar() {
 		switch(game.getGamePhase()) {
@@ -495,14 +547,14 @@ public class GameSceneController {
 			statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
 			break;
 		case REINFORCEMENT:
-			
+			statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
 			break;
 		case BATTLE:
 			if(territory1 == null) {
 				statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un territorio con cui attacare.");
 			} else if(territory2 == null) {
 				statusBar.setText("Territorio selezionato: " + territory1.getName() + "\n" + "Seleziona un territorio da attaccare");
-			} else {
+			} else if((territory1 != null) && (territory2 != null)) {
 				statusBar.setText("Attacco in corso");
 			}
 			break;

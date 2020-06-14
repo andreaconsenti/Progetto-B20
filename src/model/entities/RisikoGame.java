@@ -66,11 +66,14 @@ public class RisikoGame {
 	public void nextPhase() {
 		switch(gamePhase) {
 		case FIRSTTURN:
-			gamePhase = GAME_PHASE.BATTLE; // GamePhase temporanea, è da cambiare con REINFORCEMENT
+			gamePhase = GAME_PHASE.REINFORCEMENT; 
 			currentTurn = this.players[0];
+			turnCounter = 0;
+			giveBonus(currentTurn);
 			
 			break;
 		case REINFORCEMENT:
+			gamePhase = GAME_PHASE.BATTLE;
 			
 			break;
 		case BATTLE:
@@ -202,18 +205,17 @@ public class RisikoGame {
     }
 
 	
-	public void giveBonus() {
+	public void giveBonus(Player pl) {
 
-		for(Player p : players) {
-			p.giveBonusTanks((int)Math.floor(p.getTerritories()/3));	
-		}
+		pl.giveBonusTanks((int)Math.floor(pl.getTerritories()/3));	
 		
-		for(Continent c : continents) {
-			if(c.isOwned()) {
-				Player p = c.getRandomPlayer();
-				p.giveBonusTanks(c.getBonus());
-			}
-		}
+//		for(Continent c : continents) {
+//			if(c.isOwned()) {
+//				if(c.getRandomPlayer().equals(pl)) {
+//					pl.giveBonusTanks(c.getBonus());
+//				}
+//			}
+//		}
 		
 	}
 	

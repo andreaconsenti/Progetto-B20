@@ -47,13 +47,6 @@ public class RisikoGame {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 	public void nextTurn() {
 		turnCounter++;
 		if(turnCounter == players.length) {
@@ -61,7 +54,6 @@ public class RisikoGame {
 		}
 		currentTurn = this.players[turnCounter];
 	}
-	
 	
 	public void nextPhase() {
 		switch(gamePhase) {
@@ -85,10 +77,7 @@ public class RisikoGame {
 		
 		}
 	}
-	
-	
-	
-	
+		
 	public int getBonusTanksSum() {
 		int s = 0;
 		for(Player p : players) {
@@ -96,27 +85,6 @@ public class RisikoGame {
 		}
 		return s;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	private void giveStarterTanks() {
 		switch(this.players.length) {
@@ -143,7 +111,6 @@ public class RisikoGame {
 		}
 	}
 	
-	
 	private void giveMissions() {
 		Mission[] shuffledMissions = shuffleMissions();
 		int i = 0;
@@ -168,8 +135,6 @@ public class RisikoGame {
         }
         return shuffledMissions;
     }
-
-	
 	
     private Territory[] shuffleTerritories() {
     	Territory[] shuffledTerritories = new Territory[territories.size()];
@@ -185,6 +150,22 @@ public class RisikoGame {
             shuffledTerritories[j] = temp;
         }
         return shuffledTerritories;
+    }
+    
+    private Card[] shuffleCards() {
+    	Card[] shuffledCards = new Card[cards.size()];
+    	int k = 0;
+    	for(Card c : cards) {
+    		shuffledCards[k] = c;
+    		k++;
+    	}
+        for (int i = 0; i < cards.size(); i++) {
+            int j = i + (int) ((cards.size() - i) * Math.random());
+            Card temp = shuffledCards[i];
+            shuffledCards[i] = shuffledCards[j];
+            shuffledCards[j] = temp;
+        }
+        return shuffledCards;
     }
     
     private void initTerritoryOwners() {
@@ -203,7 +184,6 @@ public class RisikoGame {
             playerID = (playerID + 1) % players.length;
         }
     }
-
 	
 	public void giveBonus(Player pl) {
 
@@ -243,11 +223,9 @@ public class RisikoGame {
 		return currentTurn;
 	}
 
-
 	public GAME_PHASE getGamePhase() {
 		return gamePhase;
 	}
-
 
 	public void setGamePhase(GAME_PHASE gamePhase) {
 		this.gamePhase = gamePhase;

@@ -63,7 +63,36 @@ public class RisikoGame {
 	}
 	
 	
+	public void nextPhase() {
+		switch(gamePhase) {
+		case FIRSTTURN:
+			gamePhase = GAME_PHASE.BATTLE; // GamePhase temporanea, è da cambiare con REINFORCEMENT
+			currentTurn = this.players[0];
+			
+			break;
+		case REINFORCEMENT:
+			
+			break;
+		case BATTLE:
+			
+			break;
+		case FINALMOVE:
+			
+			break;
+		
+		}
+	}
 	
+	
+	
+	
+	public int getBonusTanksSum() {
+		int s = 0;
+		for(Player p : players) {
+			s += p.getBonusTanks();
+		}
+		return s;
+	}
 	
 	
 	
@@ -90,7 +119,7 @@ public class RisikoGame {
 		switch(this.players.length) {
 		case 3:
 			for(Player p : players) {
-				p.giveBonusTanks(35);
+				p.giveBonusTanks(16);
 			}
 			break;
 		case 4:

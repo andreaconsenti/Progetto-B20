@@ -289,3 +289,74 @@
     -fx-text-fill: black;
 }
 
+/*------------------------------------------------------------------------------------*/
+
+#blubutton
+{
+    -fx-padding: 2 9 9 9;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-radius: 30;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#1380a3 0%,#127290 100%), 
+             #24829d, 
+             #3aafd8,
+            radial-gradient(center 50% 50%, radius 100%,#3ab0d9,#2ca3c5);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+    -fx-font-weight: bold;
+    -fx-font-size: 9px;
+    -fx-text-fill: white;
+}
+
+#blubutton:hover
+{
+
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#1380a3 0%,#127290 100%),
+            #24829d, 
+            #3aafd8,
+            radial-gradient(center 50% 50%,radius 100%,#4bc4ea,#0e7f9d);
+}
+
+#blubutton:pressed
+{
+     -fx-padding: 4 9 8 9;
+     -fx-background-insets: 2 0 0 0,2 0 3 0,2 0 4 0,2 0 5 0;
+
+}
+
+/*------------------------------------------------------------------------------------*/
+
+#redbuttondark
+{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#a34313 0%,#903b12 100%),
+             #9d4024,
+             #d86e3a,
+            radial-gradient(center 50% 50%, radius 100%,#d96e3a,#c54e2c);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+    -fx-text-fill: white;
+}
+
+#redbuttondark:hover
+{
+
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#a34313 0%,#903b12 100),
+            #9d4024,
+            #d86e3a,
+            radial-gradient(center 50% 50%,radius 100%,#ea7f4b,#c54e2c);
+}
+
+#redbuttondark:pressed
+{
+     -fx-padding: 10 15 13 15;
+     -fx-background-insets: 2 0 0 0,2 0 3 0,2 0 4 0,2 0 5 0;
+
+}
+
+/*------------------------------------------------------------------------------------*/

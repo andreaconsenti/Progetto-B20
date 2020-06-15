@@ -54,32 +54,32 @@
       </Label>
       <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="168.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Dadi/Dado%20rosso%206.png" />
+            <Image url="@images/Dadi/Dado%20rosso%206.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="168.0" layoutY="108.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Dadi/Dado%20rosso%204.png" />
+            <Image url="@images/Dadi/Dado%20rosso%204.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="168.0" layoutY="160.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Dadi/Dado%20rosso%202.png" />
+            <Image url="@images/Dadi/Dado%20rosso%202.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="407.0" layoutY="56.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Dadi/Dado%20rosso%205.png" />
+            <Image url="@images/Dadi/Dado%20rosso%205.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="407.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Dadi/Dado%20rosso%205.png" />
+            <Image url="@images/Dadi/Dado%20rosso%205.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="407.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Dadi/Dado%20rosso%203.png" />
+            <Image url="@images/Dadi/Dado%20rosso%203.png" />
          </image>
       </ImageView>
    </children>

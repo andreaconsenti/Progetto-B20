@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #f7ff77;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AttackSceneController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #f7ff77;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AttackSceneController">
    <children>
       <Label id="toolbarattacco" layoutX="24.0" layoutY="176.0" prefHeight="24.0" prefWidth="120.0" stylesheets="@../css/StyleSheet.css" text="Risultato terzo dado:" />
       <Label id="toolbarattacco" layoutX="24.0" layoutY="70.0" prefHeight="24.0" prefWidth="120.0" stylesheets="@../css/StyleSheet.css" text="Risultato primo dado:" />
@@ -33,7 +33,7 @@
             <Button id="button" fx:id="attackButton" layoutX="98.0" layoutY="92.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="Attacca" />
             <Button id="viola" fx:id="annichilisciButton" layoutX="264.0" layoutY="70.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="Annichilisci" />
             <Button id="redbutton" fx:id="annullaButton" layoutX="396.0" layoutY="70.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="Annulla" />
-            <MenuButton id="blubutton" alignment="CENTER" contentDisplay="BOTTOM" layoutX="27.0" layoutY="55.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="24.0" prefWidth="214.0" stylesheets="@../css/StyleSheet.css" text="Scegli con quante armate attaccare:" textFill="WHITE">
+            <MenuButton id="blubutton" fx:id="scegliNumeroArmate" alignment="CENTER" contentDisplay="BOTTOM" layoutX="27.0" layoutY="55.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="24.0" prefWidth="214.0" stylesheets="@../css/StyleSheet.css" text="Scegli con quante armate attaccare:" textFill="WHITE">
               <items>
                 <MenuItem mnemonicParsing="false" text="3" />
                   <MenuItem mnemonicParsing="false" text="2" />

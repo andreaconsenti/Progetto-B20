@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,6 +19,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -40,6 +43,9 @@ public class PlayerSceneController {
     
     @FXML
     private MenuButton mapinput;
+    
+    @FXML
+    private MenuItem map1;
 
     @FXML
     private ListView<String> playerList;
@@ -97,6 +103,9 @@ public class PlayerSceneController {
 
     @FXML
     private Button addPlayerBtnBlack;
+    
+    @FXML
+    private ImageView mapPreview;
 
 
 	private COLOR tempColor;	private ArrayList<Player> list;
@@ -114,6 +123,14 @@ public class PlayerSceneController {
 		nameInputBlack.setText("");
 		playerList.getItems().clear();
 		list = new ArrayList<Player>();
+		
+		map1.setOnAction(e -> {
+			mapinput.setText(map1.getText());
+			mapinput.setStyle("-fx-text-fill: black;");
+			File file = new File("src/view/fxmls/images/mappa1_preview.png");
+			Image temp = new Image(file.toURI().toString());
+			mapPreview.setImage(temp);
+		});
 		
 	}
 	

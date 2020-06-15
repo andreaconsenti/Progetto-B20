@@ -326,37 +326,69 @@
 
 /*------------------------------------------------------------------------------------*/
 
-#redbuttondark
+#viola
 {
     -fx-padding: 8 15 15 15;
     -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
     -fx-background-radius: 8;
     -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%,#a34313 0%,#903b12 100%),
-             #9d4024,
-             #d86e3a,
-            radial-gradient(center 50% 50%, radius 100%,#d96e3a,#c54e2c);
+            linear-gradient(from 0% 93% to 0% 100%,#7613a3 0%,#681290 100%),
+             #77249d,
+             #a63ad8,
+            radial-gradient(center 50% 50%, radius 100%,#a43ad9,#952cc5);
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
     -fx-text-fill: white;
 }
 
-#redbuttondark:hover
+#viola:hover
 {
 
     -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%,#a34313 0%,#903b12 100),
-            #9d4024,
-            #d86e3a,
-            radial-gradient(center 50% 50%,radius 100%,#ea7f4b,#c54e2c);
+            linear-gradient(from 0% 93% to 0% 100%,#7613a3 0%,#681290 100%),
+            #77249d,
+            #a63ad8,
+            radial-gradient(center 50% 50%,radius 100%,#b54bea,#902cc5);
 }
 
-#redbuttondark:pressed
+#viola:pressed
 {
      -fx-padding: 10 15 13 15;
      -fx-background-insets: 2 0 0 0,2 0 3 0,2 0 4 0,2 0 5 0;
 
+}
+
+/*------------------------------------------------------------------------------------*/
+
+#toolbardifesa
+{
+    -fx-padding: 2 9 9 9;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#29559a 0%,#315690 100%), 
+             #385d93, 
+             #608cd6,
+            radial-gradient(center 50% 50%, radius 100%,#5c89d6,#4472b5);
+    -fx-font-weight: bold;
+    -fx-font-size: 9px;
+    -fx-text-fill: white;
+}
+
+/*------------------------------------------------------------------------------------*/
+
+#toolbarattacco
+{
+    -fx-padding: 2 9 9 9;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#a31313 0%,#901212 100%),
+             #9d4024,
+             #d83a3a,
+            radial-gradient(center 50% 50%, radius 100%,#d93a3a,#c52c2c);
+    -fx-font-weight: bold;
+    -fx-font-size: 9px;
+    -fx-text-fill: white;
 }
 
 /*------------------------------------------------------------------------------------*/

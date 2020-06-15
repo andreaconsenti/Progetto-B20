@@ -69,9 +69,11 @@ public class RisikoGame {
 			
 			break;
 		case BATTLE:
+			gamePhase = GAME_PHASE.FINALMOVE;
 			
 			break;
 		case FINALMOVE:
+			gamePhase = GAME_PHASE.REINFORCEMENT;
 			
 			break;
 		

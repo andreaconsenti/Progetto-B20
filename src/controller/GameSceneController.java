@@ -78,8 +78,8 @@ public class GameSceneController {
 	private FileHandler fileH = new FileHandler();
 	
 	private Territory territorySelected;
-	private Territory territory1;
-	private Territory territory2;
+	protected static Territory territory1;
+	protected static Territory territory2;
 	
 	
 	private class territoryStatus{
@@ -201,7 +201,6 @@ public class GameSceneController {
 			break;
 			
 		case BATTLE:
-			
 			if(territory1 == null) {
 				for(Territory t : game.getTerritories()) {
 					check = 0;
@@ -252,8 +251,59 @@ public class GameSceneController {
 			} else {
 				map.setImage(wImage);
 			}
+			break;
 			
-			
+		case FINALMOVE:
+			if(territory1 == null) {
+				for(Territory t : game.getTerritories()) {
+					check = 0;
+					for(Pixel p : mappa.get(t)) {
+						if((p.getX() == x) && (p.getY() == y)) {
+							check = 1;
+							territoryLabel.setOpacity(100);
+							territoryLabel.setText(territoryText(t));
+							if(game.getCurrentTurn().equals(t.getOwner()) && t.getTanks()>1) {
+								changeColor(mappa.get(t));
+								territorySelected = t;
+							}
+							break;
+						} else {
+							map.setImage(wImage);
+							territoryLabel.setOpacity(0);
+							territorySelected = null;
+						}
+					}
+					if(check == 1) {
+						break;
+					}
+				}
+			} else if(territory2 == null) {
+				for(Territory t : game.getTerritories()) {
+					check = 0;
+					for(Pixel p : mappa.get(t)) {
+						if((p.getX() == x) && (p.getY() == y)) {
+							check = 1;
+							territoryLabel.setOpacity(100);
+							territoryLabel.setText(territoryText(t));
+							if(game.getCurrentTurn().equals(t.getOwner()) && !t.equals(territory1)) {
+								changeColor(mappa.get(t));
+								territorySelected = t;
+							}
+							break;
+						} else {
+							map.setImage(wImage);
+							territoryLabel.setOpacity(0);
+							territorySelected = null;
+						}
+					}
+					if(check == 1) {
+						break;
+					}
+				}
+				
+			} else {
+				map.setImage(wImage);
+			}
 			break;
 			
 		}
@@ -314,8 +364,26 @@ public class GameSceneController {
 //				attackerAndDefenderChosen (e);
 				setStatusBar();
 			}
+			break;
 			
-			
+		case FINALMOVE:
+			if(territory1 == null) {
+				territory1 = territorySelected;
+				setStatusBar();
+				
+			} else if (territory2 == null) {
+				if(territorySelected == null) {
+					territory1 = territorySelected;
+				}
+				territory2 = territorySelected;
+				setStatusBar();
+				moveSceneLoader();
+			} else {
+				territory1 = null;
+				territory2 = null;
+//				attackerAndDefenderChosen (e);
+				setStatusBar();
+			}
 			break;
 		}
 		
@@ -346,6 +414,10 @@ public class GameSceneController {
 		window.showAndWait();
 	}
 	
+	public void nextPhasePressed(ActionEvent e) {
+		nextPhase();
+	}
+	
 //	public void attackerAndDefenderChosen (MouseEvent e) throws IOException {
 //		Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/AttackScene.fxml"));
 //		Scene scene = new Scene(parent);
@@ -356,6 +428,17 @@ public class GameSceneController {
 //		window.initModality(Modality.APPLICATION_MODAL);
 //		window.showAndWait();
 //	}
+	
+	public void moveSceneLoader() throws IOException {
+		Parent moveSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/MoveScene.fxml"));
+		Scene moveScene = new Scene(moveSceneParent);
+		Stage window = new Stage();
+		window.setResizable(false);
+		window.setTitle("Spostamento");
+		window.setScene(moveScene);
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.showAndWait();
+	}
 	
 	
 	
@@ -562,7 +645,13 @@ public class GameSceneController {
 			}
 			break;
 		case FINALMOVE:
-			
+			if(territory1 == null) {
+				statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un territorio dal quale spostare armate");
+			} else if(territory2 == null) {
+				statusBar.setText("Territorio selezionato: " + territory1.getName() + "\n" + game.getCurrentTurn().getName() + ": seleziona un territorio sul quale spostare armate");
+			} else if((territory1 != null) && (territory2 != null)) {
+				statusBar.setText("Spostamento");
+			}
 			break;
 		
 		}

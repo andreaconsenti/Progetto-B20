@@ -46,7 +46,7 @@
             <Insets />
          </opaqueInsets>
          <items>
-            <Button id="sale" fx:id="nextPhase" mnemonicParsing="false" prefHeight="42.0" prefWidth="169.0" stylesheets="@../../../stylesheet.css" text="PROSSIMA FASE" textFill="#444cb5" translateX="10.0" />
+            <Button id="sale" fx:id="nextPhase" mnemonicParsing="false" onAction="#nextPhasePressed" prefHeight="42.0" prefWidth="169.0" stylesheets="@../../../stylesheet.css" text="PROSSIMA FASE" textFill="#444cb5" translateX="10.0" />
             <TextArea fx:id="statusBar" editable="false" prefHeight="45.0" prefWidth="820.0" translateX="100.0" />
          </items></ToolBar>
       <AnchorPane fx:id="tanksPane" layoutY="56.0" prefHeight="609.0" prefWidth="1115.0" />

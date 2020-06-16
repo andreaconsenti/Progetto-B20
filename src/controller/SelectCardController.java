@@ -72,6 +72,16 @@ public class SelectCardController {
     private Label territoryName025;
 
 
+    @FXML
+    void initialize() {
+      
+    }
+
+
+    
+    
+    
+    
 	/*void addCard() {
 		//aggiungere stackPane
 		//la prima è cardImage0 e territoryName0, la seconda è cardImage01 e territoryName01, poi 02 e 02, etc...
@@ -91,6 +101,6 @@ public class SelectCardController {
 		//verifica e fa combinazione
 	}*/
 
-}
 
+}
 

@@ -285,7 +285,7 @@ public class GameSceneController {
 							check = 1;
 							territoryLabel.setOpacity(100);
 							territoryLabel.setText(territoryText(t));
-							if(game.getCurrentTurn().equals(t.getOwner()) && !t.equals(territory1)) {
+							if(checkSpostabile(t)) {
 								changeColor(mappa.get(t));
 								territorySelected = t;
 							}
@@ -456,21 +456,21 @@ public class GameSceneController {
 		return false;
 	}
 	
-//	private boolean checkSpostabile(Territory t) {
-//		
-//		for(Territory t1 : territory1.getConfinanti()) {
-//			
-//			if(t1.getId() == t.getId()) {
-//				
-//				if(t.getOwner().getName().equals(game.getCurrentTurn().getName())) {
-//					return true;
-//				} else {
-//					return false;
-//				}
-//			}
-//		}
-//		return false;
-//	}
+	private boolean checkSpostabile(Territory t) {
+		
+		for(Territory t1 : territory1.getConfinanti()) {
+			
+			if(t1.getId() == t.getId()) {
+				
+				if(t.getOwner().getName().equals(game.getCurrentTurn().getName())) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return false;
+	}
 	
 	private void nextTurn() {
 		game.nextTurn();

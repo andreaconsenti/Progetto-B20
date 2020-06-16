@@ -1,12 +1,18 @@
 package controller;
 
+import java.util.ResourceBundle;
+
+import javax.print.DocFlavor.URL;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.MenuButton;
 
 public class AttackSceneController {
 
-    @FXML
+	
+	@FXML
     private Button attackButton;
 
     @FXML
@@ -16,16 +22,13 @@ public class AttackSceneController {
     private Button annullaButton;
 
     @FXML
-    private ChoiceBox<?> scegliNumAttack;
+    private MenuButton scegliNumeroArmate;
     
 
     
     public void initialize() {
-        assert attackButton != null : "fx:id=\"attackButton\" was not injected: check your FXML file 'AttackScene.fxml'.";
-        assert annichilisciButton != null : "fx:id=\"annichilisciButton\" was not injected: check your FXML file 'AttackScene.fxml'.";
-        assert annullaButton != null : "fx:id=\"annullaButton\" was not injected: check your FXML file 'AttackScene.fxml'.";
-        assert scegliNumAttack != null : "fx:id=\"scegliNumAttack\" was not injected: check your FXML file 'AttackScene.fxml'.";
-
+    	
+    
     }
     
     

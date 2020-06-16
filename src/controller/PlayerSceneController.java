@@ -107,8 +107,8 @@ public class PlayerSceneController {
     @FXML
     private ImageView mapPreview;
 
-
-	private COLOR tempColor;	private ArrayList<Player> list;
+	private COLOR tempColor;	
+	private ArrayList<Player> list;
 	
 	
 	

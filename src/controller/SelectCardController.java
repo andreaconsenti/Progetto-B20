@@ -1,10 +1,18 @@
 package controller;
 
 
+import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import model.entities.RisikoGame;
+import model.entities.RisikoGame.GAME_PHASE;
+import model.entities.Territory;
+import model.util.Pixel;
 
 public class SelectCardController {
 	
@@ -70,27 +78,52 @@ public class SelectCardController {
 
     @FXML
     private Label territoryName025;
+    
+    @FXML
+    private Pane paneScambioCarte;
+    
+    private RisikoGame game;
 
 
-	/*void addCard() {
-		//aggiungere stackPane
-		//la prima è cardImage0 e territoryName0, la seconda è cardImage01 e territoryName01, poi 02 e 02, etc...
+    @FXML
+    void initialize() {
+    	paneScambioCarte.setOpacity(0.35);
+    	scambiaButton.setDisable(true);
+    	annullaButton.setDisable(true);
+    }
+    
+//	void addCard() {
+//		//aggiungere stackPane
+//		//la prima è cardImage0 e territoryName0, la seconda è cardImage01 e territoryName01, poi 02 e 02, etc...
+//		
+//	}
+	
+	
+	
+	@FXML
+	void onAnnullaPressed(ActionEvent event) throws IOException {
 		
+		if(game.getGamePhase()==GAME_PHASE.REINFORCEMENT) {
+			annullaButton.setDisable(false);
+			scambiaButton.setDisable(false);
+		} else {
+			annullaButton.setDisable(true);
+			scambiaButton.setDisable(true);
+			paneScambioCarte.setOpacity(0.35);
+		}
 	}
-	
-	
-	
+
+
 	@FXML
-	void onAnnullaPressed(ActionEvent event) {
-		//cancella le 3 carte dal posto
+	void onScambiaPressed(ActionEvent event) throws IOException {
+		
+		if(game.getGamePhase()==GAME_PHASE.REINFORCEMENT) {
+			annullaButton.setDisable(false);
+			scambiaButton.setDisable(false);
+		} else {
+			annullaButton.setDisable(true);
+			scambiaButton.setDisable(true);
+			paneScambioCarte.setOpacity(0.35);
+		}
 	}
-
-
-	@FXML
-	void onScambiaPressed(ActionEvent event) {
-		//verifica e fa combinazione
-	}*/
-
 }
-
-

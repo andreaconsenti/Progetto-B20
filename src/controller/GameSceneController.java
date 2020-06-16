@@ -358,10 +358,10 @@ public class GameSceneController {
 				}
 				territory2 = territorySelected;
 				setStatusBar();
+				attackerAndDefenderChosen ();
 			} else {
 				territory1 = null;
 				territory2 = null;
-				attackerAndDefenderChosen();
 				setStatusBar();
 			}
 			break;
@@ -417,7 +417,8 @@ public class GameSceneController {
 		nextPhase();
 	}
 	
-	public void attackerAndDefenderChosen() throws IOException {
+
+	public void attackerAndDefenderChosen () throws IOException {
 		Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/AttackScene.fxml"));
 		Scene scene = new Scene(parent);
 		Stage window = new Stage();
@@ -439,12 +440,6 @@ public class GameSceneController {
 		window.showAndWait();
 	}
 	
-	
-	
-
-	
-	
-	
 	private boolean checkAttaccabile(Territory t) {
 		
 		for(Territory t1 : territory1.getConfinanti()) {
@@ -460,6 +455,22 @@ public class GameSceneController {
 		}
 		return false;
 	}
+	
+//	private boolean checkSpostabile(Territory t) {
+//		
+//		for(Territory t1 : territory1.getConfinanti()) {
+//			
+//			if(t1.getId() == t.getId()) {
+//				
+//				if(t.getOwner().getName().equals(game.getCurrentTurn().getName())) {
+//					return true;
+//				} else {
+//					return false;
+//				}
+//			}
+//		}
+//		return false;
+//	}
 	
 	private void nextTurn() {
 		game.nextTurn();

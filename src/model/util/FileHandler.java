@@ -37,9 +37,9 @@ public class FileHandler {
 		
 		BufferedReader in = new BufferedReader(new FileReader(path));
 		String line;
+		int n = Integer.parseInt(in.readLine());
 		
 		list = new ArrayList<Territory>();
-		int n = Integer.parseInt(in.readLine());
 		
 		String name;
 		String continent;
@@ -57,7 +57,6 @@ public class FileHandler {
 			StringTokenizer s = new StringTokenizer (line.substring(j+23));
 			name = s.nextToken();
 			continent = s.nextToken();
-			
 			
 			if(!addTerritory(new Territory(name, code, continent, color))) {
 				break;
@@ -93,12 +92,12 @@ public class FileHandler {
 		
 		BufferedReader in = new BufferedReader(new FileReader(path));
 		String line;
+		int n = Integer.parseInt(in.readLine());
+		
 		int id;
 		int n_confini;
 		
 		ArrayList<Territory> tempList;
-		
-		int n = Integer.parseInt(in.readLine());
 		
 		for(int i = 0; i<n; i++) {
 			
@@ -199,9 +198,9 @@ public class FileHandler {
 		
 		BufferedReader in = new BufferedReader(new FileReader(path));
 		String line;
+		int n = Integer.parseInt(in.readLine());
 		
 		continents = new ArrayList<Continent>();
-		int n = Integer.parseInt(in.readLine());
 		
 		String name;
 		int bonus;
@@ -249,9 +248,9 @@ public class FileHandler {
 		
 		BufferedReader in= new BufferedReader(new FileReader(path));
 		String line;
+		int n=Integer.parseInt(in.readLine());
 		
 		missions=new ArrayList<Mission>();
-		int n=Integer.parseInt(in.readLine());
 		
 		int nty;
 		int ntk;
@@ -308,14 +307,13 @@ public class FileHandler {
 		
 		BufferedReader in = new BufferedReader(new FileReader(path));
 		String line;
+		int n = Integer.parseInt(in.readLine());
 		
 		pixels=new ArrayList<Pixel>();
 		int id;
 		int x=0;
 		int y=0;
-		Color color=new Color(0);
-		
-		int n = Integer.parseInt(in.readLine());
+		Color color=new Color(0);		
 		
 		for(int i = 0; i<n; i++) {
 			

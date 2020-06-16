@@ -82,7 +82,7 @@ public class SelectCardController {
     @FXML
     private Pane paneScambioCarte;
     
-    private RisikoGame game;
+//    private RisikoGame game;
 
 
     @FXML
@@ -90,6 +90,9 @@ public class SelectCardController {
     	paneScambioCarte.setOpacity(0.35);
     	scambiaButton.setDisable(true);
     	annullaButton.setDisable(true);
+    	if(GameSceneController.game.getGamePhase()==GAME_PHASE.REINFORCEMENT) {
+    		paneScambioCarte.setOpacity(1);
+    	}
     }
     
 //	void addCard() {

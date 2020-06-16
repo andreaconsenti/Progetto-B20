@@ -43,7 +43,7 @@
                   <Image url="@images/Dadi/Dado%20rosso%203.png" />
                </image>
             </ImageView>
-            <Pane id="prova" prefHeight="66.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
+            <Pane id="attaccodifesa" prefHeight="66.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
                <children>
                   <Label layoutX="331.0" layoutY="40.0" text="TERRITORIO_DIFESA" textFill="WHITE">
                      <font>
@@ -85,7 +85,7 @@
             <Button id="redbutton" fx:id="annullaButton" layoutX="404.0" layoutY="75.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="ANNULLA" />
             <Button id="button" fx:id="attackButton" layoutX="302.0" layoutY="56.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="ATTACCA" />
             <Button id="viola" fx:id="annichilisciButton" layoutX="302.0" layoutY="104.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="ASSEDIA" />
-            <Pane id="prova" prefHeight="50.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
+            <Pane id="attaccodifesa" prefHeight="50.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
                <children>
                   <Label layoutX="9.0" layoutY="5.0" prefHeight="19.0" prefWidth="202.0" text="LE TUE ARMATE SUL TERRITORIO SONO:" textFill="WHITE">
                      <font>

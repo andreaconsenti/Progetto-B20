@@ -1,11 +1,16 @@
 package controller;
 
 
+import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import model.entities.RisikoGame;
+import model.entities.RisikoGame.GAME_PHASE;
 import model.entities.Territory;
 import model.util.Pixel;
 
@@ -77,76 +82,48 @@ public class SelectCardController {
     @FXML
     private Pane paneScambioCarte;
     
-    
+    private RisikoGame game;
 
 
     @FXML
     void initialize() {
-      
+    	paneScambioCarte.setOpacity(0.35);
+    	scambiaButton.setDisable(true);
+    	annullaButton.setDisable(true);
     }
-
     
-    
-    
-	/*void addCard() {
-		//aggiungere stackPane
-		//la prima è cardImage0 e territoryName0, la seconda è cardImage01 e territoryName01, poi 02 e 02, etc...
-		
-	}
+//	void addCard() {
+//		//aggiungere stackPane
+//		//la prima è cardImage0 e territoryName0, la seconda è cardImage01 e territoryName01, poi 02 e 02, etc...
+//		
+//	}
 	
 	
 	
 	@FXML
-	void onAnnullaPressed(ActionEvent event) {
-		//cancella le 3 carte dal posto
-		 * 
-		 * 
-		 * switch(game.getGamePhase()) {
+	void onAnnullaPressed(ActionEvent event) throws IOException {
 		
-		case FIRSTTURN:
-			pulsanti non attivi e paneScambioCarte.setOpacity(0.35);
-			break;
-			
-		case REINFORCEMENT:
-			pulsanti attivi
-			break;
-			
-		case BATTLE:
-			pulsanti non attivi e paneScambioCarte.setOpacity(0.35);
-			break;
-			
-		case FINALMOVE:
-			pulsanti non attivi e paneScambioCarte.setOpacity(0.35);
-			break;
+		if(game.getGamePhase()==GAME_PHASE.REINFORCEMENT) {
+			annullaButton.setDisable(false);
+			scambiaButton.setDisable(false);
+		} else {
+			annullaButton.setDisable(true);
+			scambiaButton.setDisable(true);
+			paneScambioCarte.setOpacity(0.35);
 		}
 	}
 
 
 	@FXML
-	void onScambiaPressed(ActionEvent event) {
-		//verifica e fa combinazione
-		 * 
-		 * 
-		 * switch(game.getGamePhase()) {
+	void onScambiaPressed(ActionEvent event) throws IOException {
 		
-		case FIRSTTURN:
-			pulsanti non attivi e paneScambioCarte.setOpacity(0.35);
-			break;
-			
-		case REINFORCEMENT:
-			pulsanti attivi
-			break;
-			
-		case BATTLE:
-			pulsanti non attivi e paneScambioCarte.setOpacity(0.35);
-			break;
-			
-		case FINALMOVE:
-			pulsanti non attivi e paneScambioCarte.setOpacity(0.35);
-			break;
-			}
-	}*/
-
-
+		if(game.getGamePhase()==GAME_PHASE.REINFORCEMENT) {
+			annullaButton.setDisable(false);
+			scambiaButton.setDisable(false);
+		} else {
+			annullaButton.setDisable(true);
+			scambiaButton.setDisable(true);
+			paneScambioCarte.setOpacity(0.35);
+		}
+	}
 }
-

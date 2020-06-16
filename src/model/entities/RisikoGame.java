@@ -88,6 +88,14 @@ public class RisikoGame {
 		return s;
 	}
 	
+	
+	public void moveTanks(Territory t1, Territory t2, int n) {
+		t1.removeTanks(n);
+		t2.addTanks(n);
+	}
+	
+	
+	
 	private void giveStarterTanks() {
 		switch(this.players.length) {
 		case 3:

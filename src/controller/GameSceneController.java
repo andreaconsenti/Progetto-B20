@@ -378,6 +378,10 @@ public class GameSceneController {
 				territory2 = territorySelected;
 				setStatusBar();
 				moveSceneLoader();
+				Integer n = territory1.getTanks();
+				mappaImgTanks.get(territory1).getNumber().setText(n.toString());
+				n = territory2.getTanks();
+				mappaImgTanks.get(territory2).getNumber().setText(n.toString());
 			} else {
 				territory1 = null;
 				territory2 = null;

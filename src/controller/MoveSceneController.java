@@ -1,5 +1,8 @@
 package controller;
 
+import java.awt.event.ActionListener;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,6 +42,22 @@ public class MoveSceneController {
 		
 	}
 	
+	
+	public void movePressed(ActionEvent e) {
+		System.out.println(slider.getValue());
+	}
+	
+	public void moveEverythingPressed(ActionEvent e) {
+		
+	}
+	
+	public void plusPressed(ActionEvent e) {
+		slider.setValue(slider.getValue() + 1);
+	}
+	
+	public void minusPressed(ActionEvent e) {
+		slider.setValue(slider.getValue() - 1);
+	}
 	
 	
 	

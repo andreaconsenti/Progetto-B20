@@ -4,36 +4,64 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #f7ff77;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AttackSceneController">
+<Pane id="grey3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="511.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AttackSceneController">
    <children>
-      <Label id="toolbarattacco" layoutX="24.0" layoutY="176.0" prefHeight="24.0" prefWidth="120.0" stylesheets="@../css/StyleSheet.css" text="Risultato terzo dado:" />
-      <Label id="toolbarattacco" layoutX="24.0" layoutY="70.0" prefHeight="24.0" prefWidth="120.0" stylesheets="@../css/StyleSheet.css" text="Risultato primo dado:" />
-      <Label id="toolbardifesa" alignment="CENTER" layoutX="319.0" layoutY="8.0" prefHeight="42.0" prefWidth="106.0" stylesheets="@../css/StyleSheet.css" text="Difesa" />
-      <Label id="toolbarattacco" layoutX="24.0" layoutY="121.0" stylesheets="@../css/StyleSheet.css" text="Risultato secondo dado:" />
-      <Label id="toolbarattacco" alignment="CENTER" layoutX="73.0" layoutY="8.0" prefHeight="42.0" prefWidth="106.0" stylesheets="@../css/StyleSheet.css" text="Attacco" />
-      <Label id="toolbardifesa" layoutX="265.0" layoutY="70.0" prefHeight="24.0" prefWidth="120.0" stylesheets="@../css/StyleSheet.css" text="Risultato primo dado:" />
-      <Label id="toolbardifesa" layoutX="265.0" layoutY="121.0" stylesheets="@../css/StyleSheet.css" text="Risultato secondo dado:" />
-      <Label id="toolbardifesa" layoutX="265.0" layoutY="176.0" prefHeight="24.0" prefWidth="120.0" stylesheets="@../css/StyleSheet.css" text="Risultato terzo dado:" />
-      <Separator layoutX="250.0" layoutY="-5.0" orientation="VERTICAL" prefHeight="256.0" prefWidth="4.0" />
-      <Separator layoutX="-9.0" layoutY="247.0" prefHeight="6.0" prefWidth="507.0" />
-      <Label id="toolbarattacco" layoutX="-2.0" layoutY="214.0" prefHeight="24.0" prefWidth="256.0" stylesheets="@../css/StyleSheet.css" text="Le tue armate sul territorio sono attualmente:" />
-      <Label id="toolbardifesa" layoutX="252.0" layoutY="214.0" prefHeight="17.0" prefWidth="250.0" stylesheets="@../css/StyleSheet.css" text="Le tue armate sul territorio sono attualmente:" />
-      <Label layoutX="205.0" layoutY="214.0" prefHeight="17.0" prefWidth="28.0" text="N_ATT" textFill="WHITE">
-         <font>
-            <Font size="9.0" />
-         </font></Label>
-      <Pane layoutX="-3.0" layoutY="250.0" prefHeight="151.0" prefWidth="507.0" style="-fx-background-color: #feff00;">
+      <Pane id="attack2" layoutX="-1.0" layoutY="-2.0" prefHeight="252.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
          <children>
-            <Button id="button" fx:id="attackButton" layoutX="98.0" layoutY="92.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="Attacca" />
-            <Button id="viola" fx:id="annichilisciButton" layoutX="264.0" layoutY="70.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="Annichilisci" />
-            <Button id="redbutton" fx:id="annullaButton" layoutX="396.0" layoutY="70.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="Annulla" />
-            <MenuButton id="blubutton" fx:id="scegliNumeroArmate" alignment="CENTER" contentDisplay="BOTTOM" layoutX="27.0" layoutY="55.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="24.0" prefWidth="214.0" stylesheets="@../css/StyleSheet.css" text="Scegli con quante armate attaccare:" textFill="WHITE">
+            <Label id="toolbarattacco2" alignment="CENTER" prefHeight="42.0" prefWidth="256.0" stylesheets="@../css/StyleSheet.css" text="ATTACCO" />
+            <Label id="toolbardifesa2" alignment="CENTER" layoutX="256.0" prefHeight="42.0" prefWidth="256.0" stylesheets="@../css/StyleSheet.css" text="DIFESA" />
+            <Label id="toolbarattacco" layoutY="226.0" prefHeight="24.0" prefWidth="256.0" stylesheets="@../css/StyleSheet.css" text="Le tue armate sul territorio sono attualmente:" />
+            <Label id="toolbardifesa" layoutX="256.0" layoutY="226.0" prefHeight="24.0" prefWidth="256.0" stylesheets="@../css/StyleSheet.css" text="Le tue armate sul territorio sono attualmente:" />
+            <Label layoutX="206.0" layoutY="226.0" prefHeight="17.0" prefWidth="28.0" text="N_ATT" textFill="WHITE">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <Label layoutX="462.0" layoutY="226.0" prefHeight="17.0" prefWidth="28.0" text="N_DEF" textFill="WHITE">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="103.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Dadi/Dado%20rosso%206.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="103.0" layoutY="109.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Dadi/Dado%20rosso%204.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="103.0" layoutY="166.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Dadi/Dado%20rosso%202.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="356.0" layoutY="55.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Dadi/Dado%20rosso%205.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="356.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Dadi/Dado%20rosso%205.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="356.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Dadi/Dado%20rosso%203.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane id="attack1" layoutY="249.0" prefHeight="151.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
+         <children>
+            <MenuButton id="blubutton" fx:id="scegliNumeroArmate" alignment="CENTER" contentDisplay="BOTTOM" layoutX="149.0" layoutY="46.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="24.0" prefWidth="214.0" stylesheets="@../css/StyleSheet.css" text="Scegli con quante armate attaccare:" textFill="WHITE">
               <items>
                 <MenuItem mnemonicParsing="false" text="3" />
                   <MenuItem mnemonicParsing="false" text="2" />
@@ -43,44 +71,12 @@
                   <Font size="6.0" />
                </font>
             </MenuButton>
-            <Label id="toolbardifesa" alignment="CENTER" layoutX="256.0" layoutY="14.0" prefHeight="24.0" prefWidth="250.0" stylesheets="@../css/StyleSheet.css" text="&quot;Giocatore 2&quot; difende con &quot;Territorio 2&quot;" />
-            <Label id="toolbarattacco" alignment="CENTER" layoutY="14.0" prefHeight="24.0" prefWidth="256.0" stylesheets="@../css/StyleSheet.css" text="&quot;Giocatore 1&quot; attacca da &quot;Territorio1&quot;" />
+            <Button id="redbutton" fx:id="annullaButton" layoutX="404.0" layoutY="95.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="ANNULLA" />
+            <Button id="button" fx:id="attackButton" layoutX="14.0" layoutY="96.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="ATTACCA" />
+            <Button id="viola" fx:id="annichilisciButton" layoutX="196.0" layoutY="95.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="ANNICHILISCI" />
+            <Label id="toolbardifesa" alignment="CENTER" layoutX="255.0" layoutY="1.0" prefHeight="24.0" prefWidth="256.0" stylesheets="@../css/StyleSheet.css" text="&quot;Giocatore 2&quot; difende con &quot;Territorio 2&quot;" />
+            <Label id="toolbarattacco" alignment="CENTER" layoutY="1.0" prefHeight="24.0" prefWidth="256.0" stylesheets="@../css/StyleSheet.css" text="&quot;Giocatore 1&quot; attacca da &quot;Territorio1&quot;" />
          </children>
       </Pane>
-      <Label layoutX="458.0" layoutY="214.0" prefHeight="17.0" prefWidth="28.0" text="N_DEF" textFill="WHITE">
-         <font>
-            <Font size="9.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="168.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/Dadi/Dado%20rosso%206.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="168.0" layoutY="108.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/Dadi/Dado%20rosso%204.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="168.0" layoutY="160.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/Dadi/Dado%20rosso%202.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="407.0" layoutY="56.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/Dadi/Dado%20rosso%205.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="407.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/Dadi/Dado%20rosso%205.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="407.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/Dadi/Dado%20rosso%203.png" />
-         </image>
-      </ImageView>
    </children>
 </Pane>

@@ -377,6 +377,22 @@
 
 /*------------------------------------------------------------------------------------*/
 
+#toolbardifesa2
+{
+    -fx-padding: 2 9 9 9;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#29559a 0%,#315690 100%), 
+             #385d93, 
+             #608cd6,
+            radial-gradient(center 50% 50%, radius 100%,#5c89d6,#4472b5);
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+}
+
+/*------------------------------------------------------------------------------------*/
+
 #toolbarattacco
 {
     -fx-padding: 2 9 9 9;
@@ -391,8 +407,63 @@
     -fx-text-fill: white;
 }
 
-/*------------------------------------------------------------------------------------
- AttackScene
- #f7ff77 Colore del pane "alto" 
- #f0ff00 Colore del Pane "basso" 
-------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------*/
+
+#toolbarattacco2
+{
+    -fx-padding: 2 9 9 9;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#a31313 0%,#901212 100%),
+             #9d2424,
+             #d83a3a,
+            radial-gradient(center 50% 50%, radius 100%,#d93a3a,#c52c2c);
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+}
+
+/*------------------------------------------------------------------------------------*/
+
+#attack1
+{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-color:
+            radial-gradient(center 50% 50%, radius 100%,#737373,#5c5c5c);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+    -fx-text-fill: white;
+}
+
+/*------------------------------------------------------------------------------------*/
+
+#attack2
+{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-color:
+            radial-gradient(center 50% 50%, radius 100%,#d9d9d9,#cdcdcd);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+    -fx-text-fill: #3c3c3c;
+}
+
+/*------------------------------------------------------------------------------------*/
+
+#prova
+{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-color:
+            linear-gradient( to left, #315690 0%, #a31313 100%),
+             #77249d,
+             #a63ad8,
+            linear-gradient(to left, #4472b5 0%, #d93a3a 100%);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+    -fx-text-fill: white;
+}

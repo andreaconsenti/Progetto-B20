@@ -22,7 +22,7 @@ public class MoveSceneController {
 	
 	
 	
-	private void initialize() {
+	public void initialize() {
 		
 		territory1.setText(GameSceneController.territory1.getName());
 		territory2.setText(GameSceneController.territory2.getName());
@@ -30,7 +30,7 @@ public class MoveSceneController {
 		int n = GameSceneController.territory1.getTanks() - 1;
 		
 		slider.setMax(n);
-		slider.setMin(0);
+		slider.setMin(1);
 		slider.setBlockIncrement(1);
 		slider.setMajorTickUnit(1);
 		slider.setMinorTickCount(0);

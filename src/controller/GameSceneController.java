@@ -361,7 +361,7 @@ public class GameSceneController {
 			} else {
 				territory1 = null;
 				territory2 = null;
-//				attackerAndDefenderChosen (e);
+				attackerAndDefenderChosen();
 				setStatusBar();
 			}
 			break;
@@ -381,7 +381,6 @@ public class GameSceneController {
 			} else {
 				territory1 = null;
 				territory2 = null;
-//				attackerAndDefenderChosen (e);
 				setStatusBar();
 			}
 			break;
@@ -418,16 +417,16 @@ public class GameSceneController {
 		nextPhase();
 	}
 	
-//	public void attackerAndDefenderChosen (MouseEvent e) throws IOException {
-//		Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/AttackScene.fxml"));
-//		Scene scene = new Scene(parent);
-//		Stage window = new Stage();
-//		window.setResizable(false);
-//		window.setTitle("Attacco");
-//		window.setScene(scene);
-//		window.initModality(Modality.APPLICATION_MODAL);
-//		window.showAndWait();
-//	}
+	public void attackerAndDefenderChosen() throws IOException {
+		Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/AttackScene.fxml"));
+		Scene scene = new Scene(parent);
+		Stage window = new Stage();
+		window.setResizable(false);
+		window.setTitle("Attacco");
+		window.setScene(scene);
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.showAndWait();
+	}
 	
 	public void moveSceneLoader() throws IOException {
 		Parent moveSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/MoveScene.fxml"));

@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import model.entities.Territory;
+import model.util.Pixel;
 
 public class SelectCardController {
 	
@@ -70,6 +73,11 @@ public class SelectCardController {
 
     @FXML
     private Label territoryName025;
+    
+    @FXML
+    private Pane paneScambioCarte;
+    
+    
 
 
     @FXML
@@ -77,8 +85,6 @@ public class SelectCardController {
       
     }
 
-
-    
     
     
     
@@ -93,12 +99,52 @@ public class SelectCardController {
 	@FXML
 	void onAnnullaPressed(ActionEvent event) {
 		//cancella le 3 carte dal posto
+		 * 
+		 * 
+		 * switch(game.getGamePhase()) {
+		
+		case FIRSTTURN:
+			pulsanti non attivi e paneScambioCarte.setOpacity(0.35);
+			break;
+			
+		case REINFORCEMENT:
+			pulsanti attivi
+			break;
+			
+		case BATTLE:
+			pulsanti non attivi e paneScambioCarte.setOpacity(0.35);
+			break;
+			
+		case FINALMOVE:
+			pulsanti non attivi e paneScambioCarte.setOpacity(0.35);
+			break;
+		}
 	}
 
 
 	@FXML
 	void onScambiaPressed(ActionEvent event) {
 		//verifica e fa combinazione
+		 * 
+		 * 
+		 * switch(game.getGamePhase()) {
+		
+		case FIRSTTURN:
+			pulsanti non attivi e paneScambioCarte.setOpacity(0.35);
+			break;
+			
+		case REINFORCEMENT:
+			pulsanti attivi
+			break;
+			
+		case BATTLE:
+			pulsanti non attivi e paneScambioCarte.setOpacity(0.35);
+			break;
+			
+		case FINALMOVE:
+			pulsanti non attivi e paneScambioCarte.setOpacity(0.35);
+			break;
+			}
 	}*/
 
 

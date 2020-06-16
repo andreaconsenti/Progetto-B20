@@ -43,7 +43,7 @@
             </ScrollPane>
          </children>
       </AnchorPane>
-      <Pane id="toolbar" layoutY="200.0" prefHeight="200.0" prefWidth="600.0" stylesheets="@../css/StyleSheet.css">
+      <Pane id="toolbar" fx:id="paneScambioCarte" layoutY="200.0" prefHeight="200.0" prefWidth="600.0" stylesheets="@../css/StyleSheet.css">
          <children>
             <ImageView fx:id="carta3" fitHeight="180.0" fitWidth="155.0" layoutX="329.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>

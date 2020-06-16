@@ -103,27 +103,11 @@ public class SelectCardController {
 	@FXML
 	void onAnnullaPressed(ActionEvent event) throws IOException {
 		
-		if(game.getGamePhase()==GAME_PHASE.REINFORCEMENT) {
-			annullaButton.setDisable(false);
-			scambiaButton.setDisable(false);
-		} else {
-			annullaButton.setDisable(true);
-			scambiaButton.setDisable(true);
-			paneScambioCarte.setOpacity(0.35);
-		}
 	}
 
 
 	@FXML
 	void onScambiaPressed(ActionEvent event) throws IOException {
-		
-		if(game.getGamePhase()==GAME_PHASE.REINFORCEMENT) {
-			annullaButton.setDisable(false);
-			scambiaButton.setDisable(false);
-		} else {
-			annullaButton.setDisable(true);
-			scambiaButton.setDisable(true);
-			paneScambioCarte.setOpacity(0.35);
-		}
+	
 	}
 }

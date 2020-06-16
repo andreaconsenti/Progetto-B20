@@ -163,7 +163,7 @@
  * Red Button for:
  * NewPlayerScene.fxml, "INIZIA PARTITA";
  * GameScene.fxml, ("PROSSIMA FASE" and "TERMINA TURNO" Button);
- * AttackScene.fxml, "ANNULLA";
+ * "ANNULLA" in SelectCardScene.fxml and in AttackScene.fxml
  */
 
 #redbutton
@@ -274,7 +274,6 @@
              #eeeeee,
             radial-gradient(center 50% 50%, radius 100%,#fafafa,#e8e8e8);
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
-    -fx-font-weight: bold;
     -fx-font-size: 1.1em;
     -fx-text-fill: black;
 }

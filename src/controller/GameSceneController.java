@@ -439,12 +439,6 @@ public class GameSceneController {
 		window.showAndWait();
 	}
 	
-	
-	
-
-	
-	
-	
 	private boolean checkAttaccabile(Territory t) {
 		
 		for(Territory t1 : territory1.getConfinanti()) {
@@ -460,6 +454,22 @@ public class GameSceneController {
 		}
 		return false;
 	}
+	
+//	private boolean checkSpostabile(Territory t) {
+//		
+//		for(Territory t1 : territory1.getConfinanti()) {
+//			
+//			if(t1.getId() == t.getId()) {
+//				
+//				if(t.getOwner().getName().equals(game.getCurrentTurn().getName())) {
+//					return true;
+//				} else {
+//					return false;
+//				}
+//			}
+//		}
+//		return false;
+//	}
 	
 	private void nextTurn() {
 		game.nextTurn();

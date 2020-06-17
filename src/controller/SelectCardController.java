@@ -81,17 +81,16 @@ public class SelectCardController {
     
     @FXML
     private Pane paneScambioCarte;
-    
-//    private RisikoGame game;
-
 
     @FXML
     void initialize() {
     	paneScambioCarte.setOpacity(0.35);
     	scambiaButton.setDisable(true);
     	annullaButton.setDisable(true);
-    	if(GameSceneController.game.getGamePhase()==GAME_PHASE.REINFORCEMENT) {
+    	if(GameSceneController.game.getGamePhase()==GAME_PHASE.BATTLE) {
     		paneScambioCarte.setOpacity(1);
+    		scambiaButton.setDisable(false);
+    		annullaButton.setDisable(false);
     	}
     }
     
@@ -101,13 +100,11 @@ public class SelectCardController {
 //		
 //	}
 	
-	
-	
 	@FXML
 	void onAnnullaPressed(ActionEvent event) throws IOException {
 		
-	}
 
+	}
 
 	@FXML
 	void onScambiaPressed(ActionEvent event) throws IOException {

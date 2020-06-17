@@ -113,7 +113,7 @@ public class GameSceneController {
 	public void initialize() throws NumberFormatException, IOException{
 		game = new RisikoGame(PlayersList.getPlayers());
 		File img = new File("src/view/fxmls/images/Territory_Color2.png");
-		BufferedImage image = ImageIO.read(img ); 
+		BufferedImage image = ImageIO.read(img); 
 		
 		territoryLabel.setOpacity(0);
 		

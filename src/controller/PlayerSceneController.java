@@ -156,7 +156,7 @@ public class PlayerSceneController {
 					startGameButton.setDisable(false);
 				}
 			} else playerList.getItems().add(nameInputBlack.getText() + " nome già usato.");
-		} else  playerList.getItems().add("nome inesistente.");
+		} else  playerList.getItems().add("Nome inesistente.");
 	}
 	
 	@FXML
@@ -170,7 +170,7 @@ public class PlayerSceneController {
 					startGameButton.setDisable(false);
 				}
 			} else playerList.getItems().add(nameInputBlue.getText() + " nome già usato.");
-		} else playerList.getItems().add("nome inesistente.");
+		} else playerList.getItems().add("Nome inesistente.");
 	}
 	
 	@FXML
@@ -184,7 +184,7 @@ public class PlayerSceneController {
 	    			startGameButton.setDisable(false);
 	    		}
 	    	} else playerList.getItems().add(nameInputGreen.getText() + " nome già usato.");
-		} else playerList.getItems().add("nome inesistente.");
+		} else playerList.getItems().add("Nome inesistente.");
 	}
 
 	@FXML
@@ -198,7 +198,7 @@ public class PlayerSceneController {
 	    			startGameButton.setDisable(false);
 	    		}
 	    	} else playerList.getItems().add(nameInputPink.getText() + " nome già usato.");	
-		} else playerList.getItems().add("nome inesistente.");
+		} else playerList.getItems().add("Nome inesistente.");
 	}
 	
 	@FXML
@@ -212,7 +212,7 @@ public class PlayerSceneController {
 					startGameButton.setDisable(false);
 				}
 			} else playerList.getItems().add(nameInputRed.getText() + " nome già usato.");
-		} else playerList.getItems().add("nome inesistente.");
+		} else playerList.getItems().add("Nome inesistente.");
 	}
 	
 	@FXML
@@ -226,7 +226,7 @@ public class PlayerSceneController {
 					startGameButton.setDisable(false);
 				}
 			} else playerList.getItems().add(nameInputYellow.getText() + " nome già usato.");
-		} else playerList.getItems().add("nome inesistente.");
+		} else playerList.getItems().add("Nome inesistente.");
 	}
 
 	public void restorePressed() {
@@ -271,16 +271,13 @@ public class PlayerSceneController {
 	//  Parent playerSceneParentProva = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameSceneProva.fxml"));
 	//  Scene playerSceneProva = new Scene(playerSceneParentProva);
 		
-		
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
 		window.setScene(playerScene);
 	//	window.setScene(playerSceneProva);
 		window.show();
 	}
-	
-	
-		
+			
 	private boolean nameNotExists(String name) {
 		for(Player p : list) {
 			if(p.getName().equals(name)) {
@@ -289,5 +286,4 @@ public class PlayerSceneController {
 		} 
 		return true;
 	}
-
 }

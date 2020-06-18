@@ -1,33 +1,61 @@
-.jfx-tab-pane
+.tab-pane .tab-header-area .tab-header-background 
 {
-  -fx-padding: 1px;
-  -fx-background-color: #5c5c5c -fx-control-inner-background;
-  -fx-background-insets: 0, 1;
+    -fx-background-color: 
+            linear-gradient(from 0% 93% to 0% 100%,#494949 0%,#454545 100%), 
+             #343434, 
+             #7d7d7d,
+            radial-gradient(center 50% 50%, radius 100%,#737373,#5c5c5c);
+    -fx-padding:0 10 0 0;
 }
 
-.jfx-tab-pane .headers-region
+.tab-label 
 {
-  -fx-background-color: #737373;
+    -fx-padding:0 10 0 0;
 }
 
-.jfx-tab-pane .tab-header-background
+.tab-pane
 {
-  -fx-background-color: #737373;
+    -fx-tab-min-width:90px;
 }
 
-.jfx-tab-pane .tab-header-area .jfx-rippler
-{
-  -jfx-rippler-fill: red;
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+    -fx-padding:2 8 2 8;
+    -fx-background-radius: 7 7 0 0;
 }
 
-.jfx-tab-pane .tab-header-area .tab-selected-line
+.tab-pane .tab
 {
-  -fx-stroke: #970000;  
-  }
- 
- .jfx-tab-pane:top .depth-container .tab-header-area .headers-region .tab-selected-line 
- {
-    -fx-background-color: #970000;
+    -fx-background-color: 
+           linear-gradient(from 0% 93% to 0% 100%,#cbcbcb 0%,#b5b5b5 100%), 
+             #c6c6c6, 
+             #eeeeee,
+            radial-gradient(center 50% 50%, radius 100%,#fafafa,#e8e8e8);
+            
+}
+           
+.tab-pane .tab:selected
+{
+    -fx-background-color: 
+            linear-gradient(from 0% 93% to 0% 100%,#a8a8a8 0%,#959595 100%), 
+             #9d9d9d, 
+             #d9d9d9,
+            radial-gradient(center 50% 50%, radius 100%,#d9d9d9,#cdcdcd);
 }
 
+.focus-indicator {
+    -fx-border-radius: 10 10 0 0, 10 10 0 0;
+    -fx-border-insets: -6 -9 -8 -8, -5 -8 -7 -7;
+}
 
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: black;
+}

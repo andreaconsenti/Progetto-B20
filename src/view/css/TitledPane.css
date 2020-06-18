@@ -1,0 +1,10 @@
+.titled-pane > .title
+{
+	-fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-color: 
+           linear-gradient(from 0% 93% to 0% 100%,#cbcbcb 0%,#b5b5b5 100%), 
+             #c6c6c6, 
+             #eeeeee,
+            radial-gradient(center 50% 50%, radius 100%,#fafafa,#e8e8e8);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+}

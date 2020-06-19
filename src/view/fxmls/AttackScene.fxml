@@ -72,7 +72,7 @@
       </Pane>
       <Pane id="attack1" layoutY="249.0" prefHeight="151.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
          <children>
-            <MenuButton id="blubutton" fx:id="scegliNumeroArmate" alignment="CENTER" contentDisplay="BOTTOM" layoutX="14.0" layoutY="81.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="30.0" prefWidth="231.0" stylesheets="@../css/StyleSheet.css" text="CON QUANTE ARMATE VUOI ATTACCARE?" textFill="WHITE">
+            <MenuButton id="menubutton" fx:id="scegliNumeroArmate" alignment="CENTER" contentDisplay="BOTTOM" layoutX="14.0" layoutY="79.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="34.0" prefWidth="261.0" stylesheets="@../css/StyleSheet.css" text="CON QUANTE ARMATE VUOI ATTACCARE?" textFill="WHITE">
               <items>
                 <MenuItem mnemonicParsing="false" style="-: ;" text="3" />
                   <MenuItem mnemonicParsing="false" text="2" />

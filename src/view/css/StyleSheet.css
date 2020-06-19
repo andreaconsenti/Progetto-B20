@@ -364,10 +364,49 @@
     -fx-padding: 8 15 15 15;
     -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
     -fx-background-color:
-            linear-gradient( to left, #315690 0%, #a31313 100%),
-            linear-gradient(to left, #4472b5 0%, #d93a3a 100%);
+            linear-gradient( to left, #315690 40%, #a31313 60%),
+            linear-gradient(to left, #4472b5 40%, #d93a3a 60%);
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
     -fx-text-fill: white;
+}
+
+/*------------------------------------------------------------------------------------*/
+
+/* 
+ * Menu Button in AttackScene.fxml
+ */
+
+#menubutton
+{
+    -fx-padding: 2 9 9 9;
+    -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
+    -fx-background-radius: 30;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#1380a3 0%,#127290 100%), 
+             #24829d, 
+             #3aafd8,
+            radial-gradient(center 50% 50%, radius 100%,#3ab0d9,#2ca3c5);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75),4,0,0,1);
+    -fx-font-weight: bold;
+    -fx-font-size: 10px;
+    -fx-text-fill: white;
+}
+
+#menubutton:hover
+{
+
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%,#1380a3 0%,#127290 100%),
+            #24829d, 
+            #3aafd8,
+            radial-gradient(center 50% 50%,radius 100%,#4bc4ea,#0e7f9d);
+}
+
+#menubutton:pressed
+{
+     -fx-padding: 4 9 7 9;
+     -fx-background-insets: 2 0 0 0,2 0 3 0,2 0 4 0,2 0 5 0;
+
 }

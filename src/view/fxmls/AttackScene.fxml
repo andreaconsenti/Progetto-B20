@@ -45,7 +45,7 @@
             </ImageView>
             <Pane id="attaccodifesa" prefHeight="66.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
                <children>
-                  <Label layoutX="331.0" layoutY="40.0" text="TERRITORIO_DIFESA" textFill="WHITE">
+                  <Label fx:id="defLabel" layoutX="331.0" layoutY="40.0" text="TERRITORIO_DIFESA" textFill="WHITE">
                      <font>
                         <Font size="11.0" />
                      </font>
@@ -55,7 +55,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="73.0" layoutY="40.0" text="TERRITORIO_ATTACCO" textFill="WHITE">
+                  <Label fx:id="atkLabel" layoutX="73.0" layoutY="40.0" text="TERRITORIO_ATTACCO" textFill="WHITE">
                      <font>
                         <Font size="11.0" />
                      </font>
@@ -67,23 +67,22 @@
                   </Label>
                </children>
             </Pane>
-            <Label layoutX="242.0" layoutY="151.0" text="Label" />
          </children>
       </Pane>
       <Pane id="attack1" layoutY="249.0" prefHeight="151.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
          <children>
             <MenuButton id="menubutton" fx:id="scegliNumeroArmate" alignment="CENTER" contentDisplay="BOTTOM" layoutX="14.0" layoutY="79.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="34.0" prefWidth="261.0" stylesheets="@../css/StyleSheet.css" text="CON QUANTE ARMATE VUOI ATTACCARE?" textFill="WHITE">
               <items>
-                <MenuItem mnemonicParsing="false" style="-: ;" text="3" />
-                  <MenuItem mnemonicParsing="false" text="2" />
-                <MenuItem mnemonicParsing="false" text="1" />
+                <MenuItem fx:id="three" mnemonicParsing="false" style="-: ;" text="3" />
+                  <MenuItem fx:id="two" mnemonicParsing="false" text="2" />
+                <MenuItem fx:id="one" mnemonicParsing="false" text="1" />
               </items>
                <font>
                   <Font size="6.0" />
                </font>
             </MenuButton>
             <Button id="redbutton" fx:id="annullaButton" layoutX="404.0" layoutY="75.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="ANNULLA" />
-            <Button id="button" fx:id="attackButton" layoutX="302.0" layoutY="56.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="ATTACCA" />
+            <Button id="button" fx:id="attackButton" layoutX="302.0" layoutY="56.0" mnemonicParsing="false" onAction="#attackButtonPressed" stylesheets="@../css/StyleSheet.css" text="ATTACCA" />
             <Button id="viola" fx:id="annichilisciButton" layoutX="302.0" layoutY="104.0" mnemonicParsing="false" stylesheets="@../css/StyleSheet.css" text="ASSEDIA" />
             <Pane id="attaccodifesa" prefHeight="50.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
                <children>
@@ -98,12 +97,12 @@
                         <Font size="11.0" />
                      </font>
                   </Label>
-                  <Label layoutX="96.0" layoutY="25.0" text="N_ATT" textFill="WHITE">
+                  <Label fx:id="atkN" layoutX="96.0" layoutY="25.0" text="N_ATT" textFill="WHITE">
                      <font>
                         <Font size="11.0" />
                      </font>
                   </Label>
-                  <Label layoutX="380.0" layoutY="25.0" text="N_DIF" textFill="WHITE">
+                  <Label fx:id="defN" layoutX="380.0" layoutY="25.0" text="N_DIF" textFill="WHITE">
                      <font>
                         <Font size="11.0" />
                      </font>

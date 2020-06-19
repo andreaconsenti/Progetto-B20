@@ -87,12 +87,20 @@ public class MoveSceneController {
 	}
 	
 	
-	public void dragDone(MouseEvent e) {
-//		Integer temp = t1 - (int)slider.getValue();
-//		number1.setText(temp.toString());
-//		temp = t2 + (int)slider.getValue();
-//		number2.setText(temp.toString());
-		
+	public void minPressed(ActionEvent e) {
+		slider.setValue(1);
+		Integer temp = t1 - (int)slider.getValue();
+		number1.setText(temp.toString());
+		temp = t2 + (int)slider.getValue();
+		number2.setText(temp.toString());
+	}
+	
+	public void maxPressed(ActionEvent e) {
+		slider.setValue(GameSceneController.territory1.getTanks() - 1);
+		Integer temp = t1 - (int)slider.getValue();
+		number1.setText(temp.toString());
+		temp = t2 + (int)slider.getValue();
+		number2.setText(temp.toString());
 	}
 	
 	

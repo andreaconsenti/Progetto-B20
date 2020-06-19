@@ -11,6 +11,7 @@ public class Player {
 	private int continents;
 	private int territories;
 	private Mission mission;
+	private DiceShaker shaker;
 	
 	/**
 	 * Creates a new player
@@ -23,6 +24,7 @@ public class Player {
 		this.tanks = 0;
 		this.bonusTanks = 0;
 		continents = 0;
+		shaker = new DiceShaker();
 	}
 	
 	/**
@@ -154,5 +156,9 @@ public class Player {
 			return true;
 		else
 			return false;
+	}
+	
+	public int[] rollDices(int n) {
+		return shaker.rollDices(n);
 	}
 }

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -29,6 +30,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import model.entities.COLOR;
 import model.entities.Player;
 import model.entities.PlayersList;
@@ -78,8 +81,8 @@ public class GameSceneController {
 	private FileHandler fileH = new FileHandler();
 	
 	private Territory territorySelected;
-	protected static Territory territory1;
-	protected static Territory territory2;
+	public static Territory territory1;
+	public static Territory territory2;
 	
 	
 	private class territoryStatus{
@@ -382,6 +385,7 @@ public class GameSceneController {
 				mappaImgTanks.get(territory1).getNumber().setText(n.toString());
 				n = territory2.getTanks();
 				mappaImgTanks.get(territory2).getNumber().setText(n.toString());
+				nextTurn();
 			} else {
 				territory1 = null;
 				territory2 = null;
@@ -440,6 +444,14 @@ public class GameSceneController {
 		window.setResizable(false);
 		window.setTitle("Spostamento");
 		window.setScene(moveScene);
+//		window.initStyle(StageStyle.UNDECORATED);
+		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		    @Override
+		    public void handle(WindowEvent event) {
+		        // consume event
+		        event.consume();
+		    }
+		});
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.showAndWait();
 	}
@@ -477,9 +489,13 @@ public class GameSceneController {
 	}
 	
 	private void nextTurn() {
+	
 		game.nextTurn();
+		if(!(game.getGamePhase() == GAME_PHASE.FIRSTTURN))
+			game.nextPhase();
 		setStatusBar();
 		setPlayerLabel();
+		
 	}
 	
 	private void nextPhase() {

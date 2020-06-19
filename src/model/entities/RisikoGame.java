@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import controller.GameSceneController;
 import model.util.FileHandler;
 
 public class RisikoGame {
@@ -73,6 +74,7 @@ public class RisikoGame {
 			
 			break;
 		case FINALMOVE:
+			giveBonus(currentTurn);
 			gamePhase = GAME_PHASE.REINFORCEMENT;
 			
 			break;
@@ -93,6 +95,32 @@ public class RisikoGame {
 		t1.removeTanks(n);
 		t2.addTanks(n);
 	}
+	
+	
+	public void battle(int[] atkResults, int[] defResults, int atk, int def) {
+		
+		int n = Math.min(atk, def);
+		
+		for(int i=0; i < n; i++) {
+			if(atkResults[i] > defResults[i]) {
+				getTerritory(GameSceneController.territory2).removeTanks(1);
+				getPlayer(GameSceneController.territory2.getOwner()).removeTanks(1);
+			} else {
+				getTerritory(GameSceneController.territory1).removeTanks(1);
+				currentTurn.removeTanks(1);
+			}
+		}
+
+		
+	}
+		
+		
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -258,7 +286,15 @@ public class RisikoGame {
 		}
 		return null;
 	}
-		
+	
+	public Player getPlayer(Player p) {
+		for(Player pl : players) {
+			if(pl.getName().equals(p.getName())) {
+				return pl;
+			}
+		}
+		return null;
+	}
 	
 
 	//-------------------TEST MAIN

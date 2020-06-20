@@ -24,7 +24,7 @@
                                  <image>
                                     <Image url="@images/Cards/carta_cannone.png" />
                                  </image></ImageView>
-                              <Label fx:id="territoryName0" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="89.0" text="territory" />
+                              <Label fx:id="territoryLabel0" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="89.0" text="territory" />
                            </children>
                         </StackPane>
                         <StackPane prefHeight="154.0" prefWidth="108.0">
@@ -34,7 +34,7 @@
                                     <Image url="@images/Cards/carta_cannone.png" />
                                  </image>
                               </ImageView>
-                              <Label fx:id="territoryName01" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="89.0" text="territory" />
+                              <Label fx:id="territoryLabel1" alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="89.0" text="territory" />
                            </children>
                         </StackPane>
                      </children>

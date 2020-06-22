@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 
 import javax.print.DocFlavor.URL;
 
+import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -26,36 +29,38 @@ public class AttackSceneController {
 	
 	@FXML
     private Button attackButton;
-
     @FXML
     private Button annichilisciButton;
-
     @FXML
     private Button annullaButton;
-
     @FXML
-    private MenuButton scegliNumeroArmate;
-    
+    private MenuButton scegliNumeroArmate;    
     @FXML
-    private MenuItem one;
-    
+    private MenuItem one;   
     @FXML
-    private MenuItem two;
-    
+    private MenuItem two;    
     @FXML
-    private MenuItem three;
-    
+    private MenuItem three;    
     @FXML
-    private Label atkLabel;
-    
+    private Label atkLabel;    
     @FXML
-    private Label defLabel;
-    
+    private Label defLabel;   
     @FXML
-    private Label atkN;
-    
+    private Label atkN;    
     @FXML
-    private Label defN;
+    private Label defN;   
+    @FXML 
+    private ImageView aDie1;    
+    @FXML 
+    private ImageView aDie2;  
+    @FXML 
+    private ImageView aDie3;
+    @FXML 
+    private ImageView dDie1;
+    @FXML 
+    private ImageView dDie2;
+    @FXML 
+    private ImageView dDie3;
     
     private int[] atkResults;
     private int[] defResults;
@@ -64,10 +69,44 @@ public class AttackSceneController {
     
     private Integer temp;
     
-
+    
+    private class Roller extends AnimationTimer{
+    	
+    	
+    	private long fps = 50L;
+    	private long interval = 1000000000L / fps;
+    	private int maxRolls = 20;
+    	
+    	private long last = 0;
+    	private int count = 0;
+    	
+    	@Override
+    	public void handle(long now) {
+    		if((now - last) > interval) {
+    			GameSceneController.territory1.getOwner().rollDices(atkNumber);
+    			GameSceneController.territory2.getOwner().rollDices(defNumber);
+    	    	setDiceImage();
+    	    	last = now;
+    	    	count++;
+    	    	if(count > maxRolls) {
+    	    		clock.stop();
+    	    		atkResults = GameSceneController.territory1.getOwner().rollDices(atkNumber);
+        	    	defResults = GameSceneController.territory2.getOwner().rollDices(defNumber);
+    	    		count = 0;
+    	    	}
+    		}
+    		
+    	}
+    	
+    }
+    
+    private Roller clock;
+    
+    
     
     public void initialize() {
     	
+    	clock = new Roller();
     	attackButton.setDisable(true);
     	atkLabel.setText(GameSceneController.territory1.getName());
     	defLabel.setText(GameSceneController.territory2.getName());
@@ -97,6 +136,8 @@ public class AttackSceneController {
     		scegliNumeroArmate.setText(three.getText());
 		});
     	
+    	defNumber();
+    	
     	menuHandler();
     
     }
@@ -104,12 +145,12 @@ public class AttackSceneController {
     
     public void attackButtonPressed(ActionEvent e) throws IOException {
     	
-    	atkResults = GameSceneController.territory1.getOwner().rollDices(atkNumber);
-    	defNumber();
-    	defResults = GameSceneController.territory2.getOwner().rollDices(defNumber);
+    	rollAnimation();
     	
     	GameSceneController.game.battle(atkResults, defResults, atkNumber, defNumber);
     	updateGUI();
+    	menuHandler();
+    	
     	if(GameSceneController.territory2.getTanks() == 0) {
     		territoryConquered();
     	}
@@ -148,9 +189,13 @@ public class AttackSceneController {
     	atkN.setText(temp.toString());
     	temp = GameSceneController.territory2.getTanks();
     	defN.setText(temp.toString());
+    	
+    	for(int i = 0; i < Math.min(atkNumber, defNumber); i++) {
+    		setDiceOpacity(i);
+    	}
     }
     
-    public void territoryConquered () throws IOException {
+    private void territoryConquered () throws IOException {
 		Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/MoveScene.fxml"));
 		Scene scene = new Scene(parent);
 		Stage window = new Stage();
@@ -160,5 +205,84 @@ public class AttackSceneController {
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.showAndWait();
 	}
+    
+    private void setDiceImage() {
+    	
+    	for(int i = 0; i < atkNumber; i++) {
+    		switch(i) {
+    		case 0:
+    			aDie1.setImage(getImage("src/view/fxmls/images/Dadi/redDie" + atkResults[i] + ".png"));
+    			break;
+    		case 1:
+    			aDie2.setImage(getImage("src/view/fxmls/images/Dadi/redDie" + atkResults[i] + ".png"));
+    			break;
+    		case 2:
+    			aDie3.setImage(getImage("src/view/fxmls/images/Dadi/redDie" + atkResults[i] + ".png"));
+    			break;
+    		}
+    	}
+    	
+    	for(int i = 0; i < defNumber; i++) {
+    		switch(i) {
+    		case 0:
+    			dDie1.setImage(getImage("src/view/fxmls/images/Dadi/redDie" + defResults[i] + ".png"));
+    			break;
+    		case 1:
+    			dDie2.setImage(getImage("src/view/fxmls/images/Dadi/redDie" + defResults[i] + ".png"));
+    			break;
+    		case 2:
+    			dDie3.setImage(getImage("src/view/fxmls/images/Dadi/redDie" + defResults[i] + ".png"));
+    			break;
+    		}
+    	}
+    	
+    	
+    }
+    
+    private void rollAnimation() {
+    	clock.start();
+    }
+    
+    private Image getImage(String path) {
+    	File file = new File(path);
+    	Image image = new Image(file.toURI().toString());
+    	return image;
+    }
+    
+    private void setDiceOpacity(int i) {
+    	
+    	switch(i) {
+    	case 0:
+        	if(atkResults[i] > defResults[i]) {
+        		aDie1.setOpacity(1);
+        		dDie1.setOpacity(0.35);
+        	} else {
+        		aDie1.setOpacity(0.35);
+        		dDie1.setOpacity(1);
+        	}
+        	break;
+    	case 1:
+        	if(atkResults[i] > defResults[i]) {
+        		aDie2.setOpacity(1);
+        		dDie2.setOpacity(0.35);
+        	} else {
+        		aDie2.setOpacity(0.35);
+        		dDie2.setOpacity(1);
+        	}
+        	break;
+    	case 2:
+        	if(atkResults[i] > defResults[i]) {
+        		aDie3.setOpacity(1);
+        		dDie3.setOpacity(0.35);
+        	} else {
+        		aDie3.setOpacity(0.35);
+        		dDie3.setOpacity(1);
+        	}
+        	break;
+    	}
+    	
+    	
+    }
+    
 
 }

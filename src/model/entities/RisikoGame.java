@@ -23,11 +23,14 @@ public class RisikoGame {
 	private GAME_PHASE gamePhase;
 	private Player currentTurn;
 	private int turnCounter;
+	private boolean conquer;
 	
 	
 	public RisikoGame(Player[] players) throws NumberFormatException, IOException {
 		this.players = players;
 		this.players = shufflePlayers();
+		
+		conquer = false;
 		
 		giveStarterTanks();
 		

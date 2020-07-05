@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionListener;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -11,32 +12,36 @@ import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+
+
 public class MoveSceneController {
 
 	@FXML
-	Label territory1;
+	private Label territory1;
 	
 	@FXML
-	Label territory2;
+	private Label territory2;
 	
 	@FXML
-	Label number2;
+	private Label number2;
 	
 	@FXML
-	Label number1;
+	private Label number1;
 	
 	@FXML
-	Slider slider;
+	private Slider slider;
 	
 	@FXML
-	Button move;
+	private Button move;
 	
-	Integer t1;
+	private Integer t1;
 	
-	Integer t2;
+	private Integer t2;
+	
+	private boolean conquer;
 	
 	
-	public void initialize() {
+	public void initialize(){
 		
 		t1 = GameSceneController.territory1.getTanks();
  		t2 = GameSceneController.territory2.getTanks();
@@ -46,6 +51,9 @@ public class MoveSceneController {
 		number2.setText(t2.toString());
 		
 		int n = GameSceneController.territory1.getTanks() - 1;
+		if(GameSceneController.territory2.getTanks() == 0) {
+			conquer = true;
+		}
 		
 		slider.setMax(n);
 		slider.setMin(1);
@@ -54,7 +62,6 @@ public class MoveSceneController {
 		slider.setMinorTickCount(0);
 		slider.setShowTickLabels(true);
 		slider.setSnapToTicks(true);
-		
 		slider.setMouseTransparent(true);
 		
 	}

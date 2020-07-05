@@ -15,32 +15,32 @@
          <children>
             <ImageView fx:id="aDie1" fitHeight="50.0" fitWidth="51.0" layoutX="103.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/Dadi/redDie1.png" />
+                  <Image url="@images/Dadi/redDie.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="aDie2" fitHeight="50.0" fitWidth="51.0" layoutX="103.0" layoutY="134.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="aDie2" fitHeight="50.0" fitWidth="51.0" layoutX="103.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/Dadi/redDie1.png" />
+                  <Image url="@images/Dadi/redDie.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="aDie3" fitHeight="50.0" fitWidth="51.0" layoutX="103.0" layoutY="188.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="aDie3" fitHeight="50.0" fitWidth="51.0" layoutX="103.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/Dadi/redDie1.png" />
+                  <Image url="@images/Dadi/redDie.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="dDie1" fitHeight="50.0" fitWidth="51.0" layoutX="356.0" layoutY="80.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="dDie1" fitHeight="50.0" fitWidth="51.0" layoutX="356.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/Dadi/redDie1.png" />
+                  <Image url="@images/Dadi/bluDie.png" />
                </image>
             </ImageView>
             <ImageView fx:id="dDie2" fitHeight="50.0" fitWidth="51.0" layoutX="356.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/Dadi/redDie1.png" />
+                  <Image url="@images/Dadi/bluDie.png" />
                </image>
             </ImageView>
             <ImageView fx:id="dDie3" fitHeight="50.0" fitWidth="51.0" layoutX="356.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/Dadi/redDie1.png" />
+                  <Image url="@images/Dadi/bluDie.png" />
                </image>
             </ImageView>
             <Pane id="attaccodifesa" prefHeight="66.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">

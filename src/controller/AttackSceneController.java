@@ -95,9 +95,7 @@ public class AttackSceneController {
     	    		count = 0;
     	    	}
     		}
-    		
     	}
-    	
     }
     
     private Roller clock;
@@ -144,21 +142,27 @@ public class AttackSceneController {
     
     
     public void attackButtonPressed(ActionEvent e) throws IOException {
-    	
-    	rollAnimation();
+//    	rollAnimation();
+		atkResults = GameSceneController.territory1.getOwner().rollDices(atkNumber);
+    	defResults = GameSceneController.territory2.getOwner().rollDices(defNumber);
     	
     	GameSceneController.game.battle(atkResults, defResults, atkNumber, defNumber);
     	updateGUI();
     	menuHandler();
+    	attackButton.setDisable(true);
+    	attackingNumbers();
+
     	
     	if(GameSceneController.territory2.getTanks() == 0) {
     		territoryConquered();
-    	}
-    	if(GameSceneController.territory1.getTanks() == 1) {
-    		// Disabilitare le opzioni per l'attacco
+    		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
+    		window.close();
     	}
     	
-    	
+    	if(GameSceneController.territory1.getTanks() < 2) {
+    		attackButton.setDisable(true);
+    		scegliNumeroArmate.setDisable(true);
+    	}
     	
     }
     
@@ -171,6 +175,10 @@ public class AttackSceneController {
     	}
     	else
     		defNumber = GameSceneController.territory2.getTanks();
+    }
+    
+    private void attackingNumbers() {
+    	defNumber();
     }
     
     private void menuHandler() {
@@ -189,10 +197,12 @@ public class AttackSceneController {
     	atkN.setText(temp.toString());
     	temp = GameSceneController.territory2.getTanks();
     	defN.setText(temp.toString());
+    	setDiceImage();
     	
-    	for(int i = 0; i < Math.min(atkNumber, defNumber); i++) {
+    	for(int i = 0; i < 3; i++) {
     		setDiceOpacity(i);
     	}
+    	removeUnusedDice();
     }
     
     private void territoryConquered () throws IOException {
@@ -225,17 +235,33 @@ public class AttackSceneController {
     	for(int i = 0; i < defNumber; i++) {
     		switch(i) {
     		case 0:
-    			dDie1.setImage(getImage("src/view/fxmls/images/Dadi/redDie" + defResults[i] + ".png"));
+    			dDie1.setImage(getImage("src/view/fxmls/images/Dadi/bluDie" + defResults[i] + ".png"));
     			break;
     		case 1:
-    			dDie2.setImage(getImage("src/view/fxmls/images/Dadi/redDie" + defResults[i] + ".png"));
+    			dDie2.setImage(getImage("src/view/fxmls/images/Dadi/bluDie" + defResults[i] + ".png"));
     			break;
     		case 2:
-    			dDie3.setImage(getImage("src/view/fxmls/images/Dadi/redDie" + defResults[i] + ".png"));
+    			dDie3.setImage(getImage("src/view/fxmls/images/Dadi/bluDie" + defResults[i] + ".png"));
     			break;
     		}
     	}
     	
+    }
+    
+    private void removeUnusedDice() {
+    	if(atkNumber < 3) {
+    		if(atkNumber < 2) {
+    			aDie2.setOpacity(0.0);
+    		}
+    		aDie3.setOpacity(0.0);
+    	}
+    	
+    	if(defNumber < 3) {
+    		if(defNumber < 2) {
+    			dDie2.setOpacity(0.0);
+    		}
+    		dDie3.setOpacity(0.0);
+    	}
     	
     }
     
@@ -280,8 +306,6 @@ public class AttackSceneController {
         	}
         	break;
     	}
-    	
-    	
     }
     
 

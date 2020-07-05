@@ -40,6 +40,7 @@ import model.entities.Territory;
 import model.entities.RisikoGame.GAME_PHASE;
 import model.util.FileHandler;
 import model.util.ImageAssets;
+import model.util.Observer;
 import model.util.Pixel;
 
 public class GameSceneController {
@@ -435,6 +436,22 @@ public class GameSceneController {
 		window.setScene(scene);
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.showAndWait();
+		
+		window.setOnCloseRequest(event -> {
+			
+			Integer n = territory1.getTanks();
+			mappaImgTanks.get(territory1).getNumber().setText(n.toString());
+			n = territory2.getTanks();
+			mappaImgTanks.get(territory2).getNumber().setText(n.toString());
+			
+			File file = new File(getTankPath(territory1));
+			Image image = new Image(file.toURI().toString());
+			mappaImgTanks.get(territory1).getImage().setImage(image);
+			file = new File(getTankPath(territory2));
+			image = new Image(file.toURI().toString());
+			mappaImgTanks.get(territory2).getImage().setImage(image);
+			
+		});
 	}
 	
 	public void moveSceneLoader() throws IOException {
@@ -444,7 +461,6 @@ public class GameSceneController {
 		window.setResizable(false);
 		window.setTitle("Spostamento");
 		window.setScene(moveScene);
-//		window.initStyle(StageStyle.UNDECORATED);
 		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
 		    @Override
 		    public void handle(WindowEvent event) {
@@ -686,6 +702,9 @@ public class GameSceneController {
 		
 		}
 	}
+
+
+	
 	
 	
 }

@@ -38,7 +38,7 @@
             <Button id="button" fx:id="cardButton" mnemonicParsing="false" onAction="#cardButtonPressed" prefHeight="40.0" prefWidth="88.0" rotate="180.0" stylesheets="@../css/StyleSheet.css" text="CARTE" translateX="1000.0" />
             <Button id="button" fx:id="missionButton" mnemonicParsing="false" onAction="#missionButtonPressed" prefHeight="40.0" prefWidth="88.0" rotate="180.0" stylesheets="@../css/StyleSheet.css" text="MISSIONE" translateX="780.0" />
             <Button id="button" fx:id="menuButton" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" rotate="180.0" stylesheets="@../css/StyleSheet.css" text="MENU" translateX="560.0" />
-            <Button id="sale" fx:id="endTurn" mnemonicParsing="false" prefHeight="42.0" prefWidth="149.0" rotate="180.0" stylesheets="@../../../stylesheet.css" text="TERMINA TURNO" translateX="-220.0" />
+            <Button id="redbutton" fx:id="endTurn" mnemonicParsing="false" prefHeight="42.0" prefWidth="149.0" rotate="180.0" stylesheets="@../../../stylesheet.css" text="TERMINA TURNO" translateX="-220.0" />
          </items>
       </ToolBar>
       <ToolBar id="toolbar" prefHeight="39.0" prefWidth="1115.0" stylesheets="@../css/StyleSheet.css">
@@ -46,7 +46,7 @@
             <Insets />
          </opaqueInsets>
          <items>
-            <Button id="sale" fx:id="nextPhase" mnemonicParsing="false" onAction="#nextPhasePressed" prefHeight="42.0" prefWidth="169.0" stylesheets="@../../../stylesheet.css" text="PROSSIMA FASE" textFill="#444cb5" translateX="10.0" />
+            <Button id="button" fx:id="nextPhase" mnemonicParsing="false" onAction="#nextPhasePressed" prefHeight="42.0" prefWidth="169.0" stylesheets="@../../../stylesheet.css" text="PROSSIMA FASE" textFill="#444cb5" translateX="10.0" />
             <TextArea fx:id="statusBar" editable="false" prefHeight="45.0" prefWidth="820.0" translateX="100.0" />
          </items></ToolBar>
       <AnchorPane fx:id="tanksPane" layoutY="56.0" prefHeight="609.0" prefWidth="1115.0" />

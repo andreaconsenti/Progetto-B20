@@ -435,6 +435,9 @@ public class GameSceneController {
 		nextPhase();
 	}
 	
+	public void endTurnPressed(ActionEvent e) {
+		nextTurn();
+	}
 
 	public void attackerAndDefenderChosen () throws IOException {
 		Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/AttackScene.fxml"));
@@ -535,26 +538,32 @@ public class GameSceneController {
 	
 		game.nextTurn();
 		if(!(game.getGamePhase() == GAME_PHASE.FIRSTTURN))
-			game.nextPhase();
+			nextPhase();
 		setStatusBar();
 		setPlayerLabel();
 		
 	}
 	
 	private void nextPhase() {
-		game.nextPhase();
-		setStatusBar();
-		setPlayerLabel();
 		switch(game.getGamePhase()) {
-		case BATTLE:
+		case FINALMOVE:
+			nextPhase.setText("POSIZIONAMENTO");
+			endTurn.setDisable(true);
+			nextPhase.setDisable(true);
+			break;
+		case REINFORCEMENT:
 			nextPhase.setText("SPOSTAMENTO");
 			nextPhase.setDisable(false);
+			endTurn.setDisable(true);
 			break;
-		case FINALMOVE:
+		case BATTLE:
 			nextPhase.setDisable(true);
 			endTurn.setDisable(false);
 			break;
 		}
+		game.nextPhase();
+		setStatusBar();
+		setPlayerLabel();
 	}
 	
 	private Color returnPlayerColor(Player p) {

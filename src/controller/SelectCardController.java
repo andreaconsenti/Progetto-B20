@@ -1,13 +1,19 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import model.entities.Card;
 import model.entities.RisikoGame.GAME_PHASE;
 
 public class SelectCardController {
@@ -41,6 +47,9 @@ public class SelectCardController {
 
     @FXML
     private ImageView carta2;
+    
+    @FXML
+    private HBox cardBox;
 
     @FXML
     void initialize() {
@@ -52,11 +61,24 @@ public class SelectCardController {
     		scambiaButton.setDisable(false);
     		annullaButton.setDisable(false);
     	}
+    	
+    	
     }
     
-	void addCard() {
-		//aggiungere stackPane
-		//la prima è cardImage0 e territoryName0, la seconda è cardImage01 e territoryName01, poi 02 e 02, etc...
+	void addCard(Card c) {
+    	StackPane p1 = new StackPane();
+    	File file = new File("src/view/fxmls/images/Cards/carta_cannone.png");
+		Image image = new Image(file.toURI().toString());
+		ImageView card = new ImageView(image);
+		Label l = new Label("territorio");
+		l.setPrefHeight(89);
+		l.setPrefWidth(90);
+		l.setAlignment(Pos.BOTTOM_CENTER);
+		card.setFitHeight(170);
+		card.setFitWidth(107);
+		p1.getChildren().add(card);
+		p1.getChildren().add(l);
+		cardBox.getChildren().add(p1);
 		
 	}
 	

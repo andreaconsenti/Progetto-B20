@@ -242,7 +242,7 @@ public class GameSceneController {
 				for(Territory t : game.getTerritories()) {
 					check = 0;
 					for(Pixel p : mappa.get(t)) {
-						if((p.getX() == x) && (p.getY() == y)) {
+						if((p.getX() == x) && (p.getY() == y) && !t.equals(territory1)) {
 							check = 1;
 							territoryLabel.setOpacity(100);
 							territoryLabel.setText(territoryText(t));
@@ -367,7 +367,7 @@ public class GameSceneController {
 				setStatusBar();
 				
 			} else if (territory2 == null) {
-				if(territorySelected == null) {
+				if(territorySelected == null || territorySelected.equals(territory1)) {
 					territory1 = territorySelected;
 					setStatusBar();
 					break;
@@ -375,8 +375,6 @@ public class GameSceneController {
 				territory2 = territorySelected;
 				attackerAndDefenderChosen ();
 				updateTanks();
-				setStatusBar();
-			} else {
 				territory1 = null;
 				territory2 = null;
 				setStatusBar();

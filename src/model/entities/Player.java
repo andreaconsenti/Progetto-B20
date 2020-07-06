@@ -159,6 +159,10 @@ public class Player {
 		cards.add(c);
 	}
 	
+	public ArrayList<Card> getCards() {
+		return cards;
+	}
+	
 	public boolean equals(Player p) {
 		if(p.getName() == this.name)
 			return true;

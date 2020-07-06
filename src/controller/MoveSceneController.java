@@ -38,6 +38,8 @@ public class MoveSceneController {
 	
 	private Integer t2;
 	
+	private Integer tn;
+	
 	private boolean conquer;
 	
 	
@@ -47,8 +49,10 @@ public class MoveSceneController {
  		t2 = GameSceneController.territory2.getTanks();
 		territory1.setText(GameSceneController.territory1.getName());
 		territory2.setText(GameSceneController.territory2.getName());
-		number1.setText(t1.toString());
-		number2.setText(t2.toString());
+		tn = t1 -  1;
+		number1.setText(tn.toString());
+		tn = t2 + 1;
+		number2.setText(tn.toString());
 		
 		int n = GameSceneController.territory1.getTanks() - 1;
 		if(GameSceneController.territory2.getTanks() == 0) {

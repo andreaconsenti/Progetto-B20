@@ -1,5 +1,7 @@
 package model.entities;
 
+import java.util.ArrayList;
+
 public class Player {
 	
 	//private boolean isAI;
@@ -12,6 +14,7 @@ public class Player {
 	private int territories;
 	private Mission mission;
 	private DiceShaker shaker;
+	private ArrayList<Card> cards;
 	
 	/**
 	 * Creates a new player
@@ -25,6 +28,7 @@ public class Player {
 		this.bonusTanks = 0;
 		continents = 0;
 		shaker = new DiceShaker();
+		cards = new ArrayList<Card>();
 	}
 	
 	/**
@@ -149,6 +153,10 @@ public class Player {
 		this.bonusTanks -= n;
 		this.tanks +=n;
 		
+	}
+	
+	public void giveCard(Card c) {
+		cards.add(c);
 	}
 	
 	public boolean equals(Player p) {

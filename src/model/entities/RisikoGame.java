@@ -18,19 +18,16 @@ public class RisikoGame {
 	private ArrayList<Continent> continents;
 	private ArrayList<Mission> missions;
 	private ArrayList<Card> cards;
-	private DiceShaker diceShaker = new DiceShaker();
 	private FileHandler fileHandler = new FileHandler();
 	private GAME_PHASE gamePhase;
 	private Player currentTurn;
 	private int turnCounter;
-	private boolean conquer;
+	private boolean conquerMade;
 	
 	
 	public RisikoGame(Player[] players) throws NumberFormatException, IOException {
 		this.players = players;
 		this.players = shufflePlayers();
-		
-		conquer = false;
 		
 		giveStarterTanks();
 		
@@ -48,6 +45,7 @@ public class RisikoGame {
 		
 		turnCounter = 0;
 		currentTurn = this.players[turnCounter];
+		conquerMade = false;
 		
 	}
 	
@@ -73,10 +71,14 @@ public class RisikoGame {
 			
 			break;
 		case BATTLE:
+			if(conquerMade) {
+				giveCard();
+			}
 			gamePhase = GAME_PHASE.FINALMOVE;
 			
 			break;
 		case FINALMOVE:
+			conquerMade = false;
 			giveBonus(currentTurn);
 			gamePhase = GAME_PHASE.REINFORCEMENT;
 			
@@ -115,6 +117,11 @@ public class RisikoGame {
 		}
 
 		
+	}
+	
+	public void conquer(Territory t1, Territory t2) {
+		getTerritory(t2).setOwner(getTerritory(t1).getOwner());
+		conquerMade = true;
 	}
 		
 		
@@ -297,6 +304,12 @@ public class RisikoGame {
 			}
 		}
 		return null;
+	}
+	
+	public void giveCard() {
+		getPlayer(currentTurn).giveCard(cards.get(0));
+		cards.remove(0);
+		shuffleCards();
 	}
 	
 

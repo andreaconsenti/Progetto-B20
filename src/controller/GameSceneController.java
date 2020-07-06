@@ -86,6 +86,18 @@ public class GameSceneController {
 	public static Territory territory2;
 	
 	
+//	private static GameSceneController instance;
+//	
+//	public GameSceneController() {
+//		instance = this;
+//	}
+//	
+//	public static GameSceneController getInstance() {
+//		return instance;
+//	}
+	
+	
+	
 	private class territoryStatus{
 		private ImageView image;
 		private Label number;
@@ -125,8 +137,6 @@ public class GameSceneController {
 		
 		wImage = genWritableMap();
 		map.setImage(wImage);
-//		map.setX(gamePane.getLayoutX());
-//		map.setY(gamePane.getLayoutY());
 		
 		mappaImgTanks = new HashMap<Territory, territoryStatus>();
 		initTanks();
@@ -359,10 +369,13 @@ public class GameSceneController {
 			} else if (territory2 == null) {
 				if(territorySelected == null) {
 					territory1 = territorySelected;
+					setStatusBar();
+					break;
 				}
 				territory2 = territorySelected;
-				setStatusBar();
 				attackerAndDefenderChosen ();
+				updateTanks();
+				setStatusBar();
 			} else {
 				territory1 = null;
 				territory2 = null;
@@ -383,9 +396,7 @@ public class GameSceneController {
 				setStatusBar();
 				moveSceneLoader();
 				Integer n = territory1.getTanks();
-				mappaImgTanks.get(territory1).getNumber().setText(n.toString());
-				n = territory2.getTanks();
-				mappaImgTanks.get(territory2).getNumber().setText(n.toString());
+				updateTanks();
 				nextTurn();
 			} else {
 				territory1 = null;
@@ -437,21 +448,39 @@ public class GameSceneController {
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.showAndWait();
 		
-		window.setOnCloseRequest(event -> {
-			
-			Integer n = territory1.getTanks();
-			mappaImgTanks.get(territory1).getNumber().setText(n.toString());
-			n = territory2.getTanks();
-			mappaImgTanks.get(territory2).getNumber().setText(n.toString());
-			
-			File file = new File(getTankPath(territory1));
-			Image image = new Image(file.toURI().toString());
-			mappaImgTanks.get(territory1).getImage().setImage(image);
-			file = new File(getTankPath(territory2));
-			image = new Image(file.toURI().toString());
-			mappaImgTanks.get(territory2).getImage().setImage(image);
-			
-		});
+		
+//		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//		    @Override public void handle(WindowEvent t) {
+//		    	Integer n = territory1.getTanks();
+//				mappaImgTanks.get(territory1).getNumber().setText(n.toString());
+//				n = territory2.getTanks();
+//				mappaImgTanks.get(territory2).getNumber().setText(n.toString());
+//				
+//				File file = new File(getTankPath(territory1));
+//				Image image = new Image(file.toURI().toString());
+//				mappaImgTanks.get(territory1).getImage().setImage(image);
+//				file = new File(getTankPath(territory2));
+//				image = new Image(file.toURI().toString());
+//				mappaImgTanks.get(territory2).getImage().setImage(image);
+//				
+//		    }
+//		});
+//		
+//		window.setOnCloseRequest(event -> {
+//			
+//			Integer n = territory1.getTanks();
+//			mappaImgTanks.get(territory1).getNumber().setText(n.toString());
+//			n = territory2.getTanks();
+//			mappaImgTanks.get(territory2).getNumber().setText(n.toString());
+//			
+//			File file = new File(getTankPath(territory1));
+//			Image image = new Image(file.toURI().toString());
+//			mappaImgTanks.get(territory1).getImage().setImage(image);
+//			file = new File(getTankPath(territory2));
+//			image = new Image(file.toURI().toString());
+//			mappaImgTanks.get(territory2).getImage().setImage(image);
+//			
+//		});
 	}
 	
 	public void moveSceneLoader() throws IOException {
@@ -701,6 +730,20 @@ public class GameSceneController {
 			break;
 		
 		}
+	}
+	
+	public void updateTanks() {
+    	Integer n = territory1.getTanks();
+		mappaImgTanks.get(territory1).getNumber().setText(n.toString());
+		n = territory2.getTanks();
+		mappaImgTanks.get(territory2).getNumber().setText(n.toString());
+		
+		File file = new File(getTankPath(territory1));
+		Image image = new Image(file.toURI().toString());
+		mappaImgTanks.get(territory1).getImage().setImage(image);
+		file = new File(getTankPath(territory2));
+		image = new Image(file.toURI().toString());
+		mappaImgTanks.get(territory2).getImage().setImage(image);
 	}
 
 

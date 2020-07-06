@@ -206,6 +206,8 @@ public class AttackSceneController {
     }
     
     private void territoryConquered () throws IOException {
+    	GameSceneController.game.conquer(GameSceneController.territory1, GameSceneController.territory2);
+    	
 		Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/MoveScene.fxml"));
 		Scene scene = new Scene(parent);
 		Stage window = new Stage();

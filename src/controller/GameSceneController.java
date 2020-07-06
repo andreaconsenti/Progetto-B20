@@ -538,6 +538,8 @@ public class GameSceneController {
 			game.nextPhase();
 		setStatusBar();
 		setPlayerLabel();
+		territory1 = null;
+		territory2 = null;
 		
 	}
 	

@@ -2,6 +2,7 @@ package model.entities;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import controller.GameSceneController;
@@ -38,6 +39,7 @@ public class RisikoGame {
 		giveMissions();
 		
 		cards = fileHandler.genCards(territories, "assets/infoTerritori.txt");
+		shuffleCards();
 		
 		initTerritoryOwners();
 		
@@ -120,6 +122,8 @@ public class RisikoGame {
 	}
 	
 	public void conquer(Territory t1, Territory t2) {
+		t1.getOwner().addTerritory();
+		t2.getOwner().removeTerritory();
 		getTerritory(t2).setOwner(getTerritory(t1).getOwner());
 		conquerMade = true;
 	}
@@ -200,7 +204,7 @@ public class RisikoGame {
         return shuffledTerritories;
     }
     
-    private Card[] shuffleCards() {
+    private void shuffleCards() {
     	Card[] shuffledCards = new Card[cards.size()];
     	int k = 0;
     	for(Card c : cards) {
@@ -213,7 +217,11 @@ public class RisikoGame {
             shuffledCards[i] = shuffledCards[j];
             shuffledCards[j] = temp;
         }
-        return shuffledCards;
+        ArrayList<Card> temp = new ArrayList<Card>();
+        for(Card c: shuffledCards) {
+        	temp.add(c);
+        }
+        cards = temp;
     }
     
     private void initTerritoryOwners() {

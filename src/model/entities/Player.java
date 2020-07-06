@@ -117,6 +117,10 @@ public class Player {
 	public void addTerritory() {
 		this.territories += 1;
 	}
+	
+	public void removeTerritory() {
+		this.territories -= 1;
+	}
 
 	/**
 	 * Returns the description of the mission of the player

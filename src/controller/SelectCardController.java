@@ -62,15 +62,19 @@ public class SelectCardController {
     		annullaButton.setDisable(false);
     	}
     	
+    	for(Card ca : GameSceneController.game.getCurrentTurn().getCards()) {
+    		addCard(ca);
+    	}
+    	
     	
     }
     
 	void addCard(Card c) {
     	StackPane p1 = new StackPane();
-    	File file = new File("src/view/fxmls/images/Cards/carta_cannone.png");
+    	File file = new File(genCardPath(c));
 		Image image = new Image(file.toURI().toString());
 		ImageView card = new ImageView(image);
-		Label l = new Label("territorio");
+		Label l = new Label(c.getTerritory().getName());
 		l.setPrefHeight(89);
 		l.setPrefWidth(90);
 		l.setAlignment(Pos.BOTTOM_CENTER);
@@ -91,5 +95,25 @@ public class SelectCardController {
 	@FXML
 	void onScambiaPressed(ActionEvent event) throws IOException {
 	
+	}
+	
+	
+	
+	private String genCardPath(Card c) {
+		switch(c.getFigure()) {
+		case CANNONE:
+			return "src/view/fxmls/images/Cards/carta_cannone.png";
+			
+		case FANTE:
+			return "src/view/fxmls/images/Cards/carta_fante.png";
+
+		case CAVALIERE:
+			return "src/view/fxmls/images/Cards/carta_cavallo.png";
+			
+		case JOLLY:
+			return "src/view/fxmls/images/Cards/carta_vuota.png";
+			
+		}
+		return null;
 	}
 }

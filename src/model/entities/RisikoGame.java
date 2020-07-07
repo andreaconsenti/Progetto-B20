@@ -78,6 +78,7 @@ public class RisikoGame {
 				giveCard();
 			}
 			gamePhase = GAME_PHASE.FINALMOVE;
+			verifyMission();
 			
 			break;
 		case FINALMOVE:
@@ -135,8 +136,7 @@ public class RisikoGame {
 		MISSION_TYPE missionType = getCurrentTurn().getMission().getType();
 		int i = 0;
 		
-		if (missionType == MISSION_TYPE.TYPE1) {
-			
+		if(missionType == MISSION_TYPE.TYPE1) {
 				for (Territory t : territories) {
 					if (t.getOwner() == getCurrentTurn() && getCurrentTurn().getMission().getNumberOfTanks() <= t.getTanks() ) {
 						i++;
@@ -150,16 +150,19 @@ public class RisikoGame {
 		}
 		
 		else {
-			if () {
-				return true;
+			if(missionType==MISSION_TYPE.TYPE2) {
+				if(getCurrentTurn().getMission().getContinent1().getRandomPlayer()==getCurrentTurn()) {
+					if(getCurrentTurn().getMission().getContinent2().getRandomPlayer()==getCurrentTurn()) {
+						if(getCurrentTurn().getContinents()>2)
+						return true;
+					}
+				}
 			}
-			
-		else
-			return false; 
+			else
+				return false;
 		}
+		return false;
 	}
-	
-	
 	
 	
 	

@@ -14,7 +14,7 @@ public class Mission {
 	/**
 	 * Types that describe the possible objectives of a mission
 	 */
-	private enum MISSION_TYPE {
+	public enum MISSION_TYPE {
 		TYPE1, TYPE2;
 	};
 	

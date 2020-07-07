@@ -39,6 +39,10 @@ public class Player {
 		this.mission = mission;
 	}
 	
+	public Mission getMission() {
+		return mission;
+	}
+	
 	/**
 	 * Gives tanks to the player
 	 * @param newTanks is the number of tanks added

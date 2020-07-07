@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import controller.GameSceneController;
+import model.entities.Mission.MISSION_TYPE;
 import model.util.FileHandler;
 
 public class RisikoGame {
@@ -129,7 +130,34 @@ public class RisikoGame {
 	}
 		
 		
-	
+	public boolean verifyMission () {
+		int codMission = getCurrentTurn().getMission().getCodeMission();
+		MISSION_TYPE missionType = getCurrentTurn().getMission().getType();
+		int i = 0;
+		
+		if (missionType == MISSION_TYPE.TYPE1) {
+			
+				for (Territory t : territories) {
+					if (t.getOwner() == getCurrentTurn() && getCurrentTurn().getMission().getNumberOfTanks() <= t.getTanks() ) {
+						i++;
+					}
+				}
+				if (getCurrentTurn().getMission().getNumberOfTerritories() <= i) {
+					return true;
+				}
+				else 
+					return false;
+		}
+		
+		else {
+			if () {
+				return true;
+			}
+			
+		else
+			return false; 
+		}
+	}
 	
 	
 	

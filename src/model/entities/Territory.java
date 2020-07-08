@@ -9,17 +9,17 @@ public class Territory {
 	private Player owner;
 	private int tanks;
 	private ArrayList<Territory> confinanti;
-	//private Continent continent;
+//	private Continent continent;
 	private String continent;
 	private int id;
 	private String hexaColor;
 	
-	/*public Territory(String name, Continent continent, int id) {
-		this.name = name;
-		this.continent = continent;
-		tanks = 0;
-		this.id = id;
-	}*/
+//	public Territory(String name, Continent continent, int id) {
+//		this.name = name;
+//		this.continent = continent;
+//		tanks = 0;
+//		this.id = id;
+//	}
 	
 	/**
 	 * Creates a new territory

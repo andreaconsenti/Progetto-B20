@@ -85,6 +85,4 @@ public class Continent {
 	public Player getRandomPlayer() {		
 		return territories.get(1).getOwner();
 	}
-	
-	
 }

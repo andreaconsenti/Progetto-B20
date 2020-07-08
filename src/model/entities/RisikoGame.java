@@ -149,12 +149,29 @@ public class RisikoGame {
 					return false;
 		}
 		
+//		else {
+//			if(missionType==MISSION_TYPE.TYPE2) {
+//				if(getCurrentTurn().getMission().getContinent1().getRandomPlayer() == getCurrentTurn() && 
+//						getCurrentTurn().getMission().getContinent2().getRandomPlayer()==getCurrentTurn() &&
+//						getCurrentTurn().getContinents()>2) {
+//						return true;
+//					}
+//			}
+//			else
+//				return false;
+//		}
+//		return false;
+//	}
 		else {
 			if(missionType==MISSION_TYPE.TYPE2) {
-				if(getCurrentTurn().getMission().getContinent1().getRandomPlayer()==getCurrentTurn()) {
-					if(getCurrentTurn().getMission().getContinent2().getRandomPlayer()==getCurrentTurn()) {
-						if(getCurrentTurn().getContinents()>2)
-						return true;
+				if(getCurrentTurn().getMission().getContinent1().getOwned() == true){
+					if(getCurrentTurn().getMission().getContinent1().getRandomPlayer()==currentTurn) {
+						if(getCurrentTurn().getMission().getContinent2().getOwned()==true) {
+							if(getCurrentTurn().getMission().getContinent2().getRandomPlayer()==currentTurn) {
+								if(getCurrentTurn().getContinents()>2)
+									return true;
+							}
+						}
 					}
 				}
 			}

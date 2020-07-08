@@ -363,6 +363,9 @@ public class GameSceneController {
 				Integer n = game.getTerritory(territorySelected).getTanks();
 				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
 				setStatusBar();
+				if (game.verifyMission() == true) {
+					missionCompleted();
+				};
 				if(game.getCurrentTurn().getBonusTanks() == 0) {
 					nextPhase();
 				}

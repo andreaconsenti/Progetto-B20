@@ -375,6 +375,9 @@ public class GameSceneController {
 				territory2 = territorySelected;
 				attackerAndDefenderChosen ();
 				updateTanks();
+				if (game.verifyMission() == true) {
+					missionCompleted();
+				};
 				territory1 = null;
 				territory2 = null;
 				setStatusBar();
@@ -406,6 +409,17 @@ public class GameSceneController {
 		
 	
 	
+	}
+	
+	public void missionCompleted() throws IOException {
+		Parent missionCompletedSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/MissionCompletedScene.fxml"));
+		Scene missionCompletedScene = new Scene(missionCompletedSceneParent);
+		Stage window = new Stage();
+		window.setResizable(false);
+		window.setTitle("Vittoria");
+		window.setScene(missionCompletedScene);
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.showAndWait();	
 	}
 	
 	public void cardButtonPressed(ActionEvent e) throws IOException {

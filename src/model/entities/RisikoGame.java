@@ -36,7 +36,8 @@ public class RisikoGame {
 		territories = fileHandler.addConfinanti(fileHandler.genTerritories("assets/infoTerritori.txt"), "assets/infoTerritori.txt");
 		continents = fileHandler.genContinents("assets/continenti.txt");
 		
-		missions = fileHandler.genMissions("assets/obiettivi.txt", continents);
+		missions = fileHandler.genMissions("assets/obiettivi.txt", continents);  // per funzionamento corretto partita (definitivo)
+//		missions = fileHandler.genMissions("assets/obiettiviTest.txt", continents);  // per testare la vittoria
 		giveMissions();
 		
 		cards = fileHandler.genCards(territories, "assets/infoTerritori.txt");
@@ -132,7 +133,7 @@ public class RisikoGame {
 		
 		
 	public boolean verifyMission () {
-		int codMission = getCurrentTurn().getMission().getCodeMission();
+//		int codMission = getCurrentTurn().getMission().getCodeMission();
 		MISSION_TYPE missionType = getCurrentTurn().getMission().getType();
 		int i = 0;
 		

@@ -112,7 +112,13 @@ public class PlayerSceneController {
 
 	private COLOR tempColor;	
 	private ArrayList<Player> list;
+	private boolean mapChosed;
 	
+	public static String map;
+	public static String territories;
+	public static String terrFile;
+	public static String continentsFile;
+	public static String missions;
 	
 	
 	public void initialize() {
@@ -126,13 +132,20 @@ public class PlayerSceneController {
 		nameInputBlack.setText("");
 		playerList.getItems().clear();
 		list = new ArrayList<Player>();
+		mapChosed = false;
 		
 		map1.setOnAction(e -> {
 			mapinput.setText(map1.getText());
 			mapinput.setStyle("-fx-text-fill: black;");
-			File file = new File("src/view/fxmls/images/mappa1_preview.png");
+			File file = new File("src/view/fxmls/images/Maps/RisikoClassic/map_preview.png");
 			Image temp = new Image(file.toURI().toString());
 			mapPreview.setImage(temp);
+			map = "src/view/fxmls/images/Maps/RisikoClassic/map.jpg";
+			territories = "src/view/fxmls/images/Maps/RisikoClassic/territories.png";
+			terrFile = "assets/RisikoClassic/territori.txt";
+			continentsFile = "assets/RisikoClassic/continenti.txt";
+			missions = "assets/RisikoClassic/obiettivi.txt";
+			mapChosed = true;
 		});
 		
 		map2.setOnAction(e -> {
@@ -141,6 +154,12 @@ public class PlayerSceneController {
 			File file2 = new File("src/view/fxmls/images/Maps/SPQRisiko/map_preview.png");
 			Image temp2 = new Image(file2.toURI().toString());
 			mapPreview.setImage(temp2);
+			map = "src/view/fxmls/images/Maps/SPQRisiko/map.jpg";
+			territories = "src/view/fxmls/images/Maps/SPQRisiko/territories.png";
+			terrFile = "assets/SPQRisiko/territori.txt";
+			continentsFile = "assets/SPQRisiko/continenti.txt";
+			missions = "assets/SPQRisiko/obiettivi.txt";
+			mapChosed = true;
 		});
 		
 	}
@@ -163,7 +182,7 @@ public class PlayerSceneController {
 				list.add(new Player(nameInputBlack.getText(), COLOR.BLACK));
 				playerList.getItems().add(nameInputBlack.getText() + " --> " + "BLACK");
 				addPlayerBtnBlack.setDisable(true);
-				if (list.size() > 2) {
+				if (list.size() > 2 || mapChosed) {
 					startGameButton.setDisable(false);
 				}
 			} else playerList.getItems().add(nameInputBlack.getText() + " nome già usato.");
@@ -177,7 +196,7 @@ public class PlayerSceneController {
 				list.add(new Player(nameInputBlue.getText(), COLOR.BLUE));
 				playerList.getItems().add(nameInputBlue.getText() + " --> " + "BLUE");
 				addPlayerBtnBlue.setDisable(true);
-				if (list.size() > 2) {
+				if (list.size() > 2 || mapChosed) {
 					startGameButton.setDisable(false);
 				}
 			} else playerList.getItems().add(nameInputBlue.getText() + " nome già usato.");
@@ -191,7 +210,7 @@ public class PlayerSceneController {
 	    		list.add(new Player(nameInputGreen.getText(), COLOR.GREEN));
 	    		playerList.getItems().add(nameInputGreen.getText() + " --> " + "GREEN");
 	    		addPlayerBtnGreen.setDisable(true);
-	    		if (list.size() > 2) {
+	    		if (list.size() > 2 || mapChosed) {
 	    			startGameButton.setDisable(false);
 	    		}
 	    	} else playerList.getItems().add(nameInputGreen.getText() + " nome già usato.");
@@ -205,7 +224,7 @@ public class PlayerSceneController {
 	    		list.add(new Player(nameInputPink.getText(), COLOR.PINK));
 	    		playerList.getItems().add(nameInputPink.getText() + " --> " + "PINK");
 	    		addPlayerBtnPink.setDisable(true);
-	    		if (list.size() > 2) {
+	    		if (list.size() > 2 || mapChosed) {
 	    			startGameButton.setDisable(false);
 	    		}
 	    	} else playerList.getItems().add(nameInputPink.getText() + " nome già usato.");	
@@ -219,7 +238,7 @@ public class PlayerSceneController {
 				list.add(new Player(nameInputRed.getText(), COLOR.RED));
 				playerList.getItems().add(nameInputRed.getText() + " --> " + "RED");
 				addPlayerBtnRed.setDisable(true);
-				if (list.size() > 2) {
+				if (list.size() > 2 || mapChosed) {
 					startGameButton.setDisable(false);
 				}
 			} else playerList.getItems().add(nameInputRed.getText() + " nome già usato.");
@@ -233,7 +252,7 @@ public class PlayerSceneController {
 				list.add(new Player(nameInputYellow.getText(), COLOR.YELLOW));
 				playerList.getItems().add(nameInputYellow.getText() + " --> " + "YELLOW");
 				addPlayerBtnYellow.setDisable(true);
-				if (list.size() > 2) {
+				if (list.size() > 2 || mapChosed) {
 					startGameButton.setDisable(false);
 				}
 			} else playerList.getItems().add(nameInputYellow.getText() + " nome già usato.");

@@ -27,20 +27,20 @@ public class RisikoGame {
 	private boolean conquerMade;
 	
 	
-	public RisikoGame(Player[] players) throws NumberFormatException, IOException {
+	public RisikoGame(Player[] players, String terrFile, String continentsFile, String missionsFile) throws NumberFormatException, IOException {
 		this.players = players;
 		this.players = shufflePlayers();
 		
 		giveStarterTanks();
 		
-		territories = fileHandler.addConfinanti(fileHandler.genTerritories("assets/infoTerritoriRoma.txt"), "assets/infoTerritoriRoma.txt");
-		continents = fileHandler.genContinents("assets/continentiRoma.txt");
+		territories = fileHandler.addConfinanti(fileHandler.genTerritories(terrFile), terrFile);
+		continents = fileHandler.genContinents(continentsFile);
 		
-		missions = fileHandler.genMissions("assets/obiettiviRoma.txt", continents);  // per funzionamento corretto partita (definitivo)
+		missions = fileHandler.genMissions(missionsFile, continents);  // per funzionamento corretto partita (definitivo)
 //		missions = fileHandler.genMissions("assets/obiettiviTest.txt", continents);  // per testare la vittoria
 		giveMissions();
 		
-		cards = fileHandler.genCards(territories, "assets/infoTerritoriRoma.txt");
+		cards = fileHandler.genCards(territories, terrFile);
 		shuffleCards();
 		
 		initTerritoryOwners();

@@ -130,13 +130,13 @@ public class GameSceneController {
 	
 	
 	public void initialize() throws NumberFormatException, IOException{
-		game = new RisikoGame(PlayersList.getPlayers());
+		game = new RisikoGame(PlayersList.getPlayers(), PlayerSceneController.terrFile, PlayerSceneController.continentsFile, PlayerSceneController.missions);
 		
-//		File file = new File("src/view/fxmls/images/Maps/SPQRisiko/map.jpg");
-//		Image temp = new Image(file.toURI().toString());
-//		mapBackground.setImage(temp);
+		File file = new File(PlayerSceneController.map);
+		Image temp = new Image(file.toURI().toString());
+		map.setImage(temp);
 		
-		File img = new File("src/view/fxmls/images/Maps/SPQRisiko/territories.png");
+		File img = new File(PlayerSceneController.territories);
 		BufferedImage image = ImageIO.read(img); 
 		
 		
@@ -478,39 +478,7 @@ public class GameSceneController {
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.showAndWait();
 		
-		
-//		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
-//		    @Override public void handle(WindowEvent t) {
-//		    	Integer n = territory1.getTanks();
-//				mappaImgTanks.get(territory1).getNumber().setText(n.toString());
-//				n = territory2.getTanks();
-//				mappaImgTanks.get(territory2).getNumber().setText(n.toString());
-//				
-//				File file = new File(getTankPath(territory1));
-//				Image image = new Image(file.toURI().toString());
-//				mappaImgTanks.get(territory1).getImage().setImage(image);
-//				file = new File(getTankPath(territory2));
-//				image = new Image(file.toURI().toString());
-//				mappaImgTanks.get(territory2).getImage().setImage(image);
-//				
-//		    }
-//		});
-//		
-//		window.setOnCloseRequest(event -> {
-//			
-//			Integer n = territory1.getTanks();
-//			mappaImgTanks.get(territory1).getNumber().setText(n.toString());
-//			n = territory2.getTanks();
-//			mappaImgTanks.get(territory2).getNumber().setText(n.toString());
-//			
-//			File file = new File(getTankPath(territory1));
-//			Image image = new Image(file.toURI().toString());
-//			mappaImgTanks.get(territory1).getImage().setImage(image);
-//			file = new File(getTankPath(territory2));
-//			image = new Image(file.toURI().toString());
-//			mappaImgTanks.get(territory2).getImage().setImage(image);
-//			
-//		});
+
 	}
 	
 	public void moveSceneLoader() throws IOException {
@@ -664,7 +632,7 @@ public class GameSceneController {
 	   
 	    
 		
-		ArrayList<Pixel> posList = fileH.addPosizione("assets/infoTerritoriRoma.txt");
+		ArrayList<Pixel> posList = fileH.addPosizione(PlayerSceneController.terrFile);
 		
 		int i = 0;
 		for(Pixel p : posList) {

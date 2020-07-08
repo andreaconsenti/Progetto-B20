@@ -33,14 +33,14 @@ public class RisikoGame {
 		
 		giveStarterTanks();
 		
-		territories = fileHandler.addConfinanti(fileHandler.genTerritories("assets/infoTerritori.txt"), "assets/infoTerritori.txt");
-		continents = fileHandler.genContinents("assets/continenti.txt");
+		territories = fileHandler.addConfinanti(fileHandler.genTerritories("assets/infoTerritoriRoma.txt"), "assets/infoTerritoriRoma.txt");
+		continents = fileHandler.genContinents("assets/continentiRoma.txt");
 		
-		missions = fileHandler.genMissions("assets/obiettivi.txt", continents);  // per funzionamento corretto partita (definitivo)
+		missions = fileHandler.genMissions("assets/obiettiviRoma.txt", continents);  // per funzionamento corretto partita (definitivo)
 //		missions = fileHandler.genMissions("assets/obiettiviTest.txt", continents);  // per testare la vittoria
 		giveMissions();
 		
-		cards = fileHandler.genCards(territories, "assets/infoTerritori.txt");
+		cards = fileHandler.genCards(territories, "assets/infoTerritoriRoma.txt");
 		shuffleCards();
 		
 		initTerritoryOwners();

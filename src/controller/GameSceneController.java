@@ -128,7 +128,7 @@ public class GameSceneController {
 	
 	public void initialize() throws NumberFormatException, IOException{
 		game = new RisikoGame(PlayersList.getPlayers());
-		File img = new File("src/view/fxmls/images/Territory_Color2.png");
+		File img = new File("src/view/fxmls/images/Maps/SPQRisiko/territories.png");
 		BufferedImage image = ImageIO.read(img); 
 		
 		territoryLabel.setOpacity(0);
@@ -649,7 +649,7 @@ public class GameSceneController {
 	   
 	    
 		
-		ArrayList<Pixel> posList = fileH.addPosizione("assets/infoTerritori.txt");
+		ArrayList<Pixel> posList = fileH.addPosizione("assets/infoTerritoriRoma.txt");
 		
 		int i = 0;
 		for(Pixel p : posList) {

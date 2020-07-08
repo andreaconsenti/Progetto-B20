@@ -15,7 +15,7 @@
    <children>
       <ImageView fx:id="map" fitHeight="724.0" fitWidth="1115.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/risiko_mappa2.jpg" />
+            <Image url="@images/Maps/SPQRisiko/map.jpg" />
          </image>
       </ImageView>
       <Label fx:id="territoryLabel" layoutX="6.0" layoutY="69.0" prefHeight="27.0" prefWidth="218.0" text="Territorio: ">

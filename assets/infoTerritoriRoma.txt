@@ -1,0 +1,44 @@
+41
+01 2 EDAF6B 0237 0115 2 02 03 Britannia Gallia
+02 3 EA9F63 0367 0090 3 01 03 07 Germania Gallia
+03 4 FFCC83 0352 0162 4 01 02 07 04 Belgica Gallia
+04 2 ED7E3D 0268 0211 5 03 07 09 06 05 Lugdunense Gallia
+05 4 E99F26 0290 0275 3 04 06 39 Aquitania Gallia
+06 3 F9B355 0369 0294 5 05 04 09 11 39 Narbonensis Gallia
+07 2 D7492B 0455 0138 5 02 03 04 08 09 Raetia Gallia
+08 3 EDAD4B 0546 0134 5 07 09 13 14 15 Noricum Gallia
+09 4 BC928F 0457 0229 6 04 06 07 08 10 13 Cisalpina EuropaMediterranea
+10 3 BD6A68 0536 0305 3 09 11 12 Italia EuropaMediterranea
+11 3 D08974 0462 0363 2 06 10 Sardinia EuropaMediterranea
+12 4 8F584E 0568 0396 2 10 35 Sicilia EuropaMediterranea
+13 2 A75E58 0578 0240 5 08 09 14 19 20 Illiria EuropaMediterranea
+14 2 744642 0615 0199 5 08 13 15 18 19 Dalmazia EuropaMediterranea
+15 3 806866 0652 0165 5 08 14 16 17 18 Pannonia EuropaMediterranea
+16 4 B68475 0666 0098 3 15 17 26 Dacia EuropaMediterranea
+17 4 D67971 0729 0130 3 15 16 18 Moesia EuropaMediterranea
+18 2 975352 0743 0208 5 14 15 17 19 22 Thracia EuropaMediterranea
+19 4 AC837C 0690 0258 5 13 14 18 20 21 Macedonia EuropaMediterranea
+20 3 884438 0647 0294 3 13 19 21 Epirus EuropaMediterranea
+21 4 E28179 0730 0346 4 19 20 22 34 Achaia EuropaMediterranea
+22 2 DBAE4E 0789 0278 5 18 23 24 25 21 Asia Anatolia
+23 3 644812 0862 0156 4 22 24 26 27 Bithinya Anatolia
+24 4 846517 0881 0211 4 22 23 25 27 Galatia Anatolia
+25 2 D5A323 0897 0278 3 22 24 27 Cilicia Anatolia
+26 4 BB9343 0965 0117 4 16 23 27 28 Ponto Anatolia
+27 3 BAA221 0970 0184 7 23 24 25 26 28 29 30 Cappadocia Anatolia
+28 2 A18239 1042 0202 3 26 27 29 Armenia Anatolia
+29 4 DA355F 1066 0295 5 27 28 30 31 32 Mesopotamia MedioOriente
+30 3 D98480 0994 0302 3 27 29 31 Syria MedioOriente
+31 2 CE535D 0994 0381 4 30 29 32 33 Judea MedioOriente
+32 3 C9AF96 1066 0392 2 29 31 Arabia MedioOriente
+33 2 DF9053 0957 0505 2 31 34 Aegyptus NordAfrica
+34 2 B1593B 0769 0534 3 21 33 36 Cyrenaica NordAfrica
+35 3 EAA662 0523 0492 2 12 36 Africa NordAfrica
+36 4 C26731 0480 0571 3 34 35 37 Numidia NordAfrica
+37 3 A52424 0322 0554 2 36 38 Mauretania NordAfrica
+38 2 21B4AE 0219 0476 3 37 39 40 Baetica Spagna
+39 4 DFE2B8 0273 0400 5 05 06 38 40 41 Terraconensis Spagna
+40 4 A0B08F 0150 0413 3 38 39 41 Lusitania Spagna
+41 3 6E9E8E 0211 0348 2 39 40 Galicia Spagna
+42 1
+43 1

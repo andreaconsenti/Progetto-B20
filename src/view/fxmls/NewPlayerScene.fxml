@@ -223,6 +223,7 @@
       <MenuButton fx:id="mapinput" layoutX="853.0" layoutY="126.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="260.0" text="Seleziona una mappa di gioco:" textFill="#8a8383">
         <items>
           <MenuItem fx:id="map1" mnemonicParsing="false" text="RISIKO Originale" />
+            <MenuItem fx:id="map2" mnemonicParsing="false" text="SPQRisiko" />
         </items>
          <font>
             <Font name="System Bold" size="12.0" />

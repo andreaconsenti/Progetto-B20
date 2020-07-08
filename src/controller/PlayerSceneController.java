@@ -46,6 +46,9 @@ public class PlayerSceneController {
     
     @FXML
     private MenuItem map1;
+    
+    @FXML
+    private MenuItem map2;
 
     @FXML
     private ListView<String> playerList;
@@ -130,6 +133,14 @@ public class PlayerSceneController {
 			File file = new File("src/view/fxmls/images/mappa1_preview.png");
 			Image temp = new Image(file.toURI().toString());
 			mapPreview.setImage(temp);
+		});
+		
+		map2.setOnAction(e -> {
+			mapinput.setText(map2.getText());
+			mapinput.setStyle("-fx-text-fill: black;");
+			File file2 = new File("src/view/fxmls/images/Maps/SPQRisiko/map_preview.png");
+			Image temp2 = new Image(file2.toURI().toString());
+			mapPreview.setImage(temp2);
 		});
 		
 	}

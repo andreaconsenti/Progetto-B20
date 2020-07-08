@@ -46,6 +46,9 @@ import model.util.Pixel;
 public class GameSceneController {
 	
 	@FXML
+	private ImageView mapBackground;
+	
+	@FXML
 	private ImageView map;
 	
 	@FXML
@@ -128,8 +131,14 @@ public class GameSceneController {
 	
 	public void initialize() throws NumberFormatException, IOException{
 		game = new RisikoGame(PlayersList.getPlayers());
+		
+//		File file = new File("src/view/fxmls/images/Maps/SPQRisiko/map.jpg");
+//		Image temp = new Image(file.toURI().toString());
+//		mapBackground.setImage(temp);
+		
 		File img = new File("src/view/fxmls/images/Maps/SPQRisiko/territories.png");
 		BufferedImage image = ImageIO.read(img); 
+		
 		
 		territoryLabel.setOpacity(0);
 		
@@ -398,6 +407,9 @@ public class GameSceneController {
 				moveSceneLoader();
 				Integer n = territory1.getTanks();
 				updateTanks();
+				if (game.verifyMission() == true) {
+					missionCompleted();
+				};
 				nextTurn();
 			} else {
 				territory1 = null;

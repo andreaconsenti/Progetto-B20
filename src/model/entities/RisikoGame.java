@@ -79,7 +79,6 @@ public class RisikoGame {
 				giveCard();
 			}
 			gamePhase = GAME_PHASE.FINALMOVE;
-			verifyMission();
 			
 			break;
 		case FINALMOVE:

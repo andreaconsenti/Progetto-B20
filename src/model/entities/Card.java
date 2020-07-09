@@ -43,12 +43,15 @@ public class Card {
 	}
 	
 	/**
-	 * Prints the features of the card
+	 * Compares a card with this and returns true if they are the same
+	 * @param c card to compare with this
 	 */
-	public void printCard() {	
-		if(territory!=null)
-			System.out.println("La carta di "+ this.territory.getName() +" ha come simbolo un: " +this.figure + "\n");
-		else
-			System.out.println("La tua carta è un Jolly\n");
+	public boolean equals(Card c) {
+		if(c.getTerritory().equals(this.territory)) {
+			return true;
+		} else
+			return false;
 	}
+	
+	
 }

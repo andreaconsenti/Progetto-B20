@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 
 <Pane id="toolbar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/StyleSheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SelectCardController">
    <children>
@@ -21,21 +22,26 @@
       </AnchorPane>
       <Pane id="toolbar" fx:id="paneScambioCarte" layoutY="200.0" prefHeight="200.0" prefWidth="600.0" stylesheets="@../css/StyleSheet.css">
          <children>
-            <ImageView fx:id="carta3" fitHeight="180.0" fitWidth="155.0" layoutX="329.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/Cards/carta_vuota.png" />
-               </image></ImageView>
             <Button id="button" fx:id="scambiaButton" layoutX="493.0" layoutY="60.0" mnemonicParsing="false" onAction="#onScambiaPressed" prefHeight="40.0" prefWidth="92.0" stylesheets="@../css/StyleSheet.css" text="SCAMBIA" />
             <Button id="sale" fx:id="annullaButton" layoutX="493.0" layoutY="118.0" mnemonicParsing="false" onAction="#onAnnullaPressed" stylesheets="@../css/StyleSheet.css" text="ANNULLA" />
-            <ImageView fx:id="carta1" fitHeight="180.0" fitWidth="155.0" layoutX="19.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="carta1" fitHeight="180.0" fitWidth="155.0" layoutX="171.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/Cards/carta_vuota.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="carta2" fitHeight="180.0" fitWidth="155.0" layoutX="174.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="carta111" fitHeight="180.0" fitWidth="155.0" layoutX="329.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/Cards/carta_vuota.png" />
-               </image></ImageView>
+               </image>
+            </ImageView>
+            <ImageView fx:id="carta112" fitHeight="180.0" fitWidth="155.0" layoutX="18.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Cards/carta_vuota.png" />
+               </image>
+            </ImageView>
+            <StackPane fx:id="selPane1" layoutY="-1.0" prefHeight="200.0" prefWidth="153.0" />
+            <StackPane fx:id="selPane2" layoutX="153.0" layoutY="-1.0" prefHeight="200.0" prefWidth="153.0" />
+            <StackPane fx:id="selPane3" layoutX="311.0" layoutY="-1.0" prefHeight="200.0" prefWidth="153.0" />
          </children>
       </Pane>
    </children>

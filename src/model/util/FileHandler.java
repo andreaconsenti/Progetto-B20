@@ -361,7 +361,7 @@ public class FileHandler {
 	 */
 	public void printCards(ArrayList<Card> card) {
 		for(Card c : card) {
-			c.printCard();
+//			c.printCard();
 		}
 	}
 	

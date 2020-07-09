@@ -167,6 +167,15 @@ public class Player {
 		cards.add(c);
 	}
 	
+	public void playCard(Card c) {
+		for(Card ca : cards) {
+			if (ca.equals(c)) {
+				cards.remove(cards.indexOf(ca));
+			}
+		}
+	}
+	
+	
 	public ArrayList<Card> getCards() {
 		return cards;
 	}

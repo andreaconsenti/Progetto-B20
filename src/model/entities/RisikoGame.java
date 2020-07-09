@@ -194,6 +194,38 @@ public class RisikoGame {
 		return false;
 	}
 	
+	public void playCardTris(Card c1, Card c2, Card c3) {
+		currentTurn.giveBonusTanks(checkTris(c1, c2, c3));
+		currentTurn.playCard(c1);
+		currentTurn.playCard(c2);
+		currentTurn.playCard(c3);
+	}
+	
+	public int checkTris(Card ca1, Card ca2, Card ca3) {
+		
+		ArrayList<FIGURE> figures = new ArrayList<FIGURE>();
+		figures.add(ca1.getFigure());
+		figures.add(ca2.getFigure());
+		figures.add(ca3.getFigure());
+		
+		if(ca1.getFigure() == ca2.getFigure() && ca2.getFigure() == ca3.getFigure()) {
+			if(ca1.getFigure() == FIGURE.CANNONE) {
+				return 3;
+			} else if (ca1.getFigure() == FIGURE.CAVALIERE) {
+				return 8;
+			} else if (ca1.getFigure() == FIGURE.FANTE) {
+				return 6;
+			}
+		} else if (figures.contains(FIGURE.CANNONE) && figures.contains(FIGURE.FANTE) && figures.contains(FIGURE.CAVALIERE)) {
+			return 10;
+		} else if (figures.contains(FIGURE.JOLLY)) {
+			return 12;
+		}
+		return 0;
+		
+	}
+	
+	
 	
 	
 	
@@ -398,12 +430,6 @@ public class RisikoGame {
 		}
 	}
 	
-	public void printCards() {
-		for(Card c : cards) {
-			c.printCard();
-			
-		}
-	}
 	
 	public void printContinents() {
 		for(Continent c : continents) {

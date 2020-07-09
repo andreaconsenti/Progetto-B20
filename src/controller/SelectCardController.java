@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import model.entities.Card;
+import model.entities.FIGURE;
 import model.entities.RisikoGame.GAME_PHASE;
 
 public class SelectCardController {
@@ -42,7 +43,7 @@ public class SelectCardController {
     private Button scambiaButton;
 
     @FXML
-    private Button annullaButton;
+    private Label exchangeLabel;
 
     @FXML
     private ImageView carta1;
@@ -103,11 +104,10 @@ public class SelectCardController {
     void initialize() {
     	paneScambioCarte.setOpacity(0.35);
     	scambiaButton.setDisable(true);
-    	annullaButton.setDisable(true);
+    	exchangeLabel.setVisible(false);
     	if(GameSceneController.game.getGamePhase()==GAME_PHASE.REINFORCEMENT) {
     		paneScambioCarte.setOpacity(1);
     		scambiaButton.setDisable(false);
-    		annullaButton.setDisable(false);
     	}
     	
     	cards = new HashMap<Card, CardGui>();
@@ -129,7 +129,13 @@ public class SelectCardController {
     	File file = new File(genCardPath(c));
 		Image image = new Image(file.toURI().toString());
 		ImageView card = new ImageView(image);
-		Label l = new Label(c.getTerritory().getName());
+		String lblText;
+		if(c.getFigure() == FIGURE.JOLLY) {
+			lblText = "";
+		} else {
+			lblText = c.getTerritory().getName();
+		}
+		Label l = new Label(lblText);
 		l.setPrefWidth(90);
 		l.setTranslateY(35);
 		l.setAlignment(Pos.BOTTOM_CENTER);
@@ -145,6 +151,7 @@ public class SelectCardController {
 					cardBox.getChildren().add(cards.get(c).getPane());
 					unuseCard(c);
 				}
+				guiHandler();
 			}
 	    });
 		p1.getChildren().add(card);
@@ -154,15 +161,10 @@ public class SelectCardController {
 		cards.put(c, new CardGui(card, p1, l));
 	}
 	
-	@FXML
-	void onAnnullaPressed(ActionEvent event) throws IOException {
-		
-
-	}
 
 	@FXML
 	void onScambiaPressed(ActionEvent event) throws IOException {
-	
+		GameSceneController.game.playCardTris(card1, card2, card3);
 	}
 	
 	private void moveCard(StackPane p) {
@@ -192,6 +194,21 @@ public class SelectCardController {
 			card2 = null;
 		} else if (ca.equals(card3)) {
 			card3 = null;
+		}
+	}
+	
+	private void guiHandler() {
+		if((card1 != null) && (card2 != null) && (card3 != null)) {
+			exchangeLabel.setVisible(true);
+			if(GameSceneController.game.checkTris(card1, card2, card3) != 0) {
+				scambiaButton.setDisable(false);
+				exchangeLabel.setText("Bonus scambio: " + GameSceneController.game.checkTris(card1, card2, card3));
+			} else {
+				exchangeLabel.setText("Scambio non valido");
+			}
+		} else {
+			exchangeLabel.setVisible(false);
+			scambiaButton.setDisable(true);
 		}
 	}
 	

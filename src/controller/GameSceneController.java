@@ -402,8 +402,10 @@ public class GameSceneController {
 				setStatusBar();
 				
 			} else if (territory2 == null) {
-				if(territorySelected == null) {
+				if(territorySelected == null || territorySelected.equals(territory1)) {
 					territory1 = territorySelected;
+					setStatusBar();
+					break;
 				}
 				territory2 = territorySelected;
 				setStatusBar();

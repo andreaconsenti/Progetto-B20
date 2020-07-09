@@ -7,6 +7,7 @@ import java.util.HashMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import model.entities.Card;
 import model.entities.FIGURE;
 import model.entities.RisikoGame.GAME_PHASE;
@@ -165,6 +167,8 @@ public class SelectCardController {
 	@FXML
 	void onScambiaPressed(ActionEvent event) throws IOException {
 		GameSceneController.game.playCardTris(card1, card2, card3);
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		window.close();
 	}
 	
 	private void moveCard(StackPane p) {

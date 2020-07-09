@@ -77,6 +77,8 @@ public class RisikoGame {
 		case BATTLE:
 			if(conquerMade) {
 				giveCard();
+				giveCard();
+				giveCard();
 			}
 			gamePhase = GAME_PHASE.FINALMOVE;
 			

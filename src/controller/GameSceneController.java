@@ -446,6 +446,7 @@ public class GameSceneController {
 		window.setScene(cardScene);
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.showAndWait();
+		setStatusBar();
 		
 	}
 	

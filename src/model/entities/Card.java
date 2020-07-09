@@ -47,7 +47,7 @@ public class Card {
 	 * @param c card to compare with this
 	 */
 	public boolean equals(Card c) {
-		if(c.getTerritory().equals(this.territory)) {
+		if(c.getTerritory().getName().equals(this.territory.getName())) {
 			return true;
 		} else
 			return false;

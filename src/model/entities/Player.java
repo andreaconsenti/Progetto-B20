@@ -168,11 +168,7 @@ public class Player {
 	}
 	
 	public void playCard(Card c) {
-		for(Card ca : cards) {
-			if (ca.equals(c)) {
-				cards.remove(cards.indexOf(ca));
-			}
-		}
+		cards.remove(c);
 	}
 	
 	

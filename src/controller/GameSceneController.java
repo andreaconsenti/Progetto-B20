@@ -349,7 +349,7 @@ public class GameSceneController {
 				nextTurn();
 				territorySelected = null;
 				map.setImage(wImage);
-				if(game.getBonusTanksSum() == 0) {
+				if(game.firstPhaseEnded()) {
 					nextPhase();
 				}
 			}
@@ -534,6 +534,17 @@ public class GameSceneController {
 	private void nextTurn() {
 	
 		game.nextTurn();
+		if(game.getGamePhase() == GAME_PHASE.FIRSTTURN) {
+			int i = 0;
+			while(game.getCurrentTurn().getBonusTanks() == 0) {
+				if(i == PlayersList.players.length) {
+					break;
+				}
+				game.nextTurn();
+				i++;
+			}
+			
+		}
 		if(!(game.getGamePhase() == GAME_PHASE.FIRSTTURN))
 			nextPhase();
 		setStatusBar();

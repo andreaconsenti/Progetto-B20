@@ -99,6 +99,19 @@ public class RisikoGame {
 		return s;
 	}
 	
+	public boolean firstPhaseEnded() {
+		
+		if(getBonusTanksSum() == 0) {
+			for(Player p : players) {
+				if(p.getBonusTanks() != 0) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	
 	
 	public void moveTanks(Territory t1, Territory t2, int n) {
 		t1.removeTanks(n);

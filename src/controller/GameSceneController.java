@@ -75,6 +75,15 @@ public class GameSceneController {
 	@FXML
 	private Button endTurn;
 	
+	@FXML
+	private Label plTerritories;
+	
+	@FXML
+	private Label plContinents;
+	
+	@FXML
+	private Label plTanks;
+	
 	
 	protected static RisikoGame game; 
 	private HashMap<Territory, ArrayList<Pixel>> mappa;
@@ -152,6 +161,7 @@ public class GameSceneController {
 		
 		statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
 		setPlayerLabel();
+		setPlayerStatus();
 		endTurn.setDisable(true);
 		nextPhase.setDisable(true);
 		nextPhase.setText("POSIZIONAMENTO");
@@ -363,9 +373,10 @@ public class GameSceneController {
 				Integer n = game.getTerritory(territorySelected).getTanks();
 				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
 				setStatusBar();
+				setPlayerStatus();
 				if (game.verifyMission() == true) {
 					missionCompleted();
-				};
+				}
 				if(game.getCurrentTurn().getBonusTanks() == 0) {
 					nextPhase();
 				}
@@ -392,6 +403,7 @@ public class GameSceneController {
 				};
 				territory1 = null;
 				territory2 = null;
+				setPlayerStatus();
 				setStatusBar();
 			}
 			break;
@@ -458,6 +470,17 @@ public class GameSceneController {
 		Stage window = new Stage();
 		window.setResizable(false);
 		window.setTitle("Missione");
+		window.setScene(cardScene);
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.showAndWait();
+	}
+	
+	public void menuPressed(ActionEvent e) throws IOException {
+		Parent cardSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/MenuScene.fxml"));
+		Scene cardScene = new Scene(cardSceneParent);
+		Stage window = new Stage();
+		window.setResizable(false);
+		window.setTitle("Menu");
 		window.setScene(cardScene);
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.showAndWait();
@@ -551,6 +574,7 @@ public class GameSceneController {
 		if(!(game.getGamePhase() == GAME_PHASE.FIRSTTURN))
 			nextPhase();
 		setStatusBar();
+		setPlayerStatus();
 		setPlayerLabel();
 		territory1 = null;
 		territory2 = null;
@@ -750,6 +774,16 @@ public class GameSceneController {
 			break;
 		
 		}
+	}
+	
+	private void setPlayerStatus() {
+		Integer tmp;
+		tmp = game.getCurrentTurn().getTanks();
+		plTanks.setText(tmp.toString());
+		tmp = game.getCurrentTurn().getTerritories();
+		plTerritories.setText(tmp.toString());
+		tmp = game.getCurrentTurn().getContinents();
+		plContinents.setText(tmp.toString());
 	}
 	
 	public void updateTanks() {

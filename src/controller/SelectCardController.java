@@ -109,7 +109,6 @@ public class SelectCardController {
     	exchangeLabel.setVisible(false);
     	if(GameSceneController.game.getGamePhase()==GAME_PHASE.REINFORCEMENT) {
     		paneScambioCarte.setOpacity(1);
-    		scambiaButton.setDisable(false);
     	}
     	
     	cards = new HashMap<Card, CardGui>();

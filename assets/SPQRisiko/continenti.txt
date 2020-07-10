@@ -1,6 +1,6 @@
 6
 01	NordAfrica 3
-02	Spagna 2
+02	PenisolaIberica 2
 03	Gallia 5
 04	EuropaMediterranea 7
 05	Anatolia 5

@@ -77,6 +77,9 @@ public class RisikoGame {
 		case BATTLE:
 			if(conquerMade) {
 				giveCard();
+				giveCard();
+				giveCard();
+				giveCard();
 			}
 			gamePhase = GAME_PHASE.FINALMOVE;
 			
@@ -178,9 +181,9 @@ public class RisikoGame {
 		else {
 			if(missionType==MISSION_TYPE.TYPE2) {
 				if(getCurrentTurn().getMission().getContinent1().getOwned() == true){
-					if(getCurrentTurn().getMission().getContinent1().getRandomPlayer()==currentTurn) {
+					if(getCurrentTurn().getMission().getContinent1().getRandomPlayer().equals(currentTurn)) {
 						if(getCurrentTurn().getMission().getContinent2().getOwned()==true) {
-							if(getCurrentTurn().getMission().getContinent2().getRandomPlayer()==currentTurn) {
+							if(getCurrentTurn().getMission().getContinent2().getRandomPlayer().equals(currentTurn)) {
 								if(getCurrentTurn().getContinents()>2)
 									return true;
 							}

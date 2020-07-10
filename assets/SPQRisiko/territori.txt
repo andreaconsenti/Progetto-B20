@@ -36,9 +36,9 @@
 35 3 EAA662 0473 0415 2 12 36 Africa NordAfrica
 36 4 C26731 0480 0491 3 34 35 37 Numidia NordAfrica
 37 3 A52424 0322 0474 2 36 38 Mauretania NordAfrica
-38 2 21B4AE 0215 0390 3 37 39 40 Baetica Spagna
-39 4 DFE2B8 0263 0320 5 05 06 38 40 41 Terraconensis Spagna
-40 4 A0B08F 0141 0333 3 38 39 41 Lusitania Spagna
-41 3 6E9E8E 0200 0275 2 39 40 Galicia Spagna
+38 2 21B4AE 0215 0390 3 37 39 40 Baetica PenisolaIberica
+39 4 DFE2B8 0263 0320 5 05 06 38 40 41 Terraconensis PenisolaIberica
+40 4 A0B08F 0141 0333 3 38 39 41 Lusitania PenisolaIberica
+41 3 6E9E8E 0200 0275 2 39 40 Galicia PenisolaIberica
 42 1
 43 1

@@ -53,12 +53,15 @@ public class RisikoGame {
 		
 	}
 	
-	public void nextTurn() {
+	public void nextTurn(){
 		turnCounter++;
 		if(turnCounter == players.length) {
 			turnCounter = 0;
 		}
 		currentTurn = this.players[turnCounter];
+		if(currentTurn.isAI()) {
+			currentTurn.playTurn();
+		}
 	}
 	
 	public void nextPhase() {
@@ -414,6 +417,20 @@ public class RisikoGame {
 		getPlayer(currentTurn).giveCard(cards.get(0));
 		cards.remove(0);
 		shuffleCards();
+	}
+	
+	public Territory getRandomCurrentPlayerTerritory() {
+		
+		ArrayList<Territory> temp = new ArrayList<Territory>();
+		
+		for(Territory t : territories) {
+			if(t.getOwner().equals(currentTurn)) {
+				temp.add(t);
+			}
+		}
+		
+		Random rand = new Random();
+		return temp.get(rand.nextInt(temp.size()));
 	}
 	
 

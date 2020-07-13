@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
@@ -98,15 +99,15 @@ public class GameSceneController {
 	public static Territory territory2;
 	
 	
-//	private static GameSceneController instance;
-//	
-//	public GameSceneController() {
-//		instance = this;
-//	}
-//	
-//	public static GameSceneController getInstance() {
-//		return instance;
-//	}
+	private static GameSceneController instance;
+	
+	public GameSceneController() {
+		instance = this;
+	}
+	
+	public static GameSceneController getInstance() {
+		return instance;
+	}
 	
 	
 	
@@ -351,17 +352,7 @@ public class GameSceneController {
 		case FIRSTTURN:
 			
 			if(territorySelected != null) {
-				game.getCurrentTurn().placeTank(1);
-				game.addTerritoryTanks(territorySelected);
-				Integer n = game.getTerritory(territorySelected).getTanks();
-				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
-				setStatusBar();
-				nextTurn();
-				territorySelected = null;
-				map.setImage(wImage);
-				if(game.firstPhaseEnded()) {
-					nextPhase();
-				}
+				firstTurn();
 			}
 			break;
 			
@@ -490,7 +481,7 @@ public class GameSceneController {
 		nextPhase();
 	}
 	
-	public void endTurnPressed(ActionEvent e) {
+	public void endTurnPressed(ActionEvent e) throws InterruptedException {
 		nextTurn();
 	}
 
@@ -798,6 +789,41 @@ public class GameSceneController {
 		file = new File(getTankPath(territory2));
 		image = new Image(file.toURI().toString());
 		mappaImgTanks.get(territory2).getImage().setImage(image);
+	}
+	
+	
+	public RisikoGame getGame() {
+		return game;
+	}
+	
+	public void setSelTerritory(Territory t) {
+		territorySelected = t;
+	}
+	
+	public void setTerritory12(Territory t1, Territory t2) {
+		territory1 = t1;
+		territory2 = t2;
+	}
+	
+	public void firstTurn() {
+		game.getCurrentTurn().placeTank(1);
+		game.addTerritoryTanks(territorySelected);
+		Integer n = game.getTerritory(territorySelected).getTanks();
+		mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
+		setStatusBar();
+		nextTurn();
+		territorySelected = null;
+		map.setImage(wImage);
+		if(game.getCurrentTurn().isAI()) {
+			try {
+			    Thread.sleep(5000);
+			} catch(InterruptedException ex) {
+			    ex.printStackTrace();
+			}
+		}
+		if(game.firstPhaseEnded()) {
+			nextPhase();
+		}
 	}
 
 

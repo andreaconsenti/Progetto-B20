@@ -113,6 +113,13 @@ public class PlayerSceneController {
 	private COLOR tempColor;	
 	private ArrayList<Player> list;
 	private boolean mapChosed;
+	private boolean aiBlack;
+	private boolean aiRed;
+	private boolean aiYellow;
+	private boolean aiGreen;
+	private boolean aiBlue;
+	private boolean aiPink;
+	
 	
 	public static String map;
 	public static String territories;
@@ -123,12 +130,12 @@ public class PlayerSceneController {
 	
 	public void initialize() {
 		startGameButton.setDisable(true);
-		aiPlayerBlack.setDisable(true);
-		aiPlayerBlue.setDisable(true);
-		aiPlayerPink.setDisable(true);
-		aiPlayerGreen.setDisable(true);
-		aiPlayerRed.setDisable(true);
-		aiPlayerYellow.setDisable(true);
+//		aiPlayerBlack.setDisable(true);
+//		aiPlayerBlue.setDisable(true);
+//		aiPlayerPink.setDisable(true);
+//		aiPlayerGreen.setDisable(true);
+//		aiPlayerRed.setDisable(true);
+//		aiPlayerYellow.setDisable(true);
 		nameInputBlack.setText("");
 		playerList.getItems().clear();
 		list = new ArrayList<Player>();
@@ -168,6 +175,25 @@ public class PlayerSceneController {
 			}
 		});
 		
+		aiPlayerRed.setOnAction(e -> {
+			aiRed = true;
+		});
+		aiPlayerYellow.setOnAction(e -> {
+			aiYellow = true;
+		});
+		aiPlayerBlack.setOnAction(e -> {
+			aiBlack = true;
+		});
+		aiPlayerGreen.setOnAction(e -> {
+			aiGreen = true;
+		});
+		aiPlayerBlue.setOnAction(e -> {
+			aiBlue = true;
+		});
+		aiPlayerPink.setOnAction(e -> {
+			aiPink = true;
+		});
+		
 	}
 	
 	
@@ -185,7 +211,7 @@ public class PlayerSceneController {
 	void addBtnBlackPressed(ActionEvent event) {
 		if (nameInputBlack.getText().isBlank() == false) {
 			if (nameNotExists(nameInputBlack.getText())) {
-				list.add(new Player(nameInputBlack.getText(), COLOR.BLACK));
+				list.add(new Player(nameInputBlack.getText(), COLOR.BLACK, aiBlack));
 				playerList.getItems().add(nameInputBlack.getText() + " --> " + "BLACK");
 				addPlayerBtnBlack.setDisable(true);
 				if (list.size() > 2 && mapChosed) {
@@ -199,7 +225,7 @@ public class PlayerSceneController {
 	void addBtnBluePressed(ActionEvent event) {
 		if (nameInputBlue.getText().isBlank() == false) {
 			if (nameNotExists(nameInputBlue.getText())) {
-				list.add(new Player(nameInputBlue.getText(), COLOR.BLUE));
+				list.add(new Player(nameInputBlue.getText(), COLOR.BLUE, aiBlue));
 				playerList.getItems().add(nameInputBlue.getText() + " --> " + "BLUE");
 				addPlayerBtnBlue.setDisable(true);
 				if (list.size() > 2 && mapChosed) {
@@ -213,7 +239,7 @@ public class PlayerSceneController {
 	void addBtnGreenPressed(ActionEvent event) {
 		if (nameInputGreen.getText().isBlank() == false) {
 	    	if (nameNotExists(nameInputGreen.getText())) {
-	    		list.add(new Player(nameInputGreen.getText(), COLOR.GREEN));
+	    		list.add(new Player(nameInputGreen.getText(), COLOR.GREEN, aiGreen));
 	    		playerList.getItems().add(nameInputGreen.getText() + " --> " + "GREEN");
 	    		addPlayerBtnGreen.setDisable(true);
 	    		if (list.size() > 2 && mapChosed) {
@@ -227,7 +253,7 @@ public class PlayerSceneController {
 	void addBtnPinkPressed(ActionEvent event) {
 		if (nameInputPink.getText().isBlank() == false) {
 	    	if (nameNotExists(nameInputPink.getText())) {
-	    		list.add(new Player(nameInputPink.getText(), COLOR.PINK));
+	    		list.add(new Player(nameInputPink.getText(), COLOR.PINK, aiPink));
 	    		playerList.getItems().add(nameInputPink.getText() + " --> " + "PINK");
 	    		addPlayerBtnPink.setDisable(true);
 	    		if (list.size() > 2 && mapChosed) {
@@ -241,7 +267,7 @@ public class PlayerSceneController {
 	void addBtnRedPressed(ActionEvent event) {
 		if (nameInputRed.getText().isBlank() == false) {
 			if (nameNotExists(nameInputRed.getText())) {
-				list.add(new Player(nameInputRed.getText(), COLOR.RED));
+				list.add(new Player(nameInputRed.getText(), COLOR.RED, aiRed));
 				playerList.getItems().add(nameInputRed.getText() + " --> " + "RED");
 				addPlayerBtnRed.setDisable(true);
 				if (list.size() > 2 && mapChosed) {
@@ -255,7 +281,7 @@ public class PlayerSceneController {
 	void addBtnYellowPressed(ActionEvent event) {
 		if (nameInputYellow.getText().isBlank() == false) {
 			if (nameNotExists(nameInputYellow.getText())) {
-				list.add(new Player(nameInputYellow.getText(), COLOR.YELLOW));
+				list.add(new Player(nameInputYellow.getText(), COLOR.YELLOW, aiYellow));
 				playerList.getItems().add(nameInputYellow.getText() + " --> " + "YELLOW");
 				addPlayerBtnYellow.setDisable(true);
 				if (list.size() > 2 && mapChosed) {

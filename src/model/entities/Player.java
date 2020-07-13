@@ -1,6 +1,9 @@
 package model.entities;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+import controller.GameSceneController;
 
 public class Player {
 	
@@ -15,13 +18,14 @@ public class Player {
 	private Mission mission;
 	private DiceShaker shaker;
 	private ArrayList<Card> cards;
+	private boolean isAI;
 	
 	/**
 	 * Creates a new player
 	 * @param name is the name of the player
 	 * @param color is the color chosen by the player
 	 */
-	public Player(String name, COLOR color) {
+	public Player(String name, COLOR color, boolean ai) {
 		this.name = name;
 		this.color = color;
 		this.tanks = 0;
@@ -29,6 +33,7 @@ public class Player {
 		continents = 0;
 		shaker = new DiceShaker();
 		cards = new ArrayList<Card>();
+		isAI = ai;
 	}
 	
 	/**
@@ -186,4 +191,38 @@ public class Player {
 	public int[] rollDices(int n) {
 		return shaker.rollDices(n);
 	}
+	
+	public boolean isAI() {
+		return isAI;
+	}
+	
+	
+	
+	
+	//_______________AI METHODS______________
+	
+	
+	public void playTurn() {
+		
+		switch(GameSceneController.getInstance().getGame().getGamePhase()) {
+		case FIRSTTURN:
+			Territory temp = GameSceneController.getInstance().getGame().getRandomCurrentPlayerTerritory();
+			GameSceneController.getInstance().setSelTerritory(temp);
+			GameSceneController.getInstance().firstTurn();
+			break;
+		case REINFORCEMENT:
+			
+			break;
+		case BATTLE:
+
+			break;
+		case FINALMOVE:
+
+			break;
+		}
+		
+		
+	}
+	
+	
 }

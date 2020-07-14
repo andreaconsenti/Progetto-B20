@@ -70,41 +70,11 @@ public class AttackSceneController {
     private Integer temp;
     
     
-    private class Roller extends AnimationTimer{
-    	
-    	
-    	private long fps = 50L;
-    	private long interval = 1000000000L / fps;
-    	private int maxRolls = 20;
-    	
-    	private long last = 0;
-    	private int count = 0;
-    	
-    	@Override
-    	public void handle(long now) {
-    		if((now - last) > interval) {
-    			GameSceneController.territory1.getOwner().rollDices(atkNumber);
-    			GameSceneController.territory2.getOwner().rollDices(defNumber);
-    	    	setDiceImage();
-    	    	last = now;
-    	    	count++;
-    	    	if(count > maxRolls) {
-    	    		clock.stop();
-    	    		atkResults = GameSceneController.territory1.getOwner().rollDices(atkNumber);
-        	    	defResults = GameSceneController.territory2.getOwner().rollDices(defNumber);
-    	    		count = 0;
-    	    	}
-    		}
-    	}
-    }
-    
-    private Roller clock;
     
     
     
     public void initialize() {
     	
-    	clock = new Roller();
     	attackButton.setDisable(true);
     	atkLabel.setText(GameSceneController.territory1.getName());
     	defLabel.setText(GameSceneController.territory2.getName());
@@ -142,7 +112,7 @@ public class AttackSceneController {
     
     
     public void attackButtonPressed(ActionEvent e) throws IOException {
-//    	rollAnimation();
+
 		atkResults = GameSceneController.territory1.getOwner().rollDices(atkNumber);
     	defResults = GameSceneController.territory2.getOwner().rollDices(defNumber);
     	
@@ -267,9 +237,6 @@ public class AttackSceneController {
     	
     }
     
-    private void rollAnimation() {
-    	clock.start();
-    }
     
     private Image getImage(String path) {
     	File file = new File(path);

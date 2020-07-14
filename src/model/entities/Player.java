@@ -1,8 +1,10 @@
 package model.entities;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import java.util.Timer;
 
+import controller.AIRecapSceneController;
 import controller.GameSceneController;
 
 public class Player {
@@ -202,22 +204,37 @@ public class Player {
 	//_______________AI METHODS______________
 	
 	
-	public void playTurn() {
+	public void playTurn(){
 		
 		switch(GameSceneController.getInstance().getGame().getGamePhase()) {
 		case FIRSTTURN:
 			Territory temp = GameSceneController.getInstance().getGame().getRandomCurrentPlayerTerritory();
-			GameSceneController.getInstance().setSelTerritory(temp);
-			GameSceneController.getInstance().firstTurn();
+			if(this.bonusTanks > 0) {
+				GameSceneController.getInstance().setSelTerritory(temp);
+				AIRecapSceneController.getInstance().setText(this.name + ": armata posizionata sul territorio " + temp.getName() + "\n");
+				GameSceneController.getInstance().firstTurn();
+			}
 			break;
 		case REINFORCEMENT:
+			while(this.bonusTanks > 0) {
+				temp = GameSceneController.getInstance().getGame().getRandomCurrentPlayerTerritory();
+				if(this.bonusTanks > 0) {
+					GameSceneController.getInstance().setSelTerritory(temp);
+					try {
+						AIRecapSceneController.getInstance().setText(this.name + ": armata posizionata sul territorio " + temp.getName() + "\n");
+						GameSceneController.getInstance().reinforcementClick();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
 			
-			break;
-		case BATTLE:
-
-			break;
-		case FINALMOVE:
-
+			
+			
+			GameSceneController.getInstance().nextPhase();
+			GameSceneController.getInstance().nextTurn();
+			
 			break;
 		}
 		

@@ -166,6 +166,13 @@ public class GameSceneController {
 		endTurn.setDisable(true);
 		nextPhase.setDisable(true);
 		nextPhase.setText("POSIZIONAMENTO");
+		
+		for(Player p : PlayersList.getPlayers()) {
+			if(p.isAI()) {
+				aiRecap();
+				break;
+			}
+		}
 	}
 	
 	
@@ -359,18 +366,7 @@ public class GameSceneController {
 		case REINFORCEMENT:
 			
 			if(territorySelected != null) {
-				game.getCurrentTurn().placeTank(1);
-				game.addTerritoryTanks(territorySelected);
-				Integer n = game.getTerritory(territorySelected).getTanks();
-				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
-				setStatusBar();
-				setPlayerStatus();
-				if (game.verifyMission() == true) {
-					missionCompleted();
-				}
-				if(game.getCurrentTurn().getBonusTanks() == 0) {
-					nextPhase();
-				}
+				reinforcementClick();
 			}
 			break;
 			
@@ -548,7 +544,7 @@ public class GameSceneController {
 		return false;
 	}
 	
-	private void nextTurn() {
+	public void nextTurn() {
 	
 		game.nextTurn();
 		if(game.getGamePhase() == GAME_PHASE.FIRSTTURN) {
@@ -569,10 +565,13 @@ public class GameSceneController {
 		setPlayerLabel();
 		territory1 = null;
 		territory2 = null;
+		if(game.getGamePhase() != GAME_PHASE.FIRSTTURN && game.getCurrentTurn().isAI()) {
+			game.getCurrentTurn().playTurn();
+		}
 		
 	}
 	
-	private void nextPhase() {
+	public void nextPhase() {
 		switch(game.getGamePhase()) {
 		case FINALMOVE:
 			nextPhase.setText("POSIZIONAMENTO");
@@ -718,24 +717,10 @@ public class GameSceneController {
 	}
 	
 	
-	
-	private void swapTerritories() {
-		
-		Player temp = territory1.getOwner();
-		territory1.setOwner(territory2.getOwner());
-		territory2.setOwner(temp);
-		
-		File file = new File(getTankPath(territory1));
-		Image image = new Image(file.toURI().toString());
-		mappaImgTanks.get(territory1).getImage().setImage(image);
-		
-		File file2 = new File(getTankPath(territory2));
-		Image image2 = new Image(file2.toURI().toString());
-		mappaImgTanks.get(territory2).getImage().setImage(image2);
-		
-		
-		
+	public Player getCurrentPlayer() {
+		return game.getCurrentTurn();
 	}
+	
 	
 	private void setStatusBar() {
 		switch(game.getGamePhase()) {
@@ -814,20 +799,41 @@ public class GameSceneController {
 		nextTurn();
 		territorySelected = null;
 		map.setImage(wImage);
-		if(game.getCurrentTurn().isAI()) {
-			try {
-			    Thread.sleep(5000);
-			} catch(InterruptedException ex) {
-			    ex.printStackTrace();
-			}
-		}
 		if(game.firstPhaseEnded()) {
+			nextPhase();
+		}
+	}
+	
+	public void reinforcementClick() throws IOException {
+		game.getCurrentTurn().placeTank(1);
+		game.addTerritoryTanks(territorySelected);
+		Integer n = game.getTerritory(territorySelected).getTanks();
+		mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
+		setStatusBar();
+		setPlayerStatus();
+		if (game.verifyMission() == true) {
+			missionCompleted();
+		}
+		if(game.getCurrentTurn().getBonusTanks() == 0) {
 			nextPhase();
 		}
 	}
 
 
 	
+	
+	
+	private void aiRecap() throws IOException {
+		Parent aiRecapParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/AIRecapScene.fxml"));
+		Scene aiRecapScene = new Scene(aiRecapParent);
+		Stage window = new Stage();
+		window.setResizable(false);
+		window.setTitle("Azioni AI");
+		window.setScene(aiRecapScene);
+		window.setResizable(true);
+		window.show();
+		
+	}
 	
 	
 }

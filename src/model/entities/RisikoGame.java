@@ -49,6 +49,9 @@ public class RisikoGame {
 		
 		turnCounter = 0;
 		currentTurn = this.players[turnCounter];
+		if(currentTurn.isAI()) {
+			nextTurn();
+		}
 		conquerMade = false;
 		
 	}
@@ -59,7 +62,7 @@ public class RisikoGame {
 			turnCounter = 0;
 		}
 		currentTurn = this.players[turnCounter];
-		if(currentTurn.isAI()) {
+		if(currentTurn.isAI() && gamePhase == GAME_PHASE.FIRSTTURN) {
 			currentTurn.playTurn();
 		}
 	}
@@ -71,7 +74,9 @@ public class RisikoGame {
 			currentTurn = this.players[0];
 			turnCounter = 0;
 			giveBonus(currentTurn);
-			
+			if(currentTurn.isAI()) {
+				currentTurn.playTurn();
+			}
 			break;
 		case REINFORCEMENT:
 			gamePhase = GAME_PHASE.BATTLE;
@@ -79,9 +84,6 @@ public class RisikoGame {
 			break;
 		case BATTLE:
 			if(conquerMade) {
-				giveCard();
-				giveCard();
-				giveCard();
 				giveCard();
 			}
 			gamePhase = GAME_PHASE.FINALMOVE;

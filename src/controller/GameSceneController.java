@@ -790,6 +790,10 @@ public class GameSceneController {
 		territory2 = t2;
 	}
 	
+	public void setTerritory2(Territory t) {
+		territory2 = t;
+	}
+	
 	public void firstTurn() {
 		game.getCurrentTurn().placeTank(1);
 		game.addTerritoryTanks(territorySelected);

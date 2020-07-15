@@ -57,6 +57,9 @@ public class RisikoGame {
 	}
 	
 	public void nextTurn(){
+//		if(gamePhase != GAME_PHASE.FIRSTTURN) {
+//			gamePhase = GAME_PHASE.REINFORCEMENT;
+//		}
 		turnCounter++;
 		if(turnCounter == players.length) {
 			turnCounter = 0;

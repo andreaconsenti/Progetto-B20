@@ -23,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.entities.Territory;
 
 public class AttackSceneController {
 
@@ -68,7 +69,6 @@ public class AttackSceneController {
     private int defNumber;
     
     private Integer temp;
-    
     
     
     
@@ -275,6 +275,24 @@ public class AttackSceneController {
         	}
         	break;
     	}
+    }
+    
+    public static void aiAttack() {
+    	
+    	int atNumber;
+    	int deNumber;
+    	
+    	atNumber = GameSceneController.territory1.getTanks() - 1;
+    	if(GameSceneController.territory2.getTanks() > 2) {
+    		deNumber = 3;
+    	} else {
+    		deNumber = GameSceneController.territory2.getTanks();
+    	}
+    	
+    	GameSceneController.getInstance().getGame().battle(GameSceneController.territory1.getOwner().rollDices(atNumber), GameSceneController.territory2.getOwner().rollDices(deNumber), atNumber, deNumber);
+    	
+    	
+    	
     }
     
 

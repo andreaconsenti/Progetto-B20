@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 
 import controller.AIRecapSceneController;
+import controller.AttackSceneController;
 import controller.GameSceneController;
 
 public class Player {
@@ -231,8 +232,32 @@ public class Player {
 			}
 			
 			
-			
 			GameSceneController.getInstance().nextPhase();
+			
+			for(Territory t : GameSceneController.getInstance().getGame().getTerritories()) {
+				if(t.getTanks() > 3 && t.getOwner().equals(this)) {
+					GameSceneController.getInstance().setTerritory12(t, null);
+					break;
+				}
+			}
+			
+			if(GameSceneController.territory1 != null) {
+				for(Territory t : GameSceneController.territory1.getConfinanti()) {
+					if(!t.getOwner().equals(this) && t.getTanks() < 3) {
+						GameSceneController.getInstance().setTerritory2(t);
+						AttackSceneController.aiAttack();
+						if(t.getTanks() == 0) {
+							GameSceneController.getInstance().getGame().conquer(GameSceneController.territory1, t);
+							GameSceneController.getInstance().getGame().moveTanks(GameSceneController.territory1, GameSceneController.territory2, 1);
+						}
+						AIRecapSceneController.getInstance().setText(this.name + ": ha attaccato " + GameSceneController.territory2.getName() + "con " + GameSceneController.territory1.getName());
+						GameSceneController.getInstance().updateTanks();
+						GameSceneController.getInstance().setTerritory12(null, null);
+						break;
+					}
+				}
+			}
+			
 			GameSceneController.getInstance().nextTurn();
 			
 			break;

@@ -473,6 +473,14 @@ public class GameSceneController {
 		window.showAndWait();
 	}
 	
+	public void newGame() throws IOException {
+		Parent playerSceneParent= FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/NewPlayerScene.fxml"));
+		Scene playerScene = new Scene(playerSceneParent);
+		Stage window = (Stage)(gamePane).getScene().getWindow();
+		window.setScene(playerScene);
+		window.show();
+	}
+	
 	public void nextPhasePressed(ActionEvent e) {
 		nextPhase();
 	}

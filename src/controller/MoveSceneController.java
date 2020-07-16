@@ -78,7 +78,9 @@ public class MoveSceneController {
 	}
 	
 	public void moveEverythingPressed(ActionEvent e) {
-		
+		GameSceneController.game.moveTanks(GameSceneController.territory1, GameSceneController.territory2, GameSceneController.territory1.getTanks() - 1);
+		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
+		window.close();
 	}
 	
 	public void plusPressed(ActionEvent e) {

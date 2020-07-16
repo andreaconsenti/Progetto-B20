@@ -30,8 +30,7 @@
          </stroke>
       </Text>
       <Button id="grey" layoutX="106.0" layoutY="113.0" mnemonicParsing="false" onAction="#continuaPressed" prefHeight="42.0" prefWidth="123.0" stylesheets="@../css/StyleSheet.css" text="Continua" />
-      <Button id="grey" layoutX="106.0" layoutY="188.0" mnemonicParsing="false" onAction="#salvaPressed" prefHeight="42.0" prefWidth="123.0" stylesheets="@../css/StyleSheet.css" text="Salva Partita" />
-      <Button id="grey" layoutX="106.0" layoutY="263.0" mnemonicParsing="false" onAction="#nuovaPressed" prefHeight="42.0" prefWidth="123.0" stylesheets="@../css/StyleSheet.css" text="Nuova Partita" />
-      <Button id="grey" layoutX="106.0" layoutY="338.0" mnemonicParsing="false" onAction="#esciPressed" prefHeight="42.0" prefWidth="123.0" stylesheets="@../css/StyleSheet.css" text="Esci" />
+      <Button id="grey" layoutX="106.0" layoutY="227.0" mnemonicParsing="false" onAction="#nuovaPressed" prefHeight="42.0" prefWidth="123.0" stylesheets="@../css/StyleSheet.css" text="Nuova Partita" />
+      <Button id="grey" layoutX="106.0" layoutY="341.0" mnemonicParsing="false" onAction="#esciPressed" prefHeight="42.0" prefWidth="123.0" stylesheets="@../css/StyleSheet.css" text="Esci" />
    </children>
 </Pane>

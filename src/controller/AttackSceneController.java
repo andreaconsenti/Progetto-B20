@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 import javax.print.DocFlavor.URL;
 
@@ -120,7 +121,7 @@ public class AttackSceneController {
     	updateGUI();
     	menuHandler();
     	attackButton.setDisable(true);
-    	attackingNumbers();
+    	defNumber();
 
     	
     	if(GameSceneController.territory2.getTanks() == 0) {
@@ -136,6 +137,35 @@ public class AttackSceneController {
     	
     }
     
+    public void assediaPressed(ActionEvent e) throws IOException {
+    	int n = 0;
+    	while(n == 0) {
+    		atkResults = GameSceneController.territory1.getOwner().rollDices(atkNumber);
+        	defResults = GameSceneController.territory2.getOwner().rollDices(defNumber);
+        	
+        	GameSceneController.game.battle(atkResults, defResults, atkNumber, defNumber);
+        	updateGUI();
+        	menuHandler();
+        	attackButton.setDisable(true);
+        	defNumber();
+        	atkNumber = GameSceneController.territory1.getTanks() - 1;
+        	
+        	if(GameSceneController.territory2.getTanks() == 0) {
+        		territoryConquered();
+        		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
+        		window.close();
+        	}
+        	
+        	if(GameSceneController.territory1.getTanks() < 2) {
+        		attackButton.setDisable(true);
+        		annichilisciButton.setDisable(true);
+        		scegliNumeroArmate.setDisable(true);
+        		break;
+        	}
+    	}
+    	
+    }
+    
     
     
     
@@ -146,10 +176,7 @@ public class AttackSceneController {
     	else
     		defNumber = GameSceneController.territory2.getTanks();
     }
-    
-    private void attackingNumbers() {
-    	defNumber();
-    }
+
     
     private void menuHandler() {
     	

@@ -114,6 +114,14 @@ public class Player {
 	public int getContinents() {
 		return continents;
 	}
+	
+	public void addContinents() {
+		this.continents += 1;
+	}
+	
+	public void zeroContinents() {
+		this.continents = 0;
+	}
 
 	/**
 	 * Returns the number of territories owned by the player
@@ -178,7 +186,6 @@ public class Player {
 	public void playCard(Card c) {
 		cards.remove(c);
 	}
-	
 	
 	public ArrayList<Card> getCards() {
 		return cards;

@@ -43,7 +43,6 @@ public class Continent {
 			}
 		}
 		return owned = true;
-		 
 	}
 
 	/**
@@ -70,19 +69,15 @@ public class Continent {
 		return owned;
 	}
 	
+	public void setOwned(boolean owned) {
+		this.owned = owned;
+	}
+	
 	/**
 	 * Returns the code of the continent
 	 * @return code
 	 */
 	public int getCode() {				
 		return code;
-	}
-	
-	/**
-	 * Returns the owner of the continent if the continent is totally occupied by one player
-	 * @return player
-	 */
-	public Player getRandomPlayer() {		
-		return territories.get(1).getOwner();
 	}
 }

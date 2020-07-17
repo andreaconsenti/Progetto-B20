@@ -35,6 +35,9 @@ public class RisikoGame {
 		
 		territories = fileHandler.addConfinanti(fileHandler.genTerritories(terrFile), terrFile);
 		continents = fileHandler.genContinents(continentsFile);
+		for (Continent c : continents) {
+			setContinent(c);	
+		}
 		
 		missions = fileHandler.genMissions(missionsFile, continents);  // per funzionamento corretto partita (definitivo)
 //		missions = fileHandler.genMissions("assets/obiettiviTest.txt", continents);  // per testare la vittoria
@@ -52,8 +55,7 @@ public class RisikoGame {
 		if(currentTurn.isAI()) {
 			nextTurn();
 		}
-		conquerMade = false;
-		
+		conquerMade = false;	
 	}
 	
 	public void nextTurn(){
@@ -98,7 +100,6 @@ public class RisikoGame {
 			gamePhase = GAME_PHASE.REINFORCEMENT;
 			
 			break;
-		
 		}
 	}
 		
@@ -123,12 +124,10 @@ public class RisikoGame {
 		return false;
 	}
 	
-	
 	public void moveTanks(Territory t1, Territory t2, int n) {
 		t1.removeTanks(n);
 		t2.addTanks(n);
 	}
-	
 	
 	public void battle(int[] atkResults, int[] defResults, int atk, int def) {
 		
@@ -142,9 +141,7 @@ public class RisikoGame {
 				getTerritory(GameSceneController.territory1).removeTanks(1);
 				currentTurn.removeTanks(1);
 			}
-		}
-
-		
+		}	
 	}
 	
 	public void conquer(Territory t1, Territory t2) {
@@ -154,6 +151,57 @@ public class RisikoGame {
 		conquerMade = true;
 	}
 		
+	public void setContinent(Continent c) {
+		for(Territory t: territories) {
+			if (t.getContinent().contentEquals(c.getName())) {
+				c.addTerritory(t);
+			}
+		}
+	}
+	
+	public void checkContinent() {
+		currentTurn.zeroContinents();
+		for (Continent c: continents) {
+			if(isOwned(c)==true) {
+				if (getTerritory(getRandomTerritory(c)).getOwner().equals(currentTurn))
+					currentTurn.addContinents();
+			}
+		}
+	}
+	
+	/**
+	 * Verifies if the continent is owned completely by a player
+	 * @return owned
+	 */
+	public boolean isOwned(Continent c) {							
+		for (Territory t1 : territories) {
+			if (t1.getContinent().equals(c.getName())) {
+				for(Territory t2 : territories) {
+					if (t2.getContinent().equals(c.getName())) {
+						if(!(t2.getOwner().equals(t1.getOwner()))) {
+							c.setOwned(false);
+							return c.getOwned();
+						}
+					}
+				}
+			}
+		}
+		c.setOwned(true);
+		return c.getOwned();	 
+	}
+	
+	/**
+	 * Returns a random territory of a continent
+	 * @return t
+	 */
+	public Territory getRandomTerritory(Continent c) {		
+		for(Territory t: territories) {
+			if(t.getContinent().equals(c.getName())) {
+				return t;
+			}
+		}
+		return null;
+	}
 		
 	public boolean verifyMission () {
 //		int codMission = getCurrentTurn().getMission().getCodeMission();
@@ -188,11 +236,18 @@ public class RisikoGame {
 //	}
 		else {
 			if(missionType==MISSION_TYPE.TYPE2) {
-				if(getCurrentTurn().getMission().getContinent1().getOwned() == true){
-					if(getCurrentTurn().getMission().getContinent1().getRandomPlayer().equals(currentTurn)) {
-						if(getCurrentTurn().getMission().getContinent2().getOwned()==true) {
-							if(getCurrentTurn().getMission().getContinent2().getRandomPlayer().equals(currentTurn)) {
-								if(getCurrentTurn().getContinents()>2)
+				Continent c1 = getContinent(currentTurn.getMission().getContinent1());
+				Continent c2 = getContinent(currentTurn.getMission().getContinent2());
+//				Territory t1 = getTerritory(getCurrentTurn().getMission().getContinent1().getRandomTerritory());
+//				Territory t2 = getTerritory(getCurrentTurn().getMission().getContinent2().getRandomTerritory());
+				if(isOwned(c1) == true){
+					Territory t1 = getTerritory(getRandomTerritory(c1));
+					if(t1.getOwner().equals(currentTurn)) {
+						if(isOwned(c2) == true){
+							Territory t2 = getTerritory(getRandomTerritory(c2));
+							if(t2.getOwner().equals(currentTurn)) {
+								checkContinent();
+								if(currentTurn.getContinents()>2)
 									return true;
 							}
 						}
@@ -203,6 +258,15 @@ public class RisikoGame {
 				return false;
 		}
 		return false;
+	}
+	
+	public Continent getContinent(Continent c) {
+		for (Continent co: continents) {
+			if (co.getName().equals(c.getName())) {
+				return co;
+			}
+		}
+		return null;
 	}
 	
 	public void playCardTris(Card c1, Card c2, Card c3) {
@@ -235,12 +299,6 @@ public class RisikoGame {
 		return 0;
 		
 	}
-	
-	
-	
-	
-	
-	
 	
 	private void giveStarterTanks() {
 		switch(this.players.length) {

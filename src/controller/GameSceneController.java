@@ -109,8 +109,6 @@ public class GameSceneController {
 		return instance;
 	}
 	
-	
-	
 	private class territoryStatus{
 		private ImageView image;
 		private Label number;
@@ -138,7 +136,6 @@ public class GameSceneController {
 		
 	}
 	
-	
 	public void initialize() throws NumberFormatException, IOException{
 		game = new RisikoGame(PlayersList.getPlayers(), PlayerSceneController.terrFile, PlayerSceneController.continentsFile, PlayerSceneController.missions);
 		
@@ -147,8 +144,7 @@ public class GameSceneController {
 		map.setImage(temp);
 		
 		File img = new File(PlayerSceneController.territories);
-		BufferedImage image = ImageIO.read(img); 
-		
+		BufferedImage image = ImageIO.read(img); 	
 		
 		territoryLabel.setOpacity(0);
 		
@@ -174,8 +170,6 @@ public class GameSceneController {
 			}
 		}
 	}
-	
-	
 	
 	public void mouseMoved(MouseEvent e) {
 		
@@ -350,23 +344,44 @@ public class GameSceneController {
 		}
 	}
 	
-	
-	
-	public void mouseClicked(MouseEvent e) throws IOException {
+public void mouseClicked(MouseEvent e) throws IOException {
 		
 		switch(game.getGamePhase()) {
 		
 		case FIRSTTURN:
 			
 			if(territorySelected != null) {
-				firstTurn();
+				game.getCurrentTurn().placeTank(1);
+				game.addTerritoryTanks(territorySelected);
+				Integer n = game.getTerritory(territorySelected).getTanks();
+				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
+				setStatusBar();
+				nextTurn();
+				territorySelected = null;
+				map.setImage(wImage);
+				if(game.firstPhaseEnded()) {
+					nextPhase();
+				}
 			}
 			break;
 			
 		case REINFORCEMENT:
 			
 			if(territorySelected != null) {
-				reinforcementClick();
+				game.getCurrentTurn().placeTank(1);
+				game.addTerritoryTanks(territorySelected);
+				Integer n = game.getTerritory(territorySelected).getTanks();
+				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
+				setStatusBar();
+				if (game.verifyMission() == true) {
+					missionCompleted();
+				};
+				if(game.getCurrentTurn().getBonusTanks() == 0) {
+//					if (game.verifyMission() == true) {
+//						missionCompleted();
+//					}
+					nextPhase();
+				}
 			}
 			break;
 			
@@ -390,7 +405,6 @@ public class GameSceneController {
 				};
 				territory1 = null;
 				territory2 = null;
-				setPlayerStatus();
 				setStatusBar();
 			}
 			break;
@@ -422,9 +436,6 @@ public class GameSceneController {
 			}
 			break;
 		}
-		
-	
-	
 	}
 	
 	public void missionCompleted() throws IOException {
@@ -448,7 +459,6 @@ public class GameSceneController {
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.showAndWait();
 		setStatusBar();
-		
 	}
 	
 	public void missionButtonPressed(ActionEvent e) throws IOException {
@@ -498,8 +508,6 @@ public class GameSceneController {
 		window.setScene(scene);
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.showAndWait();
-		
-
 	}
 	
 	public void moveSceneLoader() throws IOException {
@@ -564,7 +572,6 @@ public class GameSceneController {
 				game.nextTurn();
 				i++;
 			}
-			
 		}
 		if(!(game.getGamePhase() == GAME_PHASE.FIRSTTURN))
 			nextPhase();
@@ -576,7 +583,6 @@ public class GameSceneController {
 		if(game.getGamePhase() != GAME_PHASE.FIRSTTURN && game.getCurrentTurn().isAI()) {
 			game.getCurrentTurn().playTurn();
 		}
-		
 	}
 	
 	public void nextPhase() {
@@ -640,13 +646,11 @@ public class GameSceneController {
 			pxlWriter.setColor(p.getX(),p.getY(),color);
 		}
 		map.setImage(tempWImage);
-
 	}
 	
 	private String territoryText(Territory t) {
 		return "Territorio: " + t.getName();
 	}
-	
 	
 	private WritableImage genWritableMap() {
 		pixelReader = map.getImage().getPixelReader();
@@ -666,8 +670,6 @@ public class GameSceneController {
 	
 	private void initTanks() throws IOException {
 	   
-	    
-		
 		ArrayList<Pixel> posList = fileH.addPosizione(PlayerSceneController.terrFile);
 		
 		int i = 0;
@@ -700,8 +702,6 @@ public class GameSceneController {
 		    mappaImgTanks.put(t, status);
 			i++;
 		}
-		
-		
 	}
 	
 	private String getTankPath(Territory t) {
@@ -724,11 +724,9 @@ public class GameSceneController {
 		return null;
 	}
 	
-	
 	public Player getCurrentPlayer() {
 		return game.getCurrentTurn();
 	}
-	
 	
 	private void setStatusBar() {
 		switch(game.getGamePhase()) {
@@ -755,8 +753,7 @@ public class GameSceneController {
 			} else if((territory1 != null) && (territory2 != null)) {
 				statusBar.setText("Spostamento");
 			}
-			break;
-		
+			break;	
 		}
 	}
 	
@@ -783,7 +780,6 @@ public class GameSceneController {
 		image = new Image(file.toURI().toString());
 		mappaImgTanks.get(territory2).getImage().setImage(image);
 	}
-	
 	
 	public RisikoGame getGame() {
 		return game;
@@ -831,10 +827,6 @@ public class GameSceneController {
 		}
 	}
 
-
-	
-	
-	
 	private void aiRecap() throws IOException {
 		Parent aiRecapParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/AIRecapScene.fxml"));
 		Scene aiRecapScene = new Scene(aiRecapParent);
@@ -845,7 +837,5 @@ public class GameSceneController {
 		window.setResizable(true);
 		window.show();
 		
-	}
-	
-	
+	}	
 }

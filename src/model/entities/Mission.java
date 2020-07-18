@@ -47,7 +47,10 @@ public class Mission {
 		con2 = cont2;
 		con3 = cont3;
 		this.codMission=codMission;
-		description="Il tuo obiettivo è di conquistare la totalità di " +getContinent1().getName()+ ", " +getContinent2().getName()+ " e di un altro continente a tua scelta\n";
+		description="Il tuo obiettivo è di conquistare la totalità di " +getContinent1().getName()+ ", " +getContinent2().getName();
+		if(cont3) {
+			description += " e di un altro continente a tua scelta\n";
+		}
 	}
 
 	/**

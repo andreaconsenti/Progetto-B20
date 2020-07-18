@@ -30,21 +30,6 @@ public class Continent {
 	public void addTerritory(Territory territory) {		
 		territories.add(territory);
 	}
-	
-	/**
-	 * Verifies if the continent is owned completely by a player
-	 * @return owned
-	 */
-	public boolean isOwned() {							
-		for (Territory t1 : territories) {
-			for(Territory t2 : territories) {
-				if(t2.getOwner() != t1.getOwner()) {
-					return owned = false;
-				}
-			}
-		}
-		return owned = true;
-	}
 
 	/**
 	 * Returns the number of additional tanks granted by the continent
@@ -80,5 +65,21 @@ public class Continent {
 	 */
 	public int getCode() {				
 		return code;
+	}
+	
+	/**
+	 * Returns a territory
+	 * @return territory
+	 */
+	public Territory getRandomTerritory() {
+		return territories.get(2);
+	}
+	
+	/**
+	 * Returns the list of this continent's territories
+	 * @return code
+	 */
+	public ArrayList<Territory> getTerritories(){
+		return territories;
 	}
 }

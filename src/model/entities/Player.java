@@ -119,6 +119,10 @@ public class Player {
 		this.continents += 1;
 	}
 	
+	public void removeContinent() {
+		this.continents -= 1;
+	}
+	
 	public void zeroContinents() {
 		this.continents = 0;
 	}

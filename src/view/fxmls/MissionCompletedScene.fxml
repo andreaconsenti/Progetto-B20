@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
@@ -7,10 +8,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="324.0" prefWidth="224.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MissionCompletedController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="224.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MissionCompletedController">
    <children>
-      <ImageView fitHeight="305.0" fitWidth="224.0" layoutX="12.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="252.0" fitWidth="162.0" layoutX="31.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/Cards/carta_missione.png" />
          </image>
@@ -20,16 +20,18 @@
             <Font name="System Bold" size="12.5" />
          </font>
       </Label>
-      <Label layoutX="59.0" layoutY="189.0" text="HA COMPLETATO" textFill="WHITE">
+      <Label layoutX="66.0" layoutY="184.0" text="HA COMPLETATO" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="12.5" />
+            <Font name="System Bold" size="11.0" />
          </font>
       </Label>
-      <Label layoutX="42.0" layoutY="221.0" text="IL PROPRIO OBIETTIVO!" textFill="WHITE">
+      <Label layoutX="50.0" layoutY="212.0" text="IL PROPRIO OBIETTIVO!" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="12.5" />
+            <Font name="System Bold" size="11.0" />
          </font>
       </Label>
       <TextArea fx:id="winnerPlayerText" editable="false" layoutX="31.0" layoutY="85.0" prefHeight="102.0" prefWidth="162.0" stylesheets="@../css/outline.css" text="Testo&#10;" wrapText="true" />
+      <Button id="grey" layoutX="85.0" layoutY="327.0" mnemonicParsing="false" onAction="#esciPressed" stylesheets="@../css/StyleSheet.css" text="Esci" />
+      <Button id="grey" layoutX="54.0" layoutY="271.0" mnemonicParsing="false" onAction="#nuovaPressed" stylesheets="@../css/StyleSheet.css" text="Nuova Partita" />
    </children>
 </Pane>

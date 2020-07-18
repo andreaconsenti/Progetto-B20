@@ -20,6 +20,7 @@ public class Continent {
 		this.code=code;
 		this.name=name;
 		this.bonus = bonus;
+		territories = new ArrayList<Territory>();
 	}
 	
 	/**

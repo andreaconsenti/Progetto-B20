@@ -154,6 +154,7 @@ public class AttackSceneController {
         		territoryConquered();
         		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
         		window.close();
+        		break;
         	}
         	
         	if(GameSceneController.territory1.getTanks() < 2) {

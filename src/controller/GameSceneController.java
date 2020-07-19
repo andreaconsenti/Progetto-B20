@@ -368,20 +368,7 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		case REINFORCEMENT:
 			
 			if(territorySelected != null) {
-				game.getCurrentTurn().placeTank(1);
-				game.addTerritoryTanks(territorySelected);
-				Integer n = game.getTerritory(territorySelected).getTanks();
-				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
-				setStatusBar();
-				if (game.verifyMission() == true) {
-					missionCompleted();
-				};
-				if(game.getCurrentTurn().getBonusTanks() == 0) {
-//					if (game.verifyMission() == true) {
-//						missionCompleted();
-//					}
-					nextPhase();
-				}
+				reinforcementClick();
 			}
 			break;
 			
@@ -703,7 +690,7 @@ public void mouseClicked(MouseEvent e) throws IOException {
 	
 	private void setPlayerStatus() {
 		Integer tmp;
-		tmp = game.getCurrentTurn().getTanks();
+		tmp = game.getPlayer(game.getCurrentTurn()).getTanks();
 		plTanks.setText(tmp.toString());
 		tmp = game.getCurrentTurn().getTerritories();
 		plTerritories.setText(tmp.toString());

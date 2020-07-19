@@ -224,31 +224,24 @@ public class RisikoGame {
 		
 		if(missionType == MISSION_TYPE.TYPE1) {
 			if(currentTurn.getTerritories() >= currentTurn.getMission().getNumberOfTerritories()) {
-				return true;
+				for(Territory t : territories) {
+					if(t.getOwner().equals(currentTurn) && t.getTanks() >= currentTurn.getMission().getNumberOfTanks()) {
+						i++;
+					}
+				}
+				if(i == currentTurn.getTerritories()) {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}
 		}
-		
-//		else {
-//			if(missionType==MISSION_TYPE.TYPE2) {
-//				if(getCurrentTurn().getMission().getContinent1().getRandomPlayer() == getCurrentTurn() && 
-//						getCurrentTurn().getMission().getContinent2().getRandomPlayer()==getCurrentTurn() &&
-//						getCurrentTurn().getContinents()>2) {
-//						return true;
-//					}
-//			}
-//			else
-//				return false;
-//		}
-//		return false;
-//	}
 		else {
 			if(missionType==MISSION_TYPE.TYPE2) {
 				Continent c1 = currentTurn.getMission().getContinent1();
 				Continent c2 = currentTurn.getMission().getContinent2();
-//				Territory t1 = getTerritory(getCurrentTurn().getMission().getContinent1().getRandomTerritory());
-//				Territory t2 = getTerritory(getCurrentTurn().getMission().getContinent2().getRandomTerritory());
 				if(isOwned(c1)){
 					Territory t1 = getTerritory(c1.getRandomTerritory());
 					if(t1.getOwner().equals(currentTurn)) {

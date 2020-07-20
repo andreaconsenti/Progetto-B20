@@ -410,14 +410,23 @@ public class RisikoGame {
 
 		pl.giveBonusTanks((int)Math.floor(pl.getTerritories()/3));	
 		
-//		for(Continent c : continents) {
-//			if(c.isOwned()) {
-//				if(c.getRandomPlayer().equals(pl)) {
-//					pl.giveBonusTanks(c.getBonus());
-//				}
-//			}
-//		}
+		for(Continent c : continents) {
+			if(isOwned(c)) {
+				if(getRandomPlayer(c).equals(pl)) {
+					pl.giveBonusTanks(c.getBonus());
+				}
+			}
+		}
 		
+	}
+	
+	public Player getRandomPlayer(Continent c) {
+		for (Territory t: territories) {
+			if (t.getContinent().equals(c.getName())) {
+				return t.getOwner();
+			}
+		}
+		return null;
 	}
 	
 	public ArrayList<Territory> getTerritories(){

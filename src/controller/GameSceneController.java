@@ -356,6 +356,7 @@ public void mouseClicked(MouseEvent e) throws IOException {
 				Integer n = game.getTerritory(territorySelected).getTanks();
 				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
 				setStatusBar();
+				setPlayerStatus();
 				nextTurn();
 				territorySelected = null;
 				map.setImage(wImage);
@@ -377,11 +378,13 @@ public void mouseClicked(MouseEvent e) throws IOException {
 			if(territory1 == null) {
 				territory1 = territorySelected;
 				setStatusBar();
+				setPlayerStatus();
 				
 			} else if (territory2 == null) {
 				if(territorySelected == null || territorySelected.equals(territory1)) {
 					territory1 = territorySelected;
 					setStatusBar();
+					setPlayerStatus();
 					break;
 				}
 				territory2 = territorySelected;
@@ -393,6 +396,7 @@ public void mouseClicked(MouseEvent e) throws IOException {
 				territory1 = null;
 				territory2 = null;
 				setStatusBar();
+				setPlayerStatus();
 			}
 			break;
 			
@@ -400,15 +404,18 @@ public void mouseClicked(MouseEvent e) throws IOException {
 			if(territory1 == null) {
 				territory1 = territorySelected;
 				setStatusBar();
+				setPlayerStatus();
 				
 			} else if (territory2 == null) {
 				if(territorySelected == null || territorySelected.equals(territory1)) {
 					territory1 = territorySelected;
 					setStatusBar();
+					setPlayerStatus();
 					break;
 				}
 				territory2 = territorySelected;
 				setStatusBar();
+				setPlayerStatus();
 				moveSceneLoader();
 				Integer n = territory1.getTanks();
 				updateTanks();
@@ -420,6 +427,7 @@ public void mouseClicked(MouseEvent e) throws IOException {
 				territory1 = null;
 				territory2 = null;
 				setStatusBar();
+				setPlayerStatus();
 			}
 			break;
 		}

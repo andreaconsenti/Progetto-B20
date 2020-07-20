@@ -20,11 +20,22 @@ public class MissionCompletedController {
 		
 	}
     
-	
+
+	/**
+	 * Manages the pressure of the Esci button, closing the game
+	 * @param event is the event generated
+	 * @throws IOException
+	 */
 	public void esciPressed(ActionEvent e) {
 		System.exit(0);
 	}
 	
+
+	/**
+	 * Manages the pressure of the Nuova button, starting a new game
+	 * @param event is the event generated
+	 * @throws IOException
+	 */
 	public void nuovaPressed(ActionEvent e) throws IOException {
 		GameSceneController.getInstance().newGame();
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();

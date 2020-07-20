@@ -25,7 +25,11 @@ public class Controller {
 	private Button startButton;
 
 	
-	
+	/**
+	 * Manages the pressure of the Start button, opening the playerScene
+	 * @param event is the event generated
+	 * @throws IOException
+	 */
 	public void startPressed(ActionEvent event) throws IOException {
 		Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/NewPlayerScene.fxml"));
 		Scene playerScene = new Scene(playerSceneParent);
@@ -35,6 +39,13 @@ public class Controller {
 		window.setScene(playerScene);
 		window.show();
 	}
+	
+
+	/**
+	 * Manages the pressure of the Rules button, opening the rules
+	 * @param event is the event generated
+	 * @throws IOException
+	 */
 	
 	public void rulesPressed(ActionEvent event) throws IOException {
 		Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/RulesScene.fxml"));

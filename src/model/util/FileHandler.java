@@ -259,7 +259,9 @@ public class FileHandler {
 		int codeMission;
 		int typeMission;
 		int code;
-		int code2;		
+		int code2;
+		int code3;
+		boolean temp;
 		
 		for(int i=0; i<n; i++) {
 			line=in.readLine();
@@ -277,9 +279,14 @@ public class FileHandler {
 				case 2:
 					code=Integer.parseInt(st.nextToken());
 					code2=Integer.parseInt(st.nextToken());
+					code3=Integer.parseInt(st.nextToken());
+					if(code3==1)
+						temp=true;
+					else
+						temp=false;
 					cont1=continents.get((code)-1);
 					cont2=continents.get((code2)-1);
-					if(!addMission(new Mission(cont1, cont2, false, codeMission))) {
+					if(!addMission(new Mission(cont1, cont2, temp, codeMission))) {
 						break;
 					}
 					break;

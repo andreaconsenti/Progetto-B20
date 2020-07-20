@@ -26,7 +26,15 @@ public class RisikoGame {
 	private int turnCounter;
 	private boolean conquerMade;
 	
-	
+	/**
+	 * Creates and initializes a RisikoGame
+	 * @param players are the players of the game
+	 * @param terrFile is the file containing the territories
+	 * @param continentsFile is the file containing the continents
+	 * @param missionsFile is the file containing the missions
+	 * @throws NumberFormatException if there are problems with the parsing
+	 * @throws IOException if there is a problem with the file
+	 */
 	public RisikoGame(Player[] players, String terrFile, String continentsFile, String missionsFile) throws NumberFormatException, IOException {
 		this.players = players;
 		this.players = shufflePlayers();
@@ -58,6 +66,9 @@ public class RisikoGame {
 		conquerMade = false;	
 	}
 	
+	/**
+	 * The games goes to the next turn
+	 */
 	public void nextTurn(){
 //		if(gamePhase != GAME_PHASE.FIRSTTURN) {
 //			gamePhase = GAME_PHASE.REINFORCEMENT;
@@ -72,6 +83,9 @@ public class RisikoGame {
 		}
 	}
 	
+	/**
+	 * The game goes to the next phase
+	 */
 	public void nextPhase() {
 		switch(gamePhase) {
 		case FIRSTTURN:
@@ -102,7 +116,11 @@ public class RisikoGame {
 			break;
 		}
 	}
-		
+	
+	/**
+	 * Returns the total amount of bonus tanks
+	 * @return s
+	 */
 	public int getBonusTanksSum() {
 		int s = 0;
 		for(Player p : players) {
@@ -111,6 +129,10 @@ public class RisikoGame {
 		return s;
 	}
 	
+	/**
+	 * Determines if the first phase ended
+	 * @return boolean
+	 */
 	public boolean firstPhaseEnded() {
 		
 		if(getBonusTanksSum() == 0) {
@@ -124,11 +146,24 @@ public class RisikoGame {
 		return false;
 	}
 	
+	/**
+	 * Moves tanks from a territory to another
+	 * @param t1 is the first territory
+	 * @param t2 is the second territory
+	 * @param n is the number of tanks
+	 */
 	public void moveTanks(Territory t1, Territory t2, int n) {
 		t1.removeTanks(n);
 		t2.addTanks(n);
 	}
 	
+	/**
+	 * Makes a battle between 2 players
+	 * @param atkResults are the dice of the attacker
+	 * @param defResults are the dice of the defender
+	 * @param atk is the number of attacking dice
+	 * @param def is the number of defending dice
+	 */
 	public void battle(int[] atkResults, int[] defResults, int atk, int def) {
 		
 		int n = Math.min(atk, def);
@@ -144,6 +179,11 @@ public class RisikoGame {
 		}	
 	}
 	
+	/**
+	 * A player conquers a territory
+	 * @param t1 is the attacking territory
+	 * @param t2 is the defending territory
+	 */
 	public void conquer(Territory t1, Territory t2) {
 		boolean t2ContConquered = false;
 		if(isOwned(getTerrContinent(t2))) {
@@ -160,6 +200,10 @@ public class RisikoGame {
 
 	}
 	
+	/**
+	 * Checks if a continent is owned
+	 * @param c is the continent
+	 */
 	private void checkOwn(Continent c) {
 		if(isOwned(c)) {
 			getPlayer(getTerritory(c.getRandomTerritory()).getOwner()).addContinents();
@@ -217,45 +261,46 @@ public class RisikoGame {
 		}
 		return null;
 	}
-		
+	
+	/**
+	 * Verifies if a mission is completed
+	 * @return boolean
+	 */
 	public boolean verifyMission () {
 		MISSION_TYPE missionType = currentTurn.getMission().getType();
 		int i = 0;
 		
 		if(missionType == MISSION_TYPE.TYPE1) {
 			if(currentTurn.getTerritories() >= currentTurn.getMission().getNumberOfTerritories()) {
-				return true;
+				for(Territory t : territories) {
+					if(t.getOwner().equals(currentTurn) && t.getTanks() >= currentTurn.getMission().getNumberOfTanks()) {
+						i++;
+					}
+				}
+				if(i == currentTurn.getTerritories()) {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}
 		}
-		
-//		else {
-//			if(missionType==MISSION_TYPE.TYPE2) {
-//				if(getCurrentTurn().getMission().getContinent1().getRandomPlayer() == getCurrentTurn() && 
-//						getCurrentTurn().getMission().getContinent2().getRandomPlayer()==getCurrentTurn() &&
-//						getCurrentTurn().getContinents()>2) {
-//						return true;
-//					}
-//			}
-//			else
-//				return false;
-//		}
-//		return false;
-//	}
 		else {
 			if(missionType==MISSION_TYPE.TYPE2) {
 				Continent c1 = currentTurn.getMission().getContinent1();
 				Continent c2 = currentTurn.getMission().getContinent2();
-//				Territory t1 = getTerritory(getCurrentTurn().getMission().getContinent1().getRandomTerritory());
-//				Territory t2 = getTerritory(getCurrentTurn().getMission().getContinent2().getRandomTerritory());
 				if(isOwned(c1)){
 					Territory t1 = getTerritory(c1.getRandomTerritory());
 					if(t1.getOwner().equals(currentTurn)) {
 						if(isOwned(c2)){
 							Territory t2 = getTerritory(c2.getRandomTerritory());
 							if(t2.getOwner().equals(currentTurn)) {
-								if(currentTurn.getContinents()>2)
+								if(!currentTurn.getMission().hasContinent3()) {
+									return true;
+								}
+								else
+									if(currentTurn.getContinents()>2)
 									return true;
 							}
 						}
@@ -417,14 +462,23 @@ public class RisikoGame {
 
 		pl.giveBonusTanks((int)Math.floor(pl.getTerritories()/3));	
 		
-//		for(Continent c : continents) {
-//			if(c.isOwned()) {
-//				if(c.getRandomPlayer().equals(pl)) {
-//					pl.giveBonusTanks(c.getBonus());
-//				}
-//			}
-//		}
+		for(Continent c : continents) {
+			if(isOwned(c)) {
+				if(getRandomPlayer(c).equals(pl)) {
+					pl.giveBonusTanks(c.getBonus());
+				}
+			}
+		}
 		
+	}
+	
+	public Player getRandomPlayer(Continent c) {
+		for (Territory t: territories) {
+			if (t.getContinent().equals(c.getName())) {
+				return t.getOwner();
+			}
+		}
+		return null;
 	}
 	
 	public ArrayList<Territory> getTerritories(){

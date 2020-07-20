@@ -73,7 +73,9 @@ public class AttackSceneController {
     
     
     
-    
+    /**
+     * Initializes the controller
+     */
     public void initialize() {
     	
     	attackButton.setDisable(true);
@@ -111,7 +113,11 @@ public class AttackSceneController {
     
     }
     
-    
+    /**
+     * Manages the attack when the attack button is pressed
+     * @param e is the event
+     * @throws IOException
+     */
     public void attackButtonPressed(ActionEvent e) throws IOException {
 
 		atkResults = GameSceneController.territory1.getOwner().rollDices(atkNumber);
@@ -138,6 +144,11 @@ public class AttackSceneController {
     	
     }
     
+    /**
+     * Manages the attack when the assedia button is pressed
+     * @param e is the event
+     * @throws IOException
+     */
     public void assediaPressed(ActionEvent e) throws IOException {
     	int n = 0;
     	while(n == 0) {
@@ -155,6 +166,7 @@ public class AttackSceneController {
         		territoryConquered();
         		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
         		window.close();
+        		break;
         	}
         	
         	if(GameSceneController.territory1.getTanks() < 2) {
@@ -169,7 +181,9 @@ public class AttackSceneController {
     
     
     
-    
+    /**
+     * sets the number of defending tanks
+     */
     private void defNumber() {
     	if(GameSceneController.territory2.getTanks() > 2) {
     		defNumber = 3;
@@ -178,7 +192,9 @@ public class AttackSceneController {
     		defNumber = GameSceneController.territory2.getTanks();
     }
 
-    
+    /**
+     * Manages the menu
+     */
     private void menuHandler() {
     	
     	int tanks = GameSceneController.territory1.getTanks() - 1;
@@ -190,6 +206,9 @@ public class AttackSceneController {
     	}
     }
     
+    /**
+     * Updates the GameSceneController GUI after the attack ends
+     */
     private void updateGUI() {
     	temp = GameSceneController.territory1.getTanks();
     	atkN.setText(temp.toString());
@@ -203,6 +222,10 @@ public class AttackSceneController {
     	removeUnusedDice();
     }
     
+    /**
+     * Manages the conquer of a territory
+     * @throws IOException
+     */
     private void territoryConquered () throws IOException {
     	GameSceneController.game.conquer(GameSceneController.territory1, GameSceneController.territory2);
     	
@@ -216,6 +239,9 @@ public class AttackSceneController {
 		window.showAndWait();
 	}
     
+    /**
+     * Sets the dice images
+     */
     private void setDiceImage() {
     	
     	for(int i = 0; i < atkNumber; i++) {
@@ -248,6 +274,9 @@ public class AttackSceneController {
     	
     }
     
+    /**
+     * Removes Dice
+     */
     private void removeUnusedDice() {
     	if(atkNumber < 3) {
     		if(atkNumber < 2) {
@@ -265,13 +294,21 @@ public class AttackSceneController {
     	
     }
     
-    
+    /**
+     * gets an image
+     * @param path is the path of the image
+     * @return image
+     */
     private Image getImage(String path) {
     	File file = new File(path);
     	Image image = new Image(file.toURI().toString());
     	return image;
     }
     
+    /**
+     * Sets the opacity level 
+     * @param i is the value
+     */
     private void setDiceOpacity(int i) {
     	
     	switch(i) {
@@ -305,6 +342,9 @@ public class AttackSceneController {
     	}
     }
     
+    /**
+     * Manages an attack made by an AI player
+     */
     public static void aiAttack() {
     	
     	int atNumber;

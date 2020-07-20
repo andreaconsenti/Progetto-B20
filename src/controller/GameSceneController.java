@@ -356,6 +356,7 @@ public void mouseClicked(MouseEvent e) throws IOException {
 				Integer n = game.getTerritory(territorySelected).getTanks();
 				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
 				setStatusBar();
+				setPlayerStatus();
 				nextTurn();
 				territorySelected = null;
 				map.setImage(wImage);
@@ -368,20 +369,7 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		case REINFORCEMENT:
 			
 			if(territorySelected != null) {
-				game.getCurrentTurn().placeTank(1);
-				game.addTerritoryTanks(territorySelected);
-				Integer n = game.getTerritory(territorySelected).getTanks();
-				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
-				setStatusBar();
-				if (game.verifyMission() == true) {
-					missionCompleted();
-				};
-				if(game.getCurrentTurn().getBonusTanks() == 0) {
-//					if (game.verifyMission() == true) {
-//						missionCompleted();
-//					}
-					nextPhase();
-				}
+				reinforcementClick();
 			}
 			break;
 			
@@ -390,11 +378,13 @@ public void mouseClicked(MouseEvent e) throws IOException {
 			if(territory1 == null) {
 				territory1 = territorySelected;
 				setStatusBar();
+				setPlayerStatus();
 				
 			} else if (territory2 == null) {
 				if(territorySelected == null || territorySelected.equals(territory1)) {
 					territory1 = territorySelected;
 					setStatusBar();
+					setPlayerStatus();
 					break;
 				}
 				territory2 = territorySelected;
@@ -406,6 +396,7 @@ public void mouseClicked(MouseEvent e) throws IOException {
 				territory1 = null;
 				territory2 = null;
 				setStatusBar();
+				setPlayerStatus();
 			}
 			break;
 			
@@ -413,15 +404,18 @@ public void mouseClicked(MouseEvent e) throws IOException {
 			if(territory1 == null) {
 				territory1 = territorySelected;
 				setStatusBar();
+				setPlayerStatus();
 				
 			} else if (territory2 == null) {
 				if(territorySelected == null || territorySelected.equals(territory1)) {
 					territory1 = territorySelected;
 					setStatusBar();
+					setPlayerStatus();
 					break;
 				}
 				territory2 = territorySelected;
 				setStatusBar();
+				setPlayerStatus();
 				moveSceneLoader();
 				Integer n = territory1.getTanks();
 				updateTanks();
@@ -433,61 +427,34 @@ public void mouseClicked(MouseEvent e) throws IOException {
 				territory1 = null;
 				territory2 = null;
 				setStatusBar();
+				setPlayerStatus();
 			}
 			break;
 		}
 	}
 	
 	public void missionCompleted() throws IOException {
-		Parent missionCompletedSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/MissionCompletedScene.fxml"));
-		Scene missionCompletedScene = new Scene(missionCompletedSceneParent);
-		Stage window = new Stage();
-		window.setResizable(false);
-		window.setTitle("Vittoria");
-		window.setScene(missionCompletedScene);
-		window.initModality(Modality.APPLICATION_MODAL);
-		window.showAndWait();	
+		windowLoader("view/fxmls/MissionCompletedScene.fxml", "Vittoria", true);
 	}
 	
 	public void cardButtonPressed(ActionEvent e) throws IOException {
-		Parent cardSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/SelectCardScene.fxml"));
-		Scene cardScene = new Scene(cardSceneParent);
-		Stage window = new Stage();
-		window.setResizable(false);
-		window.setTitle("Carte");
-		window.setScene(cardScene);
-		window.initModality(Modality.APPLICATION_MODAL);
-		window.showAndWait();
-		setStatusBar();
+		windowLoader("view/fxmls/SelectCardScene.fxml", "Carte", false);
 	}
 	
 	public void missionButtonPressed(ActionEvent e) throws IOException {
-		Parent cardSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/MissionScene.fxml"));
-		Scene cardScene = new Scene(cardSceneParent);
-		Stage window = new Stage();
-		window.setResizable(false);
-		window.setTitle("Missione");
-		window.setScene(cardScene);
-		window.initModality(Modality.APPLICATION_MODAL);
-		window.showAndWait();
-		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		    @Override
-		    public void handle(WindowEvent event) {
-		        // consume event
-		        event.consume();
-		    }
-		});
+		windowLoader("view/fxmls/MissionScene.fxml", "Missione", false);
 	}
 	
 	public void menuPressed(ActionEvent e) throws IOException {
-		Parent cardSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/MenuScene.fxml"));
-		Scene cardScene = new Scene(cardSceneParent);
-		Stage window = new Stage();
-		window.setResizable(false);
-		window.setTitle("Menu");
-		window.setScene(cardScene);
-		window.initModality(Modality.APPLICATION_MODAL);
-		window.showAndWait();
+		windowLoader("view/fxmls/MenuScene.fxml", "Menu", false);
+	}
+	
+	public void attackerAndDefenderChosen () throws IOException {
+		windowLoader("view/fxmls/AttackScene.fxml", "Attacco", false);
+	}
+	
+	public void moveSceneLoader() throws IOException {
+		windowLoader("view/fxmls/MoveScene.fxml", "Spostamento", true);
 	}
 	
 	public void newGame() throws IOException {
@@ -506,34 +473,6 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		nextTurn();
 	}
 
-	public void attackerAndDefenderChosen () throws IOException {
-		Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/AttackScene.fxml"));
-		Scene scene = new Scene(parent);
-		Stage window = new Stage();
-		window.setResizable(false);
-		window.setTitle("Attacco");
-		window.setScene(scene);
-		window.initModality(Modality.APPLICATION_MODAL);
-		window.showAndWait();
-	}
-	
-	public void moveSceneLoader() throws IOException {
-		Parent moveSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/MoveScene.fxml"));
-		Scene moveScene = new Scene(moveSceneParent);
-		Stage window = new Stage();
-		window.setResizable(false);
-		window.setTitle("Spostamento");
-		window.setScene(moveScene);
-		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		    @Override
-		    public void handle(WindowEvent event) {
-		        // consume event
-		        event.consume();
-		    }
-		});
-		window.initModality(Modality.APPLICATION_MODAL);
-		window.showAndWait();
-	}
 	
 	private boolean checkAttaccabile(Territory t) {
 		
@@ -759,7 +698,7 @@ public void mouseClicked(MouseEvent e) throws IOException {
 	
 	private void setPlayerStatus() {
 		Integer tmp;
-		tmp = game.getCurrentTurn().getTanks();
+		tmp = game.getPlayer(game.getCurrentTurn()).getTanks();
 		plTanks.setText(tmp.toString());
 		tmp = game.getCurrentTurn().getTerritories();
 		plTerritories.setText(tmp.toString());
@@ -796,6 +735,27 @@ public void mouseClicked(MouseEvent e) throws IOException {
 	
 	public void setTerritory2(Territory t) {
 		territory2 = t;
+	}
+	
+	private void windowLoader(String scene, String title, boolean cantclose) throws IOException {
+		Parent sceneParent = FXMLLoader.load(getClass().getClassLoader().getResource(scene));
+		Scene mScene = new Scene(sceneParent);
+		Stage window = new Stage();
+		window.setResizable(false);
+		window.setTitle(title);
+		window.setScene(mScene);
+		if (cantclose) {
+			window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent event) {
+					// consume event
+					event.consume();
+				}
+			});
+		}
+		window.initModality(Modality.APPLICATION_MODAL);
+		window.showAndWait();
+		setStatusBar();
 	}
 	
 	public void firstTurn() {
@@ -836,6 +796,5 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		window.setScene(aiRecapScene);
 		window.setResizable(true);
 		window.show();
-		
 	}	
 }

@@ -54,12 +54,12 @@ public class DiceShaker {
 		 * Sorting the arrays using a for cycle to put them in decreasing order
 		 */
 		Arrays.sort(results);
-		 for (int i = 0, j = 3 - 1, tmp; i < j; i++, j--) {
-	            tmp = results[i];
-	            results[i] = results[j];
-	            results[j] = tmp;
-	        }
+		for (int i = 0, j = 3 - 1, tmp; i < j; i++, j--) {
+	           tmp = results[i];
+	           results[i] = results[j];
+	           results[j] = tmp;
+	       }
 
-		 return results;
+		return results;
 	}
 }

@@ -247,8 +247,6 @@ public class RisikoGame {
 		return true;
 	}
 	
-	
-	
 	/**
 	 * Returns a random territory of a continent
 	 * @return t
@@ -277,7 +275,7 @@ public class RisikoGame {
 						i++;
 					}
 				}
-				if(i == currentTurn.getTerritories()) {
+				if(i == currentTurn.getMission().getNumberOfTerritories()) {
 					return true;
 				} else {
 					return false;
@@ -313,7 +311,6 @@ public class RisikoGame {
 		return false;
 	}
 	
-	
 	public Continent getTerrContinent(Territory ti) {
 		for(Continent co : continents) {
 			if(co.getName().equals(ti.getContinent())){
@@ -322,7 +319,6 @@ public class RisikoGame {
 		}
 		return null;
 	}
-	
 	
 	public void playCardTris(Card c1, Card c2, Card c3) {
 		currentTurn.giveBonusTanks(checkTris(c1, c2, c3));
@@ -576,8 +572,7 @@ public class RisikoGame {
 			System.out.println(p.getMissionDescription());
 		}
 	}
-	
-	
+		
 	public void printContinents() {
 		int i = 0;
 		for(Continent c : continents) {
@@ -592,7 +587,6 @@ public class RisikoGame {
 		}
 	}
 
-
 	public void printBonusTanks() {
 		for(Player p : this.players) {
 			System.out.println(p.getName());
@@ -605,31 +599,23 @@ public class RisikoGame {
 
 	
 	
-//	public static void main(String[] args) throws NumberFormatException, IOException {
-//		
-//		Player p1 = new Player("Luca", COLOR.BLACK, false);
-//		Player p2 = new Player("Andre", COLOR.PINK, false);
-//		Player p3 = new Player("Gino", COLOR.BLUE, false);
-////		Player p4 = new Player("Daniele", COLOR.RED);
-////		Player p5 = new Player("Alfonso", COLOR.GREEN);
-//		
-//		Player[] list = {p1, p2, p3};
-//		
-//		RisikoGame game = new RisikoGame(list, "assets/RisikoClassic/territori.txt", "assets/RisikoClassic/continenti.txt", "assets/RisikoClassic/obiettivi.txt");
-////		game.printTerritories();
-//		System.out.println(" ");
-//		//game.printPlayers();
-//		//game.printCards();
-//		game.printContinents();
-//		
-////		game.printBonusTanks();
-//		
-//		
-//		
-//		
-//		
-//	}
-//	
-	
-	
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		
+		Player p1 = new Player("Luca", COLOR.BLACK, false);
+		Player p2 = new Player("Andre", COLOR.PINK, false);
+		Player p3 = new Player("Gino", COLOR.BLUE, false);
+//		Player p4 = new Player("Daniele", COLOR.RED);
+//		Player p5 = new Player("Alfonso", COLOR.GREEN);
+		
+		Player[] list = {p1, p2, p3};
+		
+		RisikoGame game = new RisikoGame(list, "assets/RisikoClassic/territori.txt", "assets/RisikoClassic/continenti.txt", "assets/RisikoClassic/obiettivi.txt");
+//		game.printTerritories();
+		System.out.println(" ");
+		//game.printPlayers();
+		//game.printCards();
+		game.printContinents();
+		
+//		game.printBonusTanks();	
+	}	
 }

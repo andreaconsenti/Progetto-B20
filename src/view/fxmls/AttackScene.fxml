@@ -91,7 +91,6 @@
                         <Font size="11.0" />
                      </font>
                   </Label>
-                  <Label layoutX="45.0" layoutY="57.0" />
                   <Label layoutX="295.0" layoutY="5.0" prefHeight="19.0" prefWidth="202.0" text="LE TUE ARMATE SUL TERRITORIO SONO:" textFill="WHITE">
                      <font>
                         <Font size="11.0" />

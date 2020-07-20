@@ -126,6 +126,7 @@ public class AttackSceneController {
     	
     	if(GameSceneController.territory2.getTanks() == 0) {
     		territoryConquered();
+    		annichilisciButton.setDisable(true);
     		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
     		window.close();
     	}

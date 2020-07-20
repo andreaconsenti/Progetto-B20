@@ -101,10 +101,17 @@ public class GameSceneController {
 	
 	private static GameSceneController instance;
 	
+	/**
+     * Sets the instance to this instance of GameSceneController
+     */
 	public GameSceneController() {
 		instance = this;
 	}
 	
+	/**
+	 * Instance getter
+	 * @return instance
+	 */
 	public static GameSceneController getInstance() {
 		return instance;
 	}
@@ -113,29 +120,55 @@ public class GameSceneController {
 		private ImageView image;
 		private Label number;
 		
+		/**
+	     * Constructor of a territory linked with its image and its name
+	     * @param img is the image of the territory
+	     * @param lbl is the number of the territory that corresponds with the name
+	     */
 		public territoryStatus(ImageView img, Label lbl) {
 			setImage(img);
 			setNumber(lbl);
 		}
-
+		
+		/**
+	     * Returns the number of the territory
+	     * @return number
+	     */
 		public Label getNumber() {
 			return number;
 		}
-
+		
+		/**
+	     * Sets the number of the territory
+	     * @param number is the number
+	     */
 		public void setNumber(Label number) {
 			this.number = number;
 		}
-
+		
+		/**
+	     * Returns the image of the territory
+	     * @return image
+	     */
 		public ImageView getImage() {
 			return image;
 		}
-
+		
+		/**
+	     * Sets the image of the territory
+	     * @param image is the image
+	     */
 		public void setImage(ImageView image) {
 			this.image = image;
 		}
 		
 	}
 	
+	/**
+     * Initializes the controller
+     * @throws NumberFormatException
+     * @throws IOException
+     */
 	public void initialize() throws NumberFormatException, IOException{
 		game = new RisikoGame(PlayersList.getPlayers(), PlayerSceneController.terrFile, PlayerSceneController.continentsFile, PlayerSceneController.missions);
 		
@@ -171,6 +204,10 @@ public class GameSceneController {
 		}
 	}
 	
+	/**
+     * Manages every movement of the mouse controlled by the player
+     * @param e is the event
+     */
 	public void mouseMoved(MouseEvent e) {
 		
 		int x =  (int)e.getX();
@@ -343,8 +380,13 @@ public class GameSceneController {
 			
 		}
 	}
-	
-public void mouseClicked(MouseEvent e) throws IOException {
+
+	/**
+     * Manages every click of the mouse 
+     * @param e is the event
+     * @throws IOException
+     */
+	public void mouseClicked(MouseEvent e) throws IOException {
 		
 		switch(game.getGamePhase()) {
 		
@@ -433,30 +475,61 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		}
 	}
 	
+	/**
+     * Loads the victory scene when the mission is completed
+     * @throws IOException
+     */
 	public void missionCompleted() throws IOException {
 		windowLoader("view/fxmls/MissionCompletedScene.fxml", "Vittoria", true);
 	}
 	
+	/**
+     * Loads the Card scene when the button cardButton is pressed
+     * @param e is the event
+     * @throws IOexception
+     */
 	public void cardButtonPressed(ActionEvent e) throws IOException {
 		windowLoader("view/fxmls/SelectCardScene.fxml", "Carte", false);
 	}
 	
+	/**
+     * Loads the Mission scene when the button missionButton is pressed
+     * @param e is the event
+     * @throws IOexception
+     */
 	public void missionButtonPressed(ActionEvent e) throws IOException {
 		windowLoader("view/fxmls/MissionScene.fxml", "Missione", false);
 	}
 	
+	/**
+     * Loads the Menu scene when the button menuButton is pressed
+     * @param e is the event
+     * @throws IOexception
+     */
 	public void menuPressed(ActionEvent e) throws IOException {
 		windowLoader("view/fxmls/MenuScene.fxml", "Menu", false);
 	}
 	
+	/**
+	 * Loads the attack scene when the attacker and defender are chosen
+	 * @throws IOException
+	 */
 	public void attackerAndDefenderChosen () throws IOException {
 		windowLoader("view/fxmls/AttackScene.fxml", "Attacco", false);
 	}
 	
+	/**
+	 * Loads the Move scene when entered the "FINALMOVE" game phase
+	 * @throws IOException
+	 */
 	public void moveSceneLoader() throws IOException {
 		windowLoader("view/fxmls/MoveScene.fxml", "Spostamento", false);
 	}
 	
+	/**
+	 * Starts a new game
+	 * @throws IOException
+	 */
 	public void newGame() throws IOException {
 		Parent playerSceneParent= FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/NewPlayerScene.fxml"));
 		Scene playerScene = new Scene(playerSceneParent);
@@ -465,15 +538,28 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		window.show();
 	}
 	
+	/**
+	 * Switches to the next phase when nextPhaseButton is pressed
+	 * @param e is the event
+	 */
 	public void nextPhasePressed(ActionEvent e) {
 		nextPhase();
 	}
 	
+	/**
+	 * Switches to the next turn when the endTurnButton is pressed
+	 * @param e is the event
+	 * @throws InterruptedException
+	 */
 	public void endTurnPressed(ActionEvent e) throws InterruptedException {
 		nextTurn();
 	}
 
-	
+	/**
+	 * Checks if a territory can be attacked from another territory
+	 * @param t is the territory to attack
+	 * @return boolean
+	 */
 	private boolean checkAttaccabile(Territory t) {
 		
 		for(Territory t1 : territory1.getConfinanti()) {
@@ -490,6 +576,11 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		return false;
 	}
 	
+	/**
+	 * Checks if a tank can be moved to another territory of the same owner
+	 * @param t is the territory to check
+	 * @return boolean
+	 */
 	private boolean checkSpostabile(Territory t) {
 		
 		for(Territory t1 : territory1.getConfinanti()) {
@@ -506,6 +597,9 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		return false;
 	}
 	
+	/**
+	 * Switches the game turn to the next one
+	 */
 	public void nextTurn() {
 	
 		game.nextTurn();
@@ -531,6 +625,9 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		}
 	}
 	
+	/**
+	 * Switches the game phase to the next one
+	 */
 	public void nextPhase() {
 		switch(game.getGamePhase()) {
 		case FINALMOVE:
@@ -553,6 +650,11 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		setPlayerLabel();
 	}
 	
+	/**
+	 * Returns the exact color of a Player
+	 * @param p is the player
+	 * @return color
+	 */
 	private Color returnPlayerColor(Player p) {
 		switch(p.getColor()) {
 		case RED:
@@ -572,11 +674,18 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		
 	}
 	
+	/**
+	 * Fills the TextArea with the name of the player of the current turn
+	 */
 	private void setPlayerLabel() {
 		turnLabel.setTextFill(returnPlayerColor(game.getCurrentTurn()));
 		turnLabel.setText(game.getCurrentTurn().getName());
 	}
 	
+	/**
+	 * Changes the color of the image
+	 * @param list is the list of all the Pixels of the image
+	 */
 	private void changeColor(ArrayList<Pixel> list) {
 		WritableImage tempWImage = genWritableMap();
 		for(Pixel p : list) {
@@ -594,10 +703,19 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		map.setImage(tempWImage);
 	}
 	
+	/**
+	 * Returns the text about a territory
+	 * @param t is the territory
+	 * @return String
+	 */
 	private String territoryText(Territory t) {
 		return "Territorio: " + t.getName();
 	}
 	
+	/**
+	 * Generates a writable image
+	 * @return WritableImage
+	 */
 	private WritableImage genWritableMap() {
 		pixelReader = map.getImage().getPixelReader();
 		WritableImage wImg = new WritableImage((int) map.getImage().getWidth(),(int) map.getImage().getHeight());
@@ -614,6 +732,10 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		return wImg;
 	}
 	
+	/**
+	 * Initializes the position of each tank image on the map image
+	 * @throws IOException
+	 */
 	private void initTanks() throws IOException {
 	   
 		ArrayList<Pixel> posList = fileH.addPosizione(PlayerSceneController.terrFile);
@@ -643,6 +765,11 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		}
 	}
 	
+	/**
+	 * Returns the path of the coloured tank images 
+	 * @param t is the territory on which the coloured tank image will be displayed
+	 * @return String
+	 */
 	private String getTankPath(Territory t) {
 		Player tempPlayer = t.getOwner();
 		
@@ -663,10 +790,17 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		return null;
 	}
 	
+	/**
+	 * Returns the player of the current turn
+	 * @return Player
+	 */
 	public Player getCurrentPlayer() {
 		return game.getCurrentTurn();
 	}
 	
+	/**
+	 * Fills the TextArea with a specified text
+	 */
 	private void setStatusBar() {
 		switch(game.getGamePhase()) {
 		case FIRSTTURN:
@@ -696,6 +830,9 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		}
 	}
 	
+	/**
+	 * Sets the current number of tanks,territories and continents owned by a player
+	 */
 	private void setPlayerStatus() {
 		Integer tmp;
 		tmp = game.getPlayer(game.getCurrentTurn()).getTanks();
@@ -706,6 +843,9 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		plContinents.setText(tmp.toString());
 	}
 	
+	/**
+	 * Updates the number and colour of the tanks after a battle
+	 */
 	public void updateTanks() {
     	Integer n = territory1.getTanks();
 		mappaImgTanks.get(territory1).getNumber().setText(n.toString());
@@ -720,23 +860,47 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		mappaImgTanks.get(territory2).getImage().setImage(image);
 	}
 	
+	/**
+	 * Returns the current game
+	 * @return game
+	 */
 	public RisikoGame getGame() {
 		return game;
 	}
 	
+	/**
+	 * Sets the selected territory
+	 * @param t is the territory
+	 */
 	public void setSelTerritory(Territory t) {
 		territorySelected = t;
 	}
 	
+	/**
+	 * Sets two selected territories
+	 * @param t1 is the first territory
+	 * @param t2 is the second territory
+	 */
 	public void setTerritory12(Territory t1, Territory t2) {
 		territory1 = t1;
 		territory2 = t2;
 	}
 	
+	/**
+	 * Sets a specified territory
+	 * @param t is the territory
+	 */
 	public void setTerritory2(Territory t) {
 		territory2 = t;
 	}
 	
+	/**
+	 * Method that allows to load a scene in a new window
+	 * @param scene is the path of the scene to load
+	 * @param title is the title of the window
+	 * @param cantclose specifies if the window can be closed until an event occurs
+	 * @throws IOException
+	 */
 	private void windowLoader(String scene, String title, boolean cantclose) throws IOException {
 		Parent sceneParent = FXMLLoader.load(getClass().getClassLoader().getResource(scene));
 		Scene mScene = new Scene(sceneParent);
@@ -758,6 +922,9 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		setStatusBar();
 	}
 	
+	/**
+	 * Initalizes everything for the first turn
+	 */
 	public void firstTurn() {
 		game.getCurrentTurn().placeTank(1);
 		game.addTerritoryTanks(territorySelected);
@@ -772,6 +939,10 @@ public void mouseClicked(MouseEvent e) throws IOException {
 		}
 	}
 	
+	/**
+	 * Manages the click of the mouse during the reinforcement game phase
+	 * @throws IOException
+	 */
 	public void reinforcementClick() throws IOException {
 		game.getCurrentTurn().placeTank(1);
 		game.addTerritoryTanks(territorySelected);
@@ -786,7 +957,11 @@ public void mouseClicked(MouseEvent e) throws IOException {
 			nextPhase();
 		}
 	}
-
+	
+	/**
+	 * Loads a window showing all the actions made by AI
+	 * @throws IOException
+	 */
 	private void aiRecap() throws IOException {
 		Parent aiRecapParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/AIRecapScene.fxml"));
 		Scene aiRecapScene = new Scene(aiRecapParent);

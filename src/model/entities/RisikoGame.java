@@ -330,22 +330,38 @@ public class RisikoGame {
 	public int checkTris(Card ca1, Card ca2, Card ca3) {
 		
 		ArrayList<FIGURE> figures = new ArrayList<FIGURE>();
+		int bonus = 0;
 		figures.add(ca1.getFigure());
 		figures.add(ca2.getFigure());
 		figures.add(ca3.getFigure());
+		for (Territory t: territories) {
+			if(ca1.getTerritory().equals(t) && !(ca1.getFigure().equals(FIGURE.JOLLY))) {
+				if (t.getOwner().equals(currentTurn)) 
+					bonus++;
+			}
+			if(ca2.getTerritory().equals(t) && !(ca2.getFigure().equals(FIGURE.JOLLY))) {
+				if (t.getOwner().equals(currentTurn)) 
+					bonus++;
+			}
+			if(ca3.getTerritory().equals(t) && !(ca3.getFigure().equals(FIGURE.JOLLY))) {
+				if (t.getOwner().equals(currentTurn)) 
+					bonus++;
+			}
+		}
+		
 		
 		if(ca1.getFigure() == ca2.getFigure() && ca2.getFigure() == ca3.getFigure()) {
 			if(ca1.getFigure() == FIGURE.CANNONE) {
-				return 3;
+				return 3+bonus;
 			} else if (ca1.getFigure() == FIGURE.CAVALIERE) {
-				return 8;
+				return 8+bonus;
 			} else if (ca1.getFigure() == FIGURE.FANTE) {
-				return 6;
+				return 6+bonus;
 			}
 		} else if (figures.contains(FIGURE.CANNONE) && figures.contains(FIGURE.FANTE) && figures.contains(FIGURE.CAVALIERE)) {
-			return 10;
+			return 10+bonus;
 		} else if (figures.contains(FIGURE.JOLLY)) {
-			return 12;
+			return 12+bonus;
 		}
 		return 0;
 		

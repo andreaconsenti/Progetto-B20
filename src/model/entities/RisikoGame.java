@@ -351,22 +351,22 @@ public class RisikoGame {
 	public int checkTris(Card ca1, Card ca2, Card ca3) {
 		
 		ArrayList<FIGURE> figures = new ArrayList<FIGURE>();
-		int bonus = 1;
+		int bonus = 0;
 		figures.add(ca1.getFigure());
 		figures.add(ca2.getFigure());
 		figures.add(ca3.getFigure());
 		for (Territory t: territories) {
 			if(ca1.getTerritory().equals(t) && !(ca1.getFigure().equals(FIGURE.JOLLY))) {
 				if (t.getOwner().equals(currentTurn)) 
-					bonus++;
+					bonus = bonus + 2;
 			}
 			if(ca2.getTerritory().equals(t) && !(ca2.getFigure().equals(FIGURE.JOLLY))) {
 				if (t.getOwner().equals(currentTurn)) 
-					bonus++;
+					bonus = bonus + 2;
 			}
 			if(ca3.getTerritory().equals(t) && !(ca3.getFigure().equals(FIGURE.JOLLY))) {
 				if (t.getOwner().equals(currentTurn)) 
-					bonus++;
+					bonus = bonus + 2;
 			}
 		}
 		

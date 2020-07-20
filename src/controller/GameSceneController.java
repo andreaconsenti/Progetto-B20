@@ -454,7 +454,7 @@ public void mouseClicked(MouseEvent e) throws IOException {
 	}
 	
 	public void moveSceneLoader() throws IOException {
-		windowLoader("view/fxmls/MoveScene.fxml", "Spostamento", true);
+		windowLoader("view/fxmls/MoveScene.fxml", "Spostamento", false);
 	}
 	
 	public void newGame() throws IOException {

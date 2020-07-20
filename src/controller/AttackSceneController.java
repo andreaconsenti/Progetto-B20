@@ -148,6 +148,16 @@ public class AttackSceneController {
     }
     
     /**
+     * Manages the attack when the annulla button is pressed
+     * @param e is the event
+     * @throws IOException
+     */
+    public void annullaButtonPressed(ActionEvent e) throws IOException {
+    	Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
+		window.close();
+    }
+    
+    /**
      * Manages the attack when the assedia button is pressed
      * @param e is the event
      * @throws IOException

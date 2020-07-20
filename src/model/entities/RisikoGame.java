@@ -277,7 +277,7 @@ public class RisikoGame {
 						i++;
 					}
 				}
-				if(i == currentTurn.getTerritories()) {
+				if(i == currentTurn.getMission().getNumberOfTerritories()) {
 					return true;
 				} else {
 					return false;

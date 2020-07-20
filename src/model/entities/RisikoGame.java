@@ -250,8 +250,6 @@ public class RisikoGame {
 		return true;
 	}
 	
-	
-	
 	/**
 	 * Returns a random territory of a continent
 	 * @return t
@@ -316,11 +314,7 @@ public class RisikoGame {
 		return false;
 	}
 	
-	/**
-	 * Returns the continent of a territory
-	 * @param ti is the territory
-	 * @return Continent
-	 */
+
 	public Continent getTerrContinent(Territory ti) {
 		for(Continent co : continents) {
 			if(co.getName().equals(ti.getContinent())){
@@ -330,12 +324,7 @@ public class RisikoGame {
 		return null;
 	}
 	
-	/**
-	 * Plays the combination of 3 cards and gives bonus tanks 
-	 * @param c1 is the first card
-	 * @param c2 is the second card
-	 * @param c3 is the third card
-	 */
+
 	public void playCardTris(Card c1, Card c2, Card c3) {
 		currentTurn.giveBonusTanks(checkTris(c1, c2, c3));
 		currentTurn.playCard(c1);
@@ -353,25 +342,43 @@ public class RisikoGame {
 	public int checkTris(Card ca1, Card ca2, Card ca3) {
 		
 		ArrayList<FIGURE> figures = new ArrayList<FIGURE>();
+		int bonus = 1;
 		figures.add(ca1.getFigure());
 		figures.add(ca2.getFigure());
 		figures.add(ca3.getFigure());
+		for (Territory t: territories) {
+			if(ca1.getTerritory().equals(t) && !(ca1.getFigure().equals(FIGURE.JOLLY))) {
+				if (t.getOwner().equals(currentTurn)) 
+					bonus++;
+			}
+			if(ca2.getTerritory().equals(t) && !(ca2.getFigure().equals(FIGURE.JOLLY))) {
+				if (t.getOwner().equals(currentTurn)) 
+					bonus++;
+			}
+			if(ca3.getTerritory().equals(t) && !(ca3.getFigure().equals(FIGURE.JOLLY))) {
+				if (t.getOwner().equals(currentTurn)) 
+					bonus++;
+			}
+		}
 		
 		if(ca1.getFigure() == ca2.getFigure() && ca2.getFigure() == ca3.getFigure()) {
 			if(ca1.getFigure() == FIGURE.CANNONE) {
-				return 4;
+
+				
+
+				return 3+bonus;
+
 			} else if (ca1.getFigure() == FIGURE.CAVALIERE) {
-				return 8;
+				return 8+bonus;
 			} else if (ca1.getFigure() == FIGURE.FANTE) {
-				return 6;
+				return 6+bonus;
 			}
 		} else if (figures.contains(FIGURE.CANNONE) && figures.contains(FIGURE.FANTE) && figures.contains(FIGURE.CAVALIERE)) {
-			return 10;
+			return 10+bonus;
 		} else if (figures.contains(FIGURE.JOLLY)) {
-			return 12;
+			return 12+bonus;
 		}
 		return 0;
-		
 	}
 	
 	/**
@@ -489,7 +496,6 @@ public class RisikoGame {
             		players[playerID].addTerritory();
             		t.addTanks(1);
             		t.getOwner().placeTank(1);
-            		
             	}
             }
             playerID = (playerID + 1) % players.length;
@@ -511,7 +517,6 @@ public class RisikoGame {
 				}
 			}
 		}
-		
 	}
 	
 	/**
@@ -590,7 +595,6 @@ public class RisikoGame {
 				te.addTanks(1);
 			}
 		}
-		
 	}
 	
 	/**
@@ -643,7 +647,6 @@ public class RisikoGame {
 				temp.add(t);
 			}
 		}
-		
 		Random rand = new Random();
 		return temp.get(rand.nextInt(temp.size()));
 	}
@@ -664,8 +667,7 @@ public class RisikoGame {
 			System.out.println(p.getMissionDescription());
 		}
 	}
-	
-	
+		
 	public void printContinents() {
 		int i = 0;
 		for(Continent c : continents) {
@@ -679,7 +681,6 @@ public class RisikoGame {
 			}
 		}
 	}
-
 
 	public void printBonusTanks() {
 		for(Player p : this.players) {
@@ -710,14 +711,6 @@ public class RisikoGame {
 //		//game.printCards();
 //		game.printContinents();
 //		
-////		game.printBonusTanks();
-//		
-//		
-//		
-//		
-//		
-//	}
-//	
-	
-	
+////		game.printBonusTanks();	
+//	}	
 }

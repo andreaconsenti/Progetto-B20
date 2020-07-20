@@ -314,7 +314,11 @@ public class RisikoGame {
 		return false;
 	}
 	
-
+	/**
+	 * Returns the continent of a territory
+	 * @param ti is the territory
+	 * @return Continent
+	 */
 	public Continent getTerrContinent(Territory ti) {
 		for(Continent co : continents) {
 			if(co.getName().equals(ti.getContinent())){
@@ -324,7 +328,12 @@ public class RisikoGame {
 		return null;
 	}
 	
-
+	/**
+	 * plays the combination of 3 cards and gives bonus
+	 * @param c1 is the first card
+	 * @param c2 is the second card
+	 * @param c3 is the third card
+	 */
 	public void playCardTris(Card c1, Card c2, Card c3) {
 		currentTurn.giveBonusTanks(checkTris(c1, c2, c3));
 		currentTurn.playCard(c1);
@@ -366,7 +375,7 @@ public class RisikoGame {
 
 				
 
-				return 3+bonus;
+				return 4+bonus;
 
 			} else if (ca1.getFigure() == FIGURE.CAVALIERE) {
 				return 8+bonus;

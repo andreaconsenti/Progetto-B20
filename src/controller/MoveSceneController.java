@@ -1,7 +1,7 @@
 package controller;
 
 import java.awt.event.ActionListener;
-
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,6 +43,9 @@ public class MoveSceneController {
 	private boolean conquer;
 	
 	
+	/**
+	 * Initializes the MoveSceneControler
+	 */
 	public void initialize(){
 		
 		t1 = GameSceneController.territory1.getTanks();
@@ -70,19 +73,37 @@ public class MoveSceneController {
 		
 	}
 	
-	
+
+
+	/**
+	 * Manages the pressure of the Sposta button, moving the tanks
+	 * @param event is the event generated
+	 * @throws IOException
+	 */
 	public void movePressed(ActionEvent e) {
 		GameSceneController.game.moveTanks(GameSceneController.territory1, GameSceneController.territory2, (int)slider.getValue());
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.close();
 	}
 	
+
+	/**
+	 * Manages the pressure of the Muovi Tutto button, moving the tanks
+	 * @param event is the event generated
+	 * @throws IOException
+	 */
 	public void moveEverythingPressed(ActionEvent e) {
 		GameSceneController.game.moveTanks(GameSceneController.territory1, GameSceneController.territory2, GameSceneController.territory1.getTanks() - 1);
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.close();
 	}
 	
+
+	/**
+	 * Manages the pressure of the plus, incrementing the temp value
+	 * @param event is the event generated
+	 * @throws IOException
+	 */
 	public void plusPressed(ActionEvent e) {
 		slider.setValue(slider.getValue() + 1);
 		Integer temp = t1 - (int)slider.getValue();
@@ -91,6 +112,11 @@ public class MoveSceneController {
 		number2.setText(temp.toString());
 	}
 	
+	/**
+	 * Manages the pressure of the minus, decrementing the temp value
+	 * @param event is the event generated
+	 * @throws IOException
+	 */
 	public void minusPressed(ActionEvent e) {
 		slider.setValue(slider.getValue() - 1);
 		Integer temp = t1 - (int)slider.getValue();
@@ -99,7 +125,11 @@ public class MoveSceneController {
 		number2.setText(temp.toString());
 	}
 	
-	
+	/**
+	 * Manages the pressure of the Min, setting temp to the minimum
+	 * @param event is the event generated
+	 * @throws IOException
+	 */
 	public void minPressed(ActionEvent e) {
 		slider.setValue(1);
 		Integer temp = t1 - (int)slider.getValue();
@@ -108,6 +138,11 @@ public class MoveSceneController {
 		number2.setText(temp.toString());
 	}
 	
+	/**
+	 * Manages the pressure of the Max, setting temp to the maximum
+	 * @param event is the event generated
+	 * @throws IOException
+	 */
 	public void maxPressed(ActionEvent e) {
 		slider.setValue(GameSceneController.territory1.getTanks() - 1);
 		Integer temp = t1 - (int)slider.getValue();

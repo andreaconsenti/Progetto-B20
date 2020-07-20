@@ -8,6 +8,9 @@ public class MissionController {
 	@FXML
 	TextArea missionText;
 	
+	/**
+	 * Initializes the MissionController
+	 */
 	public void initialize(){
 		
 		missionText.setText(GameSceneController.game.getCurrentTurn().getMissionDescription());

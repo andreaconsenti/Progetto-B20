@@ -13,14 +13,25 @@ public class AIRecapSceneController {
 	
 	private static AIRecapSceneController instance;
 	
+	/**
+	 * Creates an instance of this controller
+	 */
 	public AIRecapSceneController() {
 		instance = this;
 	}
 	
+	/**
+	 * Instance getter
+	 * @return instance
+	 */
 	public static AIRecapSceneController getInstance() {
 		return instance;
 	}
-	
+
+	/**
+	 * Sets the text in the window
+	 * @param text is the text
+	 */
 	public void setText(String text) {
 		Text t = new Text(text);
 		t.setFill(Paint.valueOf(getColor()));
@@ -28,7 +39,10 @@ public class AIRecapSceneController {
 		t.setFont(Font.font("Helvetica", FontWeight.BOLD, 13));
 	}
 	
-	
+	/**
+	 * Gets the color of the player
+	 * @return Color
+	 */
 	private String getColor() {
 
 		

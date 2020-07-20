@@ -115,14 +115,23 @@ public class Player {
 		return continents;
 	}
 	
+	/**
+	 * Adds a continent to the counter of the ones owned
+	 */
 	public void addContinents() {
 		this.continents += 1;
 	}
 	
+	/**
+	 * Removes a continent from the counter of the ones owned
+	 */
 	public void removeContinent() {
 		this.continents -= 1;
 	}
 	
+	/**
+	 * Sets the continent counter to zero
+	 */
 	public void zeroContinents() {
 		this.continents = 0;
 	}
@@ -142,6 +151,9 @@ public class Player {
 		this.territories += 1;
 	}
 	
+	/**
+	 * Removes a territory to the number of territories owned by the player
+	 */
 	public void removeTerritory() {
 		this.territories -= 1;
 	}
@@ -176,6 +188,10 @@ public class Player {
 		return null;	
 	}
 	
+	/**
+	 * Places the tanks owned by the player
+	 * @param n is the number of tanks placed
+	 */
 	public void placeTank(int n) {
 		
 		this.bonusTanks -= n;
@@ -183,18 +199,32 @@ public class Player {
 		
 	}
 	
+	/**
+	 * Gives a card to the player
+	 * @param c is the card
+	 */
 	public void giveCard(Card c) {
 		cards.add(c);
 	}
 	
+	/**
+	 * Removes a card from the player
+	 * @param c is the card
+	 */
 	public void playCard(Card c) {
 		cards.remove(c);
 	}
+	
 	
 	public ArrayList<Card> getCards() {
 		return cards;
 	}
 	
+	/**
+	 * Verifies if two players are equal
+	 * @param p is the second player
+	 * @return boolean
+	 */
 	public boolean equals(Player p) {
 		if(p.getName() == this.name)
 			return true;
@@ -202,9 +232,15 @@ public class Player {
 			return false;
 	}
 	
+	/**
+	 * Rolls the dice of the player
+	 * @param n is the number of dice
+	 * @return the results in an int array
+	 */
 	public int[] rollDices(int n) {
 		return shaker.rollDices(n);
 	}
+	
 	
 	public boolean isAI() {
 		return isAI;
@@ -215,7 +251,9 @@ public class Player {
 	
 	//_______________AI METHODS______________
 	
-	
+	/**
+	 * The AI plays its turn
+	 */
 	public void playTurn(){
 		
 		switch(GameSceneController.getInstance().getGame().getGamePhase()) {

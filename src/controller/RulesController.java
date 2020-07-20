@@ -11,6 +11,11 @@ import javafx.stage.Stage;
 
 public class RulesController {
 	
+	/**
+	 * Manages the pressure of the Indietro button, exiting the rules
+	 * @param event is the event generated
+	 * @throws IOException
+	 */
 	public void backPressed(ActionEvent event) throws IOException {
 		Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/view.fxml"));
 		Scene playerScene = new Scene(playerSceneParent);

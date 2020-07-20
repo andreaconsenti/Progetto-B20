@@ -10,6 +10,7 @@ import javax.print.DocFlavor.URL;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -24,6 +25,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import model.entities.Territory;
 
 public class AttackSceneController {
@@ -232,11 +235,19 @@ public class AttackSceneController {
 		Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/MoveScene.fxml"));
 		Scene scene = new Scene(parent);
 		Stage window = new Stage();
+		window.initStyle(StageStyle.UNDECORATED);
 		window.setResizable(false);
 		window.setTitle("Spostamento");
 		window.setScene(scene);
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.showAndWait();
+		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				// consume event
+				event.consume();
+			}
+		});
 	}
     
     /**

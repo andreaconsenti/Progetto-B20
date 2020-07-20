@@ -248,7 +248,11 @@ public class RisikoGame {
 						if(isOwned(c2)){
 							Territory t2 = getTerritory(c2.getRandomTerritory());
 							if(t2.getOwner().equals(currentTurn)) {
-								if(currentTurn.getContinents()>2)
+								if(!currentTurn.getMission().hasContinent3()) {
+									return true;
+								}
+								else
+									if(currentTurn.getContinents()>2)
 									return true;
 							}
 						}

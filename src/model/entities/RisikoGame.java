@@ -330,7 +330,7 @@ public class RisikoGame {
 	public int checkTris(Card ca1, Card ca2, Card ca3) {
 		
 		ArrayList<FIGURE> figures = new ArrayList<FIGURE>();
-		int bonus = 0;
+		int bonus = 1;
 		figures.add(ca1.getFigure());
 		figures.add(ca2.getFigure());
 		figures.add(ca3.getFigure());
@@ -349,7 +349,6 @@ public class RisikoGame {
 			}
 		}
 		
-		
 		if(ca1.getFigure() == ca2.getFigure() && ca2.getFigure() == ca3.getFigure()) {
 			if(ca1.getFigure() == FIGURE.CANNONE) {
 				return 3+bonus;
@@ -364,7 +363,6 @@ public class RisikoGame {
 			return 12+bonus;
 		}
 		return 0;
-		
 	}
 	
 	private void giveStarterTanks() {
@@ -463,7 +461,6 @@ public class RisikoGame {
             		players[playerID].addTerritory();
             		t.addTanks(1);
             		t.getOwner().placeTank(1);
-            		
             	}
             }
             playerID = (playerID + 1) % players.length;
@@ -481,7 +478,6 @@ public class RisikoGame {
 				}
 			}
 		}
-		
 	}
 	
 	public Player getRandomPlayer(Continent c) {
@@ -531,7 +527,6 @@ public class RisikoGame {
 				te.addTanks(1);
 			}
 		}
-		
 	}
 	
 	public Territory getTerritory(Territory t) {
@@ -567,7 +562,6 @@ public class RisikoGame {
 				temp.add(t);
 			}
 		}
-		
 		Random rand = new Random();
 		return temp.get(rand.nextInt(temp.size()));
 	}
@@ -615,23 +609,23 @@ public class RisikoGame {
 
 	
 	
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		
-		Player p1 = new Player("Luca", COLOR.BLACK, false);
-		Player p2 = new Player("Andre", COLOR.PINK, false);
-		Player p3 = new Player("Gino", COLOR.BLUE, false);
-//		Player p4 = new Player("Daniele", COLOR.RED);
-//		Player p5 = new Player("Alfonso", COLOR.GREEN);
-		
-		Player[] list = {p1, p2, p3};
-		
-		RisikoGame game = new RisikoGame(list, "assets/RisikoClassic/territori.txt", "assets/RisikoClassic/continenti.txt", "assets/RisikoClassic/obiettivi.txt");
-//		game.printTerritories();
-		System.out.println(" ");
-		//game.printPlayers();
-		//game.printCards();
-		game.printContinents();
-		
-//		game.printBonusTanks();	
-	}	
+//	public static void main(String[] args) throws NumberFormatException, IOException {
+//		
+//		Player p1 = new Player("Luca", COLOR.BLACK, false);
+//		Player p2 = new Player("Andre", COLOR.PINK, false);
+//		Player p3 = new Player("Gino", COLOR.BLUE, false);
+////		Player p4 = new Player("Daniele", COLOR.RED);
+////		Player p5 = new Player("Alfonso", COLOR.GREEN);
+//		
+//		Player[] list = {p1, p2, p3};
+//		
+//		RisikoGame game = new RisikoGame(list, "assets/RisikoClassic/territori.txt", "assets/RisikoClassic/continenti.txt", "assets/RisikoClassic/obiettivi.txt");
+////		game.printTerritories();
+//		System.out.println(" ");
+//		//game.printPlayers();
+//		//game.printCards();
+//		game.printContinents();
+//		
+////		game.printBonusTanks();	
+//	}	
 }

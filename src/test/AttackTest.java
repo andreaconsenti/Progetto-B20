@@ -1,6 +1,6 @@
 package test;
 
-public class Test {
+public class AttackTest {
 
 	public static void main(String[] args) {
 	}

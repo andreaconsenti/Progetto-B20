@@ -18,6 +18,8 @@ public class ReinforcementExecutor implements FunctionExecutor{
 //					GameSceneController.getInstance().nextPhase();	
 //				}
 //			}
+			
+			
 			if(GameSceneController.getInstance().getGame().getBonusTanksSum() == 0) {
 				GameSceneController.getInstance().nextPhase();
 			}

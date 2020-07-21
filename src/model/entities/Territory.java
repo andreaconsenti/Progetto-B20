@@ -81,6 +81,36 @@ public class Territory {
 	public void setOwner(Player owner) {
 		this.owner = owner;
 	}
+	
+	public boolean isAttaccabileFrom(Territory t) {
+		
+		for(Territory t1 : t.getConfinanti()) {
+			
+			if(t1.getId() == this.id) {
+				if(!t.getOwner().equals(this.owner)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean isSpostabileFrom(Territory t) {
+		
+		for(Territory t1 : t.getConfinanti()) {
+			
+			if(t1.getId() == this.id) {
+				if(t.getOwner().equals(this.owner) && t.getTanks() > 1) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return false;
+	}
 
 	/*public Continent getContinent() {
 		return continent;

@@ -372,11 +372,7 @@ public class RisikoGame {
 		
 		if(ca1.getFigure() == ca2.getFigure() && ca2.getFigure() == ca3.getFigure()) {
 			if(ca1.getFigure() == FIGURE.CANNONE) {
-
-				
-
 				return 4+bonus;
-
 			} else if (ca1.getFigure() == FIGURE.CAVALIERE) {
 				return 8+bonus;
 			} else if (ca1.getFigure() == FIGURE.FANTE) {

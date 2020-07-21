@@ -9,6 +9,11 @@ import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
+import controller.mouseFunction.BattleExecutor;
+import controller.mouseFunction.FinalmoveExecutor;
+import controller.mouseFunction.FirstturnExecutor;
+import controller.mouseFunction.FunctionExecutor;
+import controller.mouseFunction.ReinforcementExecutor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -97,6 +102,7 @@ public class GameSceneController {
 	private Territory territorySelected;
 	public static Territory territory1;
 	public static Territory territory2;
+	private HashMap<GAME_PHASE, FunctionExecutor> executors;
 	
 	
 	private static GameSceneController instance;
@@ -189,6 +195,9 @@ public class GameSceneController {
 		mappaImgTanks = new HashMap<Territory, territoryStatus>();
 		initTanks();
 		
+		executors = new HashMap<GAME_PHASE, FunctionExecutor>();
+		initExecutors();
+		
 		statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
 		setPlayerLabel();
 		setPlayerStatus();
@@ -214,171 +223,8 @@ public class GameSceneController {
 		int y =  (int)e.getY();
 		int check;
 		
-		switch(game.getGamePhase()) {
+		executors.get(game.getGamePhase()).executeMove(x, y);
 		
-		case FIRSTTURN:
-			for(Territory t : game.getTerritories()) {
-				
-				check = 0;
-				for(Pixel p : mappa.get(t)) {
-					
-					if((p.getX() == x) && (p.getY() == y)) {
-						check = 1;
-						territoryLabel.setOpacity(100);
-						territoryLabel.setText(territoryText(t));
-						if(game.getCurrentTurn().equals(t.getOwner())) {
-							changeColor(mappa.get(t));
-							territorySelected = t;
-						}
-						break;
-					} else {
-						map.setImage(wImage);
-						territoryLabel.setOpacity(0);
-						territorySelected = null;
-					}
-					
-				}
-				if(check == 1) {
-					break;
-				}
-			}
-			break;
-			
-		case REINFORCEMENT:
-			for(Territory t : game.getTerritories()) {
-				
-				check = 0;
-				for(Pixel p : mappa.get(t)) {
-					
-					if((p.getX() == x) && (p.getY() == y)) {
-						check = 1;
-						territoryLabel.setOpacity(100);
-						territoryLabel.setText(territoryText(t));
-						if(game.getCurrentTurn().equals(t.getOwner())) {
-							changeColor(mappa.get(t));
-							territorySelected = t;
-						}
-						break;
-					} else {
-						map.setImage(wImage);
-						territoryLabel.setOpacity(0);
-						territorySelected = null;
-					}
-					
-				}
-				if(check == 1) {
-					break;
-				}
-			}
-			break;
-			
-		case BATTLE:
-			if(territory1 == null) {
-				for(Territory t : game.getTerritories()) {
-					check = 0;
-					for(Pixel p : mappa.get(t)) {
-						if((p.getX() == x) && (p.getY() == y)) {
-							check = 1;
-							territoryLabel.setOpacity(100);
-							territoryLabel.setText(territoryText(t));
-							if(game.getCurrentTurn().equals(t.getOwner()) && t.getTanks()>1) {
-								changeColor(mappa.get(t));
-								territorySelected = t;
-							}
-							break;
-						} else {
-							map.setImage(wImage);
-							territoryLabel.setOpacity(0);
-							territorySelected = null;
-						}
-					}
-					if(check == 1) {
-						break;
-					}
-				}
-			} else if(territory2 == null) {
-				for(Territory t : game.getTerritories()) {
-					check = 0;
-					for(Pixel p : mappa.get(t)) {
-						if((p.getX() == x) && (p.getY() == y) && !t.equals(territory1)) {
-							check = 1;
-							territoryLabel.setOpacity(100);
-							territoryLabel.setText(territoryText(t));
-							if(checkAttaccabile(t)) {
-								changeColor(mappa.get(t));
-								territorySelected = t;
-							}
-							break;
-						} else {
-							map.setImage(wImage);
-							territoryLabel.setOpacity(0);
-							territorySelected = null;
-						}
-					}
-					if(check == 1) {
-						break;
-					}
-				}
-				
-			} else {
-				map.setImage(wImage);
-			}
-			break;
-			
-		case FINALMOVE:
-			if(territory1 == null) {
-				for(Territory t : game.getTerritories()) {
-					check = 0;
-					for(Pixel p : mappa.get(t)) {
-						if((p.getX() == x) && (p.getY() == y)) {
-							check = 1;
-							territoryLabel.setOpacity(100);
-							territoryLabel.setText(territoryText(t));
-							if(game.getCurrentTurn().equals(t.getOwner()) && t.getTanks()>1) {
-								changeColor(mappa.get(t));
-								territorySelected = t;
-							}
-							break;
-						} else {
-							map.setImage(wImage);
-							territoryLabel.setOpacity(0);
-							territorySelected = null;
-						}
-					}
-					if(check == 1) {
-						break;
-					}
-				}
-			} else if(territory2 == null) {
-				for(Territory t : game.getTerritories()) {
-					check = 0;
-					for(Pixel p : mappa.get(t)) {
-						if((p.getX() == x) && (p.getY() == y)) {
-							check = 1;
-							territoryLabel.setOpacity(100);
-							territoryLabel.setText(territoryText(t));
-							if(checkSpostabile(t)) {
-								changeColor(mappa.get(t));
-								territorySelected = t;
-							}
-							break;
-						} else {
-							map.setImage(wImage);
-							territoryLabel.setOpacity(0);
-							territorySelected = null;
-						}
-					}
-					if(check == 1) {
-						break;
-					}
-				}
-				
-			} else {
-				map.setImage(wImage);
-			}
-			break;
-			
-		}
 	}
 
 	/**
@@ -686,7 +532,7 @@ public class GameSceneController {
 	 * Changes the color of the image
 	 * @param list is the list of all the Pixels of the image
 	 */
-	private void changeColor(ArrayList<Pixel> list) {
+	public void changeColor(ArrayList<Pixel> list) {
 		WritableImage tempWImage = genWritableMap();
 		for(Pixel p : list) {
 			Color color = pixelReader.getColor(p.getX(), p.getY());
@@ -972,4 +818,39 @@ public class GameSceneController {
 		window.setResizable(true);
 		window.show();
 	}	
+	
+	private void initExecutors() {
+		executors.put(GAME_PHASE.FIRSTTURN, new FirstturnExecutor());
+		executors.put(GAME_PHASE.REINFORCEMENT, new ReinforcementExecutor());
+		executors.put(GAME_PHASE.BATTLE, new BattleExecutor());
+		executors.put(GAME_PHASE.FINALMOVE, new FinalmoveExecutor());
+	}
+	
+	
+	public ArrayList<Territory> getTerritories() {
+		return game.getTerritories();
+	}
+	
+	public ArrayList<Pixel> getPixelMap(Territory t){
+		return mappa.get(t);
+	}
+	
+	public void setTerritoryLabel(int opacity, Territory t) {
+		territoryLabel.setOpacity(opacity);
+		territoryLabel.setText(territoryText(t));
+	}
+	
+	public void resetImage() {
+		map.setImage(wImage);
+	}
+	
+	public Territory getTerritory1() {
+		return territory1;
+	}
+	
+	public Territory getTerritory2() {
+		return territory2;
+	}
+
+	
 }

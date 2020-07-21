@@ -119,6 +119,7 @@ public class PlayerSceneController {
 	private boolean aiGreen;
 	private boolean aiBlue;
 	private boolean aiPink;
+	private boolean oneRealPlayer;
 	
 	
 	public static String map;
@@ -132,49 +133,20 @@ public class PlayerSceneController {
 	 */
 	public void initialize() {
 		startGameButton.setDisable(true);
-//		aiPlayerBlack.setDisable(true);
-//		aiPlayerBlue.setDisable(true);
-//		aiPlayerPink.setDisable(true);
-//		aiPlayerGreen.setDisable(true);
-//		aiPlayerRed.setDisable(true);
-//		aiPlayerYellow.setDisable(true);
 		nameInputBlack.setText("");
 		playerList.getItems().clear();
 		list = new ArrayList<Player>();
 		mapChosed = false;
+		oneRealPlayer = false;
 		
 		map1.setOnAction(e -> {
-			mapinput.setText(map1.getText());
-			mapinput.setStyle("-fx-text-fill: black;");
-			File file = new File("src/view/fxmls/images/Maps/RisikoClassic/map_preview.png");
-			Image temp = new Image(file.toURI().toString());
-			mapPreview.setImage(temp);
-			map = "src/view/fxmls/images/Maps/RisikoClassic/map.jpg";
-			territories = "src/view/fxmls/images/Maps/RisikoClassic/territories.png";
-			terrFile = "assets/RisikoClassic/territori.txt";
-			continentsFile = "assets/RisikoClassic/continenti.txt";
-			missions = "assets/RisikoClassic/obiettivi.txt";
-			mapChosed = true;
-			if (list.size() > 2 && mapChosed) {
-				startGameButton.setDisable(false);
-			}
+			mapSelected("src/view/fxmls/images/Maps/RisikoClassic/map_preview.png", "src/view/fxmls/images/Maps/RisikoClassic/map.jpg", 
+			"src/view/fxmls/images/Maps/RisikoClassic/territories.png", "assets/RisikoClassic/territori.txt", "assets/RisikoClassic/continenti.txt", "assets/RisikoClassic/obiettivi.txt");
 		});
 		
 		map2.setOnAction(e -> {
-			mapinput.setText(map2.getText());
-			mapinput.setStyle("-fx-text-fill: black;");
-			File file2 = new File("src/view/fxmls/images/Maps/SPQRisiko/map_preview.png");
-			Image temp2 = new Image(file2.toURI().toString());
-			mapPreview.setImage(temp2);
-			map = "src/view/fxmls/images/Maps/SPQRisiko/map.jpg";
-			territories = "src/view/fxmls/images/Maps/SPQRisiko/territories.png";
-			terrFile = "assets/SPQRisiko/territori.txt";
-			continentsFile = "assets/SPQRisiko/continenti.txt";
-			missions = "assets/SPQRisiko/obiettivi.txt";
-			mapChosed = true;
-			if (list.size() > 2 && mapChosed) {
-				startGameButton.setDisable(false);
-			}
+			mapSelected("src/view/fxmls/images/Maps/SPQRisiko/map_preview.png", "src/view/fxmls/images/Maps/SPQRisiko/map.jpg", 
+					"src/view/fxmls/images/Maps/SPQRisiko/territories.png", "assets/SPQRisiko/territori.txt", "assets/SPQRisiko/continenti.txt", "assets/SPQRisiko/obiettivi.txt");
 		});
 		
 		aiPlayerRed.setOnAction(e -> {
@@ -206,9 +178,7 @@ public class PlayerSceneController {
 	public void backPressed(ActionEvent event) throws IOException {
 		Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/view.fxml"));
 		Scene playerScene = new Scene(playerSceneParent);
-		
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-		
 		window.setScene(playerScene);
 		window.show();
 	}
@@ -223,9 +193,10 @@ public class PlayerSceneController {
 				list.add(new Player(nameInputBlack.getText(), COLOR.BLACK, aiBlack));
 				playerList.getItems().add(nameInputBlack.getText() + " --> " + "BLACK");
 				addPlayerBtnBlack.setDisable(true);
-				if (list.size() > 2 && mapChosed) {
-					startGameButton.setDisable(false);
+				if(!aiBlack) {
+					oneRealPlayer = true;
 				}
+				startHandler();
 			} else playerList.getItems().add(nameInputBlack.getText() + " nome già usato.");
 		} else  playerList.getItems().add("Nome inesistente.");
 	}
@@ -240,9 +211,10 @@ public class PlayerSceneController {
 				list.add(new Player(nameInputBlue.getText(), COLOR.BLUE, aiBlue));
 				playerList.getItems().add(nameInputBlue.getText() + " --> " + "BLUE");
 				addPlayerBtnBlue.setDisable(true);
-				if (list.size() > 2 && mapChosed) {
-					startGameButton.setDisable(false);
+				if(!aiBlue) {
+					oneRealPlayer = true;
 				}
+				startHandler();
 			} else playerList.getItems().add(nameInputBlue.getText() + " nome già usato.");
 		} else playerList.getItems().add("Nome inesistente.");
 	}
@@ -257,9 +229,10 @@ public class PlayerSceneController {
 	    		list.add(new Player(nameInputGreen.getText(), COLOR.GREEN, aiGreen));
 	    		playerList.getItems().add(nameInputGreen.getText() + " --> " + "GREEN");
 	    		addPlayerBtnGreen.setDisable(true);
-	    		if (list.size() > 2 && mapChosed) {
-	    			startGameButton.setDisable(false);
-	    		}
+				if(!aiGreen) {
+					oneRealPlayer = true;
+				}
+				startHandler();
 	    	} else playerList.getItems().add(nameInputGreen.getText() + " nome già usato.");
 		} else playerList.getItems().add("Nome inesistente.");
 	}
@@ -274,9 +247,10 @@ public class PlayerSceneController {
 	    		list.add(new Player(nameInputPink.getText(), COLOR.PINK, aiPink));
 	    		playerList.getItems().add(nameInputPink.getText() + " --> " + "PINK");
 	    		addPlayerBtnPink.setDisable(true);
-	    		if (list.size() > 2 && mapChosed) {
-	    			startGameButton.setDisable(false);
-	    		}
+				if(!aiPink) {
+					oneRealPlayer = true;
+				}
+				startHandler();
 	    	} else playerList.getItems().add(nameInputPink.getText() + " nome già usato.");	
 		} else playerList.getItems().add("Nome inesistente.");
 	}
@@ -291,9 +265,10 @@ public class PlayerSceneController {
 				list.add(new Player(nameInputRed.getText(), COLOR.RED, aiRed));
 				playerList.getItems().add(nameInputRed.getText() + " --> " + "RED");
 				addPlayerBtnRed.setDisable(true);
-				if (list.size() > 2 && mapChosed) {
-					startGameButton.setDisable(false);
+				if(!aiRed) {
+					oneRealPlayer = true;
 				}
+				startHandler();
 			} else playerList.getItems().add(nameInputRed.getText() + " nome già usato.");
 		} else playerList.getItems().add("Nome inesistente.");
 	}
@@ -308,9 +283,10 @@ public class PlayerSceneController {
 				list.add(new Player(nameInputYellow.getText(), COLOR.YELLOW, aiYellow));
 				playerList.getItems().add(nameInputYellow.getText() + " --> " + "YELLOW");
 				addPlayerBtnYellow.setDisable(true);
-				if (list.size() > 2 && mapChosed) {
-					startGameButton.setDisable(false);
+				if(!aiYellow) {
+					oneRealPlayer = true;
 				}
+				startHandler();
 			} else playerList.getItems().add(nameInputYellow.getText() + " nome già usato.");
 		} else playerList.getItems().add("Nome inesistente.");
 	}
@@ -341,7 +317,6 @@ public class PlayerSceneController {
 	 */
 	public void startGamePressed(ActionEvent event) throws IOException {
 		PlayersList.setPlayers(list);
-		
 		Parent playerSceneParent= FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameScene.fxml"));
 		Scene playerScene = new Scene(playerSceneParent);
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -361,5 +336,26 @@ public class PlayerSceneController {
 			}
 		} 
 		return true;
+	}
+	
+	private void startHandler() {
+		if (list.size() > 2 && mapChosed && oneRealPlayer) {
+			startGameButton.setDisable(false);
+		}
+	}
+	
+	private void mapSelected(String image, String mapImage, String terrImage, String terrFiles, String contsFile, String missFile) {
+		mapinput.setText(map1.getText());
+		mapinput.setStyle("-fx-text-fill: black;");
+		File file = new File(image);
+		Image temp = new Image(file.toURI().toString());
+		mapPreview.setImage(temp);
+		map = mapImage;
+		territories = terrImage;
+		terrFile = terrFiles;
+		continentsFile = contsFile;
+		missions = missFile;
+		mapChosed = true;
+		startHandler();
 	}
 }

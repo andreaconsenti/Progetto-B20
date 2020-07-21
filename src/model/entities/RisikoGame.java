@@ -176,7 +176,10 @@ public class RisikoGame {
 				getTerritory(GameSceneController.territory1).removeTanks(1);
 				currentTurn.removeTanks(1);
 			}
-		}	
+		}
+		if(getPlayer(GameSceneController.territory2.getOwner()).getTanks()==0) {
+			getPlayer(GameSceneController.territory2.getOwner()).setEliminated(true);
+		}
 	}
 	
 	/**

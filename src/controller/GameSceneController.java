@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
@@ -18,7 +17,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,12 +31,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import model.entities.COLOR;
 import model.entities.Player;
 import model.entities.PlayersList;
 import model.entities.RisikoGame;
@@ -46,7 +41,6 @@ import model.entities.Territory;
 import model.entities.RisikoGame.GAME_PHASE;
 import model.util.FileHandler;
 import model.util.ImageAssets;
-import model.util.Observer;
 import model.util.Pixel;
 
 public class GameSceneController {
@@ -221,7 +215,6 @@ public class GameSceneController {
 		
 		int x =  (int)e.getX();
 		int y =  (int)e.getY();
-		int check;
 		
 		executors.get(game.getGamePhase()).executeMove(x, y);
 		
@@ -531,7 +524,7 @@ public class GameSceneController {
 	/**
 	 * Returns the player of the current turn
 	 * @return Player
-	 */
+	 */	
 	public Player getCurrentPlayer() {
 		return game.getCurrentTurn();
 	}
@@ -754,9 +747,10 @@ public class GameSceneController {
 	public void firstPhaseEnded() {
 		if(game.firstPhaseEnded()) {
 			nextPhase();
-	}
+		}
 	}
 
-
+	
+	
 	
 }

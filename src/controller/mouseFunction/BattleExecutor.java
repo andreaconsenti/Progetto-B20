@@ -18,14 +18,15 @@ public class BattleExecutor implements FunctionExecutor {
 				GameSceneController.getInstance().setTerritory12(GameSceneController.getInstance().getSelTerr(), null);
 				GameSceneController.getInstance().setStatusBar();
 				GameSceneController.getInstance().setPlayerStatus();
+			} else {
+				GameSceneController.getInstance().setTerritory2(GameSceneController.getInstance().getSelTerr());
+				GameSceneController.getInstance().attackerAndDefenderChosen();
+				GameSceneController.getInstance().updateTanks();
+				GameSceneController.getInstance().missionControl();
+				GameSceneController.getInstance().setTerritory12(null, null);
+				GameSceneController.getInstance().setStatusBar();
+				GameSceneController.getInstance().setPlayerStatus();
 			}
-			GameSceneController.getInstance().setTerritory2(GameSceneController.getInstance().getSelTerr());
-			GameSceneController.getInstance().attackerAndDefenderChosen();
-			GameSceneController.getInstance().updateTanks();
-			GameSceneController.getInstance().missionControl();
-			GameSceneController.getInstance().setTerritory12(null, null);
-			GameSceneController.getInstance().nextTurn();
-			
 		} else {
 			GameSceneController.getInstance().setTerritory12(null, null);
 			GameSceneController.getInstance().setStatusBar();

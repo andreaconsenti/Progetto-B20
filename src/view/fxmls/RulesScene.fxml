@@ -143,7 +143,7 @@
                                                                <content>
                                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="107.0" prefWidth="481.0">
                                                                      <children>
-                                                                        <TextArea editable="false" layoutY="1.0" prefHeight="243.0" prefWidth="509.0" stylesheets="@../css/TextArea.css" text="&#10;Il difensore, a sua volta, lancia tanti dadi quante sono le sue&#10;armate presenti sul territorio per un massimo di 3 dadi (blu).&#10;&#10;Il difensore deve dichiarare&#10;con quante armate intende combattere prima che&#10;l’attaccante abbia lanciato i dadi.&#10;" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="-12.0" AnchorPane.rightAnchor="-12.0" AnchorPane.topAnchor="-12.0" />
+                                                                        <TextArea editable="false" layoutY="1.0" prefHeight="243.0" prefWidth="509.0" stylesheets="@../css/TextArea.css" text="&#10;Il difensore, a sua volta, lancia tanti dadi quante sono le sue&#10;armate presenti sul territorio per un massimo di 3 dadi (blu).&#10;&#10;" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="-12.0" AnchorPane.rightAnchor="-12.0" AnchorPane.topAnchor="-12.0" />
                                                                      </children>
                                                                   </AnchorPane>
                                                                </content>

@@ -13,13 +13,7 @@ public class ReinforcementExecutor implements FunctionExecutor{
 			GameSceneController.getInstance().setStatusBar();
 			GameSceneController.getInstance().setPlayerStatus();
 			GameSceneController.getInstance().missionControl();
-//			if(GameSceneController.getInstance().getCurrentPlayer().getBonusTanks() == 0) {
-//				if(GameSceneController.getInstance().getCurrentPlayer().getCards().size() < 3) {
-//					GameSceneController.getInstance().nextPhase();	
-//				}
-//			}
-			
-			
+
 			if(GameSceneController.getInstance().getGame().getBonusTanksSum() == 0) {
 				GameSceneController.getInstance().nextPhase();
 			}

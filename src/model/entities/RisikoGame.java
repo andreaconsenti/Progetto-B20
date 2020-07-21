@@ -78,6 +78,9 @@ public class RisikoGame {
 		if(currentTurn.isAI() && gamePhase == GAME_PHASE.FIRSTTURN) {
 			currentTurn.playTurn();
 		}
+		if(currentTurn.isEliminated()) {
+			nextTurn();
+		}
 	}
 	
 	/**
@@ -386,7 +389,7 @@ public class RisikoGame {
 		switch(this.players.length) {
 		case 3:
 			for(Player p : players) {
-				p.giveBonusTanks(16);
+				p.giveBonusTanks(35);
 			}
 			break;
 		case 4:
@@ -647,6 +650,10 @@ public class RisikoGame {
 	
 	public int getCurrTurnBonusTanks() {
 		return currentTurn.getBonusTanks();
+	}
+	
+	private void playerEliminated(Player p) {
+		p.setEliminated(true);
 	}
 
 }

@@ -7,9 +7,30 @@ import model.util.Pixel;
 public class BattleExecutor implements FunctionExecutor {
 
 	@Override
-	public void executeClick(int x, int y) {
-		// TODO Auto-generated method stub
-		
+	public void executeClick() {
+		if(GameSceneController.getInstance().getTerritory1() == null) {
+			GameSceneController.getInstance().setTerritory12(GameSceneController.getInstance().getSelTerr(), null);
+			GameSceneController.getInstance().setStatusBar();
+			GameSceneController.getInstance().setPlayerStatus();
+			
+		} else if(GameSceneController.getInstance().getTerritory2() == null) {
+			if(GameSceneController.getInstance().getSelTerr() == null || GameSceneController.getInstance().getSelTerr().equals(GameSceneController.getInstance().getTerritory1())) {
+				GameSceneController.getInstance().setTerritory12(GameSceneController.getInstance().getSelTerr(), null);
+				GameSceneController.getInstance().setStatusBar();
+				GameSceneController.getInstance().setPlayerStatus();
+			}
+			GameSceneController.getInstance().setTerritory2(GameSceneController.getInstance().getSelTerr());
+			GameSceneController.getInstance().attackerAndDefenderChosen();
+			GameSceneController.getInstance().updateTanks();
+			GameSceneController.getInstance().missionControl();
+			GameSceneController.getInstance().setTerritory12(null, null);
+			GameSceneController.getInstance().nextTurn();
+			
+		} else {
+			GameSceneController.getInstance().setTerritory12(null, null);
+			GameSceneController.getInstance().setStatusBar();
+			GameSceneController.getInstance().setPlayerStatus();
+		}
 	}
 
 	@Override

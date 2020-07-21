@@ -595,11 +595,7 @@ public class RisikoGame {
 	 * @param t is the territory
 	 */
 	public void addTerritoryTanks(Territory t) {
-		for(Territory te : territories) {
-			if(te.getId() == t.getId()) {
-				te.addTanks(1);
-			}
-		}
+		getTerritory(t).addTanks(1);
 	}
 	
 	/**
@@ -654,6 +650,10 @@ public class RisikoGame {
 		}
 		Random rand = new Random();
 		return temp.get(rand.nextInt(temp.size()));
+	}
+	
+	public int getCurrTurnBonusTanks() {
+		return currentTurn.getBonusTanks();
 	}
 	
 

@@ -7,8 +7,16 @@ import model.util.Pixel;
 public class FirstturnExecutor implements FunctionExecutor{
 
 	@Override
-	public void executeClick(int x, int y) {
-		// TODO Auto-generated method stub
+	public void executeClick() {
+	if(GameSceneController.getInstance().getSelTerr() != null) {
+		GameSceneController.getInstance().placeTank();
+		GameSceneController.getInstance().setStatusBar();
+		GameSceneController.getInstance().setPlayerStatus();
+		GameSceneController.getInstance().setSelTerritory(null);
+		GameSceneController.getInstance().resetImage();
+		GameSceneController.getInstance().nextTurn();
+		GameSceneController.getInstance().firstPhaseEnded();
+	}
 		
 	}
 

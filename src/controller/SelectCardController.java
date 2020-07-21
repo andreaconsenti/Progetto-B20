@@ -77,24 +77,46 @@ public class SelectCardController {
     	private StackPane pane;
     	private Label lbl;
     	
+    	/**
+    	 * Constructor of a card image
+    	 * @param img is the image of the figure
+    	 * @param pane is the panel where everything is set
+    	 * @param lbl is the name of the territory
+    	 */
     	public CardGui(ImageView img, StackPane pane, Label lbl) {
     		this.img = img;
     		this.setPane(pane);
     		this.lbl = lbl;
     	}
-
+    	
+    	/**
+    	 * Returns the image of the card figure
+    	 * @return ImageView
+    	 */
 		public ImageView getImg() {
 			return img;
 		}
-
+		
+		/**
+		 * Returns the panel used for the card
+		 * @return StackPane
+		 */
 		public StackPane getPane() {
 			return pane;
 		}
-
+		
+		/**
+		 * Sets the panel used for the card
+		 * @param pane is the panel
+		 */
 		public void setPane(StackPane pane) {
 			this.pane = pane;
 		}
-
+		
+		/**
+		 * Returns the name of the card territory
+		 * @return Label
+		 */
 		public Label getLbl() {
 			return lbl;
 		}
@@ -102,8 +124,10 @@ public class SelectCardController {
     
     
 
-    @FXML
-    void initialize() {
+    /**
+     * Initializes the controller
+     */
+    public void initialize() {
     	paneScambioCarte.setOpacity(0.35);
     	scambiaButton.setDisable(true);
     	exchangeLabel.setVisible(false);
@@ -125,7 +149,11 @@ public class SelectCardController {
     	
     }
     
-	void addCard(Card c) {
+    /**
+     * Adds a new card to the owned cards
+     * @param c is the card to add
+     */
+	public void addCard(Card c) {
     	StackPane p1 = new StackPane();
     	File file = new File(genCardPath(c));
 		Image image = new Image(file.toURI().toString());
@@ -163,13 +191,21 @@ public class SelectCardController {
 	}
 	
 
-	@FXML
-	void onScambiaPressed(ActionEvent event) throws IOException {
+	/**
+	 * Plays the combination of the cards when the scambiaButton is pressed
+	 * @param event is the event
+	 * @throws IOException
+	 */
+	public void onScambiaPressed(ActionEvent event) throws IOException {
 		GameSceneController.game.playCardTris(card1, card2, card3);
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 		window.close();
 	}
 	
+	/**
+	 * Moves the selected card to the first empty panel
+	 * @param p is the panel to move
+	 */
 	private void moveCard(StackPane p) {
 		if(selPane1.getChildren().size() == 0) {
 			selPane1.getChildren().add(p);
@@ -180,6 +216,10 @@ public class SelectCardController {
 		}
 	}
 	
+	/**
+	 * Method that allows to select a card to use
+	 * @param ca is the card
+	 */
 	private void useCard(Card ca) {
 		if(card1 == null) {
 			card1 = ca;
@@ -190,6 +230,10 @@ public class SelectCardController {
 		}
 	}
 	
+	/**
+	 * Method that allows to unselect a card to use
+	 * @param ca is the card
+	 */
 	private void unuseCard(Card ca) {
 		if(ca.equals(card1)) {
 			card1 = null;
@@ -200,6 +244,9 @@ public class SelectCardController {
 		}
 	}
 	
+	/**
+	 * Manages the gui of the card scene
+	 */
 	private void guiHandler() {
 		if((card1 != null) && (card2 != null) && (card3 != null)) {
 			exchangeLabel.setVisible(true);
@@ -215,6 +262,11 @@ public class SelectCardController {
 		}
 	}
 	
+	/**
+	 * Returns the path to the figure for the new generated card
+	 * @param c is the card to generate
+	 * @return String
+	 */
 	private String genCardPath(Card c) {
 		switch(c.getFigure()) {
 		case CANNONE:

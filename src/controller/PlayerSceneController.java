@@ -127,7 +127,9 @@ public class PlayerSceneController {
 	public static String continentsFile;
 	public static String missions;
 	
-	
+	/**
+	 * Initializes the controller
+	 */
 	public void initialize() {
 		startGameButton.setDisable(true);
 //		aiPlayerBlack.setDisable(true);
@@ -196,7 +198,11 @@ public class PlayerSceneController {
 		
 	}
 	
-	
+	/**
+	 * Loads the initial scene when the backButton is pressed
+	 * @param event is the event
+	 * @throws IOException
+	 */
 	public void backPressed(ActionEvent event) throws IOException {
 		Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/view.fxml"));
 		Scene playerScene = new Scene(playerSceneParent);
@@ -207,8 +213,11 @@ public class PlayerSceneController {
 		window.show();
 	}
 	
-	@FXML
-	void addBtnBlackPressed(ActionEvent event) {
+	/**
+	 * Adds the black player to the playerlist if it is possible
+	 * @param event is the event
+	 */
+	public void addBtnBlackPressed(ActionEvent event) {
 		if (nameInputBlack.getText().isBlank() == false) {
 			if (nameNotExists(nameInputBlack.getText())) {
 				list.add(new Player(nameInputBlack.getText(), COLOR.BLACK, aiBlack));
@@ -221,8 +230,11 @@ public class PlayerSceneController {
 		} else  playerList.getItems().add("Nome inesistente.");
 	}
 	
-	@FXML
-	void addBtnBluePressed(ActionEvent event) {
+	/**
+	 * Adds the blue player to the playerlist if it is possible
+	 * @param event is the event
+	 */
+	public void addBtnBluePressed(ActionEvent event) {
 		if (nameInputBlue.getText().isBlank() == false) {
 			if (nameNotExists(nameInputBlue.getText())) {
 				list.add(new Player(nameInputBlue.getText(), COLOR.BLUE, aiBlue));
@@ -235,8 +247,11 @@ public class PlayerSceneController {
 		} else playerList.getItems().add("Nome inesistente.");
 	}
 	
-	@FXML
-	void addBtnGreenPressed(ActionEvent event) {
+	/**
+	 * Adds the green player to the playerlist if it is possible
+	 * @param event is the event
+	 */
+	public void addBtnGreenPressed(ActionEvent event) {
 		if (nameInputGreen.getText().isBlank() == false) {
 	    	if (nameNotExists(nameInputGreen.getText())) {
 	    		list.add(new Player(nameInputGreen.getText(), COLOR.GREEN, aiGreen));
@@ -249,8 +264,11 @@ public class PlayerSceneController {
 		} else playerList.getItems().add("Nome inesistente.");
 	}
 
-	@FXML
-	void addBtnPinkPressed(ActionEvent event) {
+	/**
+	 * Adds the pink player to the playerlist if it is possible
+	 * @param event is the event
+	 */
+	public void addBtnPinkPressed(ActionEvent event) {
 		if (nameInputPink.getText().isBlank() == false) {
 	    	if (nameNotExists(nameInputPink.getText())) {
 	    		list.add(new Player(nameInputPink.getText(), COLOR.PINK, aiPink));
@@ -263,8 +281,11 @@ public class PlayerSceneController {
 		} else playerList.getItems().add("Nome inesistente.");
 	}
 	
-	@FXML
-	void addBtnRedPressed(ActionEvent event) {
+	/**
+	 * Adds the red player to the playerlist if it is possible
+	 * @param event is the event
+	 */
+	public void addBtnRedPressed(ActionEvent event) {
 		if (nameInputRed.getText().isBlank() == false) {
 			if (nameNotExists(nameInputRed.getText())) {
 				list.add(new Player(nameInputRed.getText(), COLOR.RED, aiRed));
@@ -277,8 +298,11 @@ public class PlayerSceneController {
 		} else playerList.getItems().add("Nome inesistente.");
 	}
 	
-	@FXML
-	void addBtnYellowPressed(ActionEvent event) {
+	/**
+	 * Adds the yellow player to the playerlist if it is possible
+	 * @param event is the event
+	 */
+	public void addBtnYellowPressed(ActionEvent event) {
 		if (nameInputYellow.getText().isBlank() == false) {
 			if (nameNotExists(nameInputYellow.getText())) {
 				list.add(new Player(nameInputYellow.getText(), COLOR.YELLOW, aiYellow));
@@ -290,7 +314,10 @@ public class PlayerSceneController {
 			} else playerList.getItems().add(nameInputYellow.getText() + " nome già usato.");
 		} else playerList.getItems().add("Nome inesistente.");
 	}
-
+	
+	/**
+	 * Restores everything to the initial value and eliminates the playerlist when the restoreButton is pressed
+	 */
 	public void restorePressed() {
 		initialize();
 		nameInputBlue.setText("");
@@ -307,23 +334,11 @@ public class PlayerSceneController {
 		addPlayerBtnGreen.setDisable(false);
 	}
 	
-	/*@FXML
-	public String itemClicked(MouseEvent event) {
-		String giocatore =playerList.getSelectionModel().getSelectedItem();
-		cancelButton.setDisable(false);
-		return giocatore;
-	}
-	
-	@FXML
-	public  void cancelPressed(ActionEvent event) {
-		
-		playerList.getItems().remove(playerList.getSelectionModel().getSelectedItem()); //elimina giocatore dalla lista
-		cancelButton.setDisable(true);
-	}*/
-	
-	
-	
-	
+	/**
+	 * Starts the game and loads the game scene when the startGameButton is pressed 	
+	 * @param event is the event
+	 * @throws IOException
+	 */
 	public void startGamePressed(ActionEvent event) throws IOException {
 		PlayersList.setPlayers(list);
 		
@@ -333,7 +348,12 @@ public class PlayerSceneController {
 		window.setScene(playerScene);
 		window.show();
 	}
-			
+	
+	/**
+	 * Checks if a name is a valid name for a player
+	 * @param name is the text to check
+	 * @return boolean
+	 */
 	private boolean nameNotExists(String name) {
 		for(Player p : list) {
 			if(p.getName().equals(name)) {

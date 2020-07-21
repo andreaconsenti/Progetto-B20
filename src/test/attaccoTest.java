@@ -9,7 +9,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class conquistaTest {
+class attaccoTest {
 	
 	private int[] atkResults;
 	private int[] defResults;

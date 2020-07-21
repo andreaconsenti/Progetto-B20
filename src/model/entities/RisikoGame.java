@@ -209,7 +209,10 @@ public class RisikoGame {
 			getPlayer(getTerritory(c.getRandomTerritory()).getOwner()).addContinents();
 		}
 	}
-		
+	/**
+	 * Adds territories to a continent
+	 * @param c is the continent
+	 */
 	public void setContinent(Continent c) {
 		for(Territory t: territories) {
 			if (t.getContinent().contentEquals(c.getName())) {
@@ -311,6 +314,11 @@ public class RisikoGame {
 		return false;
 	}
 	
+	/**
+	 * Returns the continent of a territory
+	 * @param ti is the territory
+	 * @return Continent
+	 */
 	public Continent getTerrContinent(Territory ti) {
 		for(Continent co : continents) {
 			if(co.getName().equals(ti.getContinent())){
@@ -320,6 +328,12 @@ public class RisikoGame {
 		return null;
 	}
 	
+	/**
+	 * plays the combination of 3 cards and gives bonus
+	 * @param c1 is the first card
+	 * @param c2 is the second card
+	 * @param c3 is the third card
+	 */
 	public void playCardTris(Card c1, Card c2, Card c3) {
 		currentTurn.giveBonusTanks(checkTris(c1, c2, c3));
 		currentTurn.playCard(c1);
@@ -327,31 +341,42 @@ public class RisikoGame {
 		currentTurn.playCard(c3);
 	}
 	
+	/**
+	 * Checks if the combination of 3 cards is a valid one and gives bonus tanks if possible
+	 * @param ca1 is the first card
+	 * @param ca2 is the second card
+	 * @param ca3 is the third card
+	 * @return int, the number of bonus tanks
+	 */
 	public int checkTris(Card ca1, Card ca2, Card ca3) {
 		
 		ArrayList<FIGURE> figures = new ArrayList<FIGURE>();
-		int bonus = 1;
+		int bonus = 0;
 		figures.add(ca1.getFigure());
 		figures.add(ca2.getFigure());
 		figures.add(ca3.getFigure());
 		for (Territory t: territories) {
 			if(ca1.getTerritory().equals(t) && !(ca1.getFigure().equals(FIGURE.JOLLY))) {
 				if (t.getOwner().equals(currentTurn)) 
-					bonus++;
+					bonus = bonus + 2;
 			}
 			if(ca2.getTerritory().equals(t) && !(ca2.getFigure().equals(FIGURE.JOLLY))) {
 				if (t.getOwner().equals(currentTurn)) 
-					bonus++;
+					bonus = bonus + 2;
 			}
 			if(ca3.getTerritory().equals(t) && !(ca3.getFigure().equals(FIGURE.JOLLY))) {
 				if (t.getOwner().equals(currentTurn)) 
-					bonus++;
+					bonus = bonus + 2;
 			}
 		}
 		
 		if(ca1.getFigure() == ca2.getFigure() && ca2.getFigure() == ca3.getFigure()) {
 			if(ca1.getFigure() == FIGURE.CANNONE) {
-				return 3+bonus;
+
+				
+
+				return 4+bonus;
+
 			} else if (ca1.getFigure() == FIGURE.CAVALIERE) {
 				return 8+bonus;
 			} else if (ca1.getFigure() == FIGURE.FANTE) {
@@ -365,6 +390,9 @@ public class RisikoGame {
 		return 0;
 	}
 	
+	/**
+	 * Gives starter tanks for each player
+	 */
 	private void giveStarterTanks() {
 		switch(this.players.length) {
 		case 3:
@@ -389,7 +417,9 @@ public class RisikoGame {
 			break;
 		}
 	}
-	
+	/**
+	 * Gives missions for each player
+	 */
 	private void giveMissions() {
 		Mission[] shuffledMissions = shuffleMissions();
 		int i = 0;
@@ -399,6 +429,10 @@ public class RisikoGame {
 		}
 	}
 	
+	/**
+	 * Shuffles the missions of the missions list
+	 * @return array of Missions
+	 */
     private Mission[] shuffleMissions() {
     	Mission[] shuffledMissions = new Mission[missions.size()];
     	int k = 0;
@@ -415,6 +449,10 @@ public class RisikoGame {
         return shuffledMissions;
     }
 	
+    /**
+     * Shuffles the territories of the territory list
+     * @return array of Territories
+     */
     private Territory[] shuffleTerritories() {
     	Territory[] shuffledTerritories = new Territory[territories.size()];
     	int k = 0;
@@ -431,6 +469,9 @@ public class RisikoGame {
         return shuffledTerritories;
     }
     
+    /**
+     * Shuffles the cards of the cards list
+     */
     private void shuffleCards() {
     	Card[] shuffledCards = new Card[cards.size()];
     	int k = 0;
@@ -451,6 +492,9 @@ public class RisikoGame {
         cards = temp;
     }
     
+    /**
+     * Sets the owner for each territory of the territoryList
+     */
     private void initTerritoryOwners() {
         int playerID = 0;
         Territory[] shuffledTerritories = shuffleTerritories();
@@ -467,6 +511,10 @@ public class RisikoGame {
         }
     }
 	
+    /**
+     * Gives bonus tanks to a player depending on territories owned
+     * @param pl is the player
+     */
 	public void giveBonus(Player pl) {
 
 		pl.giveBonusTanks((int)Math.floor(pl.getTerritories()/3));	
@@ -480,6 +528,11 @@ public class RisikoGame {
 		}
 	}
 	
+	/**
+	 * Returns a random player 
+	 * @param c is the continent
+	 * @return Player
+	 */
 	public Player getRandomPlayer(Continent c) {
 		for (Territory t: territories) {
 			if (t.getContinent().equals(c.getName())) {
@@ -489,10 +542,18 @@ public class RisikoGame {
 		return null;
 	}
 	
+	/**
+	 * Returns a list of all territories
+	 * @return ArrayList of Territories
+	 */
 	public ArrayList<Territory> getTerritories(){
 		return territories;
 	}
 	
+	/**
+	 * Shuffles the players of the playerList
+	 * @return array of players
+	 */
     private Player[] shufflePlayers() {
     	Player[] shuffledPlayers = new Player[players.length];
     	int k = 0;
@@ -509,18 +570,34 @@ public class RisikoGame {
         return shuffledPlayers;
     }
 	
+    /**
+     * Returns the player of the current turn of the game
+     * @return Player
+     */
 	public Player getCurrentTurn() {
 		return currentTurn;
 	}
-
+	
+	/**
+	 * Returns the current phase of the game
+	 * @return gamePhase
+	 */
 	public GAME_PHASE getGamePhase() {
 		return gamePhase;
 	}
-
+	
+	/**
+	 * Sets the current phase of the game
+	 * @param gamePhase is the current gamephase
+	 */
 	public void setGamePhase(GAME_PHASE gamePhase) {
 		this.gamePhase = gamePhase;
 	}
 	
+	/**
+	 * Adds a tank to a territory
+	 * @param t is the territory
+	 */
 	public void addTerritoryTanks(Territory t) {
 		for(Territory te : territories) {
 			if(te.getId() == t.getId()) {
@@ -529,6 +606,11 @@ public class RisikoGame {
 		}
 	}
 	
+	/**
+	 * Returns a territory
+	 * @param t is the territory
+	 * @return Territory
+	 */
 	public Territory getTerritory(Territory t) {
 		for(Territory te : territories) {
 			if(te.getId() == t.getId()) {
@@ -538,6 +620,11 @@ public class RisikoGame {
 		return null;
 	}
 	
+	/**
+	 * Returns the player
+	 * @param p is the player
+	 * @return Player
+	 */
 	public Player getPlayer(Player p) {
 		for(Player pl : players) {
 			if(pl.getName().equals(p.getName())) {
@@ -547,12 +634,19 @@ public class RisikoGame {
 		return null;
 	}
 	
+	/**
+	 * Gives a card to a Player then shuffles them
+	 */
 	public void giveCard() {
 		getPlayer(currentTurn).giveCard(cards.get(0));
 		cards.remove(0);
 		shuffleCards();
 	}
 	
+	/**
+	 * Returns a random territory from owned territories of the current player
+	 * @return Territory
+	 */
 	public Territory getRandomCurrentPlayerTerritory() {
 		
 		ArrayList<Territory> temp = new ArrayList<Territory>();

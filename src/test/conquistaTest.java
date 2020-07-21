@@ -1,251 +1,354 @@
 package test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.entities.*;
-import model.entities.Mission.MISSION_TYPE;
-import model.util.FileHandler;
-
 class conquistaTest {
 	
-	private static Player [] p;
-	private static Player p1;
-	private ArrayList<Continent> continenti;
-	private ArrayList<Territory> list;
-	private ArrayList<Mission> missioni;
-	private int nLine=0;
-	private int nLineCont=0;
-	private int nLineM;
-	private RisikoGame g;
-	private static int [] atkResults;
-	private static int [] defResults;
-//	private static String path1 = "assets/RisikoClassic/territori.txt";
-//	private static String path2 = "assets/RisikoClassic/continenti.txt";
-//	private static String path3 = "assets/RisikoClassic/obiettivi.txt";
-//	private static FileHandler f;
-	
+	private int[] atkResults;
+	private int[] defResults;
+	private int[] loss;
+	private int atk;
+	private int def;
+
 	@BeforeEach
 	public void setUp() throws NumberFormatException, IOException {
-//		Player p1 = new Player("Ale", COLOR.BLUE, false);
-		p1 = new Player("Ale", COLOR.BLUE, false);
-//		Player p2 = new Player("Fra", COLOR.RED, false);
-//		Player p3 = new Player("Luca", COLOR.GREEN, false);
-//		
-		Player[] p = {p1};
-		int [] atkResults = {3, 4, 6};
-		int [] defResults = {2, 5, 5};
-//		
-		g = new RisikoGame(p, "assets/RisikoClassic/territori.txt", "assets/RisikoClassic/continenti.txt", "assets/RisikoClassic/obiettivi.txt");
+		atkResults = new int[3];
+		defResults = new int[3];
+		loss = new int[2];
 	}
 	
-	private void createLists() throws IOException {
-		list = createTerritories("assets/RisikoClassic/territori.txt");
-		continenti = createCompleteContinent("assets/RisikoClassic/continenti.txt");
-		missioni = createMissions("assets/RisikoClassic/obiettivi.txt", continenti);
-	}
-	
+	@Test
 	/*
-	 * Test che controlla che le dimensioni dell'arraylist dei continenti e dei territori 
-	 * siano effettivamente pari al numero di continenti e territori
-	 * che sono presenti nel gioco (versione RisikoClassic)
+	 * Test di attacco con 3 dadi per l'attaccante e 3 per il difensore. L'attacco perde 2 tanks, la difesa 1.
 	 */
+	void vittoriaAttacco1() {
+		int[] input1 = {2, 1};
+		atkResults[0] = 6;
+		atkResults[1] = 4;
+		atkResults[2] = 4;
+		
+		defResults[0] = 6;
+		defResults[1] = 1;
+		defResults[2] = 4;
+		atk = atkResults.length;
+		def = defResults.length;
+		Arrays.sort(atkResults);
+		for (int i = 0, j = atkResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = atkResults[i];
+	           atkResults[i] = atkResults[j];
+	           atkResults[j] = tmp;
+	       }
+		Arrays.sort(defResults);
+		for (int i = 0, j = defResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = defResults[i];
+	           defResults[i] = defResults[j];
+	           defResults[j] = tmp;
+	       }
+		battle(atkResults, defResults, atk, def);
+		assertEquals(input1[0], loss[0]);
+		assertEquals(input1[1], loss[1]);
+	}
+	
 	
 	@Test
-	void sizeTest() throws NumberFormatException, IOException {
-		createLists();
-		assertEquals(6, continenti.size());
-		assertEquals(42, list.size());
-		assertEquals(9, missioni.size());
-	}
-	
-//	@Test
-//	void conquistaTerritorio() {
-//		
-//	}
-	
-	@Test
-	void conquistaObiettivo1() throws NumberFormatException, IOException {
-		createLists();
-		int i=0;
-		if(p1.getMission().getType().equals(MISSION_TYPE.TYPE1)) {
-			if(p1.getTerritories()==24) {
-				for(Territory t : list) {
-					if(!(t.getTanks()>=2)) {
-						i=1;
-					}
-				}
-				if(i==0)
-					g.verifyMission();
-			}
-		}
-		assertEquals(true, g.verifyMission());
-	}
-	
-	@Test
-	void conquistaObiettivo2() throws IOException {
-		createLists();
-		if(p1.getMission().getType().equals(MISSION_TYPE.TYPE2)) {
-			if(p1.getMission().getContinent1().getRandomTerritory().getOwner().equals(p1) && p1.getMission().getContinent2().getRandomTerritory().getOwner().equals(p1)) {
-				if(p1.getContinents()>2 && p1.getMission().hasContinent3()) {
-					g.verifyMission();
-				}
-			}
-		}
-		assertEquals(true, g.verifyMission());
-	}
-	
-	private ArrayList<Territory> createTerritories (String path) throws IOException{
-		BufferedReader in = new BufferedReader(new FileReader(path));
-		String line;
-		int n = Integer.parseInt(in.readLine());
-		
-		list = new ArrayList<Territory>();
-		
-		String name;
-		String continent;
-		int code;
-		String color;
-			
-		for(int i = 0; i<n; i++) {
-			
-			line = in.readLine();
-			code = Integer.parseInt(line.substring(0,2));
-			StringTokenizer st = new StringTokenizer (line.substring(4));
-			color = st.nextToken();
-			int k=Integer.parseInt(line.substring(22, 23));
-			int j=k*3;
-			StringTokenizer s = new StringTokenizer (line.substring(j+23));
-			name = s.nextToken();
-			continent = s.nextToken();
-			
-			if(!addTerritory(new Territory(name, code, continent, color))) {
-				break;
-			}
-		}
-		in.close();
-		return list;
-	}
-	
-	public boolean addTerritory(Territory t) {
-		if(nLine <= list.size()) {
-			list.add(t);
-			nLine++;
-			return true;
-		}
-		return false;
-	}
-	
-	private ArrayList<Continent> createCompleteContinent(String path) throws NumberFormatException, IOException{
-		
-		BufferedReader in = new BufferedReader(new FileReader(path));
-		String line;
-		int n = Integer.parseInt(in.readLine());
-		String name;
-		int bonus;
-		int code;
-		
-		continenti = new ArrayList<Continent>();
-		
-		for(int i = 0; i<n; i++) {
-			
-			line = in.readLine();
-			code = Integer.parseInt(line.substring(0,2));
-			StringTokenizer st = new StringTokenizer (line.substring(2));
-			name = st.nextToken();
-			bonus = Integer.parseInt(st.nextToken());
-			
-			if(!addContinents(new Continent(code, name, bonus))) {
-				break;
-			}
-		}
-		in.close();
-		return continenti;
-	}
-	
-	public boolean addContinents(Continent c) {
-		if(nLineCont <= list.size()) {
-			continenti.add(c);
-			nLineCont++;
-			return true;
-		}
-		return false;
-	}
-	
-	private ArrayList<Mission> createMissions(String path, ArrayList<Continent> continenti) throws NumberFormatException, IOException{
-		
-		BufferedReader in= new BufferedReader(new FileReader(path));
-		String line;
-		int n=Integer.parseInt(in.readLine());
-		
-		missioni=new ArrayList<Mission>();
-		
-		int nty;
-		int ntk;
-		Continent cont1 = null;
-		Continent cont2 = null;
-		int codeMission;
-		int typeMission;
-		int code;
-		int code2;
-		int code3;
-		boolean temp;
-		
-		for(int i=0; i<n; i++) {
-			line=in.readLine();
-			typeMission=Integer.parseInt(line.substring(0, 1));
-			StringTokenizer st=new StringTokenizer(line.substring(1));
-			codeMission=Integer.parseInt(st.nextToken());
-			switch(typeMission) {
-				case 1:
-					nty=Integer.parseInt(st.nextToken());
-					ntk=Integer.parseInt(st.nextToken());
-					if(!addMission(new Mission(nty, ntk, codeMission))) {
-						break;
-					}
-					break;
-				case 2:
-					code=Integer.parseInt(st.nextToken());
-					code2=Integer.parseInt(st.nextToken());
-					code3=Integer.parseInt(st.nextToken());
-					if(code3==1)
-						temp=true;
-					else
-						temp=false;
-					cont1=continenti.get((code)-1);
-					cont2=continenti.get((code2)-1);
-					if(!addMission(new Mission(cont1, cont2, temp, codeMission))) {
-						break;
-					}
-					break;
-			}	
-		}
-		in.close();
-		return missioni;
-	}
-	
-	/**
-	 * Adds a mission to the list of missions and verifies if the operation was successful
-	 * @param m is the mission added
-	 * @return boolean
+	/*
+	 * Test di attacco con 3 dadi per l'attaccante e 3 per il difensore. L'attacco perde 1 tank, la difesa 2.
 	 */
-	public boolean addMission(Mission m) {
-		if(nLineM<=missioni.size()) {
-			missioni.add(m);
-			nLineM++;
-			return true;
-		}
-		return false;
+	void vittoriaAttacco2() {
+		int[] input1 = {1, 2};
+		atkResults[0] = 6;
+		atkResults[1] = 4;
+		atkResults[2] = 4;
+		
+		defResults[0] = 5;
+		defResults[1] = 1;
+		defResults[2] = 4;
+		atk = atkResults.length;
+		def = defResults.length;
+		Arrays.sort(atkResults);
+		for (int i = 0, j = atkResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = atkResults[i];
+	           atkResults[i] = atkResults[j];
+	           atkResults[j] = tmp;
+	       }
+		Arrays.sort(defResults);
+		for (int i = 0, j = defResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = defResults[i];
+	           defResults[i] = defResults[j];
+	           defResults[j] = tmp;
+	       }
+		battle(atkResults, defResults, atk, def);
+		assertEquals(input1[0], loss[0]);
+		assertEquals(input1[1], loss[1]);
+	}
+	
+	@Test
+	/*
+	 * Test di attacco con 3 dadi per l'attaccante e 3 per il difensore. L'attacco perde 0 tanks, la difesa 3.
+	 */
+	void vittoriaAttacco3() {
+		int[] input1 = {0, 3};
+		atkResults[0] = 6;
+		atkResults[1] = 4;
+		atkResults[2] = 4;
+		
+		defResults[0] = 3;
+		defResults[1] = 1;
+		defResults[2] = 2;
+		atk = atkResults.length;
+		def = defResults.length;
+		Arrays.sort(atkResults);
+		for (int i = 0, j = atkResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = atkResults[i];
+	           atkResults[i] = atkResults[j];
+	           atkResults[j] = tmp;
+	       }
+		Arrays.sort(defResults);
+		for (int i = 0, j = defResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = defResults[i];
+	           defResults[i] = defResults[j];
+	           defResults[j] = tmp;
+	       }
+		battle(atkResults, defResults, atk, def);
+		assertEquals(input1[0], loss[0]);
+		assertEquals(input1[1], loss[1]);
+	}
+	
+	@Test
+	/*
+	 * Test di attacco con 3 dadi per l'attaccante e 3 per il difensore. L'attacco perde 3 tanks, la difesa 0.
+	 */
+	void vittoriaAttacco4() {
+		int[] input1 = {3, 0};
+		atkResults[0] = 2;
+		atkResults[1] = 4;
+		atkResults[2] = 3;
+		
+		defResults[0] = 6;
+		defResults[1] = 5;
+		defResults[2] = 4;
+		atk = atkResults.length;
+		def = defResults.length;
+		Arrays.sort(atkResults);
+		for (int i = 0, j = atkResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = atkResults[i];
+	           atkResults[i] = atkResults[j];
+	           atkResults[j] = tmp;
+	       }
+		Arrays.sort(defResults);
+		for (int i = 0, j = defResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = defResults[i];
+	           defResults[i] = defResults[j];
+	           defResults[j] = tmp;
+	       }
+		battle(atkResults, defResults, atk, def);
+		assertEquals(input1[0], loss[0]);
+		assertEquals(input1[1], loss[1]);
+	}
+	
+	@Test
+	/*
+	 * Test di attacco con 2 dadi per l'attaccante e 3 per il difensore. L'attacco perde 2 tanks, la difesa 0.
+	 */
+	void vittoriaAttacco5() {
+		int[] input1 = {2, 0};
+		atkResults[0] = 2;
+		atkResults[1] = 4;
+		
+		defResults[0] = 6;
+		defResults[1] = 5;
+		defResults[2] = 4;
+		atk = atkResults.length;
+		def = defResults.length;
+		Arrays.sort(atkResults);
+		for (int i = 0, j = atkResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = atkResults[i];
+	           atkResults[i] = atkResults[j];
+	           atkResults[j] = tmp;
+	       }
+		Arrays.sort(defResults);
+		for (int i = 0, j = defResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = defResults[i];
+	           defResults[i] = defResults[j];
+	           defResults[j] = tmp;
+	       }
+		battle(atkResults, defResults, 2, 3);
+		assertEquals(input1[0], loss[0]);
+		assertEquals(input1[1], loss[1]);
 	}
 
+	@Test
+	/*
+	 * Test di attacco con 2 dadi per l'attaccante e 3 per il difensore. L'attacco perde 1 tank, la difesa 1.
+	 */
+	void vittoriaAttacco6() {
+		int[] input1 = {1, 1};
+		atkResults[0] = 4;
+		atkResults[1] = 5;
+		
+		defResults[0] = 6;
+		defResults[1] = 3;
+		defResults[2] = 3;
+		atk = 2;
+		def = 3;
+		Arrays.sort(atkResults);
+		for (int i = 0, j = atkResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = atkResults[i];
+	           atkResults[i] = atkResults[j];
+	           atkResults[j] = tmp;
+	       }
+		Arrays.sort(defResults);
+		for (int i = 0, j = defResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = defResults[i];
+	           defResults[i] = defResults[j];
+	           defResults[j] = tmp;
+	       }
+		battle(atkResults, defResults, atk, def);
+		assertEquals(input1[0], loss[0]);
+		assertEquals(input1[1], loss[1]);
+	}
+
+	@Test
+	/*
+	 * Test di attacco con 2 dadi per l'attaccante e 3 per il difensore. L'attacco perde 0 tanks, la difesa 2.
+	 */
+	void vittoriaAttacco7() {
+		int[] input1 = {0, 2};
+		atkResults[0] = 4;
+		atkResults[1] = 4;
+		
+		defResults[0] = 1;
+		defResults[1] = 2;
+		defResults[2] = 3;
+		atk = atkResults.length;
+		def = defResults.length;
+		Arrays.sort(atkResults);
+		for (int i = 0, j = atkResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = atkResults[i];
+	           atkResults[i] = atkResults[j];
+	           atkResults[j] = tmp;
+	       }
+		Arrays.sort(defResults);
+		for (int i = 0, j = defResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = defResults[i];
+	           defResults[i] = defResults[j];
+	           defResults[j] = tmp;
+	       }
+		battle(atkResults, defResults, 2, 3);
+		assertEquals(input1[0], loss[0]);
+		assertEquals(input1[1], loss[1]);
+	}
+
+	@Test
+	/*
+	 * Test di attacco con 1 dado per l'attaccante e 3 per il difensore. L'attacco perde 0 tank, la difesa 1.
+	 */
+	void vittoriaAttacco8() {
+		int[] input1 = {0, 1};
+		atkResults[0] = 4;
+		
+		defResults[0] = 1;
+		defResults[1] = 2;
+		defResults[2] = 3;
+		atk = atkResults.length;
+		def = defResults.length;
+		Arrays.sort(atkResults);
+		for (int i = 0, j = atkResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = atkResults[i];
+	           atkResults[i] = atkResults[j];
+	           atkResults[j] = tmp;
+	       }
+		Arrays.sort(defResults);
+		for (int i = 0, j = defResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = defResults[i];
+	           defResults[i] = defResults[j];
+	           defResults[j] = tmp;
+	       }
+		battle(atkResults, defResults, 1, 3);
+		assertEquals(input1[0], loss[0]);
+		assertEquals(input1[1], loss[1]);
+	}
+
+	@Test
+	/*
+	 * Test di attacco con 1 dadi per l'attaccante e 3 per il difensore. L'attacco perde 1 tank, la difesa 0.
+	 */
+	void vittoriaAttacco9() {
+		int[] input1 = {1, 0};
+		atkResults[0] = 4;
+		
+		defResults[0] = 5;
+		defResults[1] = 2;
+		defResults[2] = 3;
+		atk = atkResults.length;
+		def = defResults.length;
+		Arrays.sort(atkResults);
+		for (int i = 0, j = atkResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = atkResults[i];
+	           atkResults[i] = atkResults[j];
+	           atkResults[j] = tmp;
+	       }
+		Arrays.sort(defResults);
+		for (int i = 0, j = defResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = defResults[i];
+	           defResults[i] = defResults[j];
+	           defResults[j] = tmp;
+	       }
+		battle(atkResults, defResults, 1, 3);
+		assertEquals(input1[0], loss[0]);
+		assertEquals(input1[1], loss[1]);
+	}
+
+	@Test
+	/*
+	 * Test di attacco con 2 dadi per l'attaccante e 2 per il difensore. L'attacco perde 1 tank, la difesa 1.
+	 */
+	void vittoriaAttacco10() {
+		int[] input1 = {1, 1};
+		atkResults[0] = 4;
+		atkResults[1] = 4;
+		
+		defResults[0] = 1;
+		defResults[1] = 5;
+		atk = atkResults.length;
+		def = defResults.length;
+		Arrays.sort(atkResults);
+		for (int i = 0, j = atkResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = atkResults[i];
+	           atkResults[i] = atkResults[j];
+	           atkResults[j] = tmp;
+	       }
+		Arrays.sort(defResults);
+		for (int i = 0, j = defResults.length - 1, tmp; i < j; i++, j--) {
+	           tmp = defResults[i];
+	           defResults[i] = defResults[j];
+	           defResults[j] = tmp;
+	       }
+		battle(atkResults, defResults, 2, 2);
+		assertEquals(input1[0], loss[0]);
+		assertEquals(input1[1], loss[1]);
+	}
 	
+	private int[] battle(int[] atkResults, int[] defResults, int atk, int def) {
+		loss[0]=0;
+		loss[1]=0;
+		
+		int n = Math.min(atk, def);	
+		
+		for(int i=0; i<n; i++) {
+			if(atkResults[i] > defResults[i]) {
+				loss[1]++;
+			} else {
+				loss[0]++;
+			}
+		}
+		return loss;
+	}
 }

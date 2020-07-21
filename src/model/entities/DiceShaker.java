@@ -2,7 +2,6 @@ package model.entities;
 
 import java.util.Arrays;
 
-
 public class DiceShaker {
 	
 	private Die die1;
@@ -20,8 +19,7 @@ public class DiceShaker {
 		die2 = new Die();
 		die3 = new Die();
 				
-		results = new int[3];	
-
+		results = new int[3];
 	}
 	
 	/**
@@ -59,7 +57,6 @@ public class DiceShaker {
 	           results[i] = results[j];
 	           results[j] = tmp;
 	       }
-
 		return results;
 	}
 }

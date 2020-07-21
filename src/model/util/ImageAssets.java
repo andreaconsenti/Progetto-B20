@@ -27,8 +27,6 @@ public class ImageAssets {
 	    Color tempColor;
 	    ArrayList<Pixel> tempPixels;
 	    ArrayList<Pixel> pixelList = new ArrayList<Pixel>();
-	    //System.out.println("Width, Height: " + w + ", " + h);
-	    
 	    HashMap<Territory, ArrayList<Pixel>> map = new HashMap<Territory, ArrayList<Pixel>>();
 		for(Territory t : list) {
 			map.put(t, new ArrayList<Pixel>());
@@ -52,21 +50,6 @@ public class ImageAssets {
 	    }
 	    return map;
 	  }
-	
-	
-//	public static void main(String[] args) throws NumberFormatException, IOException {
-//		
-//		FileHandler f = new FileHandler();
-//		ArrayList<Territory> list = f.genTerritories("assets/TerritoriEColori.txt");
-//		
-//		 File img = new File("C:\\Users\\Luca\\Documents\\Progetto-B20\\src\\view\\fxmls\\images\\Territory_Color.png");
-//		 BufferedImage image = ImageIO.read(img ); 
-//		 
-//		 HashMap<Territory, ArrayList<Pixel>> map = imageProcess(image, list);
-//		
-//		
-//	}
-
 }
 	
 

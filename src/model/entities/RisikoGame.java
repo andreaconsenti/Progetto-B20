@@ -356,18 +356,24 @@ public class RisikoGame {
 		figures.add(ca2.getFigure());
 		figures.add(ca3.getFigure());
 		for (Territory t: territories) {
-			if(ca1.getTerritory().equals(t) && !(ca1.getFigure().equals(FIGURE.JOLLY))) {
-				if (t.getOwner().equals(currentTurn)) 
-					bonus = bonus + 2;
+			if(!(ca1.getFigure().equals(FIGURE.JOLLY))) {
+				if(ca1.getTerritory().equals(t)) {
+					if (t.getOwner().equals(currentTurn)) 
+						bonus = bonus + 2;
+				}
 			}
-			if(ca2.getTerritory().equals(t) && !(ca2.getFigure().equals(FIGURE.JOLLY))) {
-				if (t.getOwner().equals(currentTurn)) 
-					bonus = bonus + 2;
+			if(!(ca2.getFigure().equals(FIGURE.JOLLY))) {
+				if(ca2.getTerritory().equals(t)) {
+					if (t.getOwner().equals(currentTurn)) 
+						bonus = bonus + 2;
+				}
 			}
-			if(ca3.getTerritory().equals(t) && !(ca3.getFigure().equals(FIGURE.JOLLY))) {
-				if (t.getOwner().equals(currentTurn)) 
-					bonus = bonus + 2;
-			}
+			if(!(ca3.getFigure().equals(FIGURE.JOLLY))) { 
+				if(ca3.getTerritory().equals(t)) {
+					if (t.getOwner().equals(currentTurn)) 
+						bonus = bonus + 2;
+				}
+			}	
 		}
 		
 		if(ca1.getFigure() == ca2.getFigure() && ca2.getFigure() == ca3.getFigure()) {

@@ -1,5 +1,4 @@
-package view;
-
+package Main;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -16,6 +15,7 @@ public class Main extends Application {
 
 			Parent root = FXMLLoader.load(getClass().getResource("fxmls/view.fxml"));
 			Scene scene = new Scene(root);
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(true);
 			primaryStage.setTitle("Risiko!");

@@ -22,6 +22,7 @@ public class Player {
 	private DiceShaker shaker;
 	private ArrayList<Card> cards;
 	private boolean isAI;
+	private boolean eliminated;
 	
 	/**
 	 * Creates a new player
@@ -313,6 +314,14 @@ public class Player {
 		}
 		
 		
+	}
+
+	public boolean isEliminated() {
+		return eliminated;
+	}
+
+	public void setEliminated(boolean eliminated) {
+		this.eliminated = eliminated;
 	}
 	
 	

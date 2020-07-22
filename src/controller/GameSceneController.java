@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
@@ -18,7 +17,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,12 +31,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import model.entities.COLOR;
 import model.entities.Player;
 import model.entities.PlayersList;
 import model.entities.RisikoGame;
@@ -46,7 +41,6 @@ import model.entities.Territory;
 import model.entities.RisikoGame.GAME_PHASE;
 import model.util.FileHandler;
 import model.util.ImageAssets;
-import model.util.Observer;
 import model.util.Pixel;
 
 public class GameSceneController {
@@ -221,7 +215,6 @@ public class GameSceneController {
 		
 		int x =  (int)e.getX();
 		int y =  (int)e.getY();
-		int check;
 		
 		executors.get(game.getGamePhase()).executeMove(x, y);
 		
@@ -234,99 +227,23 @@ public class GameSceneController {
      */
 	public void mouseClicked(MouseEvent e) throws IOException {
 		
-		switch(game.getGamePhase()) {
-		
-		case FIRSTTURN:
-			
-			if(territorySelected != null) {
-				game.getCurrentTurn().placeTank(1);
-				game.addTerritoryTanks(territorySelected);
-				Integer n = game.getTerritory(territorySelected).getTanks();
-				mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
-				setStatusBar();
-				setPlayerStatus();
-				nextTurn();
-				territorySelected = null;
-				map.setImage(wImage);
-				if(game.firstPhaseEnded()) {
-					nextPhase();
-				}
-			}
-			break;
-			
-		case REINFORCEMENT:
-			
-			if(territorySelected != null) {
-				reinforcementClick();
-			}
-			break;
-			
-		case BATTLE:
-			
-			if(territory1 == null) {
-				territory1 = territorySelected;
-				setStatusBar();
-				setPlayerStatus();
-				
-			} else if (territory2 == null) {
-				if(territorySelected == null || territorySelected.equals(territory1)) {
-					territory1 = territorySelected;
-					setStatusBar();
-					setPlayerStatus();
-					break;
-				}
-				territory2 = territorySelected;
-				attackerAndDefenderChosen ();
-				updateTanks();
-				if (game.verifyMission() == true) {
-					missionCompleted();
-				};
-				territory1 = null;
-				territory2 = null;
-				setStatusBar();
-				setPlayerStatus();
-			}
-			break;
-			
-		case FINALMOVE:
-			if(territory1 == null) {
-				territory1 = territorySelected;
-				setStatusBar();
-				setPlayerStatus();
-				
-			} else if (territory2 == null) {
-				if(territorySelected == null || territorySelected.equals(territory1)) {
-					territory1 = territorySelected;
-					setStatusBar();
-					setPlayerStatus();
-					break;
-				}
-				territory2 = territorySelected;
-				setStatusBar();
-				setPlayerStatus();
-				moveSceneLoader();
-				Integer n = territory1.getTanks();
-				updateTanks();
-				if (game.verifyMission() == true) {
-					missionCompleted();
-				};
-				nextTurn();
-			} else {
-				territory1 = null;
-				territory2 = null;
-				setStatusBar();
-				setPlayerStatus();
-			}
-			break;
-		}
+		executors.get(game.getGamePhase()).executeClick();
+
 	}
 	
 	/**
      * Loads the victory scene when the mission is completed
      * @throws IOException
      */
-	public void missionCompleted() throws IOException {
-		windowLoader("view/fxmls/MissionCompletedScene.fxml", "Vittoria", true);
+	public void missionControl(){
+		if (game.verifyMission() == true) {
+			try {
+				windowLoader("view/fxmls/MissionCompletedScene.fxml", "Vittoria", true);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/**
@@ -360,16 +277,26 @@ public class GameSceneController {
 	 * Loads the attack scene when the attacker and defender are chosen
 	 * @throws IOException
 	 */
-	public void attackerAndDefenderChosen () throws IOException {
-		windowLoader("view/fxmls/AttackScene.fxml", "Attacco", false);
+	public void attackerAndDefenderChosen (){
+		try {
+			windowLoader("view/fxmls/AttackScene.fxml", "Attacco", false);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Loads the Move scene when entered the "FINALMOVE" game phase
 	 * @throws IOException
 	 */
-	public void moveSceneLoader() throws IOException {
-		windowLoader("view/fxmls/MoveScene.fxml", "Spostamento", false);
+	public void moveSceneLoader(){
+		try {
+			windowLoader("view/fxmls/MoveScene.fxml", "Spostamento", false);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -401,48 +328,6 @@ public class GameSceneController {
 		nextTurn();
 	}
 
-	/**
-	 * Checks if a territory can be attacked from another territory
-	 * @param t is the territory to attack
-	 * @return boolean
-	 */
-	private boolean checkAttaccabile(Territory t) {
-		
-		for(Territory t1 : territory1.getConfinanti()) {
-			
-			if(t1.getId() == t.getId()) {
-				
-				if(!t.getOwner().getName().equals(game.getCurrentTurn().getName())) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * Checks if a tank can be moved to another territory of the same owner
-	 * @param t is the territory to check
-	 * @return boolean
-	 */
-	private boolean checkSpostabile(Territory t) {
-		
-		for(Territory t1 : territory1.getConfinanti()) {
-			
-			if(t1.getId() == t.getId()) {
-				
-				if(t.getOwner().getName().equals(game.getCurrentTurn().getName())) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}
-		return false;
-	}
-	
 	/**
 	 * Switches the game turn to the next one
 	 */
@@ -523,7 +408,7 @@ public class GameSceneController {
 	/**
 	 * Fills the TextArea with the name of the player of the current turn
 	 */
-	private void setPlayerLabel() {
+	public void setPlayerLabel() {
 		turnLabel.setTextFill(returnPlayerColor(game.getCurrentTurn()));
 		turnLabel.setText(game.getCurrentTurn().getName());
 	}
@@ -639,7 +524,7 @@ public class GameSceneController {
 	/**
 	 * Returns the player of the current turn
 	 * @return Player
-	 */
+	 */	
 	public Player getCurrentPlayer() {
 		return game.getCurrentTurn();
 	}
@@ -647,7 +532,7 @@ public class GameSceneController {
 	/**
 	 * Fills the TextArea with a specified text
 	 */
-	private void setStatusBar() {
+	public void setStatusBar() {
 		switch(game.getGamePhase()) {
 		case FIRSTTURN:
 			statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
@@ -679,7 +564,7 @@ public class GameSceneController {
 	/**
 	 * Sets the current number of tanks,territories and continents owned by a player
 	 */
-	private void setPlayerStatus() {
+	public void setPlayerStatus() {
 		Integer tmp;
 		tmp = game.getPlayer(game.getCurrentTurn()).getTanks();
 		plTanks.setText(tmp.toString());
@@ -747,7 +632,7 @@ public class GameSceneController {
 	 * @param cantclose specifies if the window can be closed until an event occurs
 	 * @throws IOException
 	 */
-	private void windowLoader(String scene, String title, boolean cantclose) throws IOException {
+	private void windowLoader(String scene, String title, boolean cantclose) throws IOException{
 		Parent sceneParent = FXMLLoader.load(getClass().getClassLoader().getResource(scene));
 		Scene mScene = new Scene(sceneParent);
 		Stage window = new Stage();
@@ -786,20 +671,15 @@ public class GameSceneController {
 	}
 	
 	/**
-	 * Manages the click of the mouse during the reinforcement game phase
+	 * Manages the click of the mouse during the reinforcement game phase, it's called only from AI
 	 * @throws IOException
 	 */
 	public void reinforcementClick() throws IOException {
-		game.getCurrentTurn().placeTank(1);
-		game.addTerritoryTanks(territorySelected);
-		Integer n = game.getTerritory(territorySelected).getTanks();
-		mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
+		placeTank();
 		setStatusBar();
 		setPlayerStatus();
-		if (game.verifyMission() == true) {
-			missionCompleted();
-		}
-		if(game.getCurrentTurn().getBonusTanks() == 0) {
+
+		if(game.getCurrTurnBonusTanks() == 0) {
 			nextPhase();
 		}
 	}
@@ -851,6 +731,26 @@ public class GameSceneController {
 	public Territory getTerritory2() {
 		return territory2;
 	}
+	
+	public Territory getSelTerr() {
+		return territorySelected;
+	}
+	
+	public void placeTank() {
+		game.getCurrentTurn().placeTank(1);
+		game.addTerritoryTanks(territorySelected);
+		missionControl();
+		Integer n = game.getTerritory(territorySelected).getTanks();
+		mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
+	}
+	
+	public void firstPhaseEnded() {
+		if(game.firstPhaseEnded()) {
+			nextPhase();
+		}
+	}
 
+	
+	
 	
 }

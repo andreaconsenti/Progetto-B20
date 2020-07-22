@@ -279,7 +279,7 @@ public class SelectCardController {
 			return "src/view/fxmls/images/Cards/carta_cavallo.png";
 			
 		case JOLLY:
-			return "src/view/fxmls/images/Cards/carta_vuota.png";
+			return "src/view/fxmls/images/Cards/carta_jolly.png";
 			
 		}
 		return null;

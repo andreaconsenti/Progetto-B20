@@ -7,14 +7,37 @@ import model.util.Pixel;
 public class FinalmoveExecutor implements FunctionExecutor {
 
 	@Override
-	public void executeClick(int x, int y) {
-		// TODO Auto-generated method stub
-		
+	public void executeClick() {
+		if(GameSceneController.getInstance().getTerritory1() == null) {
+			GameSceneController.getInstance().setTerritory12(GameSceneController.getInstance().getSelTerr(), null);
+			GameSceneController.getInstance().setStatusBar();
+			GameSceneController.getInstance().setPlayerStatus();
+		} else if(GameSceneController.getInstance().getTerritory2() == null) {
+			if(GameSceneController.getInstance().getSelTerr() == null || GameSceneController.getInstance().getSelTerr().equals(GameSceneController.getInstance().getTerritory1())) {
+				GameSceneController.getInstance().setTerritory12(GameSceneController.getInstance().getSelTerr(), null);
+				GameSceneController.getInstance().setStatusBar();
+				GameSceneController.getInstance().setPlayerStatus();
+			} else {
+				GameSceneController.getInstance().setTerritory2(GameSceneController.getInstance().getSelTerr());
+				GameSceneController.getInstance().moveSceneLoader();
+				GameSceneController.getInstance().updateTanks();
+				GameSceneController.getInstance().missionControl();
+				GameSceneController.getInstance().setTerritory12(null, null);
+				GameSceneController.getInstance().nextTurn();
+				GameSceneController.getInstance().setStatusBar();
+				GameSceneController.getInstance().setPlayerStatus();
+			}
+		} else {
+			GameSceneController.getInstance().setTerritory12(null, null);
+			GameSceneController.getInstance().setStatusBar();
+			GameSceneController.getInstance().setPlayerStatus();
+		}
 	}
 
 	@Override
 	public void executeMove(int x, int y) {
 		int check = 0;
+		
 		if(GameSceneController.getInstance().getTerritory1() == null) {
 			for(Territory t : GameSceneController.getInstance().getTerritories()) {
 				check = 0;

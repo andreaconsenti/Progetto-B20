@@ -70,9 +70,6 @@ public class RisikoGame {
 	 * The games goes to the next turn
 	 */
 	public void nextTurn(){
-//		if(gamePhase != GAME_PHASE.FIRSTTURN) {
-//			gamePhase = GAME_PHASE.REINFORCEMENT;
-//		}
 		turnCounter++;
 		if(turnCounter == players.length) {
 			turnCounter = 0;
@@ -80,6 +77,9 @@ public class RisikoGame {
 		currentTurn = this.players[turnCounter];
 		if(currentTurn.isAI() && gamePhase == GAME_PHASE.FIRSTTURN) {
 			currentTurn.playTurn();
+		}
+		if(currentTurn.isEliminated()) {
+			nextTurn();
 		}
 	}
 	
@@ -176,7 +176,10 @@ public class RisikoGame {
 				getTerritory(GameSceneController.territory1).removeTanks(1);
 				currentTurn.removeTanks(1);
 			}
-		}	
+		}
+		if(getPlayer(GameSceneController.territory2.getOwner()).getTanks()==0) {
+			getPlayer(GameSceneController.territory2.getOwner()).setEliminated(true);
+		}
 	}
 	
 	/**
@@ -220,17 +223,7 @@ public class RisikoGame {
 			}
 		}
 	}
-	
-//	public void checkContinent() {
-//		currentTurn.zeroContinents();
-//		for (Continent c: continents) {
-//			if(isOwned(c)) {
-//				if (getTerritory(getRandomTerritory(c)).getOwner().equals(currentTurn))
-//					currentTurn.addContinents();
-//			}
-//		}
-//	}
-	
+
 	/**
 	 * Verifies if the continent is owned completely by a player
 	 * @return owned
@@ -601,11 +594,7 @@ public class RisikoGame {
 	 * @param t is the territory
 	 */
 	public void addTerritoryTanks(Territory t) {
-		for(Territory te : territories) {
-			if(te.getId() == t.getId()) {
-				te.addTanks(1);
-			}
-		}
+		getTerritory(t).addTanks(1);
 	}
 	
 	/**
@@ -662,66 +651,12 @@ public class RisikoGame {
 		return temp.get(rand.nextInt(temp.size()));
 	}
 	
-
-	//-------------------TEST MAIN
-	
-	public void printTerritories() {
-		for(Territory t : territories) {
-			System.out.println(t.toString());
-			System.out.println(t.getOwner().getName());
-		}
+	public int getCurrTurnBonusTanks() {
+		return currentTurn.getBonusTanks();
 	}
 	
-	public void printPlayers() {
-		for(Player p : players) {
-			System.out.println(p.getName());
-			System.out.println(p.getMissionDescription());
-		}
-	}
-		
-	public void printContinents() {
-		int i = 0;
-		for(Continent c : continents) {
-			System.out.println(c.getName());
-			i = 0;
-			for(Territory t : territories) {
-				if(t.getContinent().equals(c.getName())) {
-					i++;
-					System.out.println(i);
-				}
-			}
-		}
+	private void playerEliminated(Player p) {
+		p.setEliminated(true);
 	}
 
-	public void printBonusTanks() {
-		for(Player p : this.players) {
-			System.out.println(p.getName());
-			System.out.println(p.getBonusTanks());
-		}
-	}
-
-
-
-
-	
-	
-//	public static void main(String[] args) throws NumberFormatException, IOException {
-//		
-//		Player p1 = new Player("Luca", COLOR.BLACK, false);
-//		Player p2 = new Player("Andre", COLOR.PINK, false);
-//		Player p3 = new Player("Gino", COLOR.BLUE, false);
-////		Player p4 = new Player("Daniele", COLOR.RED);
-////		Player p5 = new Player("Alfonso", COLOR.GREEN);
-//		
-//		Player[] list = {p1, p2, p3};
-//		
-//		RisikoGame game = new RisikoGame(list, "assets/RisikoClassic/territori.txt", "assets/RisikoClassic/continenti.txt", "assets/RisikoClassic/obiettivi.txt");
-////		game.printTerritories();
-//		System.out.println(" ");
-//		//game.printPlayers();
-//		//game.printCards();
-//		game.printContinents();
-//		
-////		game.printBonusTanks();	
-//	}	
 }

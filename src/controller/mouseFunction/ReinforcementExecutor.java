@@ -7,9 +7,17 @@ import model.util.Pixel;
 public class ReinforcementExecutor implements FunctionExecutor{
 
 	@Override
-	public void executeClick(int x, int y) {
-		// TODO Auto-generated method stub
-		
+	public void executeClick() {
+		if(GameSceneController.getInstance().getSelTerr() != null) {
+			GameSceneController.getInstance().placeTank();
+			GameSceneController.getInstance().setStatusBar();
+			GameSceneController.getInstance().setPlayerStatus();
+			GameSceneController.getInstance().missionControl();
+
+			if(GameSceneController.getInstance().getGame().getBonusTanksSum() == 0) {
+				GameSceneController.getInstance().nextPhase();
+			}
+		}
 	}
 
 	@Override

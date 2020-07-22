@@ -399,7 +399,7 @@ public class RisikoGame {
 		switch(this.players.length) {
 		case 3:
 			for(Player p : players) {
-				p.giveBonusTanks(16);
+				p.giveBonusTanks(35);
 			}
 			break;
 		case 4:

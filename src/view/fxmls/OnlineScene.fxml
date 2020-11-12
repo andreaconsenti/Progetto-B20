@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="backgroundPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OnlineSceneController">
+   <children>
+      <ImageView fitHeight="742.0" fitWidth="1303.0" layoutX="-12.0" layoutY="-10.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/OnlineScreen.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="serverStatusField" alignment="CENTER" layoutX="290.0" layoutY="393.0" prefHeight="25.0" prefWidth="138.0" text="server status" />
+      <Label layoutX="55.0" layoutY="428.0" prefHeight="17.0" prefWidth="144.0" text="Richieste di connessione" />
+      <Label layoutX="55.0" layoutY="397.0" text="Ospita una partita" />
+      <Label layoutX="57.0" layoutY="281.0" text="Entra in partita" />
+      <TextField fx:id="nameField" alignment="CENTER" layoutX="285.0" layoutY="277.0" prefHeight="25.0" prefWidth="138.0" text="nome utente" />
+      <Button id="darkgrey" fx:id="backButton" layoutX="47.0" layoutY="660.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="INDIETRO" />
+      <ListView fx:id="playerList" layoutX="206.0" layoutY="428.0" opacity="0.81" prefHeight="200.0" prefWidth="221.0" />
+      <Label layoutX="579.0" layoutY="42.0" text="Multiplayer online" />
+      <Button fx:id="serverButton" layoutX="206.0" layoutY="393.0" mnemonicParsing="false" onAction="#serverPressed" text="Attiva Server" />
+      <Button fx:id="partecipaButton" layoutX="206.0" layoutY="277.0" mnemonicParsing="false" onAction="#partecipaPressed" prefHeight="25.0" prefWidth="78.0" text="Partecipa" />
+      <Button fx:id="avviaButton" layoutX="205.0" layoutY="595.0" mnemonicParsing="false" onAction="#avviaPressed" prefHeight="33.0" prefWidth="221.0" text="Avvia partita" />
+      <Label fx:id="labelInit" layoutX="675.0" layoutY="273.0" text="Inizializzo la tua partita con " />
+   </children>
+</Pane>

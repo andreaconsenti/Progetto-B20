@@ -19,7 +19,7 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <Button id="redbuttonview" fx:id="startButton" layoutX="754.0" layoutY="569.0" mnemonicParsing="false" onAction="#startPressed" prefHeight="117.0" prefWidth="305.0" stylesheets="@../css/StyleSheet.css" text="START">
+      <Button id="redbuttonview" fx:id="onlineButton" layoutX="961.0" layoutY="569.0" mnemonicParsing="false" onAction="#onlinePressed" prefHeight="117.0" prefWidth="305.0" stylesheets="@../css/StyleSheet.css" text="ONLINE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -33,7 +33,7 @@
          <font>
             <Font name="Calibri" size="12.0" />
          </font></Button>
-      <Button id="redbuttonview" fx:id="rulesButton" layoutX="231.0" layoutY="569.0" mnemonicParsing="false" onAction="#rulesPressed" prefHeight="117.0" prefWidth="305.0" stylesheets="@../css/StyleSheet.css" text="RULES">
+      <Button id="redbuttonview" fx:id="rulesButton" layoutX="21.0" layoutY="569.0" mnemonicParsing="false" onAction="#rulesPressed" prefHeight="117.0" prefWidth="305.0" stylesheets="@../css/StyleSheet.css" text="RULES">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -44,6 +44,21 @@
                </source>
             </ImageInput>
          </effect>
+      </Button>
+      <Button id="redbuttonview" fx:id="startButton" layoutX="488.0" layoutY="569.0" mnemonicParsing="false" onAction="#startPressed" prefHeight="117.0" prefWidth="305.0" stylesheets="@../css/StyleSheet.css" text="START">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@images/START1.png" />
+               </source>
+            </ImageInput>
+         </effect>
+         <font>
+            <Font name="Calibri" size="12.0" />
+         </font>
       </Button>
    </children>
 </Pane>

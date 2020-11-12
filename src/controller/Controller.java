@@ -20,11 +20,10 @@ public class Controller {
 	private ImageView start;
 	@FXML
 	private ImageView rules;
-	
 	@FXML
 	private Button startButton;
 
-	
+
 	/**
 	 * Manages the pressure of the Start button, opening the playerScene
 	 * @param event is the event generated
@@ -33,33 +32,50 @@ public class Controller {
 	public void startPressed(ActionEvent event) throws IOException {
 		Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/NewPlayerScene.fxml"));
 		Scene playerScene = new Scene(playerSceneParent);
-		
+
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-		
+
 		window.setScene(playerScene);
 		window.show();
 	}
-	
+
 
 	/**
 	 * Manages the pressure of the Rules button, opening the rules
 	 * @param event is the event generated
 	 * @throws IOException
 	 */
-	
+
 	public void rulesPressed(ActionEvent event) throws IOException {
 		Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/RulesScene.fxml"));
 		Scene playerScene = new Scene(playerSceneParent);
-		
+
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-		
+
 		window.setScene(playerScene);
 		window.show();
 	}
-	
-	public void rulesPressedImage() {
-		
+
+	/**
+	 * Manages the pressure of the Online button, opening the onlineScene
+	 * @param event is the event generated
+	 * @throws IOException
+	 */
+
+	public void onlinePressed(ActionEvent event) throws IOException {
+
+		Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/OnlineScene.fxml"));
+		Scene playerScene = new Scene(playerSceneParent);
+
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+		window.setScene(playerScene);
+		window.show();
 	}
-	
+
+	public void rulesPressedImage() {
+
+	}
+
 
 }

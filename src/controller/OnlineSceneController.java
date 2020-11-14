@@ -222,7 +222,7 @@ public class OnlineSceneController implements Hello{
 
     @Override
     public String joinRequest(String clientInput) throws RemoteException {
-        System.out.println("Richiesta da client ricevuta");
+        //System.out.println("Richiesta da client ricevuta");
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

@@ -1,6 +1,7 @@
 package model.entities;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Timer;
 
@@ -8,7 +9,7 @@ import controller.AIRecapSceneController;
 import controller.AttackSceneController;
 import controller.GameSceneController;
 
-public class Player {
+public class Player implements Serializable {
 	
 	//private boolean isAI;
 	
@@ -241,8 +242,12 @@ public class Player {
 	public int[] rollDices(int n) {
 		return shaker.rollDices(n);
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return name + " " + color;
+	}
+
 	public boolean isAI() {
 		return isAI;
 	}

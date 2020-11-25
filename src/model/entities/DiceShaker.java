@@ -1,8 +1,9 @@
 package model.entities;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class DiceShaker {
+public class DiceShaker implements Serializable {
 	
 	private Die die1;
 	private Die die2;

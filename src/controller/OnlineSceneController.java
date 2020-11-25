@@ -2,18 +2,14 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.ExportException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Iterator;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -30,7 +26,7 @@ import model.entities.COLOR;
 import model.entities.Player;
 import model.entities.PlayersList;
 
-public class OnlineSceneController implements Hello{
+public class OnlineSceneController implements RemoteJoin, Serializable {
     @FXML
     private Button backButton;
     @FXML
@@ -50,6 +46,8 @@ public class OnlineSceneController implements Hello{
     @FXML
     private Button lockListButton;
     @FXML
+    private Button getInfoButton;
+    @FXML
     private MenuButton mapInput;
     @FXML
     private MenuItem map1;
@@ -61,14 +59,20 @@ public class OnlineSceneController implements Hello{
     private ImageView mapPreview;
 
 
-
     private ArrayList<Player> list;
+    private Registry registry;
+    private RemoteJoin stub;
+
     private boolean mapChosed;
     public static String map;
     public static String territories;
     public static String terrFile;
     public static String continentsFile;
     public static String missions;
+
+    public static String myColor;
+
+    public static boolean isOnlineMultiplayer;
 
 
     /**
@@ -94,7 +98,7 @@ public class OnlineSceneController implements Hello{
 
     public void serverPressed(ActionEvent event) {
         try {
-            Hello stub = (Hello) UnicastRemoteObject.exportObject(this, 0);
+            RemoteJoin stub = (RemoteJoin) UnicastRemoteObject.exportObject(this, 0);
             Registry registry = LocateRegistry.createRegistry(1888);
             System.setProperty("java.rmi.server.hostname","192.168.1.107");
             registry.rebind("Hello", stub);
@@ -124,10 +128,15 @@ public class OnlineSceneController implements Hello{
 
     public void partecipaPressed(ActionEvent event) {
         try {
-            Registry registry = LocateRegistry.getRegistry("192.168.1.107",1888);
-            Hello stub = (Hello) registry.lookup("Hello");
+            registry = LocateRegistry.getRegistry("192.168.1.107",1888);
+            stub = (RemoteJoin) registry.lookup("Hello");
             String nameFieldValue = nameField.getText();
             String response = stub.joinRequest(nameFieldValue);
+
+            //Salvo nella variabile statica myColor il colore
+            //che il client avrà per tutta la partita
+            myColor = response;
+
             System.out.println("response: " + response);
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
@@ -150,8 +159,8 @@ public class OnlineSceneController implements Hello{
 
     }
 
-    //Da migliorare
     public void chiudiPressed(ActionEvent event) {
+        /*ToDo: pulire il codice*/
         partecipaButton.setDisable(true);
         nameField.setEditable(false);
 
@@ -178,8 +187,10 @@ public class OnlineSceneController implements Hello{
     }
 
     public void startGamePressed(ActionEvent event) throws IOException {
-        /*  -> Adattare il controller del GameScene.fxml per poter caricare
-        *      il nuovo scenario!
+        // Adattare il controller del GameScene.fxml per poter caricare
+        // il nuovo scenario!
+
+        isOnlineMultiplayer = true;
 
         PlayersList.setPlayers(list);
         Parent playerSceneParent= FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameScene.fxml"));
@@ -189,7 +200,7 @@ public class OnlineSceneController implements Hello{
         window.setScene(playerScene);
         window.show();
 
-        */
+
     }
 
     private void mapSelected(String image, String mapImage, String terrImage, String terrFiles, String contsFile, String missFile) {
@@ -214,6 +225,9 @@ public class OnlineSceneController implements Hello{
         mapChosed = true;
     }
 
+      //****************************//
+     // Metodi relativi a Java RMI //
+    //****************************//
 
     @Override
     public String sayHello() throws RemoteException {
@@ -221,18 +235,36 @@ public class OnlineSceneController implements Hello{
     }
 
     @Override
-    public String joinRequest(String clientInput) throws RemoteException {
+    public String joinRequest(String clientInput) throws RemoteException{
         //System.out.println("Richiesta da client ricevuta");
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 // Update UI here.
-
                 playerList.getItems().add(clientInput);
                 list.add(new Player(clientInput, autoColorChooser(), false));
             }
         });
 
-        return "Server ha ricevuto la tua richiesta";
+        return autoColorChooser().toString();
     }
-}
+
+    @Override
+    public ArrayList<Player> getList() throws RemoteException {
+        //ArrayList<Player> listaCopiata = new ArrayList<>(list);
+        return list;
+        //return listaCopiata;
+    }
+
+    public void remotePlayerSetter() throws RemoteException {
+        try {
+            registry = LocateRegistry.getRegistry("192.168.1.107",1888);
+            stub = (RemoteJoin) registry.lookup("Hello");
+            //verificare se effettivamente list prende i valori da stub
+            list = stub.getList();
+
+        } catch (Exception e) {}
+
+        }
+
+    }

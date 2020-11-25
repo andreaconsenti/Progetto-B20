@@ -3,6 +3,9 @@ package controller;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -115,7 +118,8 @@ public class GameSceneController {
 	public static GameSceneController getInstance() {
 		return instance;
 	}
-	
+
+
 	private class territoryStatus{
 		private ImageView image;
 		private Label number;
@@ -170,41 +174,78 @@ public class GameSceneController {
      * @throws IOException
      */
 	public void initialize() throws NumberFormatException, IOException{
-		game = new RisikoGame(PlayersList.getPlayers(), PlayerSceneController.terrFile, PlayerSceneController.continentsFile, PlayerSceneController.missions);
-		
-		File file = new File(PlayerSceneController.map);
-		Image temp = new Image(file.toURI().toString());
-		map.setImage(temp);
-		
-		File img = new File(PlayerSceneController.territories);
-		BufferedImage image = ImageIO.read(img); 	
-		
-		territoryLabel.setOpacity(0);
-		
-		mappa = ImageAssets.imageProcess(image, game.getTerritories());
-		
-		wImage = genWritableMap();
-		map.setImage(wImage);
-		
-		mappaImgTanks = new HashMap<Territory, territoryStatus>();
-		initTanks();
-		
-		executors = new HashMap<GAME_PHASE, FunctionExecutor>();
-		initExecutors();
-		
-		statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
-		setPlayerLabel();
-		setPlayerStatus();
-		endTurn.setDisable(true);
-		nextPhase.setDisable(true);
-		nextPhase.setText("POSIZIONAMENTO");
-		
+		if (OnlineSceneController.isOnlineMultiplayer == true) {
+			initializeOnline();
+		}
+		else {
+			game = new RisikoGame(PlayersList.getPlayers(), PlayerSceneController.terrFile, PlayerSceneController.continentsFile, PlayerSceneController.missions);
+
+			File file = new File(PlayerSceneController.map);
+			Image temp = new Image(file.toURI().toString());
+			map.setImage(temp);
+
+			File img = new File(PlayerSceneController.territories);
+			BufferedImage image = ImageIO.read(img);
+
+			territoryLabel.setOpacity(0);
+
+			mappa = ImageAssets.imageProcess(image, game.getTerritories());
+
+			wImage = genWritableMap();
+			map.setImage(wImage);
+
+			mappaImgTanks = new HashMap<Territory, territoryStatus>();
+			initTanks();
+
+			executors = new HashMap<GAME_PHASE, FunctionExecutor>();
+			initExecutors();
+
+			statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
+			setPlayerLabel();
+			setPlayerStatus();
+			endTurn.setDisable(true);
+			nextPhase.setDisable(true);
+			nextPhase.setText("POSIZIONAMENTO");
+		}
+
 		for(Player p : PlayersList.getPlayers()) {
 			if(p.isAI()) {
 				aiRecap();
 				break;
 			}
 		}
+	}
+
+	public void initializeOnline() throws IOException {
+
+		game = new RisikoGame(PlayersList.getPlayers(), OnlineSceneController.terrFile, OnlineSceneController.continentsFile, OnlineSceneController.missions);
+
+		File file = new File(OnlineSceneController.map);
+		Image temp = new Image(file.toURI().toString());
+		map.setImage(temp);
+
+		File img = new File(OnlineSceneController.territories);
+		BufferedImage image = ImageIO.read(img);
+
+		territoryLabel.setOpacity(0);
+
+		mappa = ImageAssets.imageProcess(image, game.getTerritories());
+
+		wImage = genWritableMap();
+		map.setImage(wImage);
+
+		mappaImgTanks = new HashMap<Territory, territoryStatus>();
+		initTanks();
+
+		executors = new HashMap<GAME_PHASE, FunctionExecutor>();
+		initExecutors();
+
+		statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
+		setPlayerLabel();
+		setPlayerStatus();
+		endTurn.setDisable(true);
+		nextPhase.setDisable(true);
+		nextPhase.setText("POSIZIONAMENTO");
 	}
 	
 	/**
@@ -468,8 +509,15 @@ public class GameSceneController {
 	 * @throws IOException
 	 */
 	private void initTanks() throws IOException {
-	   
-		ArrayList<Pixel> posList = fileH.addPosizione(PlayerSceneController.terrFile);
+		ArrayList<Pixel> posList;
+
+		if(OnlineSceneController.isOnlineMultiplayer == true) {
+			posList = fileH.addPosizione(OnlineSceneController.terrFile);
+		}
+		else {
+			posList = fileH.addPosizione(PlayerSceneController.terrFile);
+		}
+
 		
 		int i = 0;
 		for(Pixel p : posList) {
@@ -750,7 +798,10 @@ public class GameSceneController {
 		}
 	}
 
-	
-	
-	
+	/*Metodi JAVA RMI*/
+
+	public void cardButtonPressedRemote(ActionEvent e) throws IOException {
+		windowLoader("view/fxmls/SelectCardScene.fxml", "Carte", false);
+	}
+
 }

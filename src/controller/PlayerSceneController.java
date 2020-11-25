@@ -127,6 +127,7 @@ public class PlayerSceneController {
 	public static String terrFile;
 	public static String continentsFile;
 	public static String missions;
+	public boolean isOnlineMultiplayer;
 	
 	/**
 	 * Initializes the controller
@@ -197,7 +198,7 @@ public class PlayerSceneController {
 					oneRealPlayer = true;
 				}
 				startHandler();
-			} else playerList.getItems().add(nameInputBlack.getText() + " nome già usato.");
+			} else playerList.getItems().add(nameInputBlack.getText() + " nome giï¿½ usato.");
 		} else  playerList.getItems().add("Nome inesistente.");
 	}
 	
@@ -215,7 +216,7 @@ public class PlayerSceneController {
 					oneRealPlayer = true;
 				}
 				startHandler();
-			} else playerList.getItems().add(nameInputBlue.getText() + " nome già usato.");
+			} else playerList.getItems().add(nameInputBlue.getText() + " nome giï¿½ usato.");
 		} else playerList.getItems().add("Nome inesistente.");
 	}
 	
@@ -233,7 +234,7 @@ public class PlayerSceneController {
 					oneRealPlayer = true;
 				}
 				startHandler();
-	    	} else playerList.getItems().add(nameInputGreen.getText() + " nome già usato.");
+	    	} else playerList.getItems().add(nameInputGreen.getText() + " nome giï¿½ usato.");
 		} else playerList.getItems().add("Nome inesistente.");
 	}
 
@@ -251,7 +252,7 @@ public class PlayerSceneController {
 					oneRealPlayer = true;
 				}
 				startHandler();
-	    	} else playerList.getItems().add(nameInputPink.getText() + " nome già usato.");	
+	    	} else playerList.getItems().add(nameInputPink.getText() + " nome giï¿½ usato.");	
 		} else playerList.getItems().add("Nome inesistente.");
 	}
 	
@@ -269,7 +270,7 @@ public class PlayerSceneController {
 					oneRealPlayer = true;
 				}
 				startHandler();
-			} else playerList.getItems().add(nameInputRed.getText() + " nome già usato.");
+			} else playerList.getItems().add(nameInputRed.getText() + " nome giï¿½ usato.");
 		} else playerList.getItems().add("Nome inesistente.");
 	}
 	
@@ -287,7 +288,7 @@ public class PlayerSceneController {
 					oneRealPlayer = true;
 				}
 				startHandler();
-			} else playerList.getItems().add(nameInputYellow.getText() + " nome già usato.");
+			} else playerList.getItems().add(nameInputYellow.getText() + " nome giï¿½ usato.");
 		} else playerList.getItems().add("Nome inesistente.");
 	}
 	
@@ -316,6 +317,7 @@ public class PlayerSceneController {
 	 * @throws IOException
 	 */
 	public void startGamePressed(ActionEvent event) throws IOException {
+		isOnlineMultiplayer = false;
 		PlayersList.setPlayers(list);
 		Parent playerSceneParent= FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameScene.fxml"));
 		Scene playerScene = new Scene(playerSceneParent);

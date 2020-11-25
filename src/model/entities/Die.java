@@ -1,6 +1,8 @@
 package model.entities;
 
-public class Die {
+import java.io.Serializable;
+
+public class Die implements Serializable {
 	
 	private final int MAX = 6;  
 

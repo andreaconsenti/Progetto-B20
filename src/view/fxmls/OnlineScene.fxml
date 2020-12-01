@@ -60,6 +60,6 @@
       </MenuButton>
       <Separator layoutX="47.0" layoutY="294.0" prefHeight="25.0" prefWidth="1192.0" />
       <Label layoutX="579.0" layoutY="454.0" prefHeight="17.0" prefWidth="104.0" text="Avversari approvati" />
-      <Button fx:id="getInfoButton" layoutX="1057.0" layoutY="200.0" mnemonicParsing="false" onAction="#remotePlayerSetter" text="getInfoButton" />
+      <Button fx:id="getInfoButton" layoutX="1057.0" layoutY="200.0" mnemonicParsing="false" onAction="#startGamePressed2" text="getInfoButton" />
    </children>
 </Pane>

@@ -11,5 +11,10 @@ public interface RemoteJoin extends Remote {
     String sayHello() throws RemoteException;
     String joinRequest(String clientInput) throws RemoteException;
     ArrayList<Player> getList() throws RemoteException;
+    String getMap() throws RemoteException;
+    String getTerritories() throws RemoteException;
+    String getTerrFile() throws RemoteException;
+    String getContinentFile() throws RemoteException;
+    String getMissions() throws RemoteException;
 
 }

@@ -1,25 +1,6 @@
 package controller;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.rmi.Naming;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.imageio.ImageIO;
-
-import controller.mouseFunction.BattleExecutor;
-import controller.mouseFunction.FinalmoveExecutor;
-import controller.mouseFunction.FirstturnExecutor;
-import controller.mouseFunction.FunctionExecutor;
-import controller.mouseFunction.ReinforcementExecutor;
+import controller.mouseFunction.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -29,11 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
+import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -44,74 +21,82 @@ import javafx.stage.WindowEvent;
 import model.entities.Player;
 import model.entities.PlayersList;
 import model.entities.RisikoGame;
-import model.entities.Territory;
 import model.entities.RisikoGame.GAME_PHASE;
+import model.entities.Territory;
 import model.util.FileHandler;
 import model.util.ImageAssets;
 import model.util.Pixel;
 
-public class GameSceneController implements RemotePlay{
-	
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class OnlineGameSceneController implements RemotePlay{
+
 	@FXML
 	private ImageView mapBackground;
-	
+
 	@FXML
 	private ImageView map;
-	
+
 	@FXML
 	private Pane gamePane;
-	
+
 	@FXML
 	private Label territoryLabel;
-	
+
 	@FXML
 	private AnchorPane tanksPane;
-	
+
 	@FXML
 	private TextArea statusBar;
-	
+
 	@FXML
 	private Button cardButton;
-	
+
 	@FXML
 	private Label turnLabel;
-	
+
 	@FXML
 	private Button nextPhase;
-	
+
 	@FXML
 	private Button endTurn;
-	
+
 	@FXML
 	private Label plTerritories;
-	
+
 	@FXML
 	private Label plContinents;
-	
+
 	@FXML
 	private Label plTanks;
-	
-	
-	protected static RisikoGame game; 
+
+
+	protected static RisikoGame game;
 	private HashMap<Territory, ArrayList<Pixel>> mappa;
 	private HashMap<Territory, territoryStatus> mappaImgTanks;
 	private PixelReader pixelReader;
 	private PixelWriter pixelWriter;
 	private WritableImage wImage;
 	private FileHandler fileH = new FileHandler();
-	
+
 	private Territory territorySelected;
 	public static Territory territory1;
 	public static Territory territory2;
 	private HashMap<GAME_PHASE, FunctionExecutor> executors;
-	
-	
-	private static GameSceneController instance;
-	
+
+
+	private static OnlineGameSceneController instance;
+
 	/**
      * Sets the instance to this instance of GameSceneController
      */
-	public GameSceneController() {
+	public OnlineGameSceneController() {
 		instance = this;
 	}
 	
@@ -119,7 +104,7 @@ public class GameSceneController implements RemotePlay{
 	 * Instance getter
 	 * @return instance
 	 */
-	public static GameSceneController getInstance() {
+	public static OnlineGameSceneController getInstance() {
 		return instance;
 	}
 

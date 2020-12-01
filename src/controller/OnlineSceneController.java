@@ -13,6 +13,7 @@ import java.util.Iterator;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -60,8 +61,8 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
 
     private ArrayList<Player> list;
-    private Registry registry;
-    private RemoteJoin stub;
+    public static Registry registry;
+    public static RemoteJoin stub;
 
     private boolean mapChosed;
     public static String map;
@@ -74,9 +75,12 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
     public static boolean isOnlineMultiplayer;
 
+    public static ActionEvent event = new ActionEvent();
+
 
     /**
      * Manages the pressure of the Indietro button, exiting the rules
+     *
      * @param event is the event generated
      * @throws IOException
      */
@@ -84,23 +88,23 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/view.fxml"));
         Scene playerScene = new Scene(playerSceneParent);
 
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         window.setScene(playerScene);
         window.show();
 
         if (serverButton.isDisabled()) {
             /*
-            * Risolvere problema del server rimasto aperto
-            * */
-            }
+             * Risolvere problema del server rimasto aperto
+             * */
+        }
     }
 
     public void serverPressed(ActionEvent event) {
         try {
             RemoteJoin stub = (RemoteJoin) UnicastRemoteObject.exportObject(this, 0);
             Registry registry = LocateRegistry.createRegistry(1888);
-            System.setProperty("java.rmi.server.hostname","192.168.1.107");
+            System.setProperty("java.rmi.server.hostname", "192.168.1.107");
             registry.rebind("Hello", stub);
             System.out.println("Server ready.");
             serverStatus("ok");
@@ -114,12 +118,12 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     }
 
     public void serverStatus(String activationResponse) {
-        if(activationResponse.equals("ok")) {
+        if (activationResponse.equals("ok")) {
             serverStatusField.setText("Attivo");
             serverStatusField.setStyle("-fx-text-fill: green");
             serverButton.setDisable(true);
         }
-        if(activationResponse.equals("err")) {
+        if (activationResponse.equals("err")) {
             serverStatusField.setText("Errore");
             serverStatusField.setStyle("-fx-text-fill: red");
         }
@@ -128,7 +132,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
     public void partecipaPressed(ActionEvent event) {
         try {
-            registry = LocateRegistry.getRegistry("192.168.1.107",1888);
+            registry = LocateRegistry.getRegistry("192.168.1.107", 1888);
             stub = (RemoteJoin) registry.lookup("Hello");
             String nameFieldValue = nameField.getText();
             String response = stub.joinRequest(nameFieldValue);
@@ -177,12 +181,18 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
          */
         int listSize = list.size();
         switch (listSize) {
-            case 0: return COLOR.YELLOW;
-            case 1: return COLOR.RED;
-            case 2: return COLOR.BLACK;
-            case 3: return COLOR.BLUE;
-            case 4: return COLOR.GREEN;
-            default: return COLOR.PINK;
+            case 0:
+                return COLOR.YELLOW;
+            case 1:
+                return COLOR.RED;
+            case 2:
+                return COLOR.BLACK;
+            case 3:
+                return COLOR.BLUE;
+            case 4:
+                return COLOR.GREEN;
+            default:
+                return COLOR.PINK;
         }
     }
 
@@ -193,10 +203,10 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         isOnlineMultiplayer = true;
 
         PlayersList.setPlayers(list);
-        Parent playerSceneParent= FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameScene.fxml"));
+        Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameScene.fxml"));
 
         Scene playerScene = new Scene(playerSceneParent);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(playerScene);
         window.show();
 
@@ -205,10 +215,10 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
     private void mapSelected(String image, String mapImage, String terrImage, String terrFiles, String contsFile, String missFile) {
 
-        if(mapImage.equals("src/view/fxmls/images/Maps/RisikoClassic/map.jpg")) {
+        if (mapImage.equals("src/view/fxmls/images/Maps/RisikoClassic/map.jpg")) {
             mapinput.setText(map1.getText());
         }
-        if(mapImage.equals("src/view/fxmls/images/Maps/SPQRisiko/map.jpg")) {
+        if (mapImage.equals("src/view/fxmls/images/Maps/SPQRisiko/map.jpg")) {
             mapinput.setText(map2.getText());
         }
 
@@ -225,8 +235,8 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         mapChosed = true;
     }
 
-      //****************************//
-     // Metodi relativi a Java RMI //
+    //****************************//
+    // Metodi relativi a Java RMI //
     //****************************//
 
     @Override
@@ -235,7 +245,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     }
 
     @Override
-    public String joinRequest(String clientInput) throws RemoteException{
+    public String joinRequest(String clientInput) throws RemoteException {
         //System.out.println("Richiesta da client ricevuta");
         Platform.runLater(new Runnable() {
             @Override
@@ -256,15 +266,55 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         //return listaCopiata;
     }
 
+    @Override
+    public String getMap() throws RemoteException {
+        return map;
+    }
+
+    @Override
+    public String getTerritories() throws RemoteException {
+        return territories;
+    }
+
+    @Override
+    public String getTerrFile() throws RemoteException {
+        return terrFile;
+    }
+
+    @Override
+    public String getContinentFile() throws RemoteException {
+        return continentsFile;
+    }
+
+    @Override
+    public String getMissions() throws RemoteException {
+        return missions;
+    }
+
     public void remotePlayerSetter() throws RemoteException {
-        try {
-            registry = LocateRegistry.getRegistry("192.168.1.107",1888);
-            stub = (RemoteJoin) registry.lookup("Hello");
-            //verificare se effettivamente list prende i valori da stub
-            list = stub.getList();
+    }
 
-        } catch (Exception e) {}
+    public void startGamePressed2(ActionEvent event) throws IOException {
+        // Adattare il controller del GameScene.fxml per poter caricare
+        // il nuovo scenario!
 
-        }
+        list = stub.getList();
+        map = stub.getMap();
+        territories = stub.getTerritories();
+        terrFile = stub.getTerrFile();
+        continentsFile = stub.getContinentFile();
+        missions = stub.getMissions();
+
+        isOnlineMultiplayer = true;
+
+        PlayersList.setPlayers(list);
+        Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/OnlineGameScene.fxml"));
+
+        Scene playerScene = new Scene(playerSceneParent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(playerScene);
+        window.show();
 
     }
+
+}

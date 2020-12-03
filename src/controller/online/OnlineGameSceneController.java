@@ -1,6 +1,10 @@
-package controller;
+package controller.online;
 
-import controller.mouseFunction.*;
+import controller.PlayerSceneController;
+import controller.RemoteJoin;
+import controller.RemotePlay;
+import controller.online.mouseFuction.*;
+//import controller.mouseFunction.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,11 +35,12 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class OnlineGameSceneController implements RemotePlay{
+public class OnlineGameSceneController implements RemotePlay {
 
 	@FXML
 	private ImageView mapBackground;
@@ -92,6 +97,8 @@ public class OnlineGameSceneController implements RemotePlay{
 
 
 	private static OnlineGameSceneController instance;
+
+	private static RemotePlay playStub;
 
 	/**
      * Sets the instance to this instance of GameSceneController
@@ -162,7 +169,7 @@ public class OnlineGameSceneController implements RemotePlay{
      * @throws NumberFormatException
      * @throws IOException
      */
-	public void initialize() throws NumberFormatException, IOException{
+	public void initialize() throws NumberFormatException, IOException, NotBoundException {
 		if (OnlineSceneController.isOnlineMultiplayer == true) {
 			initializeOnline();
 		}
@@ -205,13 +212,26 @@ public class OnlineGameSceneController implements RemotePlay{
 		}
 	}
 
-	public void initializeOnline() throws IOException {
+	public void initializeOnline() throws IOException, NotBoundException {
 
 		game = new RisikoGame(PlayersList.getPlayers(), OnlineSceneController.terrFile, OnlineSceneController.continentsFile, OnlineSceneController.missions);
+
+		if(OnlineSceneController.amIaServer) {
+			//Codice da eseguire se sono un server (aggiungo metodi allo stub)
+			RemotePlay playStub = (RemotePlay) UnicastRemoteObject.exportObject(this, 1);
+			System.setProperty("java.rmi.server.hostname", "192.168.1.107");
+			OnlineSceneController.registry.rebind("Play", playStub);
+		}
+
 
 		RemotePlay playStub = (RemotePlay) UnicastRemoteObject.exportObject(this, 1);
 		System.setProperty("java.rmi.server.hostname", "192.168.1.107");
 		OnlineSceneController.registry.rebind("Play", playStub);
+
+		if(!OnlineSceneController.amIaServer) {
+			//Codice da eseguire se sono un client (fetch da stub)
+			playStub = (RemotePlay) OnlineSceneController.registry.lookup("Play");
+		}
 
 		File file = new File(OnlineSceneController.map);
 		Image temp = new Image(file.toURI().toString());
@@ -285,8 +305,9 @@ public class OnlineGameSceneController implements RemotePlay{
      * @param e is the event
      * @throws IOexception
      */
+
 	public void cardButtonPressed(ActionEvent e) throws IOException {
-		windowLoader("view/fxmls/SelectCardScene.fxml", "Carte", false);
+		windowLoader("view/fxmls/OnlineSelectCardScene.fxml", "Carte", false);
 	}
 	
 	/**
@@ -791,10 +812,14 @@ public class OnlineGameSceneController implements RemotePlay{
 		}
 	}
 
+	@Override
+	public void callCard() throws IOException {
+		cardButtonPressed(new ActionEvent());
+	}
+
 	/*Metodi JAVA RMI*/
 
-	@Override
-	public void remoteCardPressed() throws IOException {
-		cardButtonPressed(new ActionEvent());
+	public void remoteCardCaller() throws IOException {
+		playStub.callCard();
 	}
 }

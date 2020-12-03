@@ -1,4 +1,4 @@
-package controller;
+package controller.online;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import controller.RemoteJoin;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -72,6 +73,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     public static String missions;
 
     public static String myColor;
+    public static boolean amIaServer;
 
     public static boolean isOnlineMultiplayer;
 
@@ -102,6 +104,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
     public void serverPressed(ActionEvent event) {
         try {
+            amIaServer = true;
             RemoteJoin stub = (RemoteJoin) UnicastRemoteObject.exportObject(this, 0);
             Registry registry = LocateRegistry.createRegistry(1888);
             System.setProperty("java.rmi.server.hostname", "192.168.1.107");
@@ -125,13 +128,14 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         }
         if (activationResponse.equals("err")) {
             serverStatusField.setText("Errore");
-            serverStatusField.setStyle("-fx-text-fill: red");
+            serverStatusField.setStyle("-fx-text-fill: #ff0000");
         }
 
     }
 
     public void partecipaPressed(ActionEvent event) {
         try {
+            amIaServer = false;
             registry = LocateRegistry.getRegistry("192.168.1.107", 1888);
             stub = (RemoteJoin) registry.lookup("Hello");
             String nameFieldValue = nameField.getText();

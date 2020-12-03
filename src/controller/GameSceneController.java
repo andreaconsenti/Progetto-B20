@@ -3,12 +3,6 @@ package controller;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.rmi.Naming;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +14,7 @@ import controller.mouseFunction.FinalmoveExecutor;
 import controller.mouseFunction.FirstturnExecutor;
 import controller.mouseFunction.FunctionExecutor;
 import controller.mouseFunction.ReinforcementExecutor;
+import controller.online.OnlineSceneController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -809,7 +804,7 @@ public class GameSceneController implements RemotePlay{
 	/*Metodi JAVA RMI*/
 
 	@Override
-	public void remoteCardPressed() throws IOException {
-		cardButtonPressed(new ActionEvent());
+	public void callCard() throws IOException {
+
 	}
 }

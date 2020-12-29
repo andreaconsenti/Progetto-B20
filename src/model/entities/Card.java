@@ -1,6 +1,8 @@
 package model.entities;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Serializable {
 	
 	private FIGURE figure;
 	private Territory territory;

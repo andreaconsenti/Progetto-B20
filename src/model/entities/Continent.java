@@ -1,8 +1,9 @@
 package model.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Continent {
+public class Continent implements Serializable {
 	
 	private int code;
 	private String name;

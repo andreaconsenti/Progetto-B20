@@ -5,10 +5,12 @@ import controller.online.OnlineGameSceneController;
 import model.entities.Territory;
 import model.util.Pixel;
 
+import java.io.IOException;
+
 public class FirstturnExecutor implements FunctionExecutor {
 
 	@Override
-	public void executeClick() {
+	public void executeClick() throws IOException {
 	if(OnlineGameSceneController.getInstance().getSelTerr() != null) {
 		OnlineGameSceneController.getInstance().placeTank();
 		OnlineGameSceneController.getInstance().setStatusBar();

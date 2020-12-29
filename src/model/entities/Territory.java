@@ -1,9 +1,10 @@
 package model.entities;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Territory {
+public class Territory implements Serializable {
 	
 	private String name;
 	private Player owner;

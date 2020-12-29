@@ -68,7 +68,7 @@
       </Label>
       <ToolBar id="toolbar" layoutY="663.0" prefHeight="61.0" prefWidth="1115.0" rotate="180.0" stylesheets="@../css/StyleSheet.css">
          <items>
-            <Button id="button" fx:id="cardButton" mnemonicParsing="false" onAction="#remoteCardCaller" prefHeight="40.0" prefWidth="88.0" rotate="180.0" stylesheets="@../css/StyleSheet.css" text="CARTE" translateX="1000.0" />
+            <Button id="button" fx:id="cardButton" mnemonicParsing="false" onAction="#cardButtonPressed" prefHeight="40.0" prefWidth="88.0" rotate="180.0" stylesheets="@../css/StyleSheet.css" text="CARTE" translateX="1000.0" />
             <Button id="button" fx:id="missionButton" mnemonicParsing="false" onAction="#missionButtonPressed" prefHeight="40.0" prefWidth="88.0" rotate="180.0" stylesheets="@../css/StyleSheet.css" text="MISSIONE" translateX="780.0" />
             <Button id="button" fx:id="menuButton" mnemonicParsing="false" onAction="#menuPressed" prefHeight="39.0" prefWidth="81.0" rotate="180.0" stylesheets="@../css/StyleSheet.css" text="MENU" translateX="560.0" />
             <Button id="redbutton" fx:id="endTurn" mnemonicParsing="false" onAction="#endTurnPressed" prefHeight="42.0" prefWidth="149.0" rotate="180.0" stylesheets="@../css/StyleSheet.css" text="TERMINA TURNO" translateX="-220.0" />
@@ -84,7 +84,10 @@
          </items></ToolBar>
       <AnchorPane fx:id="tanksPane" layoutY="56.0" prefHeight="609.0" prefWidth="1115.0">
          <children>
-            <TextField layoutX="7.0" layoutY="550.0" text="Attendi il tuo turno..." />
+            <TextField layoutX="7.0" layoutY="550.0" prefHeight="26.0" prefWidth="128.0" text="ATTENDI IL TURNO">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></TextField>
          </children></AnchorPane>
    </children>
 </Pane>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane id="grey3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="511.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.online.OnlineAttackSceneController">
+   <children>
+      <Pane id="attack2" prefHeight="252.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
+         <children>
+            <ImageView fx:id="aDie1" fitHeight="50.0" fitWidth="51.0" layoutX="103.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Dadi/redDie.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="aDie2" fitHeight="50.0" fitWidth="51.0" layoutX="103.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Dadi/redDie.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="aDie3" fitHeight="50.0" fitWidth="51.0" layoutX="103.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Dadi/redDie.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="dDie1" fitHeight="50.0" fitWidth="51.0" layoutX="356.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Dadi/bluDie.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="dDie2" fitHeight="50.0" fitWidth="51.0" layoutX="356.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Dadi/bluDie.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="dDie3" fitHeight="50.0" fitWidth="51.0" layoutX="356.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Dadi/bluDie.png" />
+               </image>
+            </ImageView>
+            <Pane id="attaccodifesa" prefHeight="66.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
+               <children>
+                  <Label fx:id="defLabel" layoutX="331.0" layoutY="40.0" text="TERRITORIO_DIFESA" textFill="WHITE">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="87.0" layoutY="6.0" text="ATTACCO" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="atkLabel" layoutX="73.0" layoutY="40.0" text="TERRITORIO_ATTACCO" textFill="WHITE">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="350.0" layoutY="6.0" text="DIFESA" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane id="attack1" layoutY="249.0" prefHeight="151.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
+         <children>
+            <MenuButton id="menubutton" fx:id="scegliNumeroArmate" alignment="CENTER" contentDisplay="BOTTOM" layoutX="14.0" layoutY="79.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="34.0" prefWidth="261.0" stylesheets="@../css/StyleSheet.css" text="CON QUANTE ARMATE VUOI ATTACCARE?" textFill="WHITE">
+              <items>
+                <MenuItem fx:id="three" mnemonicParsing="false" style="-: ;" text="3" />
+                  <MenuItem fx:id="two" mnemonicParsing="false" text="2" />
+                <MenuItem fx:id="one" mnemonicParsing="false" text="1" />
+              </items>
+               <font>
+                  <Font size="6.0" />
+               </font>
+            </MenuButton>
+            <Button id="redbutton" fx:id="annullaButton" layoutX="404.0" layoutY="75.0" mnemonicParsing="false" onAction="#annullaButtonPressed" stylesheets="@../css/StyleSheet.css" text="ANNULLA" />
+            <Button id="button" fx:id="attackButton" layoutX="302.0" layoutY="56.0" mnemonicParsing="false" onAction="#attackButtonPressed" stylesheets="@../css/StyleSheet.css" text="ATTACCA" />
+            <Button id="viola" fx:id="annichilisciButton" layoutX="302.0" layoutY="104.0" mnemonicParsing="false" onAction="#assediaPressed" stylesheets="@../css/StyleSheet.css" text="ASSEDIA" />
+            <Pane id="attaccodifesa" prefHeight="50.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
+               <children>
+                  <Label layoutX="9.0" layoutY="5.0" prefHeight="19.0" prefWidth="202.0" text="LE TUE ARMATE SUL TERRITORIO SONO:" textFill="WHITE">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="295.0" layoutY="5.0" prefHeight="19.0" prefWidth="202.0" text="LE TUE ARMATE SUL TERRITORIO SONO:" textFill="WHITE">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="atkN" layoutX="96.0" layoutY="25.0" text="N_ATT" textFill="WHITE">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="defN" layoutX="380.0" layoutY="25.0" text="N_DIF" textFill="WHITE">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</Pane>

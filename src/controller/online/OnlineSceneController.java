@@ -3,6 +3,7 @@ package controller.online;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -74,6 +75,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
     public static String myColor;
     public static boolean amIaServer;
+    public static boolean amIaClient;
 
     public static boolean isOnlineMultiplayer;
 
@@ -106,8 +108,10 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         try {
             amIaServer = true;
             RemoteJoin stub = (RemoteJoin) UnicastRemoteObject.exportObject(this, 0);
-            Registry registry = LocateRegistry.createRegistry(1888);
-            System.setProperty("java.rmi.server.hostname", "192.168.1.107");
+            registry = LocateRegistry.createRegistry(1888);
+            //Per pavia mettere
+            //System.setProperty("java.rmi.server.hostname", "192.168.1.107");
+            System.setProperty("java.rmi.server.hostname", "192.168.1.204");
             registry.rebind("Hello", stub);
             System.out.println("Server ready.");
             serverStatus("ok");
@@ -135,8 +139,10 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
     public void partecipaPressed(ActionEvent event) {
         try {
-            amIaServer = false;
-            registry = LocateRegistry.getRegistry("192.168.1.107", 1888);
+            amIaClient = true;
+            //Per pavia mettere
+            //registry = LocateRegistry.getRegistry("192.168.1.107", 1888);
+            registry = LocateRegistry.getRegistry("192.168.1.204", 1888);
             stub = (RemoteJoin) registry.lookup("Hello");
             String nameFieldValue = nameField.getText();
             String response = stub.joinRequest(nameFieldValue);
@@ -167,8 +173,12 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
     }
 
-    public void chiudiPressed(ActionEvent event) {
+    public void chiudiPressed(ActionEvent event) throws RemoteException, NotBoundException {
         /*ToDo: pulire il codice*/
+
+        stub = (RemoteJoin) registry.lookup("Hello");
+
+
         partecipaButton.setDisable(true);
         nameField.setEditable(false);
 
@@ -308,6 +318,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         terrFile = stub.getTerrFile();
         continentsFile = stub.getContinentFile();
         missions = stub.getMissions();
+
 
         isOnlineMultiplayer = true;
 

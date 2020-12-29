@@ -1,14 +1,14 @@
-package model.entities;
+package model.entities.online;
+
+import controller.GameSceneController;
+import model.entities.*;
+import model.entities.Mission.MISSION_TYPE;
+import model.util.FileHandler;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
-
-import controller.GameSceneController;
-import model.entities.Mission.MISSION_TYPE;
-import model.util.FileHandler;
 
 public class RisikoGame implements Serializable {
 	

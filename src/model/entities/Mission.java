@@ -1,6 +1,8 @@
 package model.entities;
 
-public class Mission {
+import java.io.Serializable;
+
+public class Mission implements Serializable {
 	
 	private int numberOfTerritories;
 	private int numberOfTanks;
@@ -30,7 +32,7 @@ public class Mission {
 		numberOfTerritories = nty;
 		numberOfTanks = ntk;
 		this.codMission=codMission;
-		description="Il tuo obiettivo è di conquistare " +nty+ " territori con almeno " +ntk+ " armate su ogni terriorio\n";
+		description="Il tuo obiettivo ï¿½ di conquistare " +nty+ " territori con almeno " +ntk+ " armate su ogni terriorio\n";
 	}
 	
 	/**
@@ -47,7 +49,7 @@ public class Mission {
 		con2 = cont2;
 		con3 = cont3;
 		this.codMission=codMission;
-		description="Il tuo obiettivo è di conquistare la totalità di " +getContinent1().getName()+ ", " +getContinent2().getName();
+		description="Il tuo obiettivo ï¿½ di conquistare la totalitï¿½ di " +getContinent1().getName()+ ", " +getContinent2().getName();
 		if(cont3) {
 			description += " e di un altro continente a tua scelta\n";
 		}

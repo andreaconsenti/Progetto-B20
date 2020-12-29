@@ -45,7 +45,7 @@ import model.util.FileHandler;
 import model.util.ImageAssets;
 import model.util.Pixel;
 
-public class GameSceneController implements RemotePlay{
+public class GameSceneController {
 	
 	@FXML
 	private ImageView mapBackground;
@@ -173,10 +173,8 @@ public class GameSceneController implements RemotePlay{
      * @throws IOException
      */
 	public void initialize() throws NumberFormatException, IOException{
-		if (OnlineSceneController.isOnlineMultiplayer == true) {
-			initializeOnline();
-		}
-		else {
+
+
 			game = new RisikoGame(PlayersList.getPlayers(), PlayerSceneController.terrFile, PlayerSceneController.continentsFile, PlayerSceneController.missions);
 
 			File file = new File(PlayerSceneController.map);
@@ -205,7 +203,7 @@ public class GameSceneController implements RemotePlay{
 			endTurn.setDisable(true);
 			nextPhase.setDisable(true);
 			nextPhase.setText("POSIZIONAMENTO");
-		}
+
 
 		for(Player p : PlayersList.getPlayers()) {
 			if(p.isAI()) {
@@ -215,6 +213,7 @@ public class GameSceneController implements RemotePlay{
 		}
 	}
 
+	/*
 	public void initializeOnline() throws IOException {
 
 		game = new RisikoGame(PlayersList.getPlayers(), OnlineSceneController.terrFile, OnlineSceneController.continentsFile, OnlineSceneController.missions);
@@ -250,6 +249,8 @@ public class GameSceneController implements RemotePlay{
 		nextPhase.setDisable(true);
 		nextPhase.setText("POSIZIONAMENTO");
 	}
+
+	 */
 	
 	/**
      * Manages every movement of the mouse controlled by the player
@@ -293,7 +294,7 @@ public class GameSceneController implements RemotePlay{
 	/**
      * Loads the Card scene when the button cardButton is pressed
      * @param e is the event
-     * @throws IOexception
+	 * @throws IOexception
      */
 	public void cardButtonPressed(ActionEvent e) throws IOException {
 		windowLoader("view/fxmls/SelectCardScene.fxml", "Carte", false);
@@ -801,10 +802,4 @@ public class GameSceneController implements RemotePlay{
 		}
 	}
 
-	/*Metodi JAVA RMI*/
-
-	@Override
-	public void callCard() throws IOException {
-
-	}
 }

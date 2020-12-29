@@ -4,23 +4,29 @@ import controller.PlayerSceneController;
 import controller.RemoteJoin;
 import controller.RemotePlay;
 import controller.online.mouseFuction.*;
+import controller.online.OnlineAttackSceneController;
 //import controller.mouseFunction.*;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import model.entities.Player;
 import model.entities.PlayersList;
@@ -32,10 +38,13 @@ import model.util.ImageAssets;
 import model.util.Pixel;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,6 +87,7 @@ public class OnlineGameSceneController implements RemotePlay {
 	@FXML
 	private Label plContinents;
 
+
 	@FXML
 	private Label plTanks;
 
@@ -93,12 +103,17 @@ public class OnlineGameSceneController implements RemotePlay {
 	private Territory territorySelected;
 	public static Territory territory1;
 	public static Territory territory2;
+
+	public static Territory lastServerTerritory;
+
 	private HashMap<GAME_PHASE, FunctionExecutor> executors;
 
 
 	private static OnlineGameSceneController instance;
 
 	private static RemotePlay playStub;
+
+	private boolean serverTerrStatus;
 
 	/**
      * Sets the instance to this instance of GameSceneController
@@ -116,7 +131,7 @@ public class OnlineGameSceneController implements RemotePlay {
 	}
 
 
-	private class territoryStatus{
+	private class territoryStatus implements Serializable {
 		private ImageView image;
 		private Label number;
 		
@@ -214,23 +229,19 @@ public class OnlineGameSceneController implements RemotePlay {
 
 	public void initializeOnline() throws IOException, NotBoundException {
 
-		game = new RisikoGame(PlayersList.getPlayers(), OnlineSceneController.terrFile, OnlineSceneController.continentsFile, OnlineSceneController.missions);
-
 		if(OnlineSceneController.amIaServer) {
+			game = new RisikoGame(PlayersList.getPlayers(), OnlineSceneController.terrFile, OnlineSceneController.continentsFile, OnlineSceneController.missions);
 			//Codice da eseguire se sono un server (aggiungo metodi allo stub)
 			RemotePlay playStub = (RemotePlay) UnicastRemoteObject.exportObject(this, 1);
-			System.setProperty("java.rmi.server.hostname", "192.168.1.107");
+			//Per rete pavia mettere
+			//			System.setProperty("java.rmi.server.hostname", "192.168.1.107");
+			System.setProperty("java.rmi.server.hostname", "192.168.1.204");
 			OnlineSceneController.registry.rebind("Play", playStub);
 		}
 
-
-		RemotePlay playStub = (RemotePlay) UnicastRemoteObject.exportObject(this, 1);
-		System.setProperty("java.rmi.server.hostname", "192.168.1.107");
-		OnlineSceneController.registry.rebind("Play", playStub);
-
-		if(!OnlineSceneController.amIaServer) {
-			//Codice da eseguire se sono un client (fetch da stub)
+		if(OnlineSceneController.amIaClient) {
 			playStub = (RemotePlay) OnlineSceneController.registry.lookup("Play");
+			game = playStub.getCurrentGame();
 		}
 
 		File file = new File(OnlineSceneController.map);
@@ -259,6 +270,11 @@ public class OnlineGameSceneController implements RemotePlay {
 		endTurn.setDisable(true);
 		nextPhase.setDisable(true);
 		nextPhase.setText("POSIZIONAMENTO");
+
+		if(OnlineSceneController.amIaClient) {
+			playStub = (RemotePlay) OnlineSceneController.registry.lookup("Play");
+			//game = playStub.getCurrentGame();
+		}
 	}
 	
 	/**
@@ -334,7 +350,7 @@ public class OnlineGameSceneController implements RemotePlay {
 	 */
 	public void attackerAndDefenderChosen (){
 		try {
-			windowLoader("view/fxmls/AttackScene.fxml", "Attacco", false);
+			windowLoader("view/fxmls/OnlineAttackScene.fxml", "Attacco", false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -730,6 +746,20 @@ public class OnlineGameSceneController implements RemotePlay {
 		if(game.firstPhaseEnded()) {
 			nextPhase();
 		}
+		//inizio fase aggiornamento dati da server
+		/*
+		if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
+			try {
+				waitForUpdate();
+			} catch (InterruptedException e) {
+				System.out.println("problema timer");
+				e.printStackTrace();
+			} catch (IOException e) {
+				System.out.println("problema altro");
+				e.printStackTrace();
+			}
+		}*/
+		//fine fase aggiornamento da server
 	}
 	
 	/**
@@ -798,12 +828,25 @@ public class OnlineGameSceneController implements RemotePlay {
 		return territorySelected;
 	}
 	
-	public void placeTank() {
+	public void placeTank() throws IOException {
+		if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
+			remotePlaceTankCaller();
+		}
 		game.getCurrentTurn().placeTank(1);
 		game.addTerritoryTanks(territorySelected);
 		missionControl();
 		Integer n = game.getTerritory(territorySelected).getTanks();
 		mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
+		lastServerTerritory = territorySelected;
+		serverTerrStatus = true;
+
+		if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
+			try {
+				waitForUpdate();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void firstPhaseEnded() {
@@ -812,14 +855,105 @@ public class OnlineGameSceneController implements RemotePlay {
 		}
 	}
 
-	@Override
-	public void callCard() throws IOException {
-		cardButtonPressed(new ActionEvent());
-	}
+
 
 	/*Metodi JAVA RMI*/
 
+	@Override
+	public void callCard() throws IOException {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				// Update UI here.
+				try {
+					cardButtonPressed(new ActionEvent());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+		});
+	}
+
 	public void remoteCardCaller() throws IOException {
 		playStub.callCard();
+	}
+
+	@Override
+	public void remotePlaceTank(Territory remoteTerritory) throws IOException {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				// Update UI here.
+
+				serverTerrStatus = false; //per fare in modo che il server debba riscegliere un territorio
+				game.getCurrentTurn().placeTank(1);
+				game.addTerritoryTanks(remoteTerritory);
+				//Introduco territorioLocale perchè remoteTerritory ricevuto tramite RMI non è rilevato
+				//come un oggetto locale e crea problemi con "mappaImgTanks.get(territorioLocale).getNumber().setText(n.toString())"
+				Territory territorioLocale = game.getTerritory(remoteTerritory);
+				missionControl();
+				Integer n = game.getTerritory(remoteTerritory).getTanks();
+				mappaImgTanks.get(territorioLocale).getNumber().setText(n.toString());
+
+				setStatusBar();
+				setPlayerStatus();
+				nextTurn();
+
+				if(game.getCurrTurnBonusTanks() == 0) {
+					nextPhase();
+				}
+			}
+		});
+	}
+
+	public void remotePlaceTankCaller() throws IOException {
+		playStub.remotePlaceTank(getSelTerr());
+	}
+
+	public void clientPlaceTank(Territory territoryFromServer) {
+
+		game.getCurrentTurn().placeTank(1);
+		game.addTerritoryTanks(territoryFromServer);
+		Territory territorioLocale = game.getTerritory(territoryFromServer);
+		missionControl();
+		Integer n = game.getTerritory(territorioLocale).getTanks();
+		mappaImgTanks.get(territorioLocale).getNumber().setText(n.toString());
+
+		setStatusBar();
+		setPlayerStatus();
+		nextTurn();
+
+		if(game.getCurrTurnBonusTanks() == 0) {
+			nextPhase();
+		}
+
+	}
+
+
+	@Override
+	public RisikoGame getCurrentGame() {
+		return game;
+	}
+
+	public void waitForUpdate() throws InterruptedException, IOException {
+		boolean terrSelFromServer = false;
+		while (!terrSelFromServer) {
+			Thread.sleep(1000);
+			terrSelFromServer = playStub.getServerTerrStatus();
+		}
+
+		lastServerTerritory = playStub.getLastServerTerritory();
+		clientPlaceTank(lastServerTerritory);
+	}
+
+	@Override
+	public Territory getLastServerTerritory() throws RemoteException {
+		return lastServerTerritory;
+	}
+
+	@Override
+	public boolean getServerTerrStatus() throws IOException {
+		return serverTerrStatus;
 	}
 }

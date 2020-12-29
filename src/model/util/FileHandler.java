@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
@@ -15,7 +16,7 @@ import model.entities.Mission;
 import model.entities.RisikoGame;
 import model.entities.Territory;
 
-public class FileHandler {
+public class FileHandler implements Serializable {
 	private ArrayList<Territory> list;
 	private ArrayList<Card> card;
 	private ArrayList<Mission> missions;

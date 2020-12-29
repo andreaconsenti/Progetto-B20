@@ -1,21 +1,23 @@
 package controller.online.mouseFuction;
 
-import controller.GameSceneController;
+import controller.online.OnlineGameSceneController;
 import model.entities.Territory;
 import model.util.Pixel;
+
+import java.io.IOException;
 
 public class ReinforcementExecutor implements FunctionExecutor {
 
 	@Override
-	public void executeClick() {
-		if(GameSceneController.getInstance().getSelTerr() != null) {
-			GameSceneController.getInstance().placeTank();
-			GameSceneController.getInstance().setStatusBar();
-			GameSceneController.getInstance().setPlayerStatus();
-			GameSceneController.getInstance().missionControl();
+	public void executeClick() throws IOException {
+		if(OnlineGameSceneController.getInstance().getSelTerr() != null) {
+			OnlineGameSceneController.getInstance().placeTank();
+			OnlineGameSceneController.getInstance().setStatusBar();
+			OnlineGameSceneController.getInstance().setPlayerStatus();
+			OnlineGameSceneController.getInstance().missionControl();
 
-			if(GameSceneController.getInstance().getGame().getBonusTanksSum() == 0) {
-				GameSceneController.getInstance().nextPhase();
+			if(OnlineGameSceneController.getInstance().getGame().getBonusTanksSum() == 0) {
+				OnlineGameSceneController.getInstance().nextPhase();
 			}
 		}
 	}
@@ -23,22 +25,22 @@ public class ReinforcementExecutor implements FunctionExecutor {
 	@Override
 	public void executeMove(int x, int y) {
 		int check = 0;
-		for(Territory t : GameSceneController.getInstance().getTerritories()) {
+		for(Territory t : OnlineGameSceneController.getInstance().getTerritories()) {
 			check = 0;
-			for(Pixel p : GameSceneController.getInstance().getPixelMap(t)) {
+			for(Pixel p : OnlineGameSceneController.getInstance().getPixelMap(t)) {
 				
 				if((p.getX() == x) && (p.getY() == y)) {
 					check = 1;
-					GameSceneController.getInstance().setTerritoryLabel(100, t);
-					if(GameSceneController.getInstance().getCurrentPlayer().equals(t.getOwner())) {
-						GameSceneController.getInstance().changeColor(GameSceneController.getInstance().getPixelMap(t));
-						GameSceneController.getInstance().setSelTerritory(t);
+					OnlineGameSceneController.getInstance().setTerritoryLabel(100, t);
+					if(OnlineGameSceneController.getInstance().getCurrentPlayer().equals(t.getOwner())) {
+						OnlineGameSceneController.getInstance().changeColor(OnlineGameSceneController.getInstance().getPixelMap(t));
+						OnlineGameSceneController.getInstance().setSelTerritory(t);
 					}
 					break;
 				} else {
-					GameSceneController.getInstance().resetImage();
-					GameSceneController.getInstance().setTerritoryLabel(0, t);
-					GameSceneController.getInstance().setSelTerritory(null);
+					OnlineGameSceneController.getInstance().resetImage();
+					OnlineGameSceneController.getInstance().setTerritoryLabel(0, t);
+					OnlineGameSceneController.getInstance().setSelTerritory(null);
 				}
 					
 			}

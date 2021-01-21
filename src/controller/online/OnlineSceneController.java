@@ -111,7 +111,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
             registry = LocateRegistry.createRegistry(1888);
             //Per pavia mettere
             //System.setProperty("java.rmi.server.hostname", "192.168.1.107");
-            System.setProperty("java.rmi.server.hostname", "192.168.1.204");
+            System.setProperty("java.rmi.server.hostname", "192.168.1.104");
             registry.rebind("Hello", stub);
             System.out.println("Server ready.");
             serverStatus("ok");
@@ -142,7 +142,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
             amIaClient = true;
             //Per pavia mettere
             //registry = LocateRegistry.getRegistry("192.168.1.107", 1888);
-            registry = LocateRegistry.getRegistry("192.168.1.204", 1888);
+            registry = LocateRegistry.getRegistry("192.168.1.104", 1888);
             stub = (RemoteJoin) registry.lookup("Hello");
             String nameFieldValue = nameField.getText();
             String response = stub.joinRequest(nameFieldValue);

@@ -16,7 +16,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import model.entities.Card;
 import model.entities.FIGURE;
-import model.entities.RisikoGame.GAME_PHASE;
+//funz
+//import model.entities.RisikoGame.GAME_PHASE;
+import model.entities.online.RisikoGame.GAME_PHASE;
 
 import java.io.File;
 import java.io.IOException;

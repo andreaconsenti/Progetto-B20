@@ -1,6 +1,7 @@
 package model.entities.online;
-
-import controller.GameSceneController;
+//funz
+//import controller.GameSceneController;
+import controller.online.OnlineGameSceneController;
 import model.entities.*;
 import model.entities.Mission.MISSION_TYPE;
 import model.util.FileHandler;
@@ -171,15 +172,15 @@ public class RisikoGame implements Serializable {
 		
 		for(int i=0; i < n; i++) {
 			if(atkResults[i] > defResults[i]) {
-				getTerritory(GameSceneController.territory2).removeTanks(1);
-				getPlayer(GameSceneController.territory2.getOwner()).removeTanks(1);
+				getTerritory(OnlineGameSceneController.territory2).removeTanks(1);
+				getPlayer(OnlineGameSceneController.territory2.getOwner()).removeTanks(1);
 			} else {
-				getTerritory(GameSceneController.territory1).removeTanks(1);
+				getTerritory(OnlineGameSceneController.territory1).removeTanks(1);
 				currentTurn.removeTanks(1);
 			}
 		}
-		if(getPlayer(GameSceneController.territory2.getOwner()).getTanks()==0) {
-			getPlayer(GameSceneController.territory2.getOwner()).setEliminated(true);
+		if(getPlayer(OnlineGameSceneController.territory2.getOwner()).getTanks()==0) {
+			getPlayer(OnlineGameSceneController.territory2.getOwner()).setEliminated(true);
 		}
 	}
 	

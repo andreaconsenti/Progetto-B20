@@ -235,7 +235,7 @@ public class OnlineAttackSceneController {
     private void territoryConquered () throws IOException {
 		OnlineGameSceneController.game.conquer(OnlineGameSceneController.territory1, OnlineGameSceneController.territory2);
     	
-		Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/MoveScene.fxml"));
+		Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/OnlineMoveScene.fxml"));
 		Scene scene = new Scene(parent);
 		Stage window = new Stage();
 		window.initStyle(StageStyle.UNDECORATED);

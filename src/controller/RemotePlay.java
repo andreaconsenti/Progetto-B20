@@ -23,4 +23,20 @@ public interface RemotePlay extends Remote {
     ArrayList<Territory> getUpdatedTerritory() throws RemoteException;
 
     RisikoGame getCurrentGame() throws RemoteException;
+
+    boolean getServerTurnClosed() throws RemoteException;
+    boolean getServerAttackClosed() throws RemoteException;
+    int[] getServerAtkResults() throws RemoteException;
+    int[] getServerDefResults() throws RemoteException;
+    int getServerAtkNumber() throws RemoteException;
+    int getServerDefNumber() throws RemoteException;
+    Territory getServerAtkTerritory() throws RemoteException;
+    Territory getServerDefTerritory() throws RemoteException;
+
+    int getServerAtkNewTankNum() throws RemoteException;
+    int getServerDefNewTankNum() throws RemoteException;
+
+
+
+
 }

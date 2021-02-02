@@ -134,8 +134,15 @@ public class OnlineAttackSceneController {
     	
     	OnlineGameSceneController.game.battle(atkResults, defResults, atkNumber, defNumber);
 
-		OnlineGameSceneController.serverAtkNewTankNum = OnlineGameSceneController.territory1.getTanks();
-		OnlineGameSceneController.serverDefNewTankNum = OnlineGameSceneController.territory2.getTanks();
+
+    	if(OnlineSceneController.amIaServer /*&& !OnlineSceneController.amIaClient*/) {
+
+			OnlineGameSceneController.serverAtkNewTankNum = OnlineGameSceneController.territory1.getTanks();
+			OnlineGameSceneController.serverDefNewTankNum = OnlineGameSceneController.territory2.getTanks();
+
+		}
+
+
 
     	updateGUI();
     	menuHandler();

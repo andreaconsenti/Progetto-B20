@@ -37,6 +37,6 @@ public interface RemotePlay extends Remote {
     int getServerDefNewTankNum() throws RemoteException;
 
 
-
+    void remoteAttack(Territory territory1, Territory territory2, int newNumT1, int newNumT2) throws RemoteException;
 
 }

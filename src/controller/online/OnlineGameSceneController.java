@@ -144,6 +144,12 @@ public class OnlineGameSceneController implements RemotePlay {
     protected static int serverDefNewTankNum;
 
 
+    protected static Territory clientAtk;
+    protected static Territory clientDef;
+    protected static int clientAtkTanks;
+    protected static int clientDefTanks;
+
+
     /**
      * Sets the instance to this instance of GameSceneController
      */
@@ -447,6 +453,7 @@ public class OnlineGameSceneController implements RemotePlay {
             serverTurnClosed = true;
             System.out.println("Turno server chiuso =" + serverTurnClosed);
         }
+        //potrebbe essere qui il problema
         nextTurn();
     }
 
@@ -1019,7 +1026,6 @@ public class OnlineGameSceneController implements RemotePlay {
     }
 
 
-
     /*Metodi JAVA RMI*/
 
     @Override
@@ -1058,6 +1064,10 @@ public class OnlineGameSceneController implements RemotePlay {
                 missionControl();
                 Integer n = game.getTerritory(remoteTerritory).getTanks();
                 mappaImgTanks.get(territorioLocale).getNumber().setText(n.toString());
+
+                if(bandiera) {
+                    return;
+                }
 
                 setStatusBar();
                 setPlayerStatus();
@@ -1210,4 +1220,47 @@ public class OnlineGameSceneController implements RemotePlay {
     public int getServerDefNewTankNum() throws RemoteException {
         return serverDefNewTankNum;
     }
+
+
+    @Override
+    public void remoteAttack(Territory terrCl1, Territory terrCl2, int nuovoValAtk, int nuovoValDef) {
+
+        Territory t1 = game.getTerritory(terrCl1);
+        Territory t2 = game.getTerritory(terrCl2);
+
+        int vecchioValAtk = game.getTerritory(terrCl1).getTanks();
+        int vecchioValDef = game.getTerritory(terrCl2).getTanks();
+
+        if(nuovoValAtk > vecchioValAtk)  {
+            int tankDaAgg = nuovoValAtk - vecchioValAtk;
+            game.getTerritory(t1).addTanks(tankDaAgg);
+        }
+        if(nuovoValAtk < vecchioValAtk) {
+            int tankDaRim = vecchioValAtk - nuovoValAtk;
+            game.getTerritory(t1).removeTanks(tankDaRim);
+        }
+
+        if(nuovoValDef > vecchioValDef)  {
+            int tankDaAgg = nuovoValDef - vecchioValDef;
+            game.getTerritory(t2).addTanks(tankDaAgg);
+        }
+        if(nuovoValDef < vecchioValDef) {
+            int tankDaRim = vecchioValDef - nuovoValDef;
+            game.getTerritory(t2).removeTanks(tankDaRim);
+        }
+
+        //aggiorno interfaccia server dopo attacco di client
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Integer temp = t1.getTanks();
+                mappaImgTanks.get(t1).getNumber().setText(temp.toString());
+                temp = t2.getTanks();
+                mappaImgTanks.get(t2).getNumber().setText(temp.toString());
+            }
+        });
+    }
+
+
 }

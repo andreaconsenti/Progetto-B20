@@ -33,6 +33,7 @@ import model.entities.Player;
 import model.entities.PlayersList;
 //funz
 //import model.entities.RisikoGame;
+import model.entities.online.Attacco;
 import model.entities.online.RisikoGame;
 
 //funz
@@ -124,9 +125,15 @@ public class OnlineGameSceneController implements RemotePlay {
 
     private boolean serverTerrStatus;
 
+    private boolean forzaReinforcement;
+
+    protected static boolean nextClient;
+
     private Player antecPlayer = new Player("FITTIZIO", COLOR.PINK, false);
 
     private boolean bandiera, updatedFromList;
+
+    protected static ArrayList<Attacco> myAttacks = new ArrayList<>();
 
     //nuove variabili di fase
     protected static boolean serverAttackClosed; //se server ha attaccato = true;
@@ -453,14 +460,35 @@ public class OnlineGameSceneController implements RemotePlay {
             serverTurnClosed = true;
             System.out.println("Turno server chiuso =" + serverTurnClosed);
         }
+        if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
+            Iterator<Attacco> i = myAttacks.iterator();
+            while(i.hasNext()) {
+                Attacco attacco = i.next();
+                try {
+                    playStub.remoteAttack(attacco.getAttaccante(), attacco.getDifensore(), attacco.getCarriAggiornatiAttaccante(),attacco.getCarriAggiornatiDifensore());
+                } catch (RemoteException remoteException) {
+                    remoteException.printStackTrace();
+                }
+
+            }
+        }
+
         //potrebbe essere qui il problema
+        myAttacks.clear();
         nextTurn();
     }
+
+
 
     /**
      * Switches the game turn to the next one
      */
     public void nextTurn() {
+
+        if(OnlineSceneController.amIaServer) {
+            //altrimenti client non preleva correttamente atk e def da server al 2 turno
+            serverAttackClosed = false;
+        }
 
         game.nextTurn();
         //provo a fetchare arraylist qui
@@ -482,7 +510,7 @@ public class OnlineGameSceneController implements RemotePlay {
                     while (lista.hasNext()) {
                         updateGuiFromList(lista.next());
                     }
-                    System.out.println("allineamento da arraylist eseguito");
+                    System.out.println("Allineamento eseguito");
                     //resetto mio arraylist scaricato
                     resetArrayList();
                     playStub.resetArrayList();
@@ -490,10 +518,9 @@ public class OnlineGameSceneController implements RemotePlay {
                     updatedFromList = true;
 
                     //mod
-                    //serverAttackClosed = playStub.getServerAttackClosed();
                     while(!playStub.getServerAttackClosed()) {
                         System.out.println("server non ha attaccato");
-                        Thread.sleep(3000);
+                        Thread.sleep(1000);
                     }
 
 
@@ -510,7 +537,6 @@ public class OnlineGameSceneController implements RemotePlay {
 
                     int vecchioValAtk = game.getTerritory(territory1).getTanks();
                     int vecchioValDef = game.getTerritory(territory2).getTanks();
-
 
 
                     if(nuovoValoreAtk > vecchioValAtk) {
@@ -537,20 +563,22 @@ public class OnlineGameSceneController implements RemotePlay {
 
                     while(serverTurnClosed == false) {
                         System.out.println("Attendo fine turno server...");
-                        Thread.sleep(3000);
+                        Thread.sleep(1500);
                         serverTurnClosed = playStub.getServerTurnClosed();
                     }
-                    System.out.println("Server ha finito.");
-                    System.out.println("Cambio turno.");
+                    System.out.println("Server ha finito. Cambio turno");
 
-                    //nextTurn();
+
+                    /*Questa porzione abilita il secondo turno del client per rinforzo-attacco*/
+                    forzaReinforcement = true;
+                    nextClient = true;
                     nextPhase();
+                    System.out.println("Fase ricezione terminata in " + game.getGamePhase());
                 }
             }
         } catch (IOException | InterruptedException exception) {
 
         }
-
 
         //sta parte la devo skippare forse se sono client e non è mio turno
         if (game.getGamePhase() == GAME_PHASE.FIRSTTURN) {
@@ -565,13 +593,31 @@ public class OnlineGameSceneController implements RemotePlay {
         }
         if (!(game.getGamePhase() == GAME_PHASE.FIRSTTURN))
             nextPhase();
+
         setStatusBar();
         setPlayerStatus();
         setPlayerLabel();
         territory1 = null;
         territory2 = null;
+
         if (game.getGamePhase() != GAME_PHASE.FIRSTTURN && game.getCurrentTurn().isAI()) {
             game.getCurrentTurn().playTurn();
+        }
+
+        //permette al client di impostare il giusto turno al primo giro di rinforzo
+        if(game.firstPhaseEnded()) {
+            game.setGamePhase(GAME_PHASE.FINALMOVE);
+        }
+
+        if(forzaReinforcement && game.getGamePhase() == GAME_PHASE.BATTLE) {
+            game.nextTurn();
+            game.setGamePhase(GAME_PHASE.REINFORCEMENT);
+            game.giveBonus(game.getCurrentTurn());
+
+            /*Dovrei inserirlo a inizio placeTank()*/
+            setStatusBar();
+            setPlayerStatus();
+            setPlayerLabel();
         }
     }
 
@@ -797,13 +843,19 @@ public class OnlineGameSceneController implements RemotePlay {
      * Sets the current number of tanks,territories and continents owned by a player
      */
     public void setPlayerStatus() {
-        Integer tmp;
-        tmp = game.getPlayer(game.getCurrentTurn()).getTanks();
-        plTanks.setText(tmp.toString());
-        tmp = game.getCurrentTurn().getTerritories();
-        plTerritories.setText(tmp.toString());
-        tmp = game.getCurrentTurn().getContinents();
-        plContinents.setText(tmp.toString());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Integer tmp;
+                tmp = game.getPlayer(game.getCurrentTurn()).getTanks();
+                plTanks.setText(tmp.toString());
+                tmp = game.getCurrentTurn().getTerritories();
+                plTerritories.setText(tmp.toString());
+                tmp = game.getCurrentTurn().getContinents();
+                plContinents.setText(tmp.toString());
+            }
+        });
+
     }
 
     /**
@@ -977,6 +1029,7 @@ public class OnlineGameSceneController implements RemotePlay {
     }
 
     public void placeTank() throws IOException {
+
 
         game.getCurrentTurn().placeTank(1);
         game.addTerritoryTanks(territorySelected);
@@ -1260,6 +1313,13 @@ public class OnlineGameSceneController implements RemotePlay {
                 mappaImgTanks.get(t2).getNumber().setText(temp.toString());
             }
         });
+        //resetto serverTurnClosed per preparare il client a ricevere prossime mosse
+        serverTurnClosed = false;
+
+        game.setGamePhase(GAME_PHASE.FINALMOVE);
+        nextTurn();
+
+        //game.nextPhase();
     }
 
 

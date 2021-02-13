@@ -394,7 +394,8 @@ public class RisikoGame implements Serializable {
 		switch(this.players.length) {
 		case 3:
 			for(Player p : players) {
-				p.giveBonusTanks(35);
+				//era 35
+				p.giveBonusTanks(19);
 			}
 			break;
 		case 4:

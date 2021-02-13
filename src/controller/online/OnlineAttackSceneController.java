@@ -18,6 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import model.entities.online.Attacco;
 
 import java.io.File;
 import java.io.IOException;
@@ -117,6 +118,8 @@ public class OnlineAttackSceneController {
     public void attackButtonPressed(ActionEvent e) throws IOException {
 
 		//mod **********
+		OnlineGameSceneController.nextClient = false;
+
 		System.out.println("ATK:" + OnlineGameSceneController.territory1);
 		System.out.println("DEF:" + OnlineGameSceneController.territory2);
 		OnlineGameSceneController.serverAtkTerritory = OnlineGameSceneController.territory1;
@@ -142,6 +145,14 @@ public class OnlineAttackSceneController {
 
 		}
 
+		Attacco attaccoTemp = new Attacco
+				(OnlineGameSceneController.territory1, OnlineGameSceneController.territory2,
+						OnlineGameSceneController.game.getTerritory(OnlineGameSceneController.territory1).getTanks(),
+						OnlineGameSceneController.game.getTerritory(OnlineGameSceneController.territory2).getTanks());
+
+		System.out.println(attaccoTemp.toString());
+
+		OnlineGameSceneController.myAttacks.add(attaccoTemp);
 
 
     	updateGUI();

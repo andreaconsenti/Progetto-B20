@@ -2,6 +2,7 @@ package controller;
 
 //funz
 //import model.entities.RisikoGame;
+import model.entities.COLOR;
 import model.entities.online.RisikoGame;
 import model.entities.Territory;
 
@@ -37,6 +38,11 @@ public interface RemotePlay extends Remote {
     int getServerDefNewTankNum() throws RemoteException;
 
 
-    void remoteAttack(Territory territory1, Territory territory2, int newNumT1, int newNumT2) throws RemoteException;
+    void remoteAttack(Territory territory1, Territory territory2, int newNumT1, int newNumT2, COLOR c1, COLOR c2) throws RemoteException;
+
+    void remoteSetOwner() throws RemoteException;
+
+    void remoteChangeTurn() throws RemoteException;
+
 
 }

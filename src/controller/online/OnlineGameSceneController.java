@@ -465,9 +465,14 @@ public class OnlineGameSceneController implements RemotePlay {
             while(i.hasNext()) {
                 Attacco attacco = i.next();
                 try {
-                    playStub.remoteAttack(attacco.getAttaccante(), attacco.getDifensore(), attacco.getCarriAggiornatiAttaccante(),attacco.getCarriAggiornatiDifensore());
+                    playStub.remoteAttack(attacco.getAttaccante(), attacco.getDifensore(), attacco.getCarriAggiornatiAttaccante(),attacco.getCarriAggiornatiDifensore(), attacco.getAttaccante().getOwner().getColor(), attacco.getDifensore().getOwner().getColor());
                 } catch (RemoteException remoteException) {
                     remoteException.printStackTrace();
+                }
+                try {
+                    playStub.remoteChangeTurn();
+                }   catch (RemoteException ect) {
+                    System.out.println("problema qui");
                 }
 
             }
@@ -1076,7 +1081,9 @@ public class OnlineGameSceneController implements RemotePlay {
 
         temp = OnlineGameSceneController.territory2.getTanks();
         mappaImgTanks.get(territory2).getNumber().setText(temp.toString());
+
     }
+
 
 
     /*Metodi JAVA RMI*/
@@ -1274,12 +1281,30 @@ public class OnlineGameSceneController implements RemotePlay {
         return serverDefNewTankNum;
     }
 
+    @Override
+    public void remoteSetOwner() {
+
+    }
+
 
     @Override
-    public void remoteAttack(Territory terrCl1, Territory terrCl2, int nuovoValAtk, int nuovoValDef) {
+    public void remoteAttack(Territory terrCl1, Territory terrCl2, int nuovoValAtk, int nuovoValDef, COLOR c1, COLOR c2) {
+
+
 
         Territory t1 = game.getTerritory(terrCl1);
         Territory t2 = game.getTerritory(terrCl2);
+
+        if(c1 == c2) {
+            System.out.println("rilevata conquista o spostamento");
+            //invoco metodo che ricava i miei player in base al colore
+            System.out.println(game.getPlayerByColor(c1).getColorName() + " e " + game.getPlayerByColor(c2).getColorName());
+
+            game.getTerritory(t1).setOwner(game.getPlayerByColor(c1));
+            game.getTerritory(t2).setOwner(game.getPlayerByColor(c2));
+
+        }
+
 
         int vecchioValAtk = game.getTerritory(terrCl1).getTanks();
         int vecchioValDef = game.getTerritory(terrCl2).getTanks();
@@ -1307,20 +1332,39 @@ public class OnlineGameSceneController implements RemotePlay {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+
+                File file = new File(getTankPath(t1));
+                Image image = new Image(file.toURI().toString());
+                mappaImgTanks.get(t1).getImage().setImage(image);
+                file = new File(getTankPath(t2));
+                image = new Image(file.toURI().toString());
+                mappaImgTanks.get(t2).getImage().setImage(image);
+
                 Integer temp = t1.getTanks();
                 mappaImgTanks.get(t1).getNumber().setText(temp.toString());
                 temp = t2.getTanks();
                 mappaImgTanks.get(t2).getNumber().setText(temp.toString());
+
             }
         });
+        game.getCurrentTurn().giveBonusTanks(-(game.getCurrentTurn().getBonusTanks()));
+
         //resetto serverTurnClosed per preparare il client a ricevere prossime mosse
         serverTurnClosed = false;
 
         game.setGamePhase(GAME_PHASE.FINALMOVE);
-        nextTurn();
+        //nextTurn();
 
         //game.nextPhase();
     }
 
-
+    @Override
+    public void remoteChangeTurn() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                nextTurn();
+            }
+        });
+    }
 }

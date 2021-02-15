@@ -2,6 +2,7 @@ package model.entities.online;
 //funz
 //import controller.GameSceneController;
 import controller.online.OnlineGameSceneController;
+import javafx.application.Platform;
 import model.entities.*;
 import model.entities.Mission.MISSION_TYPE;
 import model.util.FileHandler;
@@ -660,6 +661,20 @@ public class RisikoGame implements Serializable {
 	
 	private void playerEliminated(Player p) {
 		p.setEliminated(true);
+	}
+
+	public Player getPlayerByColor(COLOR color) {
+		Player plr = null;
+		for (Player p: players
+			 ) {
+			if(p.getColor() == color) {
+				plr = p;
+			}
+		}
+		if(plr == null) {
+			System.out.println("Nessun giocatore ha colore " + color.toString());
+		}
+		return plr;
 	}
 
 }

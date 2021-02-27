@@ -50,7 +50,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -144,7 +147,7 @@ public class OnlineGameSceneController implements RemotePlay {
     protected static Territory serverAtkTerritory;
     protected static Territory serverDefTerritory;
 
-    private boolean serverTurnClosed; //se server finisce turno = true
+    protected static boolean serverTurnClosed; //se server finisce turno = true
 
 
     protected static int serverAtkNewTankNum;
@@ -155,6 +158,8 @@ public class OnlineGameSceneController implements RemotePlay {
     protected static Territory clientDef;
     protected static int clientAtkTanks;
     protected static int clientDefTanks;
+
+    private boolean moved;
 
 
     /**
@@ -447,6 +452,7 @@ public class OnlineGameSceneController implements RemotePlay {
     public void nextPhasePressed(ActionEvent e) {
         //Si entra quando si preme Spostamento in alto a dx
         nextPhase();
+        serverAttackClosed = true;
     }
 
     /**
@@ -456,6 +462,10 @@ public class OnlineGameSceneController implements RemotePlay {
      * @throws InterruptedException
      */
     public void endTurnPressed(ActionEvent e) throws InterruptedException {
+        //try {
+            //System.out.println(Inet4Address.getLocalHost().getHostAddress());
+        //} catch (UnknownHostException e1) {}
+
         if (OnlineSceneController.amIaServer) {
             serverTurnClosed = true;
             System.out.println("Turno server chiuso =" + serverTurnClosed);
@@ -476,10 +486,11 @@ public class OnlineGameSceneController implements RemotePlay {
                 }
 
             }
+            myAttacks.clear();
         }
 
         //potrebbe essere qui il problema
-        myAttacks.clear();
+        //myAttacks.clear();
         nextTurn();
     }
 
@@ -528,40 +539,9 @@ public class OnlineGameSceneController implements RemotePlay {
                         Thread.sleep(1000);
                     }
 
-
                     System.out.println("Server ha attaccato. Scarico info attacco...");
-
-                    System.out.println("Atk: " + playStub.getServerAtkTerritory());
-                    System.out.println("Def: " + playStub.getServerDefTerritory());
-
-                    territory1 = game.getTerritory(playStub.getServerAtkTerritory());
-                    territory2 = game.getTerritory(playStub.getServerDefTerritory());
-
-                    int nuovoValoreAtk = playStub.getServerAtkNewTankNum();
-                    int nuovoValoreDef = playStub.getServerDefNewTankNum();
-
-                    int vecchioValAtk = game.getTerritory(territory1).getTanks();
-                    int vecchioValDef = game.getTerritory(territory2).getTanks();
-
-
-                    if(nuovoValoreAtk > vecchioValAtk) {
-                        int tankDaAgg = nuovoValoreAtk - vecchioValAtk;
-                        game.getTerritory(territory1).addTanks(tankDaAgg);
-                    }
-                    if(nuovoValoreAtk < vecchioValAtk) {
-                        int tankDaRim = vecchioValAtk - nuovoValoreAtk;
-                        game.getTerritory(territory1).removeTanks(tankDaRim);
-                    }
-                    if(nuovoValoreDef > vecchioValDef) {
-                        int tankDaAgg = nuovoValoreDef - vecchioValDef;
-                        game.getTerritory(territory2).addTanks(tankDaAgg);
-                    }
-                    if(nuovoValoreDef < vecchioValDef) {
-                        int tankDaRim = vecchioValDef - nuovoValoreDef;
-                        game.getTerritory(territory2).removeTanks(tankDaRim);
-                    }
-
-                    clientUpdateGuiPostAtk();
+                    //processNewClientTankPostAtk();
+                    //clientUpdateGuiPostAtk();
 
 
                     serverTurnClosed = playStub.getServerTurnClosed();
@@ -571,7 +551,12 @@ public class OnlineGameSceneController implements RemotePlay {
                         Thread.sleep(1500);
                         serverTurnClosed = playStub.getServerTurnClosed();
                     }
-                    System.out.println("Server ha finito. Cambio turno");
+
+                    Attacco[] attacchi = playStub.getServerAttacks();
+                    for (Attacco a: attacchi
+                         ) {
+                        processServerAttack(a);
+                    }
 
 
                     /*Questa porzione abilita il secondo turno del client per rinforzo-attacco*/
@@ -579,6 +564,8 @@ public class OnlineGameSceneController implements RemotePlay {
                     nextClient = true;
                     nextPhase();
                     System.out.println("Fase ricezione terminata in " + game.getGamePhase());
+
+                    playStub.forceClosePostMove();
                 }
             }
         } catch (IOException | InterruptedException exception) {
@@ -1084,9 +1071,118 @@ public class OnlineGameSceneController implements RemotePlay {
 
     }
 
+    public void processNewClientTankPostAtk() {
+        try {
+            System.out.println("Atk: " + playStub.getServerAtkTerritory());
+            System.out.println("Def: " + playStub.getServerDefTerritory());
+
+            territory1 = game.getTerritory(playStub.getServerAtkTerritory());
+            territory2 = game.getTerritory(playStub.getServerDefTerritory());
+
+            int nuovoValoreAtk = playStub.getServerAtkNewTankNum();
+            int nuovoValoreDef = playStub.getServerDefNewTankNum();
+
+            int vecchioValAtk = game.getTerritory(territory1).getTanks();
+            int vecchioValDef = game.getTerritory(territory2).getTanks();
+
+
+            if(nuovoValoreAtk > vecchioValAtk) {
+                int tankDaAgg = nuovoValoreAtk - vecchioValAtk;
+                game.getTerritory(territory1).addTanks(tankDaAgg);
+            }
+            if(nuovoValoreAtk < vecchioValAtk) {
+                int tankDaRim = vecchioValAtk - nuovoValoreAtk;
+                game.getTerritory(territory1).removeTanks(tankDaRim);
+            }
+            if(nuovoValoreDef > vecchioValDef) {
+                int tankDaAgg = nuovoValoreDef - vecchioValDef;
+                game.getTerritory(territory2).addTanks(tankDaAgg);
+            }
+            if(nuovoValoreDef < vecchioValDef) {
+                int tankDaRim = vecchioValDef - nuovoValoreDef;
+                game.getTerritory(territory2).removeTanks(tankDaRim);
+            }
+        }   catch (RemoteException exp) {
+            exp.printStackTrace();
+        }
+
+    }
+
+    public void processServerAttack(Attacco atkServer) {
+        try {
+            territory1 = game.getTerritory(atkServer.getAttaccante());
+            territory2 = game.getTerritory(atkServer.getDifensore());
+
+
+            int nuovoValoreAtk = atkServer.getCarriAggiornatiAttaccante();
+            int nuovoValoreDef = atkServer.getCarriAggiornatiDifensore();
+
+            int vecchioValAtk = game.getTerritory(territory1).getTanks();
+            int vecchioValDef = game.getTerritory(territory2).getTanks();
+
+            if(atkServer.getCarriAggiornatiDifensore() == 0) {
+                nuovoValoreAtk = playStub.getServerTerrTank(territory1);
+                nuovoValoreDef = playStub.getServerTerrTank(territory2);
+
+                game.getTerritory(territory2).setOwner(game.getTerritory(territory1).getOwner());
+
+                File file = new File(getTankPath(territory1));
+                Image image = new Image(file.toURI().toString());
+                mappaImgTanks.get(territory2).getImage().setImage(image);
+            }
+
+
+            if(nuovoValoreAtk > vecchioValAtk) {
+                int tankDaAgg = nuovoValoreAtk - vecchioValAtk;
+                game.getTerritory(territory1).addTanks(tankDaAgg);
+            }
+            if(nuovoValoreAtk < vecchioValAtk) {
+                int tankDaRim = vecchioValAtk - nuovoValoreAtk;
+                game.getTerritory(territory1).removeTanks(tankDaRim);
+            }
+            if(nuovoValoreDef > vecchioValDef) {
+                int tankDaAgg = nuovoValoreDef - vecchioValDef;
+                game.getTerritory(territory2).addTanks(tankDaAgg);
+            }
+            if(nuovoValoreDef < vecchioValDef) {
+                int tankDaRim = vecchioValDef - nuovoValoreDef;
+                game.getTerritory(territory2).removeTanks(tankDaRim);
+            }
+
+            clientUpdateGuiPostAtk();
+
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public static void remoteMoveCaller(Territory t1, Territory t2, int value) {
+        try {
+            playStub.remoteMove(t1, t2, value);
+            if(game.getGamePhase() == GAME_PHASE.FINALMOVE) {
+                playStub.remoteChangeTurn();
+            }
+        } catch (RemoteException ex2) {
+            ex2.printStackTrace();
+        }
+    }
 
 
     /*Metodi JAVA RMI*/
+
+    @Override
+    public void remoteMove(Territory t1, Territory t2, int value) throws RemoteException {
+
+        Attacco temp = new Attacco(t1, t2, t1.getTanks(), t2.getTanks());
+        remoteAttack(t1,t2,t1.getTanks()-value, t2.getTanks()+value,t1.getOwner().getColor(), t2.getOwner().getColor());
+
+    }
+
+    @Override
+    public int getServerTerrTank(Territory recTerr) throws RemoteException{
+        return game.getTerritory(recTerr).getTanks();
+    }
 
     @Override
     public void callCard() throws IOException {
@@ -1353,9 +1449,7 @@ public class OnlineGameSceneController implements RemotePlay {
         serverTurnClosed = false;
 
         game.setGamePhase(GAME_PHASE.FINALMOVE);
-        //nextTurn();
 
-        //game.nextPhase();
     }
 
     @Override
@@ -1366,5 +1460,23 @@ public class OnlineGameSceneController implements RemotePlay {
                 nextTurn();
             }
         });
+    }
+
+    @Override
+    public Attacco[] getServerAttacks() throws RemoteException {
+        Attacco[] attacchi = new Attacco[myAttacks.size()];
+        Iterator<Attacco> it = myAttacks.iterator();
+        for(int i = 0; it.hasNext(); i++) {
+            attacchi[i] = it.next();
+            System.out.println(attacchi[i]);
+        }
+        myAttacks.clear();
+        return attacchi;
+    }
+
+    @Override
+    public void forceClosePostMove() throws RemoteException {
+        System.out.println("chiudo turno server");
+        serverTurnClosed = false;
     }
 }

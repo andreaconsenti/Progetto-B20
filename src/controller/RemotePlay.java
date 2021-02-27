@@ -3,6 +3,7 @@ package controller;
 //funz
 //import model.entities.RisikoGame;
 import model.entities.COLOR;
+import model.entities.online.Attacco;
 import model.entities.online.RisikoGame;
 import model.entities.Territory;
 
@@ -11,6 +12,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public interface RemotePlay extends Remote {
     void callCard() throws IOException;
@@ -43,6 +45,14 @@ public interface RemotePlay extends Remote {
     void remoteSetOwner() throws RemoteException;
 
     void remoteChangeTurn() throws RemoteException;
+
+    Attacco[] getServerAttacks() throws RemoteException;
+
+    int getServerTerrTank(Territory recTerr) throws RemoteException;
+
+    void remoteMove(Territory t1, Territory t2, int value) throws RemoteException;
+
+    void forceClosePostMove() throws RemoteException;
 
 
 }

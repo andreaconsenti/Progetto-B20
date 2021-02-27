@@ -2,7 +2,9 @@ package model.entities.online;
 
 import model.entities.Territory;
 
-public class Attacco {
+import java.io.Serializable;
+
+public class Attacco implements Serializable {
     private Territory attaccante;
     private Territory difensore;
     private int carriAggiornatiAttaccante;

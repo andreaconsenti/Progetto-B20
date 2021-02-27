@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
+import model.entities.online.Attacco;
 
 import java.io.IOException;
 
@@ -79,7 +80,19 @@ public class OnlineMoveSceneController {
 	 * @throws IOException
 	 */
 	public void movePressed(ActionEvent e) {
+		if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
+			OnlineGameSceneController.remoteMoveCaller(OnlineGameSceneController.territory1, OnlineGameSceneController.territory2, (int)slider.getValue());
+		}
+
 		OnlineGameSceneController.game.moveTanks(OnlineGameSceneController.territory1, OnlineGameSceneController.territory2, (int)slider.getValue());
+
+		if(OnlineSceneController.amIaServer && OnlineGameSceneController.serverAttackClosed /* aggiungere in fine && se non sono client*/) {
+			//simulo lo spostamento come attacco
+			Attacco temp = new Attacco(OnlineGameSceneController.territory1, OnlineGameSceneController.territory2, OnlineGameSceneController.game.getTerritory(OnlineGameSceneController.territory1).getTanks(), OnlineGameSceneController.game.getTerritory(OnlineGameSceneController.territory2).getTanks());
+			OnlineGameSceneController.myAttacks.add(temp);
+			OnlineGameSceneController.serverTurnClosed = true;
+		}
+
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.close();
 	}
@@ -91,6 +104,9 @@ public class OnlineMoveSceneController {
 	 * @throws IOException
 	 */
 	public void moveEverythingPressed(ActionEvent e) {
+		if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
+			OnlineGameSceneController.remoteMoveCaller(OnlineGameSceneController.territory1, OnlineGameSceneController.territory2, OnlineGameSceneController.territory1.getTanks() - 1);
+		}
 		OnlineGameSceneController.game.moveTanks(OnlineGameSceneController.territory1, OnlineGameSceneController.territory2, OnlineGameSceneController.territory1.getTanks() - 1);
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.close();

@@ -176,7 +176,7 @@ public class OnlineAttackSceneController {
 
 
     	//mod****
-		OnlineGameSceneController.serverAttackClosed = true;
+		//OnlineGameSceneController.serverAttackClosed = true;
 		System.out.println("serverattack TRUE");
     	//*******
     }

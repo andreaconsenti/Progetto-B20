@@ -393,6 +393,11 @@ public class RisikoGame implements Serializable {
 	 */
 	private void giveStarterTanks() {
 		switch(this.players.length) {
+
+		case 2:
+			for(Player p: players) {
+				p.giveBonusTanks(8);
+			}
 		case 3:
 			for(Player p : players) {
 				//era 35
@@ -414,6 +419,7 @@ public class RisikoGame implements Serializable {
 				p.giveBonusTanks(20);
 			}
 			break;
+
 		}
 	}
 	/**

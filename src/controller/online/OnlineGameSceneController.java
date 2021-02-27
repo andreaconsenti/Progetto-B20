@@ -364,7 +364,7 @@ public class OnlineGameSceneController implements RemotePlay {
     public void missionControl() {
         if (game.verifyMission() == true) {
             try {
-                windowLoader("view/fxmls/MissionCompletedScene.fxml", "Vittoria", true);
+                windowLoader("view/fxmls/OnlineMissionCompletedScene.fxml", "Vittoria", true);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -500,6 +500,8 @@ public class OnlineGameSceneController implements RemotePlay {
      * Switches the game turn to the next one
      */
     public void nextTurn() {
+
+        missionControl();
 
         if(OnlineSceneController.amIaServer) {
             //altrimenti client non preleva correttamente atk e def da server al 2 turno

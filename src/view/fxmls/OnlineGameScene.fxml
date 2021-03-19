@@ -84,7 +84,7 @@
          </items></ToolBar>
       <AnchorPane fx:id="tanksPane" layoutY="56.0" prefHeight="609.0" prefWidth="1115.0">
          <children>
-            <TextField layoutX="7.0" layoutY="550.0" prefHeight="26.0" prefWidth="128.0" text="ATTENDI IL TURNO">
+            <TextField fx:id="myColorLabel" layoutX="7.0" layoutY="550.0" prefHeight="26.0" prefWidth="128.0" text="MIO COLORE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></TextField>

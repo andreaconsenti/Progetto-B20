@@ -683,4 +683,8 @@ public class RisikoGame implements Serializable {
 		return plr;
 	}
 
+	public Player[] getPlayerList() {
+		return players;
+	}
+
 }

@@ -6,6 +6,7 @@ import model.entities.COLOR;
 import model.entities.online.Attacco;
 import model.entities.online.RisikoGame;
 import model.entities.Territory;
+import model.entities.online.Update;
 
 import java.io.IOException;
 import java.rmi.Remote;
@@ -53,6 +54,12 @@ public interface RemotePlay extends Remote {
     void remoteMove(Territory t1, Territory t2, int value) throws RemoteException;
 
     void forceClosePostMove() throws RemoteException;
+
+    ArrayList<Update> getUpdate() throws RemoteException;
+
+    String getCurrentColor() throws RemoteException;
+
+    String getRealCurrentColor() throws RemoteException;
 
 
 }

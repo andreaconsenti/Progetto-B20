@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -40,6 +41,7 @@ import model.entities.online.RisikoGame;
 //import model.entities.RisikoGame.GAME_PHASE;
 import model.entities.online.RisikoGame.GAME_PHASE;
 import model.entities.Territory;
+import model.entities.online.Update;
 import model.util.FileHandler;
 import model.util.ImageAssets;
 import model.util.Pixel;
@@ -98,9 +100,11 @@ public class OnlineGameSceneController implements RemotePlay {
     @FXML
     private Label plContinents;
 
-
     @FXML
     private Label plTanks;
+
+    @FXML
+    private TextField myColorLabel;
 
 
     protected static RisikoGame game;
@@ -160,6 +164,12 @@ public class OnlineGameSceneController implements RemotePlay {
     protected static int clientDefTanks;
 
     private boolean moved;
+
+    ArrayList<Update> updates = new ArrayList<>();
+
+    private int lastUpdateSize = 0;
+
+    private String realNextTurn = new String();
 
 
     /**
@@ -323,6 +333,7 @@ public class OnlineGameSceneController implements RemotePlay {
         endTurn.setDisable(true);
         nextPhase.setDisable(true);
         nextPhase.setText("POSIZIONAMENTO");
+        myColorLabel.setText(OnlineSceneController.myColor);
 
         if (OnlineSceneController.amIaClient) {
             playStub = (RemotePlay) OnlineSceneController.registry.lookup("Play");
@@ -509,6 +520,8 @@ public class OnlineGameSceneController implements RemotePlay {
         }
 
         game.nextTurn();
+
+        realNextTurn = game.getCurrentTurn().getColor().toString();
         //provo a fetchare arraylist qui
 
         try {
@@ -1024,6 +1037,8 @@ public class OnlineGameSceneController implements RemotePlay {
 
     public void placeTank() throws IOException {
 
+        updates.add(new Update(game.getTerritory(territorySelected), game.getTerritory(territorySelected).getOwner(), game.getTerritory(territorySelected).getTanks()));
+
 
         game.getCurrentTurn().placeTank(1);
         game.addTerritoryTanks(territorySelected);
@@ -1235,6 +1250,9 @@ public class OnlineGameSceneController implements RemotePlay {
                     bandiera = true;
                     nextPhase();
                 }
+
+            updates.add(new Update(game.getTerritory(territorioLocale), game.getTerritory(territorioLocale).getOwner(), game.getTerritory(territorioLocale).getTanks()));
+
             }
         });
     }
@@ -1297,6 +1315,15 @@ public class OnlineGameSceneController implements RemotePlay {
         missionControl();
         Integer n = game.getTerritory(territorioLocale).getTanks();
         mappaImgTanks.get(territorioLocale).getNumber().setText(n.toString());
+    }
+
+    public void processaUpdate() throws RemoteException {
+        updates = playStub.getUpdate();
+        Iterator<Update> temp = updates.iterator();
+        while(temp.hasNext()) {
+            Update tmpUpdate = temp.next();
+            System.out.println(tmpUpdate.getTerritory());
+        }
     }
 
     @Override
@@ -1480,5 +1507,20 @@ public class OnlineGameSceneController implements RemotePlay {
     public void forceClosePostMove() throws RemoteException {
         System.out.println("chiudo turno server");
         serverTurnClosed = false;
+    }
+
+    @Override
+    public ArrayList<Update> getUpdate() throws RemoteException {
+        return updates;
+    }
+
+    @Override
+    public String getCurrentColor() throws RemoteException {
+        return game.getCurrentTurn().getColor().toString();
+    }
+
+    @Override
+    public String getRealCurrentColor() throws RemoteException {
+        return realNextTurn;
     }
 }

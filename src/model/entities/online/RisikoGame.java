@@ -2,6 +2,7 @@ package model.entities.online;
 //funz
 //import controller.GameSceneController;
 import controller.online.OnlineGameSceneController;
+import controller.online.OnlineSceneController;
 import javafx.application.Platform;
 import model.entities.*;
 import model.entities.Mission.MISSION_TYPE;
@@ -401,7 +402,7 @@ public class RisikoGame implements Serializable {
 		case 3:
 			for(Player p : players) {
 				//era 35
-				p.giveBonusTanks(19);
+				p.giveBonusTanks(18);
 			}
 			break;
 		case 4:
@@ -532,7 +533,8 @@ public class RisikoGame implements Serializable {
 			}
 		}
 	}
-	
+
+
 	/**
 	 * Returns a random player 
 	 * @param c is the continent
@@ -546,6 +548,7 @@ public class RisikoGame implements Serializable {
 		}
 		return null;
 	}
+
 	
 	/**
 	 * Returns a list of all territories
@@ -559,7 +562,7 @@ public class RisikoGame implements Serializable {
 	 * Shuffles the players of the playerList
 	 * @return array of players
 	 */
-    private Player[] shufflePlayers() {
+    private Player[] shufflePlayersBackup() {
     	Player[] shuffledPlayers = new Player[players.length];
     	int k = 0;
     	for(Player p : players) {
@@ -574,6 +577,17 @@ public class RisikoGame implements Serializable {
         }
         return shuffledPlayers;
     }
+
+    private Player[] shufflePlayers() {
+    	//restituisce giocatori in ordine di iscrizione -> Server è primo
+		Player[] shuffledPlayers = new Player[players.length];
+		int k = 0;
+		for(Player p : players) {
+			shuffledPlayers[k] = p;
+			k++;
+		}
+		return shuffledPlayers;
+	}
 	
     /**
      * Returns the player of the current turn of the game

@@ -61,5 +61,11 @@ public interface RemotePlay extends Remote {
 
     String getRealCurrentColor() throws RemoteException;
 
+    int getBonusLeft() throws RemoteException;
+
+    void globalUpdate(Territory t) throws RemoteException;
+
+    RisikoGame getFullGame() throws RemoteException;
+
 
 }

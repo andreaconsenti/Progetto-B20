@@ -1,7 +1,9 @@
 package controller.online.mouseFuction;
 
 import controller.online.OnlineGameSceneController;
+import controller.online.OnlineSceneController;
 import model.entities.Territory;
+import model.entities.online.RisikoGame;
 import model.util.Pixel;
 
 import java.io.IOException;
@@ -17,6 +19,9 @@ public class ReinforcementExecutor implements FunctionExecutor {
 			OnlineGameSceneController.getInstance().missionControl();
 
 			if(OnlineGameSceneController.getInstance().getGame().getBonusTanksSum() == 0) {
+				if(OnlineGameSceneController.getInstance().getGame().getGamePhase().equals(RisikoGame.GAME_PHASE.BATTLE) && OnlineSceneController.amIaServer == false) {
+					return;
+				}
 				OnlineGameSceneController.getInstance().nextPhase();
 			}
 		}

@@ -1,18 +1,14 @@
 package controller.online;
 
 import controller.PlayerSceneController;
-import controller.RemoteJoin;
 import controller.RemotePlay;
 import controller.online.mouseFuction.*;
-import controller.online.OnlineAttackSceneController;
 //import controller.mouseFunction.*;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,7 +23,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import model.entities.COLOR;
 import model.entities.Player;
@@ -47,22 +42,20 @@ import model.util.ImageAssets;
 import model.util.Pixel;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class OnlineGameSceneController implements RemotePlay {
+public
+
+class OnlineGameSceneController implements RemotePlay {
 
     @FXML
     private ImageView mapBackground;
@@ -153,6 +146,7 @@ public class OnlineGameSceneController implements RemotePlay {
 
     protected static boolean serverTurnClosed; //se server finisce turno = true
 
+    private boolean lastTank;
 
     protected static int serverAtkNewTankNum;
     protected static int serverDefNewTankNum;
@@ -167,9 +161,15 @@ public class OnlineGameSceneController implements RemotePlay {
 
     ArrayList<Update> updates = new ArrayList<>();
 
-    private int lastUpdateSize = 0;
+    private int lastFirstUpdateSize = 0; //Dedicato a attesaPrimoTurno()
+
+    private int lastSecondUpdateSize = 0;
+
+    private int lastThirdUpdateSize = 0;
 
     private String realNextTurn = new String();
+
+    private int myTanks, myTerritories;
 
 
     /**
@@ -335,11 +335,57 @@ public class OnlineGameSceneController implements RemotePlay {
         nextPhase.setText("POSIZIONAMENTO");
         myColorLabel.setText(OnlineSceneController.myColor);
 
-        if (OnlineSceneController.amIaClient) {
+        if (OnlineSceneController.amIaClient == true && OnlineSceneController.amIaServer == false) {
             playStub = (RemotePlay) OnlineSceneController.registry.lookup("Play");
             //game = playStub.getCurrentGame();
+            try {
+                if((playStub.getCurrentColor().equals(OnlineSceneController.myColor))) {
+                    attesaPrimoTurno(true);
+                }
+                else {
+                    attesaPrimoTurno(false);
+                }
+            } catch (InterruptedException ex) {ex.printStackTrace();}
         }
     }
+
+    public void attesaPrimoTurno(boolean first) throws IOException, InterruptedException {
+
+        if(bandiera == false && playStub.getBandiera() == false) {
+            while (playStub.getCurrentColor().equals(OnlineSceneController.myColor) == false) {
+                if (playStub.getBandiera()) {
+                    nextTurn();
+                    break;
+                }
+                Thread.sleep(1500);
+            }
+
+            updates = playStub.getUpdate();
+            Iterator<Update> iTemp = updates.iterator();
+            for (int i = 0; iTemp.hasNext(); i++) {
+                if (i < lastFirstUpdateSize) {
+                    iTemp.next();
+                }
+                if (i > lastFirstUpdateSize) {
+                    System.out.println("DA PRIMO TURNO ");
+                    clientPlaceTank(iTemp.next().getTerritory());
+                    //if(game.firstPhaseEnded() == false)
+                    nextTurn();
+                }
+            }
+            lastFirstUpdateSize = updates.size();
+            if (first) {
+                return;
+            }
+
+        }
+
+            if(game.getCurrTurnBonusTanks() == 1) {
+                game.getCurrentTurn().giveBonusTanks(1);
+            }
+
+        }
+
 
     /**
      * Manages every movement of the mouse controlled by the player
@@ -482,7 +528,7 @@ public class OnlineGameSceneController implements RemotePlay {
             System.out.println("Turno server chiuso =" + serverTurnClosed);
         }
         if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
-            Iterator<Attacco> i = myAttacks.iterator();
+            /*Iterator<Attacco> i = myAttacks.iterator();
             while(i.hasNext()) {
                 Attacco attacco = i.next();
                 try {
@@ -490,18 +536,79 @@ public class OnlineGameSceneController implements RemotePlay {
                 } catch (RemoteException remoteException) {
                     remoteException.printStackTrace();
                 }
-                try {
-                    playStub.remoteChangeTurn();
-                }   catch (RemoteException ect) {
-                    System.out.println("problema qui");
+
+Ripristinare
+            }*/
+            try {
+                Iterator<Territory> allTerritories = game.getTerritories().iterator();
+                int temp = game.getCurrentTurn().getTerritories();
+                for(int i = 0; i == temp; i++ ) {
+                    game.getCurrentTurn().removeTerritory();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            setPlayerStatus();
+                            setPlayerLabel();
+                            try {
+                                Thread.sleep(500);
+                                System.out.println("Aggiorno");
+                                Thread.sleep(500);
+                            } catch (InterruptedException interruptedException) {
+                                interruptedException.printStackTrace();
+                            }
+
+                        }
+                    });
+                }
+                int k=0;
+                int y=0;
+                while (allTerritories.hasNext()) {
+                    Territory tempTerr = allTerritories.next();
+                    if(tempTerr.getOwner().getColor().toString().equals(OnlineSceneController.myColor)) {
+                        k++;
+                        y = y + tempTerr.getTanks();
+                    }
+                    playStub.globalUpdate(tempTerr);
+                }
+                System.out.println("Ho in totale " + k + " territori e " + y + " carri");
+                while(game.getCurrentTurn().getTerritories() != 0) {
+                    game.getCurrentTurn().removeTerritory();
+                }
+                while(game.getCurrentTurn().getTerritories() != k) {
+                    game.getCurrentTurn().addTerritory();
                 }
 
+                while(game.getCurrentTurn().getTanks() != 0) {
+                    game.getCurrentTurn().removeTanks(1);
+                }
+
+                while(game.getCurrentTurn().getTanks() != y) {
+                    game.getCurrentTurn().addTanks(1);
+                }
+
+                System.out.println("Risultanti: " + game.getCurrentTurn().getTerritories() + " territori + " + game.getCurrentTurn().getTanks());
+
+                myTerritories = k;
+                myTanks = y;
+
+                setPlayerStatus();
+
+                System.out.println("SONO " + game.getCurrentTurn().getColor().toString() + " e chiudo con " + game.getCurrentTurn().getTerritories());
+                if(game.verifyMission() == true) {
+                    System.out.println("VITTORIA RILEVATA");
+                }
+
+                playStub.remoteChangeTurn();
+            }   catch (RemoteException ect) {
+                System.out.println("problema qui");
             }
             myAttacks.clear();
+
         }
 
         //potrebbe essere qui il problema
         //myAttacks.clear();
+
         nextTurn();
     }
 
@@ -510,7 +617,196 @@ public class OnlineGameSceneController implements RemotePlay {
     /**
      * Switches the game turn to the next one
      */
+
     public void nextTurn() {
+
+
+
+        missionControl();
+
+        if(OnlineSceneController.amIaServer) {
+            //altrimenti client non preleva correttamente atk e def da server al 2 turno
+            serverAttackClosed = false;
+        }
+
+        game.nextTurn();
+
+        if((OnlineSceneController.amIaServer == false) && (nextClient && game.getCurrentTurn().getColor().toString().equals(OnlineSceneController.myColor))) {
+            if(game.getGamePhase().equals(GAME_PHASE.FIRSTTURN) == false) {
+                int temp = game.getCurrTurnBonusTanks();
+                game.getCurrentTurn().giveBonusTanks(-temp);
+                game.giveBonus(game.getCurrentTurn());
+                System.out.println(game.getCurrentTurn().getColor().toString() + " ha " + game.getCurrentTurn().getBonusTanks());
+            }
+        }
+
+        if(OnlineSceneController.amIaServer) {
+            realNextTurn = game.getCurrentTurn().getColor().toString();
+            /*try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {e.printStackTrace();}*/
+        }
+        //provo a fetchare arraylist qui
+
+        if(OnlineSceneController.amIaServer == false) {
+            try {
+                if(((playStub.getRealCurrentColor().equals(OnlineSceneController.myColor)) == false && playStub.getBandiera()) || (!nextClient && playStub.getBandiera())) {
+                    int k = 0;
+                    while(/*playStub.getUpdatedTerritory().size()<4*/ playStub.getBonusLeft()!=0) {
+                        System.out.println(OnlineSceneController.myColor + " (C): in attesa di posizionamento di " + playStub.getCurrentColor() + " k = " +k);
+                        Thread.sleep(1000);
+                        k++;
+                        if((k > 60) || playStub.getCurrentColor().equals(OnlineSceneController.myColor)) {
+                            /*if(playStub.getCurrentColor().equals(OnlineSceneController.myColor)) {
+                                break;
+                            }*/
+                            break;
+                        }
+                    }
+                    /*serverTerritoryList = playStub.getUpdatedTerritory();
+
+                    Iterator<Territory> lista = serverTerritoryList.iterator();
+                    while (lista.hasNext()) {
+                        if(lastSecondUpdateSize < serverTerritoryList.size()) {
+                            lista.next();
+                        }
+                        if(lastSecondUpdateSize > serverTerritoryList.size()) {
+                            updateGuiFromList(lista.next());
+                        }
+                        System.out.println("Incremento lastSecond");
+                        lastSecondUpdateSize++;
+                    }
+                    //resetArrayList();*/
+                    playStub.resetArrayList();
+                    bandiera = false;
+                    updatedFromList = true;
+
+                    while (playStub.getServerTurnClosed()) {
+                        Thread.sleep(1500);
+                    }
+                    serverTurnClosed = playStub.getServerTurnClosed();
+
+                    String tempCol = playStub.getCurrentColor();
+
+                    while(serverTurnClosed == false) {
+                        System.out.println(OnlineSceneController.myColor + " (C): in attesa chiusura turno di " + playStub.getCurrentColor() + " - SVTURN = " + serverTurnClosed);
+                        Thread.sleep(1500);
+                        serverTurnClosed = playStub.getServerTurnClosed();
+                        if(tempCol.equals(playStub.getCurrentColor()) == false) {
+                            break;
+                        }
+                        if(playStub.getCurrentColor().equals(OnlineSceneController.myColor)) {
+                            break;
+                        }
+                    }
+
+                    /*Attacco[] attacchi = playStub.getServerAttacks();
+                    for(Attacco a: attacchi) {
+                        processServerAttack(a);
+                    }*/
+
+                    Thread.sleep(1500);
+                    RisikoGame tempGame = playStub.getFullGame();
+                    Iterator<Territory> tempTerrIter = tempGame.getTerritories().iterator();
+                    while(tempTerrIter.hasNext()) {
+                        globalUpdate(tempTerrIter.next());
+                    }
+
+                    game.getCurrentTurn().giveBonusTanks((game.getCurrentTurn().getBonusTanks())*(-1));
+
+                    System.out.println(OnlineSceneController.myColor + " (C): attacchi processati");
+
+                    forzaReinforcement = true;
+                    nextPhase();
+
+                    if(game.getGamePhase().equals(GAME_PHASE.FINALMOVE)) {
+                        game.setGamePhase(GAME_PHASE.REINFORCEMENT);
+                    }
+
+                    playStub.forceClosePostMove();
+
+                    if(playStub.getRealCurrentColor().equals(OnlineSceneController.myColor)) {
+                        nextClient = true;
+                        while(game.getCurrentTurn().getColor().toString().equals(OnlineSceneController.myColor)) {
+                            game.nextTurn();
+                        }
+                    }
+                }
+            } catch (IOException | InterruptedException exception) {exception.printStackTrace();}
+        }
+
+
+        if (OnlineSceneController.amIaServer && (game.getGamePhase() == GAME_PHASE.FIRSTTURN)) {
+            int i = 0;
+            while (game.getCurrentTurn().getBonusTanks() == 0) {
+                if (i == PlayersList.players.length) {
+                    break;
+                }
+                game.nextTurn();
+                i++;
+            }
+        }
+        if (!(game.getGamePhase() == GAME_PHASE.FIRSTTURN))
+            nextPhase();
+
+        setStatusBar();
+        setPlayerStatus();
+        setPlayerLabel();
+        territory1 = null;
+        territory2 = null;
+
+        if (game.getGamePhase() != GAME_PHASE.FIRSTTURN && game.getCurrentTurn().isAI()) {
+            game.getCurrentTurn().playTurn();
+        }
+
+        //permette al client di impostare il giusto turno al primo giro di rinforzo
+        if(game.firstPhaseEnded()) {
+            game.setGamePhase(GAME_PHASE.FINALMOVE);
+        }
+
+        if(OnlineSceneController.amIaServer == true) {
+            if (forzaReinforcement && game.getGamePhase() == GAME_PHASE.BATTLE) {
+                game.nextTurn();
+                game.setGamePhase(GAME_PHASE.REINFORCEMENT);
+                game.giveBonus(game.getCurrentTurn());
+
+                setStatusBar();
+                setPlayerStatus();
+                setPlayerLabel();
+
+            }
+        }
+        if(OnlineSceneController.amIaServer == false && OnlineSceneController.amIaClient == true) {
+            if(forzaReinforcement && game.getGamePhase() == GAME_PHASE.BATTLE) {
+                nextTurn();
+                game.setGamePhase(GAME_PHASE.REINFORCEMENT);
+
+                setStatusBar();
+                setPlayerStatus();
+                setPlayerLabel();
+            }
+        }
+
+
+            System.out.println("finisco con " + game.getCurrentTurn().getColor().toString());
+
+        try {
+            if((OnlineSceneController.amIaServer == false && playStub.getCurrentColor().equals(OnlineSceneController.myColor)) &&
+                    (bandiera || playStub.getBandiera())) {
+                //System.out.println("forzo da " + game.getCurrentTurn().getColor().toString());
+                while (game.getCurrentTurn().getColor().toString().equals(OnlineSceneController.myColor) == false) {
+                    game.nextTurn();
+                    //System.out.println(" a " + game.getCurrentTurn().getColor().toString());
+                }
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return;
+        }
+
+
+    public void nextTurnBackup() {
 
         missionControl();
 
@@ -531,7 +827,7 @@ public class OnlineGameSceneController implements RemotePlay {
                     //attenzione non deve essere 4 ma numero di bonus tank che ha avversario
                     while (playStub.getUpdatedTerritory().size() != 4) {
                         System.out.println("Server ha posizionato nTank = " + playStub.getUpdatedTerritory().size());
-                        Thread.sleep(1000);
+                        Thread.sleep(1500);
                     }
                     System.out.println("ottengo arraylist da server...");
                     serverTerritoryList = playStub.getUpdatedTerritory();
@@ -551,7 +847,7 @@ public class OnlineGameSceneController implements RemotePlay {
                     //mod
                     while(!playStub.getServerAttackClosed()) {
                         System.out.println("server non ha attaccato");
-                        Thread.sleep(1000);
+                        Thread.sleep(1500);
                     }
 
                     System.out.println("Server ha attaccato. Scarico info attacco...");
@@ -569,7 +865,7 @@ public class OnlineGameSceneController implements RemotePlay {
 
                     Attacco[] attacchi = playStub.getServerAttacks();
                     for (Attacco a: attacchi
-                         ) {
+                    ) {
                         processServerAttack(a);
                     }
 
@@ -601,6 +897,7 @@ public class OnlineGameSceneController implements RemotePlay {
         if (!(game.getGamePhase() == GAME_PHASE.FIRSTTURN))
             nextPhase();
 
+
         setStatusBar();
         setPlayerStatus();
         setPlayerLabel();
@@ -627,6 +924,7 @@ public class OnlineGameSceneController implements RemotePlay {
             setPlayerLabel();
         }
     }
+
 
     /**
      * Switches the game phase to the next one
@@ -844,6 +1142,10 @@ public class OnlineGameSceneController implements RemotePlay {
                 }
                 break;
         }
+        if(game.getGamePhase().equals(GAME_PHASE.REINFORCEMENT) && (lastTank == true)) {
+            statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata\n"
+            + "Hai l'ultima armata da posizionare (ultimo tank)");
+        }
     }
 
     /**
@@ -1037,8 +1339,17 @@ public class OnlineGameSceneController implements RemotePlay {
 
     public void placeTank() throws IOException {
 
-        updates.add(new Update(game.getTerritory(territorySelected), game.getTerritory(territorySelected).getOwner(), game.getTerritory(territorySelected).getTanks()));
+        setPlayerStatus();
+        setPlayerLabel();
+        setStatusBar();
 
+
+        if(OnlineSceneController.amIaServer == false && game.getCurrentTurn().getBonusTanks() == 1 && game.getCurrentTurn().getColor().toString().equals(OnlineSceneController.myColor) && game.getGamePhase().equals(GAME_PHASE.REINFORCEMENT)) {
+            nextPhase();
+        }
+        if(OnlineSceneController.amIaServer) {
+            updates.add(new Update(game.getTerritory(territorySelected), game.getTerritory(territorySelected).getOwner(), game.getTerritory(territorySelected).getTanks()));
+        }
 
         game.getCurrentTurn().placeTank(1);
         game.addTerritoryTanks(territorySelected);
@@ -1052,23 +1363,61 @@ public class OnlineGameSceneController implements RemotePlay {
         if (OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
             //Se sono un client e non server -> faccio il posizionamento su server con remotePlaceTankCaller()
             remotePlaceTankCaller();
+            lastSecondUpdateSize++;
         }
+
 
         //aggiunge ad arraylist di territori, i territori rafforzati da passare agli altri giocatori
         //if(getCurrentPlayer().getColor().toString().equals(OnlineSceneController.myColor) && bandiera == true)
-        if (bandiera == true) {
+        if ((bandiera == true && getCurrentPlayer().getColor().toString().equals(OnlineSceneController.myColor))
+            || OnlineSceneController.amIaServer && bandiera == true) {
             serverTerritoryList.add(territorySelected);
             System.out.println("FASE 2 -> AGGIUNTO");
         }
 
+        if(OnlineSceneController.amIaServer) {
+            try {
+                Thread.sleep(390);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
+        //era client = true
+        if((OnlineSceneController.amIaClient) && ((bandiera || playStub.getBandiera())) && (game.getCurrTurnBonusTanks() != 0)) {
+            if((game.getCurrTurnBonusTanks() -1) == 0 && (lastTank = false)) {
+                System.out.println("ULTIMO POSIZIONAMENTO");
+                //game.getCurrentTurn().giveBonusTanks(1);
+                lastTank = true;
+                //return;
+            }
+            if(((game.getCurrTurnBonusTanks() -1) == 0 && (lastTank == true)) && OnlineSceneController.amIaServer == false) {
+                game.setGamePhase(GAME_PHASE.BATTLE);
+                nextPhase.setDisable(false);
+                endTurn.setDisable(false);
+                lastTank = false;
+            }
+
+            if(game.getCurrTurnBonusTanks() == 0 && OnlineSceneController.amIaServer == false) {
+                game.setGamePhase(GAME_PHASE.BATTLE);
+            }
+            return;
+        }
+
+        if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer && !nextClient) {
+            try {
+                attesaPrimoTurno(false);
+            }   catch (InterruptedException ex) {ex.printStackTrace();}
+        }
+
+        /*  Rimosso dopo sync 3 player
         if (OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
             try {
                 waitForUpdate();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 
     public void firstPhaseEnded() {
@@ -1077,6 +1426,37 @@ public class OnlineGameSceneController implements RemotePlay {
             System.out.println("Ho impostato bandiera = " + bandiera);
             nextPhase();
         }
+    }
+
+    public void computeNewClientTankPostAtk() {
+        //era già presente con il nome di processNewClientTankPostAtk()
+        try {
+            territory1 = game.getTerritory(playStub.getServerAtkTerritory());
+            territory2 = game.getTerritory(playStub.getServerDefTerritory());
+
+            int nuovoValoreAtk = playStub.getServerAtkNewTankNum();
+            int nuovoValoreDef = playStub.getServerDefNewTankNum();
+
+            int vecchioValAtk = game.getTerritory(territory1).getTanks();
+            int vecchioValDef = game.getTerritory(territory2).getTanks();
+
+            if(nuovoValoreAtk > vecchioValAtk) {
+                int tankDaAgg = nuovoValoreAtk - vecchioValAtk;
+                game.getTerritory(territory1).addTanks(tankDaAgg);
+            }
+            if(nuovoValoreAtk < vecchioValAtk) {
+                int tankDaRim = vecchioValAtk - nuovoValoreAtk;
+                game.getTerritory(territory1).removeTanks(tankDaRim);
+            }
+            if(nuovoValoreDef > vecchioValDef) {
+                int tankDaAgg = nuovoValoreDef - vecchioValDef;
+                game.getTerritory(territory2).addTanks(tankDaAgg);
+            }
+            if(playStub.getServerDefNewTankNum() < territory2.getTanks()) {
+                int tankDaRim = vecchioValDef - nuovoValoreDef;
+                game.getTerritory(territory2).removeTanks(tankDaRim);
+            }
+        }   catch (RemoteException ex) {ex.printStackTrace();}
     }
 
     public void clientUpdateGuiPostAtk() throws RemoteException {
@@ -1127,9 +1507,11 @@ public class OnlineGameSceneController implements RemotePlay {
 
     public void processServerAttack(Attacco atkServer) {
         try {
+
             territory1 = game.getTerritory(atkServer.getAttaccante());
             territory2 = game.getTerritory(atkServer.getDifensore());
 
+            System.out.println("T1: " + territory1.getName() + " - T2: " +territory2.getName());
 
             int nuovoValoreAtk = atkServer.getCarriAggiornatiAttaccante();
             int nuovoValoreDef = atkServer.getCarriAggiornatiDifensore();
@@ -1174,15 +1556,20 @@ public class OnlineGameSceneController implements RemotePlay {
 
     }
 
-    public static void remoteMoveCaller(Territory t1, Territory t2, int value) {
+    public static void remoteMoveCaller(Territory t1, Territory t2, int value) {/*
         try {
             playStub.remoteMove(t1, t2, value);
             if(game.getGamePhase() == GAME_PHASE.FINALMOVE) {
-                playStub.remoteChangeTurn();
+                //playStub.remoteChangeTurn();
+                if(OnlineSceneController.amIaClient == true) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {e.printStackTrace();}
+                }
             }
         } catch (RemoteException ex2) {
             ex2.printStackTrace();
-        }
+        }*/
     }
 
 
@@ -1228,8 +1615,12 @@ public class OnlineGameSceneController implements RemotePlay {
             public void run() {
                 // Update UI here.
 
+                //setStatusBar();
+                //setPlayerStatus();
+
                 serverTerrStatus = false; //per fare in modo che il server debba riscegliere un territorio
                 game.getCurrentTurn().placeTank(1);
+                System.out.println("piazzo tank a turno di " + game.getCurrentTurn().getColor().toString());
                 game.addTerritoryTanks(remoteTerritory);
                 //Introduco territorioLocale perchè remoteTerritory ricevuto tramite RMI non è rilevato
                 //come un oggetto locale e crea problemi con "mappaImgTanks.get(territorioLocale).getNumber().setText(n.toString())"
@@ -1237,6 +1628,9 @@ public class OnlineGameSceneController implements RemotePlay {
                 missionControl();
                 Integer n = game.getTerritory(remoteTerritory).getTanks();
                 mappaImgTanks.get(territorioLocale).getNumber().setText(n.toString());
+
+                if(game.getGamePhase().equals(GAME_PHASE.FIRSTTURN) == false)
+                    serverTerritoryList.add(game.getTerritory(remoteTerritory));
 
                 if(bandiera) {
                     return;
@@ -1259,15 +1653,25 @@ public class OnlineGameSceneController implements RemotePlay {
 
     public void remotePlaceTankCaller() throws IOException {
         playStub.remotePlaceTank(getSelTerr());
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException ee) {ee.printStackTrace();}
+        ArrayList<Update> temp = playStub.getUpdate();
+        lastFirstUpdateSize = temp.size();
+        Iterator<Update> iterator = temp.iterator();
+        while(iterator.hasNext()) {
+            Update u = iterator.next();
+        }
         playStub.getBandiera();
         if (bandiera) {
-            nextPhase();
+            //nextPhase();
         }
     }
 
     public void clientPlaceTank(Territory territoryFromServer) throws IOException {
+        System.out.println(territoryFromServer.getName());
 
-        game.getCurrentTurn().placeTank(1);
+        //game.getCurrentTurn().placeTank(1); // tolto perchè toglieva tank a turno sbagliato
         game.addTerritoryTanks(territoryFromServer);
         Territory territorioLocale = game.getTerritory(territoryFromServer);
         missionControl();
@@ -1281,7 +1685,7 @@ public class OnlineGameSceneController implements RemotePlay {
         //mod 19.01.21
         if (game.getCurrTurnBonusTanks() == 0) {
             //nextPhase();
-            nextTurn();
+            //nextTurn();
         }
 
 
@@ -1296,7 +1700,7 @@ public class OnlineGameSceneController implements RemotePlay {
         if (!playStub.getBandiera()) {
             boolean terrSelFromServer = false;
             while (!terrSelFromServer) {
-                Thread.sleep(1000);
+                Thread.sleep(1500);
                 terrSelFromServer = playStub.getServerTerrStatus();
             }
 
@@ -1309,6 +1713,7 @@ public class OnlineGameSceneController implements RemotePlay {
     }
 
     public void updateGuiFromList(Territory t) {
+        System.out.println("Sto processando " + t.getName());
         game.getCurrentTurn().placeTank(1);
         game.addTerritoryTanks(t);
         Territory territorioLocale = game.getTerritory(t);
@@ -1348,7 +1753,7 @@ public class OnlineGameSceneController implements RemotePlay {
 
     @Override
     public void resetArrayList() {
-        serverTerritoryList.clear();
+      serverTerritoryList.clear();
     }
 
     @Override
@@ -1428,7 +1833,17 @@ public class OnlineGameSceneController implements RemotePlay {
             game.getTerritory(t1).setOwner(game.getPlayerByColor(c1));
             game.getTerritory(t2).setOwner(game.getPlayerByColor(c2));
 
+
+            if(nuovoValAtk == 0) {
+                System.out.println("ATTACCO A 0");
+
+
+            }
+            if(nuovoValDef == 0) {
+                System.out.println("DIFESA A 0");
+            }
         }
+
 
 
         int vecchioValAtk = game.getTerritory(terrCl1).getTanks();
@@ -1451,6 +1866,8 @@ public class OnlineGameSceneController implements RemotePlay {
             int tankDaRim = vecchioValDef - nuovoValDef;
             game.getTerritory(t2).removeTanks(tankDaRim);
         }
+
+        myAttacks.add(new Attacco(terrCl1, terrCl2, nuovoValAtk, nuovoValDef));
 
         //aggiorno interfaccia server dopo attacco di client
 
@@ -1487,18 +1904,28 @@ public class OnlineGameSceneController implements RemotePlay {
             @Override
             public void run() {
                 nextTurn();
+                if(game.getGamePhase()!= GAME_PHASE.REINFORCEMENT) {
+
+                    setPlayerLabel();
+                    setPlayerStatus();
+
+                    game.setGamePhase(GAME_PHASE.REINFORCEMENT);
+                    game.giveBonus(game.getCurrentTurn());
+                }
             }
         });
     }
 
     @Override
     public Attacco[] getServerAttacks() throws RemoteException {
+
         Attacco[] attacchi = new Attacco[myAttacks.size()];
         Iterator<Attacco> it = myAttacks.iterator();
         for(int i = 0; it.hasNext(); i++) {
             attacchi[i] = it.next();
             System.out.println(attacchi[i]);
         }
+
         myAttacks.clear();
         return attacchi;
     }
@@ -1522,5 +1949,38 @@ public class OnlineGameSceneController implements RemotePlay {
     @Override
     public String getRealCurrentColor() throws RemoteException {
         return realNextTurn;
+    }
+
+    @Override
+    public int getBonusLeft() throws RemoteException {
+        return game.getCurrentTurn().getBonusTanks();
+    }
+
+    @Override
+    public void globalUpdate(Territory clientTerritory) throws RemoteException {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Player temp = game.getPlayerByColor(clientTerritory.getOwner().getColor());
+                //System.out.println("per client il proprietario di " + clientTerritory.getName() + " é " + temp.getColor().toString() + " con tank = " + clientTerritory.getTanks());
+
+                game.getTerritory(clientTerritory).setOwner(temp);
+                game.getTerritory(clientTerritory).removeTanks(game.getTerritory(clientTerritory).getTanks());
+                game.getTerritory(clientTerritory).addTanks(clientTerritory.getTanks());
+
+                Integer nTankTemp = game.getTerritory(clientTerritory).getTanks();
+                mappaImgTanks.get(game.getTerritory(clientTerritory)).getNumber().setText(nTankTemp.toString());
+
+                File file = new File(getTankPath(game.getTerritory(clientTerritory)));
+                Image image = new Image(file.toURI().toString());
+                mappaImgTanks.get(game.getTerritory(clientTerritory)).getImage().setImage(image);
+            }
+        });
+
+    }
+
+    @Override
+    public RisikoGame getFullGame() throws RemoteException {
+        return game;
     }
 }

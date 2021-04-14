@@ -701,4 +701,11 @@ public class RisikoGame implements Serializable {
 		return players;
 	}
 
+	public Card getRndCard() {
+		Card tempCard = cards.get(0);
+		cards.remove(0);
+		shuffleCards();
+		return tempCard;
+	}
+
 }

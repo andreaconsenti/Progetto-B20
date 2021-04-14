@@ -40,7 +40,7 @@
       <Button fx:id="partecipaButton" layoutX="503.0" layoutY="212.0" mnemonicParsing="false" onAction="#partecipaPressed" prefHeight="52.0" prefWidth="260.0" stylesheets="@../css/StyleSheet.css" text="Partecipa" />
       <Button fx:id="lockListButton" layoutX="211.0" layoutY="610.0" mnemonicParsing="false" onAction="#chiudiPressed" prefHeight="33.0" prefWidth="221.0" text="Chiudi iscrizioni" />
       <ListView fx:id="defVisualPlayerList" layoutX="553.0" layoutY="477.0" prefHeight="170.0" prefWidth="156.0" />
-      <Button fx:id="startButton" layoutX="1083.0" layoutY="649.0" mnemonicParsing="false" onAction="#startGamePressed" prefHeight="52.0" prefWidth="156.0" text="GIOCA!">
+      <Button fx:id="startButton" disable="true" layoutX="1083.0" layoutY="649.0" mnemonicParsing="false" onAction="#startGamePressed" prefHeight="52.0" prefWidth="156.0" text="GIOCA!" visible="false">
          <font>
             <Font size="18.0" />
          </font></Button>
@@ -60,6 +60,9 @@
       </MenuButton>
       <Separator layoutX="47.0" layoutY="294.0" prefHeight="25.0" prefWidth="1192.0" />
       <Label layoutX="579.0" layoutY="454.0" prefHeight="17.0" prefWidth="104.0" text="Avversari approvati" />
-      <Button fx:id="getInfoButton" layoutX="1057.0" layoutY="200.0" mnemonicParsing="false" onAction="#startGamePressed2" text="getInfoButton" />
+      <Button fx:id="getInfoButton" layoutX="995.0" layoutY="197.0" mnemonicParsing="false" onAction="#startGamePressed2" prefHeight="83.0" prefWidth="203.0" text="GIOCA!" textFill="RED">
+         <font>
+            <Font size="27.0" />
+         </font></Button>
    </children>
 </Pane>

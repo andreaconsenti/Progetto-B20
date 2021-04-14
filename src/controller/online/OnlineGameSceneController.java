@@ -24,9 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import model.entities.COLOR;
-import model.entities.Player;
-import model.entities.PlayersList;
+import model.entities.*;
 //funz
 //import model.entities.RisikoGame;
 import model.entities.online.Attacco;
@@ -35,7 +33,6 @@ import model.entities.online.RisikoGame;
 //funz
 //import model.entities.RisikoGame.GAME_PHASE;
 import model.entities.online.RisikoGame.GAME_PHASE;
-import model.entities.Territory;
 import model.entities.online.Update;
 import model.util.FileHandler;
 import model.util.ImageAssets;
@@ -528,6 +525,9 @@ class OnlineGameSceneController implements RemotePlay {
             System.out.println("Turno server chiuso =" + serverTurnClosed);
         }
         if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
+            game.getCurrentTurn().giveCard(game.getRndCard());
+            System.out.println("ELENCO CARTE");
+            System.out.println(game.getCurrentTurn().getCards());
             /*Iterator<Attacco> i = myAttacks.iterator();
             while(i.hasNext()) {
                 Attacco attacco = i.next();
@@ -611,6 +611,56 @@ Ripristinare
 
         nextTurn();
     }
+
+    public void closeByMove() {
+    if (OnlineSceneController.amIaServer) {
+            serverTurnClosed = true;
+            System.out.println("Turno server chiuso =" + serverTurnClosed);
+        }
+        if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
+            game.getCurrentTurn().giveCard(game.getRndCard());
+            try {
+                Iterator<Territory> allTerritories = game.getTerritories().iterator();
+                int temp = game.getCurrentTurn().getTerritories();
+                for(int i = 0; i == temp; i++ ) {
+                    game.getCurrentTurn().removeTerritory();
+                }
+                int k=0;
+                int y=0;
+                while (allTerritories.hasNext()) {
+                    Territory tempTerr = allTerritories.next();
+                    if(tempTerr.getOwner().getColor().toString().equals(OnlineSceneController.myColor)) {
+                        k++;
+                        y = y + tempTerr.getTanks();
+                    }
+                    playStub.globalUpdate(tempTerr);
+                }
+
+                while(game.getCurrentTurn().getTerritories() != 0) {
+                    game.getCurrentTurn().removeTerritory();
+                }
+                while(game.getCurrentTurn().getTerritories() != k) {
+                    game.getCurrentTurn().addTerritory();
+                }
+                while(game.getCurrentTurn().getTanks() != 0) {
+                    game.getCurrentTurn().removeTanks(1);
+                }
+                while(game.getCurrentTurn().getTanks() != y) {
+                    game.getCurrentTurn().addTanks(1);
+                }
+                myTerritories = k;
+                myTanks = y;
+                if(game.verifyMission() == true) {
+                    System.out.println("VITTORIA RILEVATA");
+                }
+                playStub.remoteChangeTurn();
+            }   catch (RemoteException ect) {
+                System.out.println("problema qui");
+            }
+            myAttacks.clear();
+        }
+    }
+
 
 
 
@@ -1339,10 +1389,6 @@ Ripristinare
 
     public void placeTank() throws IOException {
 
-        setPlayerStatus();
-        setPlayerLabel();
-        setStatusBar();
-
 
         if(OnlineSceneController.amIaServer == false && game.getCurrentTurn().getBonusTanks() == 1 && game.getCurrentTurn().getColor().toString().equals(OnlineSceneController.myColor) && game.getGamePhase().equals(GAME_PHASE.REINFORCEMENT)) {
             nextPhase();
@@ -1556,7 +1602,10 @@ Ripristinare
 
     }
 
-    public static void remoteMoveCaller(Territory t1, Territory t2, int value) {/*
+    public static void remoteMoveCaller(Territory t1, Territory t2, int value) {
+        if(game.getGamePhase().equals(GAME_PHASE.FINALMOVE)) {
+            OnlineGameSceneController.getInstance().closeByMove();
+        }/*
         try {
             playStub.remoteMove(t1, t2, value);
             if(game.getGamePhase() == GAME_PHASE.FINALMOVE) {

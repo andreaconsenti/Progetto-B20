@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 import model.entities.online.Attacco;
+import model.entities.online.RisikoGame;
 
 import java.io.IOException;
 
@@ -104,12 +105,18 @@ public class OnlineMoveSceneController {
 	 * @throws IOException
 	 */
 	public void moveEverythingPressed(ActionEvent e) {
-		if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
-			OnlineGameSceneController.remoteMoveCaller(OnlineGameSceneController.territory1, OnlineGameSceneController.territory2, OnlineGameSceneController.territory1.getTanks() - 1);
-		}
 		OnlineGameSceneController.game.moveTanks(OnlineGameSceneController.territory1, OnlineGameSceneController.territory2, OnlineGameSceneController.territory1.getTanks() - 1);
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.close();
+
+		if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
+			OnlineGameSceneController.remoteMoveCaller(OnlineGameSceneController.territory1, OnlineGameSceneController.territory2, OnlineGameSceneController.territory1.getTanks() - 1);
+		}
+
+
+		if(OnlineSceneController.amIaServer == false && OnlineGameSceneController.game.getGamePhase().equals(RisikoGame.GAME_PHASE.FINALMOVE)) {
+			OnlineGameSceneController.getInstance().nextTurn();
+		}
 	}
 	
 

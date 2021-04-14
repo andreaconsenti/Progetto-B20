@@ -81,11 +81,15 @@ public class OnlineMoveSceneController {
 	 * @throws IOException
 	 */
 	public void movePressed(ActionEvent e) {
+		OnlineGameSceneController.game.moveTanks(OnlineGameSceneController.territory1, OnlineGameSceneController.territory2, (int)slider.getValue());
+
+		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
+		window.close();
+
 		if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
 			OnlineGameSceneController.remoteMoveCaller(OnlineGameSceneController.territory1, OnlineGameSceneController.territory2, (int)slider.getValue());
 		}
 
-		OnlineGameSceneController.game.moveTanks(OnlineGameSceneController.territory1, OnlineGameSceneController.territory2, (int)slider.getValue());
 
 		if(OnlineSceneController.amIaServer && OnlineGameSceneController.serverAttackClosed /* aggiungere in fine && se non sono client*/) {
 			//simulo lo spostamento come attacco
@@ -94,8 +98,10 @@ public class OnlineMoveSceneController {
 			OnlineGameSceneController.serverTurnClosed = true;
 		}
 
-		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
-		window.close();
+		if(OnlineSceneController.amIaServer == false && OnlineGameSceneController.game.getGamePhase().equals(RisikoGame.GAME_PHASE.FINALMOVE)) {
+			OnlineGameSceneController.getInstance().nextTurn();
+		}
+
 	}
 	
 

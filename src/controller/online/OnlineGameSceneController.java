@@ -738,7 +738,7 @@ Ripristinare
 
                     String tempCol = playStub.getCurrentColor();
 
-                    while(serverTurnClosed == false) {
+                    while(serverTurnClosed == false || playStub.getCurrentColor().equals(OnlineSceneController.myColor)) {
                         System.out.println(OnlineSceneController.myColor + " (C): in attesa chiusura turno di " + playStub.getCurrentColor() + " - SVTURN = " + serverTurnClosed);
                         Thread.sleep(1500);
                         serverTurnClosed = playStub.getServerTurnClosed();

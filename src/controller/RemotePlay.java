@@ -67,5 +67,7 @@ public interface RemotePlay extends Remote {
 
     RisikoGame getFullGame() throws RemoteException;
 
+    void closeGame() throws RemoteException;
+
 
 }

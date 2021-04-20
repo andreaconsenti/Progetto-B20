@@ -419,6 +419,7 @@ class OnlineGameSceneController implements RemotePlay {
         if (game.verifyMission() == true) {
             try {
                 windowLoader("view/fxmls/OnlineMissionCompletedScene.fxml", "Vittoria", true);
+                //playStub.closeGame();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -526,8 +527,6 @@ class OnlineGameSceneController implements RemotePlay {
         }
         if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
             game.getCurrentTurn().giveCard(game.getRndCard());
-            System.out.println("ELENCO CARTE");
-            System.out.println(game.getCurrentTurn().getCards());
             /*Iterator<Attacco> i = myAttacks.iterator();
             while(i.hasNext()) {
                 Attacco attacco = i.next();
@@ -741,7 +740,12 @@ Ripristinare
                     while(serverTurnClosed == false || playStub.getCurrentColor().equals(OnlineSceneController.myColor)) {
                         System.out.println(OnlineSceneController.myColor + " (C): in attesa chiusura turno di " + playStub.getCurrentColor() + " - SVTURN = " + serverTurnClosed);
                         Thread.sleep(1500);
-                        serverTurnClosed = playStub.getServerTurnClosed();
+                        try {
+                            serverTurnClosed = playStub.getServerTurnClosed();
+                        }catch (RemoteException ex) {
+                            System.out.println("Hai perso");
+                            System.exit(0);
+                        }
                         if(tempCol.equals(playStub.getCurrentColor()) == false) {
                             break;
                         }
@@ -1389,7 +1393,6 @@ Ripristinare
 
     public void placeTank() throws IOException {
 
-
         if(OnlineSceneController.amIaServer == false && game.getCurrentTurn().getBonusTanks() == 1 && game.getCurrentTurn().getColor().toString().equals(OnlineSceneController.myColor) && game.getGamePhase().equals(GAME_PHASE.REINFORCEMENT)) {
             nextPhase();
         }
@@ -1399,6 +1402,7 @@ Ripristinare
 
         game.getCurrentTurn().placeTank(1);
         game.addTerritoryTanks(territorySelected);
+
         missionControl();
         Integer n = game.getTerritory(territorySelected).getTanks();
         mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
@@ -2032,4 +2036,23 @@ Ripristinare
     public RisikoGame getFullGame() throws RemoteException {
         return game;
     }
+
+    @Override
+    public void closeGame() throws RemoteException {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("RICHIESTA DI CHIUSURA");
+                Stage window = (Stage) (gamePane).getScene().getWindow();
+                window.close();
+                System.exit(0);
+            }
+        });
+
+    }
+
+    public void closeGameRequest() throws RemoteException {
+        playStub.closeGame();
+    }
+
 }

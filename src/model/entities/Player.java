@@ -8,6 +8,8 @@ import java.util.Timer;
 import controller.AIRecapSceneController;
 import controller.AttackSceneController;
 import controller.GameSceneController;
+import controller.online.OnlineGameSceneController;
+import model.entities.online.RisikoGame;
 
 public class Player implements Serializable {
 	

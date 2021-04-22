@@ -608,6 +608,22 @@ Ripristinare
         //potrebbe essere qui il problema
         //myAttacks.clear();
 
+        if(OnlineSceneController.amIaServer == false) {
+            if(game.getCurrentTurn().getBonusTanks() > 0)
+            while(game.getCurrentTurn().getBonusTanks() != 0) {
+                game.getCurrentTurn().giveBonusTanks(-1);
+            }
+            if(game.getCurrentTurn().getBonusTanks() < 0)
+                while(game.getCurrentTurn().getBonusTanks() != 0) {
+                    game.getCurrentTurn().giveBonusTanks(+1);
+                }
+
+            game.giveBonus(game.getCurrentTurn());
+        }
+        System.out.println("CONCLUDO CON BONUS = " + game.getCurrentTurn().getBonusTanks());
+
+        missionControl();
+
         nextTurn();
     }
 
@@ -766,7 +782,7 @@ Ripristinare
                         globalUpdate(tempTerrIter.next());
                     }
 
-                    game.getCurrentTurn().giveBonusTanks((game.getCurrentTurn().getBonusTanks())*(-1));
+                    //game.getCurrentTurn().giveBonusTanks((game.getCurrentTurn().getBonusTanks())*(-1));
 
                     System.out.println(OnlineSceneController.myColor + " (C): attacchi processati");
 
@@ -855,6 +871,7 @@ Ripristinare
         }
         } catch (Exception e) {
             e.printStackTrace();
+            System.exit(0);
         }
         return;
         }
@@ -1422,7 +1439,7 @@ Ripristinare
         if ((bandiera == true && getCurrentPlayer().getColor().toString().equals(OnlineSceneController.myColor))
             || OnlineSceneController.amIaServer && bandiera == true) {
             serverTerritoryList.add(territorySelected);
-            System.out.println("FASE 2 -> AGGIUNTO");
+            //System.out.println("FASE 2 -> AGGIUNTO");
         }
 
         if(OnlineSceneController.amIaServer) {
@@ -1956,6 +1973,7 @@ Ripristinare
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                missionControl();
                 nextTurn();
                 if(game.getGamePhase()!= GAME_PHASE.REINFORCEMENT) {
 

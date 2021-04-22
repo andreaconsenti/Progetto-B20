@@ -9,6 +9,7 @@ import controller.AIRecapSceneController;
 import controller.AttackSceneController;
 import controller.GameSceneController;
 import controller.online.OnlineGameSceneController;
+import controller.online.OnlineSceneController;
 import model.entities.online.RisikoGame;
 
 public class Player implements Serializable {
@@ -76,6 +77,7 @@ public class Player implements Serializable {
 	 * @param n is the number of tanks added or subtracted
 	 */
 	public void giveBonusTanks(int n) {
+		System.out.println("Assegno a" + color + " " + n);
 		bonusTanks += n;
 	}
 	

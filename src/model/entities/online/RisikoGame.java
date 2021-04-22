@@ -275,7 +275,7 @@ public class RisikoGame implements Serializable {
 						i++;
 					}
 				}
-				if(i == currentTurn.getMission().getNumberOfTerritories()) {
+				if(i >= currentTurn.getMission().getNumberOfTerritories()) {
 					return true;
 				} else {
 					return false;

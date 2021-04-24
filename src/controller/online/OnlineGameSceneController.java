@@ -50,9 +50,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public
-
-class OnlineGameSceneController implements RemotePlay {
+public class OnlineGameSceneController implements RemotePlay {
 
     @FXML
     private ImageView mapBackground;
@@ -1306,20 +1304,6 @@ class OnlineGameSceneController implements RemotePlay {
 
     /*Metodi JAVA RMI*/
 
-    @Override
-    public void remoteMove(Territory t1, Territory t2, int value) throws RemoteException {
-
-        /*Attacco temp = new Attacco(t1, t2, t1.getTanks(), t2.getTanks());
-        remoteAttack(t1,t2,t1.getTanks()-value, t2.getTanks()+value,t1.getOwner().getColor(), t2.getOwner().getColor());
-*/
-    }
-
-    @Override
-    public int getServerTerrTank(Territory recTerr) throws RemoteException{
-        return game.getTerritory(recTerr).getTanks();
-    }
-
-
 
     @Override
     public void remotePlaceTank(Territory remoteTerritory) throws IOException {
@@ -1337,7 +1321,6 @@ class OnlineGameSceneController implements RemotePlay {
                 //Introduco territorioLocale perchè remoteTerritory ricevuto tramite RMI non è rilevato
                 //come un oggetto locale e crea problemi con "mappaImgTanks.get(territorioLocale).getNumber().setText(n.toString())"
                 Territory territorioLocale = game.getTerritory(remoteTerritory);
-                missionControl();
                 Integer n = game.getTerritory(remoteTerritory).getTanks();
                 mappaImgTanks.get(territorioLocale).getNumber().setText(n.toString());
 
@@ -1348,8 +1331,6 @@ class OnlineGameSceneController implements RemotePlay {
                     return;
                 }
 
-                setStatusBar();
-                setPlayerStatus();
                 nextTurn();
 
                 if (game.getCurrTurnBonusTanks() == 0) {
@@ -1371,19 +1352,11 @@ class OnlineGameSceneController implements RemotePlay {
         ArrayList<Update> temp = playStub.getUpdate();
         lastFirstUpdateSize = temp.size();
         Iterator<Update> iterator = temp.iterator();
-        /*while(iterator.hasNext()) {
-            Update u = iterator.next();
-        }
-        playStub.getBandiera();
-        if (bandiera) {
-            //nextPhase();
-        }*/
+
     }
 
     public void clientPlaceTank(Territory territoryFromServer) throws IOException {
         System.out.println(territoryFromServer.getName());
-
-        //game.getCurrentTurn().placeTank(1); // tolto perchè toglieva tank a turno sbagliato
         game.addTerritoryTanks(territoryFromServer);
         Territory territorioLocale = game.getTerritory(territoryFromServer);
         missionControl();
@@ -1411,19 +1384,6 @@ class OnlineGameSceneController implements RemotePlay {
         mappaImgTanks.get(territorioLocale).getNumber().setText(n.toString());
     }
 
-    public void processaUpdate() throws RemoteException {/*
-        updates = playStub.getUpdate();
-        Iterator<Update> temp = updates.iterator();
-        while(temp.hasNext()) {
-            Update tmpUpdate = temp.next();
-            System.out.println(tmpUpdate.getTerritory());
-        }*/
-    }
-
-
-
-
-
 
     @Override
     public boolean getBandiera() throws IOException {
@@ -1450,82 +1410,9 @@ class OnlineGameSceneController implements RemotePlay {
 
     @Override
     public void remoteAttack(Territory terrCl1, Territory terrCl2, int nuovoValAtk, int nuovoValDef, COLOR c1, COLOR c2) {
-        /*
 
-        Territory t1 = game.getTerritory(terrCl1);
-        Territory t2 = game.getTerritory(terrCl2);
-
-        if(c1 == c2) {
-            System.out.println("rilevata conquista o spostamento");
-            //invoco metodo che ricava i miei player in base al colore
-            System.out.println(game.getPlayerByColor(c1).getColorName() + " e " + game.getPlayerByColor(c2).getColorName());
-
-            game.getTerritory(t1).setOwner(game.getPlayerByColor(c1));
-            game.getTerritory(t2).setOwner(game.getPlayerByColor(c2));
-
-
-            if(nuovoValAtk == 0) {
-                System.out.println("ATTACCO A 0");
-
-
-            }
-            if(nuovoValDef == 0) {
-                System.out.println("DIFESA A 0");
-            }
-        }
-
-
-
-        int vecchioValAtk = game.getTerritory(terrCl1).getTanks();
-        int vecchioValDef = game.getTerritory(terrCl2).getTanks();
-
-        if(nuovoValAtk > vecchioValAtk)  {
-            int tankDaAgg = nuovoValAtk - vecchioValAtk;
-            game.getTerritory(t1).addTanks(tankDaAgg);
-        }
-        if(nuovoValAtk < vecchioValAtk) {
-            int tankDaRim = vecchioValAtk - nuovoValAtk;
-            game.getTerritory(t1).removeTanks(tankDaRim);
-        }
-
-        if(nuovoValDef > vecchioValDef)  {
-            int tankDaAgg = nuovoValDef - vecchioValDef;
-            game.getTerritory(t2).addTanks(tankDaAgg);
-        }
-        if(nuovoValDef < vecchioValDef) {
-            int tankDaRim = vecchioValDef - nuovoValDef;
-            game.getTerritory(t2).removeTanks(tankDaRim);
-        }
-
-        myAttacks.add(new Attacco(terrCl1, terrCl2, nuovoValAtk, nuovoValDef));
-
-        //aggiorno interfaccia server dopo attacco di client
-
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-
-                File file = new File(getTankPath(t1));
-                Image image = new Image(file.toURI().toString());
-                mappaImgTanks.get(t1).getImage().setImage(image);
-                file = new File(getTankPath(t2));
-                image = new Image(file.toURI().toString());
-                mappaImgTanks.get(t2).getImage().setImage(image);
-
-                Integer temp = t1.getTanks();
-                mappaImgTanks.get(t1).getNumber().setText(temp.toString());
-                temp = t2.getTanks();
-                mappaImgTanks.get(t2).getNumber().setText(temp.toString());
-
-            }
-        });
-
-        */
         game.getCurrentTurn().giveBonusTanks(-(game.getCurrentTurn().getBonusTanks()));
-
-        //resetto serverTurnClosed per preparare il client a ricevere prossime mosse
         serverTurnClosed = false;
-
         game.setGamePhase(GAME_PHASE.FINALMOVE);
 
     }
@@ -1544,6 +1431,8 @@ class OnlineGameSceneController implements RemotePlay {
 
                     game.setGamePhase(GAME_PHASE.REINFORCEMENT);
                     game.giveBonus(game.getCurrentTurn());
+
+                    setStatusBar();
                 }
             }
         });

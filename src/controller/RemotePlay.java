@@ -31,10 +31,6 @@ public interface RemotePlay extends Remote {
 
     void remoteChangeTurn() throws RemoteException;
 
-    int getServerTerrTank(Territory recTerr) throws RemoteException;
-
-    void remoteMove(Territory t1, Territory t2, int value) throws RemoteException;
-
     void forceClosePostMove() throws RemoteException;
 
     ArrayList<Update> getUpdate() throws RemoteException;

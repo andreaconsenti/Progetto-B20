@@ -515,12 +515,9 @@ public class GameSceneController {
 	private void initTanks() throws IOException {
 		ArrayList<Pixel> posList;
 
-		if(OnlineSceneController.isOnlineMultiplayer == true) {
-			posList = fileH.addPosizione(OnlineSceneController.terrFile);
-		}
-		else {
+
 			posList = fileH.addPosizione(PlayerSceneController.terrFile);
-		}
+
 
 		
 		int i = 0;

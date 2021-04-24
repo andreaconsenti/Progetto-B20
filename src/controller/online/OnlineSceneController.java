@@ -77,7 +77,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     public static boolean amIaServer;
     public static boolean amIaClient;
 
-    public static boolean isOnlineMultiplayer;
+
 
     public static ActionEvent event = new ActionEvent();
 
@@ -151,7 +151,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
             //che il client avrà per tutta la partita
             myColor = response;
 
-            System.out.println("response: " + response);
+            System.out.println("Colore assegnato: " + response);
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
             e.printStackTrace();
@@ -214,7 +214,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         // Adattare il controller del GameScene.fxml per poter caricare
         // il nuovo scenario!
 
-        isOnlineMultiplayer = true;
 
         PlayersList.setPlayers(list);
         Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameScene.fxml"));
@@ -319,8 +318,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         continentsFile = stub.getContinentFile();
         missions = stub.getMissions();
 
-
-        isOnlineMultiplayer = true;
 
         PlayersList.setPlayers(list);
         Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/OnlineGameScene.fxml"));

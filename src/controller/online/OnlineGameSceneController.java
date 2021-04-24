@@ -154,15 +154,9 @@ class OnlineGameSceneController implements RemotePlay {
     protected static int clientAtkTanks;
     protected static int clientDefTanks;
 
-    private boolean moved;
-
     ArrayList<Update> updates = new ArrayList<>();
 
     private int lastFirstUpdateSize = 0; //Dedicato a attesaPrimoTurno()
-
-    private int lastSecondUpdateSize = 0;
-
-    private int lastThirdUpdateSize = 0;
 
     private String realNextTurn = new String();
 
@@ -246,45 +240,7 @@ class OnlineGameSceneController implements RemotePlay {
      * @throws IOException
      */
     public void initialize() throws NumberFormatException, IOException, NotBoundException {
-        if (OnlineSceneController.isOnlineMultiplayer == true) {
-            initializeOnline();
-        } else {
-            game = new RisikoGame(PlayersList.getPlayers(), PlayerSceneController.terrFile, PlayerSceneController.continentsFile, PlayerSceneController.missions);
-
-            File file = new File(PlayerSceneController.map);
-            Image temp = new Image(file.toURI().toString());
-            map.setImage(temp);
-
-            File img = new File(PlayerSceneController.territories);
-            BufferedImage image = ImageIO.read(img);
-
-            territoryLabel.setOpacity(0);
-
-            mappa = ImageAssets.imageProcess(image, game.getTerritories());
-
-            wImage = genWritableMap();
-            map.setImage(wImage);
-
-            mappaImgTanks = new HashMap<Territory, territoryStatus>();
-            initTanks();
-
-            executors = new HashMap<GAME_PHASE, FunctionExecutor>();
-            initExecutors();
-
-            statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata" + "\n" + "Hai ancora " + game.getCurrentTurn().getBonusTanks() + " armate da posizionare.");
-            setPlayerLabel();
-            setPlayerStatus();
-            endTurn.setDisable(true);
-            nextPhase.setDisable(true);
-            nextPhase.setText("POSIZIONAMENTO");
-        }
-
-        for (Player p : PlayersList.getPlayers()) {
-            if (p.isAI()) {
-                aiRecap();
-                break;
-            }
-        }
+        initializeOnline();
     }
 
     public void initializeOnline() throws IOException, NotBoundException {
@@ -334,7 +290,6 @@ class OnlineGameSceneController implements RemotePlay {
 
         if (OnlineSceneController.amIaClient == true && OnlineSceneController.amIaServer == false) {
             playStub = (RemotePlay) OnlineSceneController.registry.lookup("Play");
-            //game = playStub.getCurrentGame();
             try {
                 if((playStub.getCurrentColor().equals(OnlineSceneController.myColor))) {
                     attesaPrimoTurno(true);
@@ -377,11 +332,11 @@ class OnlineGameSceneController implements RemotePlay {
 
         }
 
-            if(game.getCurrTurnBonusTanks() == 1) {
-                game.getCurrentTurn().giveBonusTanks(1);
-            }
-
+        if(game.getCurrTurnBonusTanks() == 1) {
+            game.getCurrentTurn().giveBonusTanks(1);
         }
+
+    }
 
 
     /**
@@ -419,7 +374,6 @@ class OnlineGameSceneController implements RemotePlay {
         if (game.verifyMission() == true) {
             try {
                 windowLoader("view/fxmls/OnlineMissionCompletedScene.fxml", "Vittoria", true);
-                //playStub.closeGame();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -505,7 +459,6 @@ class OnlineGameSceneController implements RemotePlay {
      * @param e is the event
      */
     public void nextPhasePressed(ActionEvent e) {
-        //Si entra quando si preme Spostamento in alto a dx
         nextPhase();
         serverAttackClosed = true;
     }
@@ -518,7 +471,7 @@ class OnlineGameSceneController implements RemotePlay {
      */
     public void endTurnPressed(ActionEvent e) throws InterruptedException {
         //try {
-            //System.out.println(Inet4Address.getLocalHost().getHostAddress());
+        //System.out.println(Inet4Address.getLocalHost().getHostAddress());
         //} catch (UnknownHostException e1) {}
 
         if (OnlineSceneController.amIaServer) {
@@ -527,17 +480,7 @@ class OnlineGameSceneController implements RemotePlay {
         }
         if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
             game.getCurrentTurn().giveCard(game.getRndCard());
-            /*Iterator<Attacco> i = myAttacks.iterator();
-            while(i.hasNext()) {
-                Attacco attacco = i.next();
-                try {
-                    playStub.remoteAttack(attacco.getAttaccante(), attacco.getDifensore(), attacco.getCarriAggiornatiAttaccante(),attacco.getCarriAggiornatiDifensore(), attacco.getAttaccante().getOwner().getColor(), attacco.getDifensore().getOwner().getColor());
-                } catch (RemoteException remoteException) {
-                    remoteException.printStackTrace();
-                }
 
-Ripristinare
-            }*/
             try {
                 Iterator<Territory> allTerritories = game.getTerritories().iterator();
                 int temp = game.getCurrentTurn().getTerritories();
@@ -605,14 +548,11 @@ Ripristinare
 
         }
 
-        //potrebbe essere qui il problema
-        //myAttacks.clear();
-
         if(OnlineSceneController.amIaServer == false) {
             if(game.getCurrentTurn().getBonusTanks() > 0)
-            while(game.getCurrentTurn().getBonusTanks() != 0) {
-                game.getCurrentTurn().giveBonusTanks(-1);
-            }
+                while(game.getCurrentTurn().getBonusTanks() != 0) {
+                    game.getCurrentTurn().giveBonusTanks(-1);
+                }
             if(game.getCurrentTurn().getBonusTanks() < 0)
                 while(game.getCurrentTurn().getBonusTanks() != 0) {
                     game.getCurrentTurn().giveBonusTanks(+1);
@@ -621,14 +561,13 @@ Ripristinare
             game.giveBonus(game.getCurrentTurn());
         }
         System.out.println("CONCLUDO CON BONUS = " + game.getCurrentTurn().getBonusTanks());
-
         missionControl();
 
         nextTurn();
     }
 
     public void closeByMove() {
-    if (OnlineSceneController.amIaServer) {
+        if (OnlineSceneController.amIaServer) {
             serverTurnClosed = true;
             System.out.println("Turno server chiuso =" + serverTurnClosed);
         }
@@ -707,11 +646,8 @@ Ripristinare
 
         if(OnlineSceneController.amIaServer) {
             realNextTurn = game.getCurrentTurn().getColor().toString();
-            /*try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {e.printStackTrace();}*/
+
         }
-        //provo a fetchare arraylist qui
 
         if(OnlineSceneController.amIaServer == false) {
             try {
@@ -728,20 +664,7 @@ Ripristinare
                             break;
                         }
                     }
-                    /*serverTerritoryList = playStub.getUpdatedTerritory();
 
-                    Iterator<Territory> lista = serverTerritoryList.iterator();
-                    while (lista.hasNext()) {
-                        if(lastSecondUpdateSize < serverTerritoryList.size()) {
-                            lista.next();
-                        }
-                        if(lastSecondUpdateSize > serverTerritoryList.size()) {
-                            updateGuiFromList(lista.next());
-                        }
-                        System.out.println("Incremento lastSecond");
-                        lastSecondUpdateSize++;
-                    }
-                    //resetArrayList();*/
                     playStub.resetArrayList();
                     bandiera = false;
                     updatedFromList = true;
@@ -770,10 +693,6 @@ Ripristinare
                         }
                     }
 
-                    /*Attacco[] attacchi = playStub.getServerAttacks();
-                    for(Attacco a: attacchi) {
-                        processServerAttack(a);
-                    }*/
 
                     Thread.sleep(1500);
                     RisikoGame tempGame = playStub.getFullGame();
@@ -858,143 +777,24 @@ Ripristinare
         }
 
 
-            System.out.println("finisco con " + game.getCurrentTurn().getColor().toString());
+        System.out.println("finisco con " + game.getCurrentTurn().getColor().toString());
 
         try {
             if((OnlineSceneController.amIaServer == false && playStub.getCurrentColor().equals(OnlineSceneController.myColor)) &&
                     (bandiera || playStub.getBandiera())) {
-                //System.out.println("forzo da " + game.getCurrentTurn().getColor().toString());
                 while (game.getCurrentTurn().getColor().toString().equals(OnlineSceneController.myColor) == false) {
                     game.nextTurn();
-                    //System.out.println(" a " + game.getCurrentTurn().getColor().toString());
                 }
-        }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
         return;
-        }
-
-
-    public void nextTurnBackup() {
-
-        missionControl();
-
-        if(OnlineSceneController.amIaServer) {
-            //altrimenti client non preleva correttamente atk e def da server al 2 turno
-            serverAttackClosed = false;
-        }
-
-        game.nextTurn();
-
-        realNextTurn = game.getCurrentTurn().getColor().toString();
-        //provo a fetchare arraylist qui
-
-        try {
-            if (!OnlineSceneController.amIaServer && OnlineSceneController.amIaClient
-                    && !getCurrentPlayer().getColor().equals(OnlineSceneController.myColor)) {
-                if (playStub.getBandiera() && !updatedFromList) {
-                    //attenzione non deve essere 4 ma numero di bonus tank che ha avversario
-                    while (playStub.getUpdatedTerritory().size() != 4) {
-                        System.out.println("Server ha posizionato nTank = " + playStub.getUpdatedTerritory().size());
-                        Thread.sleep(1500);
-                    }
-                    System.out.println("ottengo arraylist da server...");
-                    serverTerritoryList = playStub.getUpdatedTerritory();
-                    System.out.println("arraylist scaricato");
-                    //qui chiamare funzione che aggiorna uno per uno i territori
-                    Iterator<Territory> lista = serverTerritoryList.iterator();
-                    while (lista.hasNext()) {
-                        updateGuiFromList(lista.next());
-                    }
-                    System.out.println("Allineamento eseguito");
-                    //resetto mio arraylist scaricato
-                    resetArrayList();
-                    playStub.resetArrayList();
-                    bandiera = false;
-                    updatedFromList = true;
-
-                    //mod
-                    while(!playStub.getServerAttackClosed()) {
-                        System.out.println("server non ha attaccato");
-                        Thread.sleep(1500);
-                    }
-
-                    System.out.println("Server ha attaccato. Scarico info attacco...");
-                    //processNewClientTankPostAtk();
-                    //clientUpdateGuiPostAtk();
-
-
-                    serverTurnClosed = playStub.getServerTurnClosed();
-
-                    while(serverTurnClosed == false) {
-                        System.out.println("Attendo fine turno server...");
-                        Thread.sleep(1500);
-                        serverTurnClosed = playStub.getServerTurnClosed();
-                    }
-
-                    Attacco[] attacchi = playStub.getServerAttacks();
-                    for (Attacco a: attacchi
-                    ) {
-                        processServerAttack(a);
-                    }
-
-
-                    /*Questa porzione abilita il secondo turno del client per rinforzo-attacco*/
-                    forzaReinforcement = true;
-                    nextClient = true;
-                    nextPhase();
-                    System.out.println("Fase ricezione terminata in " + game.getGamePhase());
-
-                    playStub.forceClosePostMove();
-                }
-            }
-        } catch (IOException | InterruptedException exception) {
-
-        }
-
-        //sta parte la devo skippare forse se sono client e non è mio turno
-        if (game.getGamePhase() == GAME_PHASE.FIRSTTURN) {
-            int i = 0;
-            while (game.getCurrentTurn().getBonusTanks() == 0) {
-                if (i == PlayersList.players.length) {
-                    break;
-                }
-                game.nextTurn();
-                i++;
-            }
-        }
-        if (!(game.getGamePhase() == GAME_PHASE.FIRSTTURN))
-            nextPhase();
-
-
-        setStatusBar();
-        setPlayerStatus();
-        setPlayerLabel();
-        territory1 = null;
-        territory2 = null;
-
-        if (game.getGamePhase() != GAME_PHASE.FIRSTTURN && game.getCurrentTurn().isAI()) {
-            game.getCurrentTurn().playTurn();
-        }
-
-        //permette al client di impostare il giusto turno al primo giro di rinforzo
-        if(game.firstPhaseEnded()) {
-            game.setGamePhase(GAME_PHASE.FINALMOVE);
-        }
-
-        if(forzaReinforcement && game.getGamePhase() == GAME_PHASE.BATTLE) {
-            game.nextTurn();
-            game.setGamePhase(GAME_PHASE.REINFORCEMENT);
-            game.giveBonus(game.getCurrentTurn());
-
-            /*Dovrei inserirlo a inizio placeTank()*/
-            setStatusBar();
-            setPlayerStatus();
-            setPlayerLabel();
-        }
     }
+
+
+
 
 
     /**
@@ -1116,11 +916,9 @@ Ripristinare
     private void initTanks() throws IOException {
         ArrayList<Pixel> posList;
 
-        if (OnlineSceneController.isOnlineMultiplayer == true) {
-            posList = fileH.addPosizione(OnlineSceneController.terrFile);
-        } else {
-            posList = fileH.addPosizione(PlayerSceneController.terrFile);
-        }
+
+        posList = fileH.addPosizione(OnlineSceneController.terrFile);
+
 
 
         int i = 0;
@@ -1215,7 +1013,7 @@ Ripristinare
         }
         if(game.getGamePhase().equals(GAME_PHASE.REINFORCEMENT) && (lastTank == true)) {
             statusBar.setText(game.getCurrentTurn().getName() + ": seleziona un Territorio sul quale posizionare un'armata\n"
-            + "Hai l'ultima armata da posizionare (ultimo tank)");
+                    + "Hai l'ultima armata da posizionare (ultimo tank)");
         }
     }
 
@@ -1430,16 +1228,15 @@ Ripristinare
         if (OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
             //Se sono un client e non server -> faccio il posizionamento su server con remotePlaceTankCaller()
             remotePlaceTankCaller();
-            lastSecondUpdateSize++;
+
         }
 
 
         //aggiunge ad arraylist di territori, i territori rafforzati da passare agli altri giocatori
         //if(getCurrentPlayer().getColor().toString().equals(OnlineSceneController.myColor) && bandiera == true)
         if ((bandiera == true && getCurrentPlayer().getColor().toString().equals(OnlineSceneController.myColor))
-            || OnlineSceneController.amIaServer && bandiera == true) {
+                || OnlineSceneController.amIaServer && bandiera == true) {
             serverTerritoryList.add(territorySelected);
-            //System.out.println("FASE 2 -> AGGIUNTO");
         }
 
         if(OnlineSceneController.amIaServer) {
@@ -1477,14 +1274,6 @@ Ripristinare
             }   catch (InterruptedException ex) {ex.printStackTrace();}
         }
 
-        /*  Rimosso dopo sync 3 player
-        if (OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
-            try {
-                waitForUpdate();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }*/
     }
 
     public void firstPhaseEnded() {
@@ -1495,36 +1284,6 @@ Ripristinare
         }
     }
 
-    public void computeNewClientTankPostAtk() {
-        //era già presente con il nome di processNewClientTankPostAtk()
-        try {
-            territory1 = game.getTerritory(playStub.getServerAtkTerritory());
-            territory2 = game.getTerritory(playStub.getServerDefTerritory());
-
-            int nuovoValoreAtk = playStub.getServerAtkNewTankNum();
-            int nuovoValoreDef = playStub.getServerDefNewTankNum();
-
-            int vecchioValAtk = game.getTerritory(territory1).getTanks();
-            int vecchioValDef = game.getTerritory(territory2).getTanks();
-
-            if(nuovoValoreAtk > vecchioValAtk) {
-                int tankDaAgg = nuovoValoreAtk - vecchioValAtk;
-                game.getTerritory(territory1).addTanks(tankDaAgg);
-            }
-            if(nuovoValoreAtk < vecchioValAtk) {
-                int tankDaRim = vecchioValAtk - nuovoValoreAtk;
-                game.getTerritory(territory1).removeTanks(tankDaRim);
-            }
-            if(nuovoValoreDef > vecchioValDef) {
-                int tankDaAgg = nuovoValoreDef - vecchioValDef;
-                game.getTerritory(territory2).addTanks(tankDaAgg);
-            }
-            if(playStub.getServerDefNewTankNum() < territory2.getTanks()) {
-                int tankDaRim = vecchioValDef - nuovoValoreDef;
-                game.getTerritory(territory2).removeTanks(tankDaRim);
-            }
-        }   catch (RemoteException ex) {ex.printStackTrace();}
-    }
 
     public void clientUpdateGuiPostAtk() throws RemoteException {
         Integer temp = OnlineGameSceneController.territory1.getTanks();
@@ -1535,111 +1294,13 @@ Ripristinare
 
     }
 
-    public void processNewClientTankPostAtk() {
-        try {
-            System.out.println("Atk: " + playStub.getServerAtkTerritory());
-            System.out.println("Def: " + playStub.getServerDefTerritory());
-
-            territory1 = game.getTerritory(playStub.getServerAtkTerritory());
-            territory2 = game.getTerritory(playStub.getServerDefTerritory());
-
-            int nuovoValoreAtk = playStub.getServerAtkNewTankNum();
-            int nuovoValoreDef = playStub.getServerDefNewTankNum();
-
-            int vecchioValAtk = game.getTerritory(territory1).getTanks();
-            int vecchioValDef = game.getTerritory(territory2).getTanks();
 
 
-            if(nuovoValoreAtk > vecchioValAtk) {
-                int tankDaAgg = nuovoValoreAtk - vecchioValAtk;
-                game.getTerritory(territory1).addTanks(tankDaAgg);
-            }
-            if(nuovoValoreAtk < vecchioValAtk) {
-                int tankDaRim = vecchioValAtk - nuovoValoreAtk;
-                game.getTerritory(territory1).removeTanks(tankDaRim);
-            }
-            if(nuovoValoreDef > vecchioValDef) {
-                int tankDaAgg = nuovoValoreDef - vecchioValDef;
-                game.getTerritory(territory2).addTanks(tankDaAgg);
-            }
-            if(nuovoValoreDef < vecchioValDef) {
-                int tankDaRim = vecchioValDef - nuovoValoreDef;
-                game.getTerritory(territory2).removeTanks(tankDaRim);
-            }
-        }   catch (RemoteException exp) {
-            exp.printStackTrace();
-        }
-
-    }
-
-    public void processServerAttack(Attacco atkServer) {
-        try {
-
-            territory1 = game.getTerritory(atkServer.getAttaccante());
-            territory2 = game.getTerritory(atkServer.getDifensore());
-
-            System.out.println("T1: " + territory1.getName() + " - T2: " +territory2.getName());
-
-            int nuovoValoreAtk = atkServer.getCarriAggiornatiAttaccante();
-            int nuovoValoreDef = atkServer.getCarriAggiornatiDifensore();
-
-            int vecchioValAtk = game.getTerritory(territory1).getTanks();
-            int vecchioValDef = game.getTerritory(territory2).getTanks();
-
-            if(atkServer.getCarriAggiornatiDifensore() == 0) {
-                nuovoValoreAtk = playStub.getServerTerrTank(territory1);
-                nuovoValoreDef = playStub.getServerTerrTank(territory2);
-
-                game.getTerritory(territory2).setOwner(game.getTerritory(territory1).getOwner());
-
-                File file = new File(getTankPath(territory1));
-                Image image = new Image(file.toURI().toString());
-                mappaImgTanks.get(territory2).getImage().setImage(image);
-            }
-
-
-            if(nuovoValoreAtk > vecchioValAtk) {
-                int tankDaAgg = nuovoValoreAtk - vecchioValAtk;
-                game.getTerritory(territory1).addTanks(tankDaAgg);
-            }
-            if(nuovoValoreAtk < vecchioValAtk) {
-                int tankDaRim = vecchioValAtk - nuovoValoreAtk;
-                game.getTerritory(territory1).removeTanks(tankDaRim);
-            }
-            if(nuovoValoreDef > vecchioValDef) {
-                int tankDaAgg = nuovoValoreDef - vecchioValDef;
-                game.getTerritory(territory2).addTanks(tankDaAgg);
-            }
-            if(nuovoValoreDef < vecchioValDef) {
-                int tankDaRim = vecchioValDef - nuovoValoreDef;
-                game.getTerritory(territory2).removeTanks(tankDaRim);
-            }
-
-            clientUpdateGuiPostAtk();
-
-        } catch (RemoteException ex) {
-            ex.printStackTrace();
-        }
-
-    }
 
     public static void remoteMoveCaller(Territory t1, Territory t2, int value) {
         if(game.getGamePhase().equals(GAME_PHASE.FINALMOVE)) {
             OnlineGameSceneController.getInstance().closeByMove();
-        }/*
-        try {
-            playStub.remoteMove(t1, t2, value);
-            if(game.getGamePhase() == GAME_PHASE.FINALMOVE) {
-                //playStub.remoteChangeTurn();
-                if(OnlineSceneController.amIaClient == true) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {e.printStackTrace();}
-                }
-            }
-        } catch (RemoteException ex2) {
-            ex2.printStackTrace();
-        }*/
+        }
     }
 
 
@@ -1648,9 +1309,9 @@ Ripristinare
     @Override
     public void remoteMove(Territory t1, Territory t2, int value) throws RemoteException {
 
-        Attacco temp = new Attacco(t1, t2, t1.getTanks(), t2.getTanks());
+        /*Attacco temp = new Attacco(t1, t2, t1.getTanks(), t2.getTanks());
         remoteAttack(t1,t2,t1.getTanks()-value, t2.getTanks()+value,t1.getOwner().getColor(), t2.getOwner().getColor());
-
+*/
     }
 
     @Override
@@ -1658,32 +1319,13 @@ Ripristinare
         return game.getTerritory(recTerr).getTanks();
     }
 
-    @Override
-    public void callCard() throws IOException {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                // Update UI here.
-                try {
-                    cardButtonPressed(new ActionEvent());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
-            }
-        });
-    }
-
-    public void remoteCardCaller() throws IOException {
-        playStub.callCard();
-    }
 
     @Override
     public void remotePlaceTank(Territory remoteTerritory) throws IOException {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                // Update UI here.
 
                 //setStatusBar();
                 //setPlayerStatus();
@@ -1715,7 +1357,7 @@ Ripristinare
                     nextPhase();
                 }
 
-            updates.add(new Update(game.getTerritory(territorioLocale), game.getTerritory(territorioLocale).getOwner(), game.getTerritory(territorioLocale).getTanks()));
+                updates.add(new Update(game.getTerritory(territorioLocale), game.getTerritory(territorioLocale).getOwner(), game.getTerritory(territorioLocale).getTanks()));
 
             }
         });
@@ -1729,13 +1371,13 @@ Ripristinare
         ArrayList<Update> temp = playStub.getUpdate();
         lastFirstUpdateSize = temp.size();
         Iterator<Update> iterator = temp.iterator();
-        while(iterator.hasNext()) {
+        /*while(iterator.hasNext()) {
             Update u = iterator.next();
         }
         playStub.getBandiera();
         if (bandiera) {
             //nextPhase();
-        }
+        }*/
     }
 
     public void clientPlaceTank(Territory territoryFromServer) throws IOException {
@@ -1752,34 +1394,11 @@ Ripristinare
         setStatusBar();
         setPlayerStatus();
 
-        //mod 19.01.21
-        if (game.getCurrTurnBonusTanks() == 0) {
-            //nextPhase();
-            //nextTurn();
-        }
-
-
     }
 
     @Override
     public RisikoGame getCurrentGame() {
         return game;
-    }
-
-    public void waitForUpdate() throws InterruptedException, IOException {
-        if (!playStub.getBandiera()) {
-            boolean terrSelFromServer = false;
-            while (!terrSelFromServer) {
-                Thread.sleep(1500);
-                terrSelFromServer = playStub.getServerTerrStatus();
-            }
-
-            //fetch territorio singolo
-            lastServerTerritory = playStub.getLastServerTerritory();
-            clientPlaceTank(lastServerTerritory);
-
-        }
-
     }
 
     public void updateGuiFromList(Territory t) {
@@ -1792,29 +1411,19 @@ Ripristinare
         mappaImgTanks.get(territorioLocale).getNumber().setText(n.toString());
     }
 
-    public void processaUpdate() throws RemoteException {
+    public void processaUpdate() throws RemoteException {/*
         updates = playStub.getUpdate();
         Iterator<Update> temp = updates.iterator();
         while(temp.hasNext()) {
             Update tmpUpdate = temp.next();
             System.out.println(tmpUpdate.getTerritory());
-        }
+        }*/
     }
 
-    @Override
-    public Territory getLastServerTerritory() throws RemoteException {
-        return lastServerTerritory;
-    }
 
-    @Override
-    public boolean getServerTerrStatus() throws IOException {
-        return serverTerrStatus;
-    }
 
-    @Override
-    public ArrayList<Territory> getUpdatedTerritory() throws RemoteException {
-        return serverTerritoryList;
-    }
+
+
 
     @Override
     public boolean getBandiera() throws IOException {
@@ -1823,7 +1432,7 @@ Ripristinare
 
     @Override
     public void resetArrayList() {
-      serverTerritoryList.clear();
+        serverTerritoryList.clear();
     }
 
     @Override
@@ -1833,64 +1442,15 @@ Ripristinare
 
 
     @Override
-    public int[] getServerAtkResults() throws RemoteException {
-        System.out.println("servAtkRes = " + serverAtkResults);
-        return serverAtkResults;
-    }
-
-    @Override
-    public int[] getServerDefResults() throws RemoteException {
-        System.out.println("servDefRes = " + serverDefResults);
-        return serverDefResults;
-    }
-
-    @Override
-    public int getServerAtkNumber() throws RemoteException {
-        System.out.println("servAtkNum = " + serverAtkNumber);
-        return serverAtkNumber;
-    }
-
-    @Override
-    public int getServerDefNumber() throws RemoteException {
-        System.out.println("servDefRes = " + serverDefResults);
-        return serverDefNumber;
-    }
-
-    @Override
-    public Territory getServerAtkTerritory() throws RemoteException {
-        return serverAtkTerritory;
-    }
-
-    @Override
-    public Territory getServerDefTerritory() throws RemoteException {
-        return serverDefTerritory;
-    }
-
-    @Override
     public boolean getServerAttackClosed() throws RemoteException {
         return serverAttackClosed;
     }
 
-    @Override
-    public int getServerAtkNewTankNum() throws RemoteException {
-        return serverAtkNewTankNum;
-    }
-
-    @Override
-    public int getServerDefNewTankNum() throws RemoteException {
-        return serverDefNewTankNum;
-    }
-
-    @Override
-    public void remoteSetOwner() {
-
-    }
 
 
     @Override
     public void remoteAttack(Territory terrCl1, Territory terrCl2, int nuovoValAtk, int nuovoValDef, COLOR c1, COLOR c2) {
-
-
+        /*
 
         Territory t1 = game.getTerritory(terrCl1);
         Territory t2 = game.getTerritory(terrCl2);
@@ -1959,6 +1519,8 @@ Ripristinare
 
             }
         });
+
+        */
         game.getCurrentTurn().giveBonusTanks(-(game.getCurrentTurn().getBonusTanks()));
 
         //resetto serverTurnClosed per preparare il client a ricevere prossime mosse
@@ -1985,20 +1547,6 @@ Ripristinare
                 }
             }
         });
-    }
-
-    @Override
-    public Attacco[] getServerAttacks() throws RemoteException {
-
-        Attacco[] attacchi = new Attacco[myAttacks.size()];
-        Iterator<Attacco> it = myAttacks.iterator();
-        for(int i = 0; it.hasNext(); i++) {
-            attacchi[i] = it.next();
-            System.out.println(attacchi[i]);
-        }
-
-        myAttacks.clear();
-        return attacchi;
     }
 
     @Override

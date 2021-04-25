@@ -3,6 +3,8 @@ package controller.online;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -60,6 +62,10 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     private MenuButton mapinput;
     @FXML
     private ImageView mapPreview;
+    @FXML
+    private Label ipLabel;
+    @FXML
+    public TextField remoteServerField;
 
 
     private ArrayList<Player> list;
@@ -111,11 +117,19 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
             registry = LocateRegistry.createRegistry(1888);
             //Per pavia mettere
             //System.setProperty("java.rmi.server.hostname", "192.168.1.107");
-            System.setProperty("java.rmi.server.hostname", "192.168.1.204");
+            //ultimo funz System.setProperty("java.rmi.server.hostname", "192.168.1.204");
+            System.setProperty("java.rmi.server.hostname", Inet4Address.getLocalHost().getHostAddress());
             registry.rebind("Hello", stub);
             System.out.println("Server ready.");
             serverStatus("ok");
             list = new ArrayList<Player>();
+
+            ipLabel.setVisible(true);
+
+            try {
+                System.out.println("MIO IP: " + Inet4Address.getLocalHost().getHostAddress());
+                ipLabel.setText("IP ASSEGNATO A SERVER: " + Inet4Address.getLocalHost().getHostAddress() + "\n      Comunicalo ai tuoi avversari.");
+            } catch (UnknownHostException e1) {}
 
         } catch (Exception e) {
             serverStatus("err");
@@ -142,7 +156,8 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
             amIaClient = true;
             //Per pavia mettere
             //registry = LocateRegistry.getRegistry("192.168.1.107", 1888);
-            registry = LocateRegistry.getRegistry("192.168.1.204", 1888);
+
+            registry = LocateRegistry.getRegistry(remoteServerField.getText(), 1888);
             stub = (RemoteJoin) registry.lookup("Hello");
             String nameFieldValue = nameField.getText();
             String response = stub.joinRequest(nameFieldValue);

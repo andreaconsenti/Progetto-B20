@@ -14,42 +14,47 @@
 
 <Pane fx:id="backgroundPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.online.OnlineSceneController">
    <children>
-      <ImageView fitHeight="742.0" fitWidth="1303.0" layoutX="-12.0" layoutY="-10.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="742.0" fitWidth="1301.0" layoutX="-11.0" layoutY="-6.0">
+         <image>
+            <Image url="@images/PlayerScene.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="723.0" fitWidth="1303.0" layoutX="-12.0" layoutY="-27.0" opacity="0.02" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/OnlineScreen.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="serverStatusField" alignment="CENTER" layoutX="615.0" layoutY="394.0" prefHeight="25.0" prefWidth="138.0" text="server status" />
-      <Label layoutX="253.0" layoutY="454.0" prefHeight="17.0" prefWidth="138.0" text="Richieste di connessione" />
+      <TextField fx:id="serverStatusField" alignment="CENTER" layoutX="614.0" layoutY="384.0" opacity="0.78" prefHeight="25.0" prefWidth="138.0" text="server status" />
+      <Label layoutX="263.0" layoutY="400.0" prefHeight="17.0" prefWidth="138.0" text="Richieste di connessione">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
       <Label layoutX="568.0" layoutY="335.0" text="Ospita una partita">
          <font>
             <Font size="15.0" />
          </font></Label>
-      <Label layoutX="570.0" layoutY="108.0" text="Entra in una partita">
+      <Label layoutX="600.0" layoutY="107.0" text="Entra in una partita">
          <font>
-            <Font size="15.0" />
+            <Font size="19.0" />
          </font></Label>
-      <TextField fx:id="nameField" alignment="CENTER" layoutX="503.0" layoutY="173.0" prefHeight="25.0" prefWidth="260.0" text="nome utente" />
+      <TextField fx:id="nameField" alignment="CENTER" layoutX="557.0" layoutY="198.0" opacity="0.78" prefHeight="25.0" prefWidth="221.0" text="Player X" />
       <Button id="darkgrey" fx:id="backButton" layoutX="47.0" layoutY="660.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="INDIETRO" />
-      <ListView fx:id="playerList" layoutX="211.0" layoutY="473.0" opacity="0.81" prefHeight="170.0" prefWidth="221.0" />
-      <Label layoutX="516.0" layoutY="24.0" text="Multiplayer online">
+      <ListView fx:id="playerList" layoutX="219.0" layoutY="430.0" opacity="0.47" prefHeight="116.0" prefWidth="221.0" />
+      <Label layoutX="558.0" layoutY="63.0" text="Multiplayer online">
          <font>
             <Font size="28.0" />
          </font></Label>
-      <Button fx:id="serverButton" layoutX="531.0" layoutY="394.0" mnemonicParsing="false" onAction="#serverPressed" text="Attiva Server" />
-      <Button fx:id="partecipaButton" layoutX="503.0" layoutY="212.0" mnemonicParsing="false" onAction="#partecipaPressed" prefHeight="52.0" prefWidth="260.0" stylesheets="@../css/StyleSheet.css" text="Partecipa" />
-      <Button fx:id="lockListButton" layoutX="211.0" layoutY="610.0" mnemonicParsing="false" onAction="#chiudiPressed" prefHeight="33.0" prefWidth="221.0" text="Chiudi iscrizioni" />
-      <ListView fx:id="defVisualPlayerList" layoutX="553.0" layoutY="477.0" prefHeight="170.0" prefWidth="156.0" />
+      <ListView fx:id="defVisualPlayerList" layoutX="556.0" layoutY="496.0" prefHeight="96.0" prefWidth="156.0" />
       <Button fx:id="startButton" disable="true" layoutX="1083.0" layoutY="649.0" mnemonicParsing="false" onAction="#startGamePressed" prefHeight="52.0" prefWidth="156.0" text="GIOCA!" visible="false">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <ImageView fx:id="mapPreview" fitHeight="155.0" fitWidth="286.0" layoutX="782.0" layoutY="492.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="mapPreview" fitHeight="155.0" fitWidth="286.0" layoutX="848.0" layoutY="423.0" opacity="0.83" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/Maps/RisikoClassic/map_preview.png" />
          </image>
       </ImageView>
-      <MenuButton fx:id="mapinput" disable="true" layoutX="783.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="240.0" text="Seleziona una mappa di gioco:" textFill="#8a8383">
+      <MenuButton fx:id="mapinput" disable="true" layoutX="846.0" layoutY="381.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="245.0" text="Seleziona una mappa di gioco:" textFill="#8a8383">
          <items>
             <MenuItem fx:id="map1" mnemonicParsing="false" text="RISIKO Originale" />
             <MenuItem fx:id="map2" mnemonicParsing="false" text="SPQRisiko" />
@@ -58,11 +63,26 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </MenuButton>
-      <Separator layoutX="47.0" layoutY="294.0" prefHeight="25.0" prefWidth="1192.0" />
-      <Label layoutX="579.0" layoutY="454.0" prefHeight="17.0" prefWidth="104.0" text="Avversari approvati" />
-      <Button fx:id="getInfoButton" layoutX="995.0" layoutY="197.0" mnemonicParsing="false" onAction="#startGamePressed2" prefHeight="83.0" prefWidth="203.0" text="GIOCA!" textFill="RED">
+      <Separator layoutX="176.0" layoutY="297.0" prefHeight="51.0" prefWidth="709.0" />
+      <Label layoutX="577.0" layoutY="460.0" prefHeight="17.0" prefWidth="117.0" text="Avversari approvati">
          <font>
-            <Font size="27.0" />
-         </font></Button>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label fx:id="ipLabel" layoutX="497.0" layoutY="426.0" opacity="0.9" prefHeight="39.0" prefWidth="259.0" text="IP ASSEGNATO A SERVER: " textFill="#c2c0c0" visible="false" />
+      <TextField fx:id="remoteServerField" alignment="CENTER" layoutX="618.0" layoutY="161.0" opacity="0.78" prefHeight="25.0" prefWidth="160.0" text="192.168.1.204" />
+      <Label contentDisplay="CENTER" layoutX="473.0" layoutY="164.0" prefHeight="19.0" prefWidth="149.0" text="IP SERVER OSPITANTE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label contentDisplay="CENTER" layoutX="471.0" layoutY="201.0" prefHeight="19.0" prefWidth="128.0" text="TUO NOME">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Button id="redbutton" fx:id="getInfoButton" layoutX="918.0" layoutY="275.0" mnemonicParsing="false" onAction="#startGamePressed2" prefHeight="60.0" prefWidth="190.0" stylesheets="@../css/StyleSheet.css" text="GIOCA!" />
+      <Button id="darkgrey" fx:id="partecipaButton" layoutX="470.0" layoutY="254.0" mnemonicParsing="false" onAction="#partecipaPressed" prefHeight="42.0" prefWidth="314.0" stylesheets="@../css/StyleSheet.css" text="Iscriviti" />
+      <Button id="darkgrey" fx:id="lockListButton" layoutX="219.0" layoutY="555.0" mnemonicParsing="false" onAction="#chiudiPressed" prefHeight="42.0" prefWidth="223.0" stylesheets="@../css/StyleSheet.css" text="Accetta le connessioni" />
+      <Button id="darkgrey" fx:id="serverButton" layoutX="492.0" layoutY="378.0" mnemonicParsing="false" onAction="#serverPressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="Attiva Server" />
    </children>
 </Pane>

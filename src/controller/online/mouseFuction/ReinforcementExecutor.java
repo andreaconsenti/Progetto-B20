@@ -19,7 +19,6 @@ public class ReinforcementExecutor implements FunctionExecutor {
 			OnlineGameSceneController.getInstance().missionControl();
 
 			if(OnlineGameSceneController.getInstance().getGame().getCurrentTurn().getBonusTanks() == 0) {
-				System.out.println("RIMANGONO " + OnlineGameSceneController.getInstance().getCurrentPlayer().getBonusTanks() + " TANKS");
 				if(OnlineGameSceneController.getInstance().getGame().getGamePhase().equals(RisikoGame.GAME_PHASE.BATTLE) && OnlineSceneController.amIaServer == false) {
 					return;
 				}

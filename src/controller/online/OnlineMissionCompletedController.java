@@ -42,11 +42,6 @@ public class OnlineMissionCompletedController {
 	 * @param event is the event generated
 	 * @throws IOException
 	 */
-	public void nuovaPressed(ActionEvent e) throws IOException {
-		OnlineGameSceneController.getInstance().newGame();
-		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
-		window.close();
-	}
 	
 	
 }

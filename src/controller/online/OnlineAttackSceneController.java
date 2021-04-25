@@ -117,23 +117,16 @@ public class OnlineAttackSceneController {
      */
     public void attackButtonPressed(ActionEvent e) throws IOException {
 
-		//mod **********
+
 		OnlineGameSceneController.nextClient = false;
 
 		System.out.println("ATK:" + OnlineGameSceneController.territory1);
 		System.out.println("DEF:" + OnlineGameSceneController.territory2);
 		OnlineGameSceneController.serverAtkTerritory = OnlineGameSceneController.territory1;
 		OnlineGameSceneController.serverDefTerritory = OnlineGameSceneController.territory2;
-		//**************
+
 		atkResults = OnlineGameSceneController.territory1.getOwner().rollDices(atkNumber);
     	defResults = OnlineGameSceneController.territory2.getOwner().rollDices(defNumber);
-
-    	//mod******
-		//OnlineGameSceneController.serverAtkResults = atkResults;
-		//OnlineGameSceneController.serverDefResults = atkResults;
-		//OnlineGameSceneController.serverAtkNumber = atkNumber;
-		//OnlineGameSceneController.serverDefNumber = defNumber;
-		//*********
     	
     	OnlineGameSceneController.game.battle(atkResults, defResults, atkNumber, defNumber);
 

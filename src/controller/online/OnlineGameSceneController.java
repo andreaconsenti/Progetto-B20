@@ -3,7 +3,6 @@ package controller.online;
 import controller.PlayerSceneController;
 import controller.RemotePlay;
 import controller.online.mouseFuction.*;
-//import controller.mouseFunction.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,13 +24,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.entities.*;
-//funz
-//import model.entities.RisikoGame;
+
 import model.entities.online.Attacco;
 import model.entities.online.RisikoGame;
 
-//funz
-//import model.entities.RisikoGame.GAME_PHASE;
 import model.entities.online.RisikoGame.GAME_PHASE;
 import model.entities.online.Update;
 import model.util.FileHandler;
@@ -43,6 +39,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.Inet4Address;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -132,10 +129,10 @@ public class OnlineGameSceneController implements RemotePlay {
 
     //nuove variabili di fase
     protected static boolean serverAttackClosed; //se server ha attaccato = true;
-    protected static int[] serverAtkResults;
-    protected static int[] serverDefResults;
-    protected static int serverAtkNumber;
-    protected static int serverDefNumber;
+
+
+
+
     protected static Territory serverAtkTerritory;
     protected static Territory serverDefTerritory;
 
@@ -147,10 +144,10 @@ public class OnlineGameSceneController implements RemotePlay {
     protected static int serverDefNewTankNum;
 
 
-    protected static Territory clientAtk;
-    protected static Territory clientDef;
-    protected static int clientAtkTanks;
-    protected static int clientDefTanks;
+
+
+
+
 
     ArrayList<Update> updates = new ArrayList<>();
 
@@ -249,7 +246,8 @@ public class OnlineGameSceneController implements RemotePlay {
             RemotePlay playStub = (RemotePlay) UnicastRemoteObject.exportObject(this, 1);
             //Per rete pavia mettere
             //			System.setProperty("java.rmi.server.hostname", "192.168.1.107");
-            System.setProperty("java.rmi.server.hostname", "192.168.1.104");
+            //ultimo funzionante System.setProperty("java.rmi.server.hostname", "192.168.1.104");
+            System.setProperty("java.rmi.server.hostname", Inet4Address.getLocalHost().getHostAddress());
             OnlineSceneController.registry.rebind("Play", playStub);
         }
 
@@ -319,7 +317,6 @@ public class OnlineGameSceneController implements RemotePlay {
                 if (i > lastFirstUpdateSize) {
                     System.out.println("DA PRIMO TURNO ");
                     clientPlaceTank(iTemp.next().getTerritory());
-                    //if(game.firstPhaseEnded() == false)
                     nextTurn();
                 }
             }
@@ -511,6 +508,7 @@ public class OnlineGameSceneController implements RemotePlay {
                     playStub.globalUpdate(tempTerr);
                 }
                 System.out.println("Ho in totale " + k + " territori e " + y + " carri");
+
                 while(game.getCurrentTurn().getTerritories() != 0) {
                     game.getCurrentTurn().removeTerritory();
                 }
@@ -1311,15 +1309,9 @@ public class OnlineGameSceneController implements RemotePlay {
             @Override
             public void run() {
 
-                //setStatusBar();
-                //setPlayerStatus();
-
                 serverTerrStatus = false; //per fare in modo che il server debba riscegliere un territorio
                 game.getCurrentTurn().placeTank(1);
-                System.out.println("piazzo tank a turno di " + game.getCurrentTurn().getColor().toString());
                 game.addTerritoryTanks(remoteTerritory);
-                //Introduco territorioLocale perchè remoteTerritory ricevuto tramite RMI non è rilevato
-                //come un oggetto locale e crea problemi con "mappaImgTanks.get(territorioLocale).getNumber().setText(n.toString())"
                 Territory territorioLocale = game.getTerritory(remoteTerritory);
                 Integer n = game.getTerritory(remoteTerritory).getTanks();
                 mappaImgTanks.get(territorioLocale).getNumber().setText(n.toString());
@@ -1402,14 +1394,7 @@ public class OnlineGameSceneController implements RemotePlay {
 
 
     @Override
-    public boolean getServerAttackClosed() throws RemoteException {
-        return serverAttackClosed;
-    }
-
-
-
-    @Override
-    public void remoteAttack(Territory terrCl1, Territory terrCl2, int nuovoValAtk, int nuovoValDef, COLOR c1, COLOR c2) {
+    public void remoteAttack() {
 
         game.getCurrentTurn().giveBonusTanks(-(game.getCurrentTurn().getBonusTanks()));
         serverTurnClosed = false;

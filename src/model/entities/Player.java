@@ -77,7 +77,6 @@ public class Player implements Serializable {
 	 * @param n is the number of tanks added or subtracted
 	 */
 	public void giveBonusTanks(int n) {
-		System.out.println("Assegno a" + color + " " + n);
 		bonusTanks += n;
 	}
 	

@@ -1,9 +1,6 @@
 package model.entities.online;
-//funz
-//import controller.GameSceneController;
+
 import controller.online.OnlineGameSceneController;
-import controller.online.OnlineSceneController;
-import javafx.application.Platform;
 import model.entities.*;
 import model.entities.Mission.MISSION_TYPE;
 import model.util.FileHandler;

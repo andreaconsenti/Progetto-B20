@@ -6,18 +6,15 @@ import java.io.Serializable;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import controller.RemoteJoin;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -72,7 +69,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     public static Registry registry;
     public static RemoteJoin stub;
 
-    private boolean mapChosed;
+    private boolean mapChosen;
     public static String map;
     public static String territories;
     public static String terrFile;
@@ -83,9 +80,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     public static boolean amIaServer;
     public static boolean amIaClient;
 
-
-
-    public static ActionEvent event = new ActionEvent();
 
 
     /**
@@ -115,8 +109,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
             amIaServer = true;
             RemoteJoin stub = (RemoteJoin) UnicastRemoteObject.exportObject(this, 0);
             registry = LocateRegistry.createRegistry(1888);
-            //Per pavia mettere
-            //System.setProperty("java.rmi.server.hostname", "192.168.1.107");
             //ultimo funz System.setProperty("java.rmi.server.hostname", "192.168.1.204");
             System.setProperty("java.rmi.server.hostname", Inet4Address.getLocalHost().getHostAddress());
             registry.rebind("Hello", stub);
@@ -154,26 +146,22 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     public void partecipaPressed(ActionEvent event) {
         try {
             amIaClient = true;
-            //Per pavia mettere
-            //registry = LocateRegistry.getRegistry("192.168.1.107", 1888);
-
             registry = LocateRegistry.getRegistry(remoteServerField.getText(), 1888);
             stub = (RemoteJoin) registry.lookup("Hello");
             String nameFieldValue = nameField.getText();
             String response = stub.joinRequest(nameFieldValue);
-
-            //Salvo nella variabile statica myColor il colore
-            //che il client avrà per tutta la partita
             myColor = response;
 
-            System.out.println("Colore assegnato: " + response);
+            System.out.println("Colore assegnato: " + myColor);
+
+
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
             e.printStackTrace();
         }
     }
 
-    public void mapChooseEnabler() {
+    public void mapChoseEnabler() {
 
         mapinput.setDisable(false);
         map1.setOnAction(e -> {
@@ -201,7 +189,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         ArrayList<String> lista = new ArrayList<>(playerList.getItems());
         defVisualPlayerList.getItems().setAll(list);
 
-        mapChooseEnabler();
+        mapChoseEnabler();
     }
 
     public COLOR autoColorChooser() {
@@ -260,7 +248,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         terrFile = terrFiles;
         continentsFile = contsFile;
         missions = missFile;
-        mapChosed = true;
+        mapChosen = true;
     }
 
     //****************************//
@@ -274,7 +262,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
     @Override
     public String joinRequest(String clientInput) throws RemoteException {
-        //System.out.println("Richiesta da client ricevuta");
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

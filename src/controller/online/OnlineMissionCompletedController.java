@@ -22,7 +22,6 @@ public class OnlineMissionCompletedController {
 		} catch (RemoteException ex) {ex.printStackTrace();}
 
 		winnerPlayerText.setText(OnlineGameSceneController.game.getCurrentTurn().getName());
-//		GameSceneController.game.                   per terminare partita
 		
 	}
     
@@ -35,13 +34,6 @@ public class OnlineMissionCompletedController {
 	public void esciPressed(ActionEvent e) {
 		System.exit(0);
 	}
-	
-
-	/**
-	 * Manages the pressure of the Nuova button, starting a new game
-	 * @param event is the event generated
-	 * @throws IOException
-	 */
 	
 	
 }

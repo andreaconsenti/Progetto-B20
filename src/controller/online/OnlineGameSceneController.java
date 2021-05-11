@@ -469,12 +469,6 @@ public class OnlineGameSceneController implements RemotePlay {
      */
     public void endTurnPressed(ActionEvent e) throws InterruptedException {
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                gamePane.setDisable(true);
-            }
-        });
 
         if (OnlineSceneController.amIaServer) {
             serverTurnClosed = true;

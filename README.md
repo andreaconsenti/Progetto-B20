@@ -6,7 +6,8 @@ Realizzazione di un applicativo desktop che consenta di giocare al gioco del Ris
 ## Istruzioni per eseguire il progetto:
 
 1. Eseguire src/view/Main.java
-2. Se si conoscono le regole del gioco schiacciare sul tasto "START", altrimenti possono essere lette schiacciando sul tasto "RULES"
-3. Inserire almeno 3 giocatori (reali o AI), selezionare la mappa e infine premere il tasto "INIZIA PARTITA"
+2. Consultare le regole e le istruzioni premendo il tasto "RULES"
+3. Per il GIOCO IN RETE premere il tasto "ONLINE", premere "RULES" nel menu principale per le istruzioni di avvio
+4. Per il GIOCO OFFLINE premere il tasto "START"
 
 BUON RISIKO!

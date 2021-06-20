@@ -3,12 +3,15 @@ package test;
 import controller.RemoteJoin;
 import controller.RemotePlay;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import model.entities.COLOR;
 import model.entities.Player;
 import model.entities.online.RisikoGame;
@@ -175,7 +178,7 @@ public class onlineTest {
 
     @Test
     /*
-     *  Testa il posizionamento su un territorio del server da parta del client
+     *  Testa il posizionamento su un territorio del server da parte del client
      */
     public void posizionaSuServer() throws IOException, InterruptedException {
         TestObject testObject = new TestObject();
@@ -250,6 +253,12 @@ public class onlineTest {
         public String getMissions() throws RemoteException {
             return null;
         }
+
+        @Override
+        public boolean gameIsReady() throws RemoteException {
+            return false;
+        }
+
 
         @Override
         public void remotePlaceTank(Territory remoteTerritory) throws IOException {

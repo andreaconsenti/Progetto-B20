@@ -1,5 +1,8 @@
 package controller;
 
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.stage.Window;
 import model.entities.Player;
 
 import java.io.IOException;
@@ -16,5 +19,7 @@ public interface RemoteJoin extends Remote {
     String getTerrFile() throws RemoteException;
     String getContinentFile() throws RemoteException;
     String getMissions() throws RemoteException;
+    boolean gameIsReady() throws RemoteException;
+
 
 }

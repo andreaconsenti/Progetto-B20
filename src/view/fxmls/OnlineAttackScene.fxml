@@ -65,6 +65,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
+                  <Button id="viola" fx:id="annichilisciButton" disable="true" layoutX="218.0" layoutY="11.0" mnemonicParsing="false" onAction="#assediaPressed" stylesheets="@../css/StyleSheet.css" text="ASSEDIA" visible="false" />
                </children>
             </Pane>
          </children>
@@ -82,8 +83,7 @@
                </font>
             </MenuButton>
             <Button id="redbutton" fx:id="annullaButton" layoutX="404.0" layoutY="75.0" mnemonicParsing="false" onAction="#annullaButtonPressed" stylesheets="@../css/StyleSheet.css" text="ANNULLA" />
-            <Button id="button" fx:id="attackButton" layoutX="302.0" layoutY="56.0" mnemonicParsing="false" onAction="#attackButtonPressed" stylesheets="@../css/StyleSheet.css" text="ATTACCA" />
-            <Button id="viola" fx:id="annichilisciButton" layoutX="302.0" layoutY="104.0" mnemonicParsing="false" onAction="#assediaPressed" stylesheets="@../css/StyleSheet.css" text="ASSEDIA" disable="true"/>
+            <Button id="button" fx:id="attackButton" layoutX="302.0" layoutY="76.0" mnemonicParsing="false" onAction="#attackButtonPressed" stylesheets="@../css/StyleSheet.css" text="ATTACCA" />
             <Pane id="attaccodifesa" prefHeight="50.0" prefWidth="511.0" stylesheets="@../css/StyleSheet.css">
                <children>
                   <Label layoutX="9.0" layoutY="5.0" prefHeight="19.0" prefWidth="202.0" text="LE TUE ARMATE SUL TERRITORIO SONO:" textFill="WHITE">

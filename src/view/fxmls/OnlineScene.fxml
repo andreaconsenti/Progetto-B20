@@ -84,5 +84,10 @@
       <Button id="darkgrey" fx:id="partecipaButton" layoutX="470.0" layoutY="254.0" mnemonicParsing="false" onAction="#partecipaPressed" prefHeight="42.0" prefWidth="314.0" stylesheets="@../css/StyleSheet.css" text="Iscriviti" />
       <Button id="darkgrey" fx:id="lockListButton" layoutX="219.0" layoutY="555.0" mnemonicParsing="false" onAction="#chiudiPressed" prefHeight="42.0" prefWidth="223.0" stylesheets="@../css/StyleSheet.css" text="Accetta le connessioni" />
       <Button id="darkgrey" fx:id="serverButton" layoutX="492.0" layoutY="378.0" mnemonicParsing="false" onAction="#serverPressed" prefHeight="41.0" prefWidth="112.0" stylesheets="@../css/StyleSheet.css" text="Attiva Server" />
+      <Label fx:id="clientWaitLabel" layoutX="91.0" layoutY="615.0" prefHeight="68.0" prefWidth="1148.0" text="ATTENZIONE: STAI GIOCANDO IN MODALITA' CLIENT. ATTENDI CHE IL GIOCATORE SERVER AVVII LA PARTITA - POI PREMI GIOCA!" textFill="#df0000">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

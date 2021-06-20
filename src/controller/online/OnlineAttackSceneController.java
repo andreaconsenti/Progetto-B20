@@ -390,26 +390,5 @@ public class OnlineAttackSceneController {
     	}
     }
     
-    /**
-     * Manages an attack made by an AI player
-     */
-    public static void aiAttack() {
-    	
-    	int atNumber;
-    	int deNumber;
-    	
-    	atNumber = OnlineGameSceneController.territory1.getTanks() - 1;
-    	if(OnlineGameSceneController.territory2.getTanks() > 2) {
-    		deNumber = 3;
-    	} else {
-    		deNumber = OnlineGameSceneController.territory2.getTanks();
-    	}
-
-		OnlineGameSceneController.getInstance().getGame().battle(OnlineGameSceneController.territory1.getOwner().rollDices(atNumber), OnlineGameSceneController.territory2.getOwner().rollDices(deNumber), atNumber, deNumber);
-    	
-    	
-    	
-    }
-    
 
 }

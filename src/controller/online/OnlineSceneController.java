@@ -11,6 +11,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.EventObject;
 
 import controller.RemoteJoin;
 import javafx.application.Platform;
@@ -23,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.entities.COLOR;
 import model.entities.Player;
@@ -63,11 +65,15 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     private Label ipLabel;
     @FXML
     public TextField remoteServerField;
+    @FXML
+    private Label clientWaitLabel;
 
 
     private ArrayList<Player> list;
     public static Registry registry;
     public static RemoteJoin stub;
+
+    public boolean gameReady;
 
     private boolean mapChosen;
     public static String map;
@@ -154,12 +160,24 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
             System.out.println("Colore assegnato: " + myColor);
 
+            if(amIaServer == false) {
+                System.out.println("Premere 'Gioca' dopo la conferma dei giocatori da parte del Server");
+                clientWaitLabel.setVisible(true);
+                serverButton.setDisable(true);
+                lockListButton.setDisable(true);
+                while(stub.gameIsReady() == false) {
+
+                }
+                startGamePressed2(event);
+            }
+
 
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
             e.printStackTrace();
         }
     }
+
 
     public void mapChoseEnabler() {
 
@@ -177,7 +195,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     }
 
     public void chiudiPressed(ActionEvent event) throws RemoteException, NotBoundException {
-        /*ToDo: pulire il codice*/
 
         stub = (RemoteJoin) registry.lookup("Hello");
 
@@ -193,9 +210,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     }
 
     public COLOR autoColorChooser() {
-        /*Fare in modo di evitare lo switch e prendere
-        direttamente i valori dalla sua enum
-         */
+
         int listSize = list.size();
         switch (listSize) {
             case 0:
@@ -306,6 +321,11 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         return missions;
     }
 
+    @Override
+    public boolean gameIsReady() throws RemoteException {
+        return gameReady;
+    }
+
     public void remotePlayerSetter() throws RemoteException {
     }
 
@@ -319,6 +339,10 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         terrFile = stub.getTerrFile();
         continentsFile = stub.getContinentFile();
         missions = stub.getMissions();
+
+        if(amIaServer) {
+            gameReady = true;
+        }
 
 
         PlayersList.setPlayers(list);

@@ -1170,36 +1170,6 @@ public class OnlineGameSceneController implements RemotePlay {
 
     }
 
-    /**
-     * Manages the click of the mouse during the reinforcement game phase, it's called only from AI
-     *
-     * @throws IOException
-     */
-    public void reinforcementClick() throws IOException {
-        placeTank();
-        setStatusBar();
-        setPlayerStatus();
-
-        if (game.getCurrTurnBonusTanks() == 0) {
-            nextPhase();
-        }
-    }
-
-    /**
-     * Loads a window showing all the actions made by AI
-     *
-     * @throws IOException
-     */
-    private void aiRecap() throws IOException {
-        Parent aiRecapParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/AIRecapScene.fxml"));
-        Scene aiRecapScene = new Scene(aiRecapParent);
-        Stage window = new Stage();
-        window.setResizable(false);
-        window.setTitle("Azioni AI");
-        window.setScene(aiRecapScene);
-        window.setResizable(true);
-        window.show();
-    }
 
     private void initExecutors() {
         executors.put(GAME_PHASE.FIRSTTURN, new FirstturnExecutor());

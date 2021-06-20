@@ -35,33 +35,33 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000055" height="117.0" layoutY="137.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="106.0" />
-      <Label fx:id="territoryLabel1" layoutX="5.0" layoutY="139.0" prefHeight="27.0" prefWidth="97.0" text="Territori conquistati:" textFill="WHITE">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000055" height="117.0" layoutY="137.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="106.0" />
+      <Label fx:id="territoryLabel1" layoutX="5.0" layoutY="139.0" prefHeight="27.0" prefWidth="97.0" text="Territori conquistati:" textFill="WHITE" visible="false">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Label>
-      <Label fx:id="plTerritories" layoutX="42.0" layoutY="155.0" prefHeight="27.0" prefWidth="23.0" text="0" textFill="WHITE">
+      <Label fx:id="plTerritories" layoutX="42.0" layoutY="155.0" prefHeight="27.0" prefWidth="23.0" text="0" textFill="WHITE" visible="false">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Label>
-      <Label fx:id="territoryLabel12" layoutX="5.0" layoutY="175.0" prefHeight="27.0" prefWidth="97.0" text="Continenti occupati:" textFill="WHITE">
+      <Label fx:id="territoryLabel12" layoutX="5.0" layoutY="175.0" prefHeight="27.0" prefWidth="97.0" text="Continenti occupati:" textFill="WHITE" visible="false">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Label>
-      <Label fx:id="plContinents" layoutX="42.0" layoutY="190.0" prefHeight="27.0" prefWidth="23.0" text="0" textFill="WHITE">
+      <Label fx:id="plContinents" layoutX="42.0" layoutY="190.0" prefHeight="27.0" prefWidth="23.0" text="0" textFill="WHITE" visible="false">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Label>
-      <Label fx:id="territoryLabel121" layoutX="5.0" layoutY="210.0" prefHeight="27.0" prefWidth="97.0" text="Armate totali:" textFill="WHITE">
+      <Label fx:id="territoryLabel121" layoutX="5.0" layoutY="210.0" prefHeight="27.0" prefWidth="97.0" text="Armate totali:" textFill="WHITE" visible="false">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Label>
-      <Label fx:id="plTanks" layoutX="42.0" layoutY="225.0" prefHeight="27.0" prefWidth="23.0" text="0" textFill="WHITE">
+      <Label fx:id="plTanks" layoutX="42.0" layoutY="225.0" prefHeight="27.0" prefWidth="23.0" text="0" textFill="WHITE" visible="false">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>

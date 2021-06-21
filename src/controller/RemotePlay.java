@@ -14,6 +14,7 @@ public interface RemotePlay extends Remote {
     void remotePlaceTank(Territory remoteTerritory) throws IOException;
 
     boolean getBandiera() throws IOException;
+
     void resetArrayList() throws RemoteException;
 
     RisikoGame getCurrentGame() throws RemoteException;

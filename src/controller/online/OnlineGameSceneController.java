@@ -138,7 +138,7 @@ public class OnlineGameSceneController implements RemotePlay {
 
     ArrayList<Update> updates = new ArrayList<>();
 
-    private int lastFirstUpdateSize = 0; //Dedicato a attesaPrimoTurno()
+    private int lastFirstUpdateSize = 0; //Usato da attesaPrimoTurno()
 
     private String realNextTurn = new String();
 
@@ -146,7 +146,7 @@ public class OnlineGameSceneController implements RemotePlay {
 
 
     /**
-     * Sets the instance to this instance of GameSceneController
+     * Sets the instance to this instance of OnlineGameSceneController
      */
     public OnlineGameSceneController() {
         instance = this;
@@ -227,7 +227,7 @@ public class OnlineGameSceneController implements RemotePlay {
 
 
     /***
-     * Initializes the online controller enabling online multiplayer
+     * Initializes the online controller. Enables online multiplayer
      *
      * @throws IOException
      * @throws NotBoundException
@@ -238,11 +238,8 @@ public class OnlineGameSceneController implements RemotePlay {
 
         if (OnlineSceneController.amIaServer) {
             game = new RisikoGame(PlayersList.getPlayers(), OnlineSceneController.terrFile, OnlineSceneController.continentsFile, OnlineSceneController.missions);
-            //Codice da eseguire se sono un server (aggiungo metodi allo stub)
             RemotePlay playStub = (RemotePlay) UnicastRemoteObject.exportObject(this, 1);
-            //Per rete pavia mettere
-            //			System.setProperty("java.rmi.server.hostname", "192.168.1.107");
-            //ultimo funzionante System.setProperty("java.rmi.server.hostname", "192.168.1.104");
+
             System.setProperty("java.rmi.server.hostname", Inet4Address.getLocalHost().getHostAddress());
             OnlineSceneController.registry.rebind("Play", playStub);
         }
@@ -296,7 +293,7 @@ public class OnlineGameSceneController implements RemotePlay {
      *Set up clients to receive tank placements in the first reinforcement
      * phase from both client and server
      *
-     * @param first
+     * @param first true if the player is the first player, else false
      * @throws IOException
      * @throws InterruptedException
      */
@@ -419,7 +416,6 @@ public class OnlineGameSceneController implements RemotePlay {
         try {
             windowLoader("view/fxmls/OnlineAttackScene.fxml", "Attacco", false);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -433,7 +429,6 @@ public class OnlineGameSceneController implements RemotePlay {
         try {
             windowLoader("view/fxmls/OnlineMoveScene.fxml", "Spostamento", false);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -457,7 +452,9 @@ public class OnlineGameSceneController implements RemotePlay {
      * @param e is the event
      */
     public void nextPhasePressed(ActionEvent e) {
+        endTurn.setDisable(false);
         nextPhase();
+        endTurn.setDisable(false);
         serverAttackClosed = true;
     }
 
@@ -569,19 +566,18 @@ public class OnlineGameSceneController implements RemotePlay {
 
             playStub.remoteChangeTurn();
         }   catch (RemoteException ect) {
-            System.out.println("problema qui");
+            System.out.println("problema");
         }
     }
 
 
     /***
-     * Generate turn switch to next player after closing turn by movement
+     * Generates turn switch to next player after closing turn by movement phase
      *
      */
     public void closeByMove() {
         if (OnlineSceneController.amIaServer) {
             serverTurnClosed = true;
-            System.out.println("Turno server chiuso =" + serverTurnClosed);
         }
         if(OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
             game.getCurrentTurn().giveCard(game.getRndCard());
@@ -631,7 +627,8 @@ public class OnlineGameSceneController implements RemotePlay {
 
 
     /**
-     * Switches the game turn to the next one
+     * Switches the game turn to the next one.
+     * Alternates client/server turns.
      */
 
     public void nextTurn() {
@@ -639,7 +636,6 @@ public class OnlineGameSceneController implements RemotePlay {
         missionControl();
 
         if(OnlineSceneController.amIaServer) {
-            //altrimenti client non preleva correttamente atk e def da server al 2 turno
             serverAttackClosed = false;
         }
 
@@ -650,7 +646,6 @@ public class OnlineGameSceneController implements RemotePlay {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println("DISABILITO BLOCCO");
                         gamePane.setDisable(false);
                     }
                 });
@@ -659,7 +654,6 @@ public class OnlineGameSceneController implements RemotePlay {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println("ABILITO BLOCCO");
                         gamePane.setDisable(true);
                     }
                 });
@@ -685,14 +679,11 @@ public class OnlineGameSceneController implements RemotePlay {
             try {
                 if(((playStub.getRealCurrentColor().equals(OnlineSceneController.myColor)) == false && playStub.getBandiera()) || (!nextClient && playStub.getBandiera())) {
                     int k = 0;
-                    while(/*playStub.getUpdatedTerritory().size()<4*/ playStub.getBonusLeft()!=0) {
+                    while(playStub.getBonusLeft()!=0) {
                         System.out.println(OnlineSceneController.myColor + " (C): in attesa di posizionamento di " + playStub.getCurrentColor() + " k = " +k);
                         Thread.sleep(1000);
                         k++;
                         if((k > 60) || playStub.getCurrentColor().equals(OnlineSceneController.myColor)) {
-                            /*if(playStub.getCurrentColor().equals(OnlineSceneController.myColor)) {
-                                break;
-                            }*/
                             break;
                         }
                     }
@@ -725,15 +716,12 @@ public class OnlineGameSceneController implements RemotePlay {
                         }
                     }
 
-
                     Thread.sleep(1500);
                     RisikoGame tempGame = playStub.getFullGame();
                     Iterator<Territory> tempTerrIter = tempGame.getTerritories().iterator();
                     while(tempTerrIter.hasNext()) {
                         globalUpdate(tempTerrIter.next());
                     }
-
-                    //game.getCurrentTurn().giveBonusTanks((game.getCurrentTurn().getBonusTanks())*(-1));
 
                     System.out.println(OnlineSceneController.myColor + " (C): attacchi processati");
 
@@ -809,8 +797,6 @@ public class OnlineGameSceneController implements RemotePlay {
         }
 
 
-        System.out.println("finisco con " + game.getCurrentTurn().getColor().toString());
-
         try {
             if((OnlineSceneController.amIaServer == false && playStub.getCurrentColor().equals(OnlineSceneController.myColor)) &&
                     (bandiera || playStub.getBandiera())) {
@@ -846,7 +832,7 @@ public class OnlineGameSceneController implements RemotePlay {
                 break;
             case BATTLE:
                 nextPhase.setDisable(true);
-                endTurn.setDisable(false);
+                endTurn.setDisable(true);
                 break;
         }
         game.nextPhase();
@@ -858,7 +844,7 @@ public class OnlineGameSceneController implements RemotePlay {
      * Returns the exact color of a Player
      *
      * @param p is the player
-     * @return color
+     * @return color as enum
      */
     private Color returnPlayerColor(Player p) {
         switch (p.getColor()) {
@@ -948,10 +934,7 @@ public class OnlineGameSceneController implements RemotePlay {
     private void initTanks() throws IOException {
         ArrayList<Pixel> posList;
 
-
         posList = fileH.addPosizione(OnlineSceneController.terrFile);
-
-
 
         int i = 0;
         for (Pixel p : posList) {
@@ -977,6 +960,7 @@ public class OnlineGameSceneController implements RemotePlay {
             i++;
         }
     }
+
 
     /**
      * Returns the path of the coloured tank images
@@ -1219,7 +1203,7 @@ public class OnlineGameSceneController implements RemotePlay {
 
     /***
      * Returns the selected territory on map
-     * @return
+     * @return the selected territory
      */
     public Territory getSelTerr() {
         return territorySelected;
@@ -1245,18 +1229,13 @@ public class OnlineGameSceneController implements RemotePlay {
         Integer n = game.getTerritory(territorySelected).getTanks();
         mappaImgTanks.get(territorySelected).getNumber().setText(n.toString());
         lastServerTerritory = territorySelected;
-        //Se serverTerrStatus = true -> client fetcha il territorio dal server a fine turno
         serverTerrStatus = true;
 
         if (OnlineSceneController.amIaClient && !OnlineSceneController.amIaServer) {
-            //Se sono un client e non server -> faccio il posizionamento su server con remotePlaceTankCaller()
             remotePlaceTankCaller();
 
         }
 
-
-        //aggiunge ad arraylist di territori, i territori rafforzati da passare agli altri giocatori
-        //if(getCurrentPlayer().getColor().toString().equals(OnlineSceneController.myColor) && bandiera == true)
         if ((bandiera == true && getCurrentPlayer().getColor().toString().equals(OnlineSceneController.myColor))
                 || OnlineSceneController.amIaServer && bandiera == true) {
             serverTerritoryList.add(territorySelected);
@@ -1270,13 +1249,10 @@ public class OnlineGameSceneController implements RemotePlay {
             }
         }
 
-        //era client = true
         if((OnlineSceneController.amIaClient) && ((bandiera || playStub.getBandiera())) && (game.getCurrTurnBonusTanks() != 0)) {
             if((game.getCurrTurnBonusTanks() -1) == 0 && (lastTank = false)) {
                 System.out.println("ULTIMO POSIZIONAMENTO");
-                //game.getCurrentTurn().giveBonusTanks(1);
                 lastTank = true;
-                //return;
             }
             if(((game.getCurrTurnBonusTanks() -1) == 0 && (lastTank == true)) && OnlineSceneController.amIaServer == false) {
                 game.setGamePhase(GAME_PHASE.BATTLE);
@@ -1300,7 +1276,7 @@ public class OnlineGameSceneController implements RemotePlay {
     }
 
     /***
-     * Set a boolean to true when the first phase ends
+     * Sets a boolean to true when the first phase ends
      */
     public void firstPhaseEnded() {
         if (game.firstPhaseEnded()) {
@@ -1322,8 +1298,6 @@ public class OnlineGameSceneController implements RemotePlay {
         mappaImgTanks.get(territory2).getNumber().setText(temp.toString());
 
     }
-
-
 
 
     public static void remoteMoveCaller(Territory t1, Territory t2, int value) {
@@ -1542,14 +1516,17 @@ public class OnlineGameSceneController implements RemotePlay {
         return game.getCurrentTurn().getBonusTanks();
     }
 
-
+    /***
+     * Update local territory info with new remote received data
+     * @param clientTerritory is the remote territory
+     * @throws RemoteException
+     */
     @Override
     public void globalUpdate(Territory clientTerritory) throws RemoteException {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 Player temp = game.getPlayerByColor(clientTerritory.getOwner().getColor());
-                //System.out.println("per client il proprietario di " + clientTerritory.getName() + " é " + temp.getColor().toString() + " con tank = " + clientTerritory.getTanks());
 
                 game.getTerritory(clientTerritory).setOwner(temp);
                 game.getTerritory(clientTerritory).removeTanks(game.getTerritory(clientTerritory).getTanks());
@@ -1566,11 +1543,20 @@ public class OnlineGameSceneController implements RemotePlay {
 
     }
 
+    /***
+     * Returns the last updated full copy of game
+     * @return game is the game copy
+     * @throws RemoteException
+     */
     @Override
     public RisikoGame getFullGame() throws RemoteException {
         return game;
     }
 
+    /***
+     * Closes remotely the game (ex. a client wins)
+     * @throws RemoteException
+     */
     @Override
     public void closeGame() throws RemoteException {
         Platform.runLater(new Runnable() {
@@ -1585,6 +1571,10 @@ public class OnlineGameSceneController implements RemotePlay {
 
     }
 
+    /***
+     * Calls a remote game closing method
+     * @throws RemoteException
+     */
     public void closeGameRequest() throws RemoteException {
         playStub.closeGame();
     }

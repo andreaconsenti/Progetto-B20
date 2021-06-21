@@ -33,21 +33,6 @@ public class Attacco implements Serializable {
         this.difensore = difensore;
     }
 
-    public int getCarriAggiornatiAttaccante() {
-        return carriAggiornatiAttaccante;
-    }
-
-    public void setCarriAggiornatiAttaccante(int carriAggiornatiAttaccante) {
-        this.carriAggiornatiAttaccante = carriAggiornatiAttaccante;
-    }
-
-    public int getCarriAggiornatiDifensore() {
-        return carriAggiornatiDifensore;
-    }
-
-    public void setCarriAggiornatiDifensore(int carriAggiornatiDifensore) {
-        this.carriAggiornatiDifensore = carriAggiornatiDifensore;
-    }
 
     @Override
     public String toString() {

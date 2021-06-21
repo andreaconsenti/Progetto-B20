@@ -45,10 +45,7 @@
             <Font size="28.0" />
          </font></Label>
       <ListView fx:id="defVisualPlayerList" layoutX="556.0" layoutY="496.0" prefHeight="96.0" prefWidth="156.0" />
-      <Button fx:id="startButton" disable="true" layoutX="1083.0" layoutY="649.0" mnemonicParsing="false" onAction="#startGamePressed" prefHeight="52.0" prefWidth="156.0" text="GIOCA!" visible="false">
-         <font>
-            <Font size="18.0" />
-         </font></Button>
+
       <ImageView fx:id="mapPreview" fitHeight="155.0" fitWidth="286.0" layoutX="848.0" layoutY="423.0" opacity="0.83" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/Maps/RisikoClassic/map_preview.png" />

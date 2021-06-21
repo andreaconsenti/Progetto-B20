@@ -70,7 +70,7 @@
          <items>
             <Button id="button" fx:id="cardButton" mnemonicParsing="false" onAction="#cardButtonPressed" prefHeight="40.0" prefWidth="88.0" rotate="180.0" stylesheets="@../css/StyleSheet.css" text="CARTE" translateX="1000.0" />
             <Button id="button" fx:id="missionButton" mnemonicParsing="false" onAction="#missionButtonPressed" prefHeight="40.0" prefWidth="88.0" rotate="180.0" stylesheets="@../css/StyleSheet.css" text="MISSIONE" translateX="780.0" />
-            <Button id="button" fx:id="menuButton" mnemonicParsing="false" onAction="#menuPressed" prefHeight="39.0" prefWidth="81.0" rotate="180.0" stylesheets="@../css/StyleSheet.css" text="MENU" translateX="560.0" />
+            <Button id="button" fx:id="menuButton" disable="true" mnemonicParsing="false" onAction="#menuPressed" prefHeight="39.0" prefWidth="81.0" rotate="180.0" stylesheets="@../css/StyleSheet.css" text="MENU" translateX="560.0" visible="false" />
             <Button id="redbutton" fx:id="endTurn" mnemonicParsing="false" onAction="#endTurnPressed" prefHeight="42.0" prefWidth="149.0" rotate="180.0" stylesheets="@../css/StyleSheet.css" text="TERMINA TURNO" translateX="-220.0" />
          </items>
       </ToolBar>

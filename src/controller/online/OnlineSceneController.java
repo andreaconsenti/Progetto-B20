@@ -145,8 +145,9 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     /**
      * Manages the printing of server info
      *
-     * @param
-     * @throws
+     * @param activationResponse is the server status
+     *                           "ok" if works
+     *                           "err" if the activation failed
      */
     public void serverStatus(String activationResponse) {
         if (activationResponse.equals("ok")) {
@@ -165,7 +166,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
      * Manages the pressure of Partecipa button. It registers the client among the server players.
      *
      * @param event is the event generated
-     * @throws
      */
     public void partecipaPressed(ActionEvent event) {
         try {
@@ -199,8 +199,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     /**
      * Manages the Maps Drop-Down Menu
      *
-     * @param
-     * @throws
      */
     public void mapChoseEnabler() {
 
@@ -242,8 +240,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     /**
      * Chooses colors for clients
      *
-     * @param
-     * @throws
      */
     public COLOR autoColorChooser() {
 
@@ -267,8 +263,12 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     /**
      * Sets the map after the server drop down selection
      *
-     * @param
-     * @throws
+     * @param image
+     * @param mapImage
+     * @param terrImage
+     * @param terrFiles
+     * @param contsFile
+     * @param missFile
      */
     private void mapSelected(String image, String mapImage, String terrImage, String terrFiles, String contsFile, String missFile) {
 
@@ -295,9 +295,8 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
     /**
      * First Java RMI test
-     *
-     * @param
-     * @throws
+     * Used for first only
+     * @throws RemoteException
      */
     @Override
     public String sayHello() throws RemoteException {
@@ -307,7 +306,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     /**
      * RMI Client Join request. Returns
      *
-     * @param
+     * @param clientInput is the client name
      * @throws RemoteException
      * @return new client color
      */
@@ -316,7 +315,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                // Update UI here.
                 playerList.getItems().add(clientInput);
                 list.add(new Player(clientInput, autoColorChooser(), false));
             }
@@ -328,7 +326,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     /**
      * RMI players list request.
      *
-     * @param
      * @throws RemoteException
      * @return complete player list from server
      */
@@ -340,7 +337,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     /**
      * RMI game map request.
      *
-     * @param
      * @throws RemoteException
      * @return game map
      */
@@ -352,7 +348,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     /**
      * RMI territories list request
      *
-     * @param
      * @throws RemoteException
      * @return full game territories as String
      */
@@ -364,7 +359,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     /**
      * RMI TerrFile name request
      *
-     * @param
      * @throws RemoteException
      * @return TerrFile name
      */
@@ -376,7 +370,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     /**
      * RMI ContinentFile request.
      *
-     * @param
      * @throws RemoteException
      * @return ContinentsFile name
      */
@@ -388,7 +381,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     /**
      * RMI Missions request.
      *
-     * @param
      * @throws RemoteException
      * @return missions file
      */
@@ -401,7 +393,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     /**
      * RMI Client Join request. Returns
      *
-     * @param
      * @throws RemoteException
      * @return true if Server has started the game, else false
      */
@@ -412,7 +403,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
     /**
      * Manages the Gioca! Button pressing
-     * @param
+     * @param event is the event
      * @throws IOException
      * @return new client color
      */

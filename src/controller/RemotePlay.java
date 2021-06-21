@@ -21,8 +21,6 @@ public interface RemotePlay extends Remote {
 
     boolean getServerTurnClosed() throws RemoteException;
 
-    void remoteAttack() throws RemoteException;
-
     void remoteChangeTurn() throws RemoteException;
 
     void forceClosePostMove() throws RemoteException;

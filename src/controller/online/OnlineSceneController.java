@@ -103,11 +103,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         window.setScene(playerScene);
         window.show();
 
-        if (serverButton.isDisabled()) {
-            /*
-             * Risolvere problema del server rimasto aperto
-             * */
-        }
     }
 
     /**
@@ -121,7 +116,7 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
             amIaServer = true;
             RemoteJoin stub = (RemoteJoin) UnicastRemoteObject.exportObject(this, 0);
             registry = LocateRegistry.createRegistry(1888);
-            //ultimo funz System.setProperty("java.rmi.server.hostname", "192.168.1.204");
+            //ultimo testato System.setProperty("java.rmi.server.hostname", "192.168.1.204");
             System.setProperty("java.rmi.server.hostname", Inet4Address.getLocalHost().getHostAddress());
             registry.rebind("Hello", stub);
             System.out.println("Server ready.");
@@ -402,16 +397,21 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
     }
 
     /**
-     * Manages the Gioca! Button pressing
+     * Manages the 'Gioca!' Button pressing
      * @param event is the event
      * @throws IOException
      * @return new client color
      */
     public void startGamePressed2(ActionEvent event) throws IOException {
-        // Adattare il controller del GameScene.fxml per poter caricare
-        // il nuovo scenario!
 
         list = stub.getList();
+
+        if(list.size()<3 && amIaServer) {
+            clientWaitLabel.setText("ATTENZIONE: NUMERO MINIMO GIOCATORI = 3");
+            clientWaitLabel.setVisible(true);
+            return;
+        }
+
         map = stub.getMap();
         territories = stub.getTerritories();
         terrFile = stub.getTerrFile();

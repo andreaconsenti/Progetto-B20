@@ -285,10 +285,6 @@ public class onlineTest {
             return false;
         }
 
-        @Override
-        public void remoteAttack() throws RemoteException {
-
-        }
 
         @Override
         public void remoteChangeTurn() throws RemoteException {

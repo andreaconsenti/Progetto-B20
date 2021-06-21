@@ -110,6 +110,12 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         }
     }
 
+    /**
+     * Manages the pressure of the Server button
+     *
+     * @param event is the event generated
+     * @throws IOException
+     */
     public void serverPressed(ActionEvent event) {
         try {
             amIaServer = true;
@@ -136,6 +142,12 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
     }
 
+    /**
+     * Manages the printing of server info
+     *
+     * @param
+     * @throws
+     */
     public void serverStatus(String activationResponse) {
         if (activationResponse.equals("ok")) {
             serverStatusField.setText("Attivo");
@@ -149,6 +161,12 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
     }
 
+    /**
+     * Manages the pressure of Partecipa button. It registers the client among the server players.
+     *
+     * @param event is the event generated
+     * @throws
+     */
     public void partecipaPressed(ActionEvent event) {
         try {
             amIaClient = true;
@@ -159,18 +177,18 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
             myColor = response;
 
             System.out.println("Colore assegnato: " + myColor);
+            Thread.sleep(500);
+
 
             if(amIaServer == false) {
-                System.out.println("Premere 'Gioca' dopo la conferma dei giocatori da parte del Server");
-                clientWaitLabel.setVisible(true);
-                serverButton.setDisable(true);
-                lockListButton.setDisable(true);
                 while(stub.gameIsReady() == false) {
-
+                    Thread.sleep(500);
                 }
-                startGamePressed2(event);
-            }
+                clientWaitLabel.setVisible(true);
+                clientWaitLabel.setText("SERVER HA CONFIGURATO LA PARTITA! PREMI 'GIOCA!' PER CONTINUARE");
 
+                getInfoButton.setDisable(false);
+            }
 
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
@@ -178,7 +196,12 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         }
     }
 
-
+    /**
+     * Manages the Maps Drop-Down Menu
+     *
+     * @param
+     * @throws
+     */
     public void mapChoseEnabler() {
 
         mapinput.setDisable(false);
@@ -194,6 +217,13 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
 
     }
 
+    /**
+     * Manages the pressure of "Accetta le connessioni" button. It accepts registered players.
+     *
+     * @param event is the event generated
+     * @throws RemoteException
+     * @throws NotBoundException
+     */
     public void chiudiPressed(ActionEvent event) throws RemoteException, NotBoundException {
 
         stub = (RemoteJoin) registry.lookup("Hello");
@@ -209,6 +239,12 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         mapChoseEnabler();
     }
 
+    /**
+     * Chooses colors for clients
+     *
+     * @param
+     * @throws
+     */
     public COLOR autoColorChooser() {
 
         int listSize = list.size();
@@ -228,23 +264,15 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         }
     }
 
-    public void startGamePressed(ActionEvent event) throws IOException {
-        // Adattare il controller del GameScene.fxml per poter caricare
-        // il nuovo scenario!
-
-
-        PlayersList.setPlayers(list);
-        Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/GameScene.fxml"));
-
-        Scene playerScene = new Scene(playerSceneParent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(playerScene);
-        window.show();
-
-
-    }
-
+    /**
+     * Sets the map after the server drop down selection
+     *
+     * @param
+     * @throws
+     */
     private void mapSelected(String image, String mapImage, String terrImage, String terrFiles, String contsFile, String missFile) {
+
+        getInfoButton.setDisable(false);
 
         if (mapImage.equals("src/view/fxmls/images/Maps/RisikoClassic/map.jpg")) {
             mapinput.setText(map1.getText());
@@ -253,7 +281,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
             mapinput.setText(map2.getText());
         }
 
-        //mapinput.setText(map1.getText());
         mapinput.setStyle("-fx-text-fill: black;");
         File file = new File(image);
         Image temp = new Image(file.toURI().toString());
@@ -266,15 +293,24 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         mapChosen = true;
     }
 
-    //****************************//
-    // Metodi relativi a Java RMI //
-    //****************************//
-
+    /**
+     * First Java RMI test
+     *
+     * @param
+     * @throws
+     */
     @Override
     public String sayHello() throws RemoteException {
         return "hello funziona";
     }
 
+    /**
+     * RMI Client Join request. Returns
+     *
+     * @param
+     * @throws RemoteException
+     * @return new client color
+     */
     @Override
     public String joinRequest(String clientInput) throws RemoteException {
         Platform.runLater(new Runnable() {
@@ -289,46 +325,97 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         return autoColorChooser().toString();
     }
 
+    /**
+     * RMI players list request.
+     *
+     * @param
+     * @throws RemoteException
+     * @return complete player list from server
+     */
     @Override
     public ArrayList<Player> getList() throws RemoteException {
-        //ArrayList<Player> listaCopiata = new ArrayList<>(list);
         return list;
-        //return listaCopiata;
     }
 
+    /**
+     * RMI game map request.
+     *
+     * @param
+     * @throws RemoteException
+     * @return game map
+     */
     @Override
     public String getMap() throws RemoteException {
         return map;
     }
 
+    /**
+     * RMI territories list request
+     *
+     * @param
+     * @throws RemoteException
+     * @return full game territories as String
+     */
     @Override
     public String getTerritories() throws RemoteException {
         return territories;
     }
 
+    /**
+     * RMI TerrFile name request
+     *
+     * @param
+     * @throws RemoteException
+     * @return TerrFile name
+     */
     @Override
     public String getTerrFile() throws RemoteException {
         return terrFile;
     }
 
+    /**
+     * RMI ContinentFile request.
+     *
+     * @param
+     * @throws RemoteException
+     * @return ContinentsFile name
+     */
     @Override
     public String getContinentFile() throws RemoteException {
         return continentsFile;
     }
 
+    /**
+     * RMI Missions request.
+     *
+     * @param
+     * @throws RemoteException
+     * @return missions file
+     */
     @Override
     public String getMissions() throws RemoteException {
         return missions;
     }
 
+
+    /**
+     * RMI Client Join request. Returns
+     *
+     * @param
+     * @throws RemoteException
+     * @return true if Server has started the game, else false
+     */
     @Override
     public boolean gameIsReady() throws RemoteException {
         return gameReady;
     }
 
-    public void remotePlayerSetter() throws RemoteException {
-    }
-
+    /**
+     * Manages the Gioca! Button pressing
+     * @param
+     * @throws IOException
+     * @return new client color
+     */
     public void startGamePressed2(ActionEvent event) throws IOException {
         // Adattare il controller del GameScene.fxml per poter caricare
         // il nuovo scenario!
@@ -343,7 +430,6 @@ public class OnlineSceneController implements RemoteJoin, Serializable {
         if(amIaServer) {
             gameReady = true;
         }
-
 
         PlayersList.setPlayers(list);
         Parent playerSceneParent = FXMLLoader.load(getClass().getClassLoader().getResource("view/fxmls/OnlineGameScene.fxml"));

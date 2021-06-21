@@ -364,7 +364,7 @@ public class OnlineGameSceneController implements RemotePlay {
     }
 
     /**
-     * Loads the victory scene when the mission is completed
+     * Loads the victory scene when the mission is completed (online game)
      *
      * @throws IOException
      */
